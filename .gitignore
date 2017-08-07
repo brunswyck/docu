@@ -1,2 +1,5 @@
 # ignore python virtualenv
 env/
+Makefile
+_*
+

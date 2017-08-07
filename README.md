@@ -9,3 +9,11 @@ cd ~/github/docu/
 virtualenv env
 # now install Sphinx in it with the virtual environment pip binary
 env/bin/pip install Sphinx
+# set the environment variables::
+
+patrick@debian:~/github/docu$ which python
+/usr/bin/python
+patrick@debian:~/github/docu$ source env/bin/activate
+(env) patrick@debian:~/github/docu$ which python
+/home/patrick/github/docu/env/bin/python
+
