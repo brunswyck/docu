@@ -6,3 +6,4 @@ alias toetsenbordus="setxkbmap us"
 alias toetsenbordbe="setxkbmap be"
 alias bustwickrclient="kill -n 9 \$(ps -C wickr-me | awk 'BEGIN {RS=\"\\n\"; FS=\" \"} FNR==2 {print \$1}')"
 alias ssh-add-github="eval \$(ssh-agent -s);ssh-add ~/.ssh/github_id_rsa"
+alias cpdocs='cp -r ~/github/docu/sphinx/_build/html/* ~/github/docu/docs/'
