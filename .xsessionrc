@@ -1,0 +1,5 @@
+export PATH="$PATH:/opt/pt/bin"
+PT7HOME="/opt/pt"
+export PT7HOME
+PTHOME="/opt/pt"
+export PTHOME
