@@ -13,7 +13,7 @@ Documentation on debian and networking
    vim
    rest
    cisco 
-
+   git
 
 Indices and tables
 ==================
