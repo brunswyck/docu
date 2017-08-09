@@ -22,4 +22,4 @@ Routing and Switching Fundamentals
  #. Fast switching - This is a common packet forwarding mechanism which uses a fast-switching cache to store next-hop information. When a packet arrives on an interface, it is forwarded to the control plane where the CPU searches for a match in the fast-switching cache. If it is not there, it is process-switched and forwarded to the exit interface.
     The flow information for the packet is also stored in the fast-switching cache. If another packet going to the same destination arrives on an interface, the next-hop information in the cache is re-used without CPU intervention.
 
-this is just a paragraph
+this is just a paragraph lol Ibrahim :)

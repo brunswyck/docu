@@ -94,7 +94,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">VIM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#workflow">workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#copy-pasting">copy pasting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-relative-line-numbers">using relative line numbers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#adding-whitespace-across-multiple-lines">adding whitespace across multiple lines</a></li>
@@ -107,6 +107,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 </ul>
 
             
@@ -174,8 +175,16 @@
 <h1>VIM<a class="headerlink" href="#vim" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="workflow">
 <h2>workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="copy-pasting">
-<h3>copy pasting<a class="headerlink" href="#copy-pasting" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-relative-line-numbers">
+<h3>using relative line numbers<a class="headerlink" href="#using-relative-line-numbers" title="Permalink to this headline">¶</a></h3>
+<p>lines spanning from 10 to 15 lines above:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="n">y</span>
+</pre></div>
+</div>
+<p>for more help:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="replacing">
 <h3>replacing<a class="headerlink" href="#replacing" title="Permalink to this headline">¶</a></h3>
