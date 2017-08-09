@@ -1,4 +1,5 @@
 " for more info check
+" in vim do :PluginUpdate
 " https://github.com/VundleVim/Vundle.vim
 " ---------------------------------------
 set nocompatible " turn off defaults required
@@ -12,6 +13,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" vim-monokai
+" https://github.com/crusoexia/vim-monokai
+Plugin 'crusoexia/vim-monokai'
 
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Plugin 'godlygeek/tabular'
@@ -33,5 +37,8 @@ filetype plugin indent on    " required
 " -----------------------------------------
 set number " show current line number
 set relativenumber " show relative line numbers
-" uncomment once plugin installed
-colorscheme gruvbox
+syntax on
+colorscheme monokai
+" for terminal which supports truecolor
+set termguicolors
+" else set t_Co=256 
