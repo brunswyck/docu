@@ -84,7 +84,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 #https://github.com/rtfd/sphinx_rtd_theme#installation
-
+#pip install sphinx_rtd_theme
 html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
