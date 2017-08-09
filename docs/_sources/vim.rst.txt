@@ -1,4 +1,3 @@
-.. highlightlang:: rest
 .. using headers 
    ##################
    H1: document title
@@ -42,8 +41,15 @@ VIM
 workflow
 ********
 
-copy pasting
-============
+using relative line numbers
+===========================
+lines spanning from 10 to 15 lines above::
+   
+   :-15,-10y
+
+for more help::
+   
+   :help cmdline-ranges
 
 replacing
 =========
