@@ -12,12 +12,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Pathogen
-" git clone https://github.com/morhetz/gruvbox.git ~/.vim/bundle/gruvbox
 
-" Retro groove color scheme for Vim 
-Plugin 'morhetz/gruvbox'
-
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+Plugin 'godlygeek/tabular'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
