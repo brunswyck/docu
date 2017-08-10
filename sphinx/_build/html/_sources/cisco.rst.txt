@@ -13,6 +13,18 @@ Add fundamentals content here
 **********************************
 Routing and Switching Fundamentals
 **********************************
+
+important concepts
+==================
+ Topology
+  The physical topology is the arrangement of the cables, network devices, and end systems. It describes how the network devices are actually interconnected with wires and cables. The logical topology is the path over which the data is transferred in a network. It describes how the network devices appear connected to network users.
+ 
+ Speed
+  Is a measure of the data rate in bits per second (b/s) of a given link in the network.
+
+ Cost
+  Indicates the general expense for purchasing of network components, and installation and maintenance of the network.
+
 Types of switching
 ==================  
 Process Switching
