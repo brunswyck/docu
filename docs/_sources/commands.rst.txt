@@ -49,13 +49,14 @@ find
 .. container:: find
    :name: find_source 
 
-   find script files and source each with no error messages::
-
-    find ~/bashrc_addons/ -type f -name "*.sh" -exec sh -c '
-    for file do
-    echo "$file"
-    done
-    ' source {} +
+   find script files and source each with no error messages
+   .. code-block:: bash
+      
+      find ~/bashrc_addons/ -type f -name "\*.sh" -exec sh -c '
+      for file do
+      echo "$file"
+      done
+      ' source {} +
       
  
 
