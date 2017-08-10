@@ -35,6 +35,9 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 " -----------------------------------------
+" set tabstops every 4 spaces and set the shiftwidth (the amount you indent)
+" to 2 spaces
+set ts=4 sw=2
 set number " show current line number
 set relativenumber " show relative line numbers
 syntax on
