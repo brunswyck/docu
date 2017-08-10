@@ -181,16 +181,13 @@ bash command examples</div>
 <h3>find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h3>
 <div class="find docutils container" id="find-source">
 <p>find script files and source each with no error messages:</p>
-<dl class="docutils">
-<dt>find ~/bashrc_addons/ -type f -name “<a href="#id1"><span class="problematic" id="id2">*</span></a>.sh” -exec sh -c ‘</dt>
-<dd><dl class="first docutils">
-<dt>for file do</dt>
-<dd>echo “$file”</dd>
-</dl>
-<p class="last">done</p>
-</dd>
-</dl>
-<p>‘ source {} +</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">~/</span><span class="n">bashrc_addons</span><span class="o">/</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="o">-</span><span class="n">name</span> <span class="s2">&quot;*.sh&quot;</span> <span class="o">-</span><span class="n">exec</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;</span>
+<span class="k">for</span> <span class="n">file</span> <span class="n">do</span>
+<span class="n">echo</span> <span class="s2">&quot;$file&quot;</span>
+<span class="n">done</span>
+<span class="s1">&#39; source </span><span class="si">{}</span><span class="s1"> +</span>
+</pre></div>
+</div>
 </div>
 <p>for more help:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
