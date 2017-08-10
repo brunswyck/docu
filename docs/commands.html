@@ -180,14 +180,14 @@ bash command examples</div>
 <div class="section" id="find">
 <h3>find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h3>
 <div class="find docutils container" id="find-source">
-<p>find script files and source each with no error messages
-.. code-block:: console</p>
-<blockquote>
-<div>find ~/bashrc_addons/ -type f -name “*.sh” -exec sh -c ‘
-for file do
-echo “$file”
-done
-‘ source {} +</div></blockquote>
+<p>find script files and source each with no error messages</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">find ~/bashrc_addons/ -type f -name &quot;\*.sh&quot; -exec sh -c &#39;</span>
+<span class="go">for file do</span>
+<span class="go">echo &quot;$file&quot;</span>
+<span class="go">done</span>
+<span class="go">&#39; source {} +</span>
+</pre></div>
+</div>
 </div>
 <p>for more help:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
