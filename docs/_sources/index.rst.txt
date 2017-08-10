@@ -14,6 +14,7 @@ Documentation on debian and networking
    rest
    cisco 
    git
+   commands
 
 Indices and tables
 ==================

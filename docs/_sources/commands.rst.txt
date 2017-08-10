@@ -1,0 +1,78 @@
+.. using headers 
+   ##################
+   H1: document title
+   ##################
+   
+   Introduction text.
+   
+   
+   *********
+   Sample H2
+   *********
+   
+   Sample content.
+   
+   
+   **********
+   Another H2
+   **********
+   
+   Sample H3
+   =========
+   
+   Sample H4
+   ---------
+   
+   Sample H5
+   ^^^^^^^^^
+   
+   Sample H6
+   """""""""
+   
+   And some text.
+   
+
+
+################
+Command Examples
+################
+
+****
+BASH
+****
+
+find
+====
+.. container:: bash
+   :name: find
+
+   find script files and source each with no error messages::
+
+   find ~/bashrc_addons/ -type f -name '*.sh' -exec sh -c '
+    for file do
+      echo "$file"
+    done
+   ' source {} +
+       
+   
+
+for more help::
+   
+   :help cmdline-ranges
+
+replacing
+=========
+
+formatting
+==========
+
+adding whitespace across multiple lines
+---------------------------------------
+
+ctrl+V selectblock shift+I space ESC
+
+indenting across multiple lines
+-------------------------------
+ctrl+V selectblock > or < ESC
+
+

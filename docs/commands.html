@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; debian and networking 20170808 documentation</title>
+  <title>Command Examples &mdash; debian and networking 20170808 documentation</title>
   
 
   
@@ -34,8 +34,9 @@
   
         <link rel="index" title="Index"
               href="genindex.html"/>
-        <link rel="search" title="Search" href="#"/>
-    <link rel="top" title="debian and networking 20170808 documentation" href="index.html"/> 
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="debian and networking 20170808 documentation" href="index.html"/>
+        <link rel="prev" title="GIT" href="git.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -71,7 +72,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -89,12 +90,24 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bash">BASH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#find">find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-whitespace-across-multiple-lines">adding whitespace across multiple lines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#indenting-across-multiple-lines">indenting across multiple lines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -139,10 +152,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Search</li>
+      <li>Command Examples</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/commands.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -154,19 +171,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="command-examples">
+<h1>Command Examples<a class="headerlink" href="#command-examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="bash">
+<h2>BASH<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="find">
+<h3>find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h3>
+<div class="bash docutils container" id="id1">
+<p>find script files and source each with no error messages:</p>
+<dl class="docutils">
+<dt>find ~/bashrc_addons/ -type f -name ‘<a href="#id2"><span class="problematic" id="id3">*</span></a>.sh’ -exec sh -c ‘</dt>
+<dd><dl class="first docutils">
+<dt>for file do</dt>
+<dd>echo “$file”</dd>
+</dl>
+<p class="last">done</p>
+</dd>
+</dl>
+<p>‘ source {} +</p>
+</div>
+<p>for more help:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="replacing">
+<h3>replacing<a class="headerlink" href="#replacing" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="formatting">
+<h3>formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="adding-whitespace-across-multiple-lines">
+<h4>adding whitespace across multiple lines<a class="headerlink" href="#adding-whitespace-across-multiple-lines" title="Permalink to this headline">¶</a></h4>
+<p>ctrl+V selectblock shift+I space ESC</p>
+</div>
+<div class="section" id="indenting-across-multiple-lines">
+<h4>indenting across multiple lines<a class="headerlink" href="#indenting-across-multiple-lines" title="Permalink to this headline">¶</a></h4>
+<p>ctrl+V selectblock &gt; or &lt; ESC</p>
+</div>
+</div>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            <div class="articleComments">
@@ -174,6 +219,13 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="git.html" class="btn btn-neutral" title="GIT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -212,7 +264,6 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -228,14 +279,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>
