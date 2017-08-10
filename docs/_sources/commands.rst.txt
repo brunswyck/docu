@@ -40,21 +40,24 @@ Command Examples
 ****
 BASH
 ****
+.. container:: bash
+
+   bash command examples
 
 find
 ====
-.. container:: bash
-   :name: find
+.. container:: find
+   :name: find_source 
 
    find script files and source each with no error messages::
 
-   find ~/bashrc_addons/ -type f -name '*.sh' -exec sh -c '
+   find ~/bashrc_addons/ -type f -name "*.sh" -exec sh -c '
     for file do
-      echo "$file"
+     echo "$file"
     done
    ' source {} +
        
-   
+ 
 
 for more help::
    
