@@ -51,7 +51,7 @@ find
 
    find script files and source each with no error messages
 
-   .. code-block:: console
+   .. code-block:: bash 
       
       find ~/bashrc_addons/ -type f -name "\*.sh" -exec sh -c '
       for file do
