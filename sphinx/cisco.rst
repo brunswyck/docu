@@ -344,12 +344,10 @@ OSPF
 EIGRP
  Enhanced Interior Gateway Routing Protocol - Bandwidth, delay, load, reliability (bladder)
 
-  .. note::
-     
+.. note::
      two or more paths with identical metrics = LOAD BALANCING
 
-  .. note::
-
+.. note::
      Equal cost load balancing can be cfd to use both dynamic routing protocols and static routes ONLY EIGRP support UNEQUAL COST LOAD BALANCING
 
 ADMINISTRATIVE DISTANCE
@@ -398,6 +396,8 @@ When a router has the choice of a static route and an EIGRP route, the static ro
      Only the interface itself has an administrative distance of 0, since a route cannot have a distance of less than 1.
      Directly connected routes have an administrative distance of 0.
 
+Changing Administrative Distance
+--------------------------------
 When you use *route redistribution*, occasionally you need to modify the administrative distance of a protocol so that it takes precedence.
 For example, if you want the router to select RIP-learned routes (default value 120) rather than IGRP-learned routes (default value 100)
 to the same destination, you must increase the administrative distance for IGRP to 120+,
@@ -406,7 +406,7 @@ or decrease the administrative distance of RIP to a value less than 100.
 You can modify the administrative distance of a protocol through the distance command in the routing process subconfiguration mode.
 This command specifies that the administrative distance is assigned to the routes learned from a particular routing protocol.
 You need to use this procedure generally when you migrate the network from one routing protocol to another,
-and the latter has a higher administrative distance. However, a change in the administrative distance can lead to routing loops and *black holes*.
+and the latter has a higher administrative distance. However, a change in the administrative distance *can lead to routing loops and black holes*.
 .. warning:: use caution if you change the administrative distance.
 
 .. code::
@@ -415,4 +415,124 @@ and the latter has a higher administrative distance. However, a change in the ad
     R1(config-router)#distance eigrp xx yy
 
     where xx representes the new value of internal administrative distance and yy representes the new value of the external administrative distance.
-        
+
+example of changing AD for rip
+------------------------------
+
+Here is an example that shows two routers, R1 and R2, connected through Ethernet. The loopback interfaces of the routers are also advertised with RIP and IGRP on both the routers.
+You can observe that the IGRP routes are preferred over the RIP routes in the routing table because the administrative distance is 100.
+
+.. code::
+	
+    R1#show ip route
+     
+    Gateway of last resort is not set
+     
+    172.16.0.0/24 is subnetted, 1 subnets
+    C 172.16.1.0 is directly connected, Ethernet0
+    I 10.0.0.0/8 [100/1600] via 172.16.1.200, 00:00:01, Ethernet0
+    C 192.168.1.0/24 is directly connected, Loopback0
+     
+    R2#show ip route
+     
+    Gateway of last resort is not set
+     
+    172.16.0.0/24 is subnetted, 1 subnets
+    C 172.16.1.0 is directly connected, Ethernet0
+    C 10.0.0.0/8 is directly connected, Loopback0
+    I 192.168.1.0/24 [100/1600] via 172.16.1.100, 00:00:33,
+
+In order to enable the router to prefer RIP routes to IGRP, configure the distance command on R1 like this:
+.. code::
+ 
+ R1(config)#router rip
+ R1(config-router)#distance 90
+
+Now look at the routing table. The routing table shows that the router prefers the RIP routes. The router learns RIP routes with an administrative distance of 90, although the default is 120.
+.. note:: The new administrative distance value is relevant only to the routing process of a single router (in this case R1). R2 still has IGRP routes in the routing table.
+
+.. code::
+
+    R1#show ip route
+     
+    Gateway of last resort is not set
+     
+    172.16.0.0/24 is subnetted, 1 subnets
+    C 172.16.1.0 is directly connected, Ethernet0
+    R 10.0.0.0/8 [90/1] via 172.16.1.200, 00:00:16, Ethernet0
+    C 192.168.1.0/24 is directly connected, Loopback0
+     
+    R2#show ip route
+     
+    Gateway of last resort is not set
+     
+    172.16.0.0/24 is subnetted, 1 subnets
+    C 172.16.1.0 is directly connected, Ethernet0
+    C 10.0.0.0/8 is directly connected, Loopback0
+    I 192.168.1.0/24 [100/1600] via 172.16.1.100, 00:00:33,
+
+.. note:: There are no general guidelines to assign administrative distances because each network has varied requirements. You must determine a reasonable matrix of administrative distances for the network as a whole. Similarly, a directly connected route with an AD of 0 takes precedence over a static route with an AD of 1.
+
+Other applications of A.D.
+--------------------------
+
+One common reason to change the administrative distance of a route is when you use *Static Routes to backup an existing IGP route*.
+This is normally used to bring up a backup link when the primary fails.
+
+For example, assume that you use the routing table from R1. However, in this case,
+there is also an ISDN line that you can use as a backup if the primary connection fails. Here is an example of a Floating Static for this route:
+.. code::
+
+    ip route 10.0.0.0 255.0.0.0 Dialer 1 250   
+    !--- Note: The Administrative Distance is set to 250.
+
+If the Ethernet interfaces fail, or if you manually bring down the Ethernet interfaces, the floating static route is installed into the routing table. All traffic destined for the 10.0.0.0/8 network is then routed out of the Dialer 1 interface and over the backup link.
+The routing table appears similar to this after the failure:
+
+.. code::
+
+    R1#show ip route
+    Gateway of last resort is not set
+    172.16.0.0/24 is subnetted, 1 subnets
+    C 172.16.1.0 is directly connected, Ethernet0
+    S 10.0.0.0/8 is directly connected, Dialer1
+    C 192.168.1.0/24 is directly connected, Loopback0
+
+Directly Connected n Remote Network Routes
+------------------------------------------
+
+    Directly connected routes
+	 These routes come from the active router interfaces. Routers add a directly connected route when an interface is configured with an IP address and is activated.
+
+    Remote routes
+	 These are remote networks connected to other routers. Routes to these networks can either be statically configured or dynamically learned through dynamic routing protocols.
+
+The sources of the routing table entries are identified by a *code*. The code identifies how the route was learned. For instance, common codes include:
+
+   * L - Identifies the address assigned to a router’s interface.
+	This allows the router to efficiently determine when it receives a packet for the interface instead of being forwarded.
+
+   * C - Identifies a directly connected network.
+
+   * S - Identifies a static route created to reach a specific network.
+
+   * D - Identifies a dynamically learned network from another router using EIGRP.
+
+   * O - Identifies a dynamically learned network from another router using the OSPF routing protocol.
+
+
+D 10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0
+
+   * Route source - Identifies how the route was learned.
+
+   * Destination network - Identifies the address of the remote network.
+
+   * Administrative distance - Identifies the trustworthiness of the route source. Lower values indicate preferred route source.
+
+   * Metric - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.
+
+   * Next-hop - Identifies the IPv4 address of the next router to forward the packet to.
+
+   * Route timestamp - Identifies how much time has passed since the route was learned.
+
+   * Outgoing interface - Identifies the exit interface to use to forward a packet toward the final destination.
