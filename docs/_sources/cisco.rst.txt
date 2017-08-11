@@ -657,5 +657,34 @@ Fully Specified Static Route
 ----------------------------
 In a fully specified static route, **both the exit interface and the next-hop IP** address are specified.
 This is another type of static route that is *used in older IOSs, prior to CEF.*
+
 .. note:: This form of static route is used when the exit interface is a multi-access interface and it is necessary to explicitly identify the next hop.
+
 The next hop must be directly connected to the specified exit interface.
+
+example
+^^^^^^^
+.. code-block:: html
+
+  <pre>
+					           PC2
+					            |
+					            |_	
+			   172.16.1.0/24   |__|
+								 |				
+								 |	
+							 G0/0|.1	
+							    _|__
+							   (_R2_)
+					   S0/0/0 /.2 .2\ S0/0/1
+							 /       \ DCE
+			   172.16.2.0/24/         \/\
+						   /	      	 \	192.168.1.0/24
+						.1/		   	      \.1	   
+            __           /__S0/0/0  S0/0/1_\        __
+  PC1------|__|---------(_R1_) DCE	    (_R3_)-----|__|----PC3
+		           G0/0  .1           .1 G0/0
+		
+		 172.16.3.0/24				    192.168.2.0/24
+
+  </pre>
