@@ -543,6 +543,7 @@ D 10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0
 
    * Outgoing interface - Identifies the exit interface to use to forward a packet toward the final destination.
 
+
 Chapter 2 Static Routes
 =======================
 
@@ -584,3 +585,77 @@ ipv6 default static route
 
 
 
+When to Use Static Routes
+-------------------------
+
+Static routing has three primary uses:
+
+   # Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.
+   # Routing to and from stub networks. A STUB NETWORK is a network accessed by a single route, and the router has ONLY ONE NEIGHBOR.
+   # Using a single default route to represent a path to any network that does not have a more specific match with another route in the routing table.
+
+.. note:: Default routes are used to send traffic to any destination beyond the next upstream router.
+
+Use static routes to...
+ * Connect to a specific network
+ * Connect a stub router
+ * Summarize routing table entries
+ * Create a backup route
+
+Standard static route
+---------------------
+
+.. code::
+
+	ip route 0.0.0.0 0.0.0.0 nexthopip | exitif
+
+.. note:: Default static routes are used when no other routes in the routing table match the packet destination IP address. In other words, when a more specific match does not exist. A common use is when connecting a company's edge router to the ISP network. When a router has only one other router to which it is connected. In this situation, the router is known as a stub router.
+
+Summary static route
+--------------------
+
+Representing multiple networks
+
+172.20.0.0/16
+172.21.0.0/16
+172.22.0.0/16
+172.23.0.0/16
+as 172.20.0.0/14
+
+.. code::
+
+	ip route 172.20.0.0 255.252.0.0 nexthopip | exitif
+
+Floating static route
+---------------------
+
+Another type of static route is a floating static route.
+Floating static routes are static routes that are **used to provide a backup path to a primary static or dynamic route, in the event of a link failure.**
+
+.. note:: The floating static route is only used when the primary route is not available.
+
+To accomplish this, the floating static route is configured with a **higher administrative distance than the primary route**.
+The administrative distance represents the trustworthiness of a route.
+If multiple paths to the destination exist, the router will choose the path with the lowest administrative distance. 
+
+The next hop can be identified by an IP address, exit interface, or both. How the destination is specified creates one of the three following route types:
+
+    Next-hop route
+	 Only the next-hop IP address is specified
+
+    Directly connected static route
+	 Only the router exit interface is specified
+
+    Fully specified static route
+	 The next-hop IP address and exit interface are specified
+	 
+.. code::
+
+	ip route 172.16.1.0 255.255.255.0 G0/1 172.16.2.2
+
+Fully Specified Static Route
+----------------------------
+In a fully specified static route, **both the exit interface and the next-hop IP** address are specified.
+This is another type of static route that is *used in older IOSs, prior to CEF.*
+.. note:: This form of static route is used when the exit interface is a multi-access interface and it is necessary to explicitly identify the next hop.
+The next hop must be directly connected to the specified exit interface.

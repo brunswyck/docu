@@ -120,6 +120,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#when-to-use-static-routes">When to Use Static Routes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-static-route">Standard static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-static-route">Summary static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#floating-static-route">Floating static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fully-specified-static-route">Fully Specified Static Route</a></li>
 </ul>
 </li>
 </ul>
@@ -811,6 +816,83 @@ R2(config)# ipv6 route 2001:0DB8:ACAD:1::/64 2001:0DB8:ACAD:3::1
 R2(config)# ipv6 route 2001:0DB8:ACAD:2::/64 s0/0/0
 </pre></div>
 </div>
+</div>
+<div class="section" id="when-to-use-static-routes">
+<h4>When to Use Static Routes<a class="headerlink" href="#when-to-use-static-routes" title="Permalink to this headline">¶</a></h4>
+<p>Static routing has three primary uses:</p>
+<blockquote>
+<div># Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.
+# Routing to and from stub networks. A STUB NETWORK is a network accessed by a single route, and the router has ONLY ONE NEIGHBOR.
+# Using a single default route to represent a path to any network that does not have a more specific match with another route in the routing table.</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Default routes are used to send traffic to any destination beyond the next upstream router.</p>
+</div>
+<dl class="docutils">
+<dt>Use static routes to…</dt>
+<dd><ul class="first last simple">
+<li>Connect to a specific network</li>
+<li>Connect a stub router</li>
+<li>Summarize routing table entries</li>
+<li>Create a backup route</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="standard-static-route">
+<h4>Standard static route<a class="headerlink" href="#standard-static-route" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 0.0.0.0 0.0.0.0 nexthopip | exitif
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Default static routes are used when no other routes in the routing table match the packet destination IP address. In other words, when a more specific match does not exist. A common use is when connecting a company’s edge router to the ISP network. When a router has only one other router to which it is connected. In this situation, the router is known as a stub router.</p>
+</div>
+</div>
+<div class="section" id="summary-static-route">
+<h4>Summary static route<a class="headerlink" href="#summary-static-route" title="Permalink to this headline">¶</a></h4>
+<p>Representing multiple networks</p>
+<p>172.20.0.0/16
+172.21.0.0/16
+172.22.0.0/16
+172.23.0.0/16
+as 172.20.0.0/14</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 172.20.0.0 255.252.0.0 nexthopip | exitif
+</pre></div>
+</div>
+</div>
+<div class="section" id="floating-static-route">
+<h4>Floating static route<a class="headerlink" href="#floating-static-route" title="Permalink to this headline">¶</a></h4>
+<p>Another type of static route is a floating static route.
+Floating static routes are static routes that are <strong>used to provide a backup path to a primary static or dynamic route, in the event of a link failure.</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The floating static route is only used when the primary route is not available.</p>
+</div>
+<p>To accomplish this, the floating static route is configured with a <strong>higher administrative distance than the primary route</strong>.
+The administrative distance represents the trustworthiness of a route.
+If multiple paths to the destination exist, the router will choose the path with the lowest administrative distance.</p>
+<p>The next hop can be identified by an IP address, exit interface, or both. How the destination is specified creates one of the three following route types:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Next-hop route</dt>
+<dd>Only the next-hop IP address is specified</dd>
+<dt>Directly connected static route</dt>
+<dd>Only the router exit interface is specified</dd>
+<dt>Fully specified static route</dt>
+<dd>The next-hop IP address and exit interface are specified</dd>
+</dl>
+</div></blockquote>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 172.16.1.0 255.255.255.0 G0/1 172.16.2.2
+</pre></div>
+</div>
+</div>
+<div class="section" id="fully-specified-static-route">
+<h4>Fully Specified Static Route<a class="headerlink" href="#fully-specified-static-route" title="Permalink to this headline">¶</a></h4>
+<p>In a fully specified static route, <strong>both the exit interface and the next-hop IP</strong> address are specified.
+This is another type of static route that is <em>used in older IOSs, prior to CEF.</em>
+.. note:: This form of static route is used when the exit interface is a multi-access interface and it is necessary to explicitly identify the next hop.
+The next hop must be directly connected to the specified exit interface.</p>
 </div>
 </div>
 </div>
