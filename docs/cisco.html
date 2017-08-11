@@ -109,7 +109,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#routing-best-path-selection">Routing BEST PATH selection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dministrative-distance">DMINISTRATIVE DISTANCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
 </ul>
 </li>
 </ul>
@@ -244,13 +244,11 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div>
 <div class="section" id="configure-loopback-interface">
 <h4>configure loopback interface<a class="headerlink" href="#configure-loopback-interface" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">Router(config)# interface loopback 0</span>
-<span class="go">Router(config-if)# ip address 10.0.0.1 255.255.255.0</span>
-<span class="go">Router(config-if)# exit</span>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Router(config)# interface loopback 0
+Router(config-if)# ip address 10.0.0.1 255.255.255.0
+Router(config-if)# exit
 </pre></div>
 </div>
-</div></blockquote>
 </div>
 <div class="section" id="filtering-parameters">
 <h4>Filtering parameters<a class="headerlink" href="#filtering-parameters" title="Permalink to this headline">¶</a></h4>
@@ -258,198 +256,195 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <dl class="docutils">
 <dt>section</dt>
 <dd>Shows entire section that starts with the filtering expression
-.. highlight:: console
+.. highlight::
 R1# show running-config | section line vty</dd>
 <dt>include</dt>
 <dd>Includes all output lines that match the filtering expression
-.. highlight:: console
+.. highlight::
 R1# show ip interface brief | include up</dd>
 <dt>exclude</dt>
 <dd>Excludes all output lines that match the filtering expression
-.. highlight:: console
+.. highlight::
 R1# show ip interface brief | exclude unassigned</dd>
 <dt>begin</dt>
 <dd>hows all the output lines from a certain point, starting with the line that matches the filtering expression
-.. highlight:: console
+.. highlight::
 R1# show ip route | begin Gateway
 R1# show running-config | begin line</dd>
 </dl>
 </div>
 <div class="section" id="history-commands">
 <h4>History commands<a class="headerlink" href="#history-commands" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# terminal history size 200</span>
-<span class="go">R1# show history</span>
+<dl class="docutils">
+<dt>set/show history</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>R1# terminal history size 200
+R1# show history
 </pre></div>
 </div>
-</div></blockquote>
+</dd>
+</dl>
 </div>
 <div class="section" id="show-command-examples">
 <h4>Show command examples<a class="headerlink" href="#show-command-examples" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>show interfaces</dt>
-<dd><div class="first last highlight-console"><div class="highlight"><pre><span></span><span class="go">TA(config)#do show interfaces</span>
-<span class="go">GigabitEthernet0/0 is up, line protocol is up (connected)</span>
-<span class="go">OB Hardware is CN Gigabit Ethernet, address is 0004.9ae8.b901 (bia 0004.9ae8.b901)</span>
-<span class="go">Description: Link RTA G0/0 to SW1 G0/1</span>
-<span class="go">Internet address is 10.10.10.1/24</span>
-<span class="go">MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,</span>
-<span class="go">   reliability 255/255, txload 1/255, rxload 1/255</span>
-<span class="go">Encapsulation ARPA, loopback not set</span>
-<span class="go">Keepalive set (10 sec)</span>
-<span class="go">Full-duplex, 100Mb/s, media type is RJ45</span>
-<span class="go">output flow-control is unsupported, input flow-control is unsupported</span>
-<span class="go">ARP type: ARPA, ARP Timeout 04:00:00,</span>
-<span class="go">Last input 00:00:08, output 00:00:05, output hang never</span>
-<span class="go">Last clearing of &quot;show interface&quot; counters never</span>
-<span class="go">Input queue: 0/75/0 (size/max/drops); Total output drops: 0</span>
-<span class="go">Queueing strategy: fifo</span>
-<span class="go">Output queue :0/40 (size/max)</span>
-<span class="go">5 minute input rate 0 bits/sec, 0 packets/sec</span>
-<span class="go">5 minute output rate 0 bits/sec, 0 packets/sec</span>
-<span class="go">   0 packets input, 0 bytes, 0 no buffer</span>
-<span class="go">   Received 0 broadcasts, 0 runts, 0 giants, 0 throttles</span>
-<span class="go">   0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort</span>
-<span class="go">   0 watchdog, 1017 multicast, 0 pause input</span>
-<span class="go">   0 input packets with dribble condition detected</span>
-<span class="go">   0 packets output, 0 bytes, 0 underruns</span>
-<span class="go">   0 output errors, 0 collisions, 2 interface resets</span>
-<span class="go">   0 unknown protocol drops</span>
-<span class="go">   0 babbles, 0 late collision, 0 deferred</span>
-<span class="go">   0 lost carrier, 0 no carrier</span>
-<span class="go">   0 output buffer failures, 0 output buffers swapped out</span>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>TA(config)#do show interfaces
+GigabitEthernet0/0 is up, line protocol is up (connected)
+OB Hardware is CN Gigabit Ethernet, address is 0004.9ae8.b901 (bia 0004.9ae8.b901)
+Description: Link RTA G0/0 to SW1 G0/1
+Internet address is 10.10.10.1/24
+MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,
+   reliability 255/255, txload 1/255, rxload 1/255
+Encapsulation ARPA, loopback not set
+Keepalive set (10 sec)
+Full-duplex, 100Mb/s, media type is RJ45
+output flow-control is unsupported, input flow-control is unsupported
+ARP type: ARPA, ARP Timeout 04:00:00,
+Last input 00:00:08, output 00:00:05, output hang never
+Last clearing of &quot;show interface&quot; counters never
+Input queue: 0/75/0 (size/max/drops); Total output drops: 0
+Queueing strategy: fifo
+Output queue :0/40 (size/max)
+5 minute input rate 0 bits/sec, 0 packets/sec
+5 minute output rate 0 bits/sec, 0 packets/sec
+   0 packets input, 0 bytes, 0 no buffer
+   Received 0 broadcasts, 0 runts, 0 giants, 0 throttles
+   0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+   0 watchdog, 1017 multicast, 0 pause input
+   0 input packets with dribble condition detected
+   0 packets output, 0 bytes, 0 underruns
+   0 output errors, 0 collisions, 2 interface resets
+   0 unknown protocol drops
+   0 babbles, 0 late collision, 0 deferred
+   0 lost carrier, 0 no carrier
+   0 output buffer failures, 0 output buffers swapped out
 </pre></div>
 </div>
 </dd>
 <dt>show ip interface</dt>
-<dd><div class="first highlight-console"><div class="highlight"><pre><span></span><span class="go">SW1#show ip interface</span>
-<span class="go">Vlan1 is up, line protocol is up</span>
-<span class="go">  Internet address is 10.10.10.2/24</span>
-<span class="go">  Broadcast address is 255.255.255.255</span>
-<span class="go">  Address determined by setup command</span>
-<span class="go">  MTU is 1500 bytes</span>
-<span class="go">  Helper address is not set</span>
-<span class="go">  Directed broadcast forwarding is disabled</span>
-<span class="go">  Outgoing access list is not set</span>
-<span class="go">  Inbound  access list is not set</span>
-<span class="go">  Proxy ARP is enabled</span>
-<span class="go">  Local Proxy ARP is disabled</span>
-<span class="go">  Security level is default</span>
-<span class="go">  Split horizon is enabled</span>
-<span class="go">  ICMP redirects are always sent</span>
-<span class="go">  ICMP unreachables are always sent</span>
-<span class="go">  ICMP mask replies are never sent</span>
-<span class="go">  IP fast switching is disabled</span>
-<span class="go">  IP fast switching on the same interface is disabled</span>
-<span class="go">  IP Null turbo vector</span>
-<span class="go">  IP multicast fast switching is disabled</span>
-<span class="go">  IP multicast distributed fast switching is disabled</span>
-<span class="go">  IP route-cache flags are None</span>
-<span class="go">  Router Discovery is disabled</span>
-<span class="go">  IP output packet accounting is disabled</span>
-<span class="go">  IP access violation accounting is disabled</span>
-<span class="go">  TCP/IP header compression is disabled</span>
-<span class="go">  RTP/IP header compression is disabled</span>
-<span class="go">  Probe proxy name replies are disabled</span>
-<span class="go">  Policy routing is disabled</span>
-<span class="go">  Network address translation is disable</span>
-<span class="go">  WCCP Redirect outbound is disabled</span>
-<span class="go">  WCCP Redirect inbound is disabled</span>
-<span class="go">  WCCP Redirect exclude is disabled</span>
-<span class="go">  BGP Policy Mapping is disabled</span>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>SW1#show ip interface
+Vlan1 is up, line protocol is up
+  Internet address is 10.10.10.2/24
+  Broadcast address is 255.255.255.255
+  Address determined by setup command
+  MTU is 1500 bytes
+  Helper address is not set
+  Directed broadcast forwarding is disabled
+  Outgoing access list is not set
+  Inbound  access list is not set
+  Proxy ARP is enabled
+  Local Proxy ARP is disabled
+  Security level is default
+  Split horizon is enabled
+  ICMP redirects are always sent
+  ICMP unreachables are always sent
+  ICMP mask replies are never sent
+  IP fast switching is disabled
+  IP fast switching on the same interface is disabled
+  IP Null turbo vector
+  IP multicast fast switching is disabled
+  IP multicast distributed fast switching is disabled
+  IP route-cache flags are None
+  Router Discovery is disabled
+  IP output packet accounting is disabled
+  IP access violation accounting is disabled
+  TCP/IP header compression is disabled
+  RTP/IP header compression is disabled
+  Probe proxy name replies are disabled
+  Policy routing is disabled
+  Network address translation is disable
+  WCCP Redirect outbound is disabled
+  WCCP Redirect inbound is disabled
+  WCCP Redirect exclude is disabled
+  BGP Policy Mapping is disabled
 </pre></div>
 </div>
-<p>show ip int brief
-.. code-block:: console</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>RTA(config)#do show ip int brief</dt>
-<dd>Interface              IP-Address      OK? Method Status                Protocol
-GigabitEthernet0/0     10.10.10.1      YES manual up                    up
-GigabitEthernet0/1     10.10.20.1      YES manual up                    up
-Vlan1                  unassigned      YES unset  administratively down down</dd>
-</dl>
-</div></blockquote>
-<p>show ip interface
-.. code-block:: console</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>RTA(config)#do show ip interface</dt>
-<dd><dl class="first last docutils">
-<dt>GigabitEthernet0/0 is up, line protocol is up (connected)</dt>
-<dd>Internet address is 10.10.10.1/24
-Broadcast address is 255.255.255.255
-Address determined by setup command
-MTU is 1500 bytes
-Helper address is not set
-Directed broadcast forwarding is disabled
-Outgoing access list is not set
-Inbound  access list is not set
-Proxy ARP is enabled
-Security level is default
-Split horizon is enabled
-ICMP redirects are always sent
-ICMP unreachables are always sent
-ICMP mask replies are never sent
-IP fast switching is disabled
-IP fast switching on the same interface is disabled
-IP Flow switching is disabled
-IP Fast switching turbo vector
-IP multicast fast switching is disabled
-IP multicast distributed fast switching is disabled
-Router Discovery is disabled
-IP output packet accounting is disabled
-IP access violation accounting is disabled
-TCP/IP header compression is disabled
-RTP/IP header compression is disabled
-Probe proxy name replies are disabled
-Policy routing is disabled
-Network address translation is disabled
-BGP Policy Mapping is disabled
-Input features: MCI Check
-WCCP Redirect outbound is disabled
-WCCP Redirect inbound is disabled
-WCCP Redirect exclude is disabled</dd>
-<dt>GigabitEthernet0/1 is up, line protocol is up (connected)</dt>
-<dd>Internet address is 10.10.20.1/24
-Broadcast address is 255.255.255.255
-Address determined by setup command
-MTU is 1500 bytes
-Helper address is not set
-Directed broadcast forwarding is disabled
-Outgoing access list is not set
-Inbound  access list is not set
-Proxy ARP is enabled
-Security level is default
-Split horizon is enabled
-ICMP redirects are always sent
-ICMP unreachables are always sent
-ICMP mask replies are never sent
-IP fast switching is disabled
-IP fast switching on the same interface is disabled
-IP Flow switching is disabled
-IP Fast switching turbo vector
-IP multicast fast switching is disabled
-IP multicast distributed fast switching is disabled
-Router Discovery is disabled
-IP output packet accounting is disabled
-IP access violation accounting is disabled
-TCP/IP header compression is disabled
-RTP/IP header compression is disabled
-Probe proxy name replies are disabled
-Policy routing is disabled
-Network address translation is disabled
-BGP Policy Mapping is disabled
-Input features: MCI Check
-WCCP Redirect outbound is disabled
-WCCP Redirect inbound is disabled
-WCCP Redirect exclude is disabled</dd>
-<dt>Vlan1 is administratively down, line protocol is down</dt>
-<dd>Internet protocol processing disabled</dd>
-</dl>
+</dd>
+<dt>show ip int brief</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip int brief
+ Interface              IP-Address      OK? Method Status                Protocol
+ GigabitEthernet0/0     10.10.10.1      YES manual up                    up
+ GigabitEthernet0/1     10.10.20.1      YES manual up                    up
+ Vlan1                  unassigned      YES unset  administratively down down
+</pre></div>
+</div>
+</dd>
+<dt>show ip interface</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip interface
+ GigabitEthernet0/0 is up, line protocol is up (connected)
+   Internet address is 10.10.10.1/24
+   Broadcast address is 255.255.255.255
+   Address determined by setup command
+   MTU is 1500 bytes
+   Helper address is not set
+   Directed broadcast forwarding is disabled
+   Outgoing access list is not set
+   Inbound  access list is not set
+   Proxy ARP is enabled
+   Security level is default
+   Split horizon is enabled
+   ICMP redirects are always sent
+   ICMP unreachables are always sent
+   ICMP mask replies are never sent
+   IP fast switching is disabled
+   IP fast switching on the same interface is disabled
+   IP Flow switching is disabled
+   IP Fast switching turbo vector
+   IP multicast fast switching is disabled
+   IP multicast distributed fast switching is disabled
+   Router Discovery is disabled
+   IP output packet accounting is disabled
+   IP access violation accounting is disabled
+   TCP/IP header compression is disabled
+   RTP/IP header compression is disabled
+   Probe proxy name replies are disabled
+   Policy routing is disabled
+   Network address translation is disabled
+   BGP Policy Mapping is disabled
+   Input features: MCI Check
+   WCCP Redirect outbound is disabled
+   WCCP Redirect inbound is disabled
+   WCCP Redirect exclude is disabled
+ GigabitEthernet0/1 is up, line protocol is up (connected)
+   Internet address is 10.10.20.1/24
+   Broadcast address is 255.255.255.255
+   Address determined by setup command
+   MTU is 1500 bytes
+   Helper address is not set
+   Directed broadcast forwarding is disabled
+   Outgoing access list is not set
+   Inbound  access list is not set
+   Proxy ARP is enabled
+   Security level is default
+   Split horizon is enabled
+   ICMP redirects are always sent
+   ICMP unreachables are always sent
+   ICMP mask replies are never sent
+   IP fast switching is disabled
+   IP fast switching on the same interface is disabled
+   IP Flow switching is disabled
+   IP Fast switching turbo vector
+   IP multicast fast switching is disabled
+   IP multicast distributed fast switching is disabled
+   Router Discovery is disabled
+   IP output packet accounting is disabled
+   IP access violation accounting is disabled
+   TCP/IP header compression is disabled
+   RTP/IP header compression is disabled
+   Probe proxy name replies are disabled
+   Policy routing is disabled
+   Network address translation is disabled
+   BGP Policy Mapping is disabled
+   Input features: MCI Check
+   WCCP Redirect outbound is disabled
+   WCCP Redirect inbound is disabled
+   WCCP Redirect exclude is disabled
+ Vlan1 is administratively down, line protocol is down
+   Internet protocol processing disabled
+</pre></div>
+</div>
 </dd>
 </dl>
-</div></blockquote>
 <p>show ip route
 .. code:</p>
 <div class="highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip route
@@ -471,16 +466,12 @@ L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
 </pre></div>
 </div>
 <p>show ip route connected
-.. code:: console</p>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>RTA(config)#do show ip route connected</dt>
-<dd>C   10.10.10.0/24  is directly connected, GigabitEthernet0/0
-C   10.10.20.0/24  is directly connected, GigabitEthernet0/1</dd>
-</dl>
-</div></blockquote>
-</dd>
-</dl>
+.. code:</p>
+<div class="highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip route connected
+ C   10.10.10.0/24  is directly connected, GigabitEthernet0/0
+ C   10.10.20.0/24  is directly connected, GigabitEthernet0/1
+</pre></div>
+</div>
 </div>
 <div class="section" id="arp-neighbor-advertisement-sollicitation">
 <h4>ARP - Neighbor Advertisement/Sollicitation<a class="headerlink" href="#arp-neighbor-advertisement-sollicitation" title="Permalink to this headline">¶</a></h4>
@@ -556,8 +547,8 @@ else Gateway of last resort or drop</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="dministrative-distance">
-<h4>DMINISTRATIVE DISTANCE<a class="headerlink" href="#dministrative-distance" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="administrative-distance">
+<h4>ADMINISTRATIVE DISTANCE<a class="headerlink" href="#administrative-distance" title="Permalink to this headline">¶</a></h4>
 <p>For example, if both RIP and EIGRP are configured on a router, both routing protocols may learn of the same destination network.
 However, each routing protocol may decide on a different path to reach the destination based on that routing protocol’s metrics.
 RIP chooses a path based on hop count, whereas EIGRP chooses a path based on its composite metric. How does the router know which route to use?</p>

@@ -69,11 +69,11 @@ Loopback interfaces
 configure loopback interface
 ----------------------------
   
-  .. code-block:: console
-  
-     Router(config)# interface loopback 0
-     Router(config-if)# ip address 10.0.0.1 255.255.255.0
-     Router(config-if)# exit
+.. code::
+
+   Router(config)# interface loopback 0
+   Router(config-if)# ip address 10.0.0.1 255.255.255.0
+   Router(config-if)# exit
 
 
 Filtering parameters
@@ -83,31 +83,31 @@ Used after the pipe are:
 
 section
  Shows entire section that starts with the filtering expression
- .. highlight:: console
+ .. highlight::
  R1# show running-config | section line vty
 
 include
  Includes all output lines that match the filtering expression
- .. highlight:: console
+ .. highlight::
  R1# show ip interface brief | include up
 
 
 exclude
  Excludes all output lines that match the filtering expression
- .. highlight:: console
+ .. highlight::
  R1# show ip interface brief | exclude unassigned
 
 begin
  hows all the output lines from a certain point, starting with the line that matches the filtering expression
- .. highlight:: console
+ .. highlight::
  R1# show ip route | begin Gateway
  R1# show running-config | begin line
 
  
 History commands
 ----------------
- 
- .. code-block:: console
+set/show history
+ .. code::
     
     R1# terminal history size 200
     R1# show history
@@ -117,7 +117,7 @@ Show command examples
 ---------------------
 
 show interfaces
- .. code-block:: console
+ .. code::
  
     TA(config)#do show interfaces
     GigabitEthernet0/0 is up, line protocol is up (connected)
@@ -152,7 +152,7 @@ show interfaces
 
 
 show ip interface
- .. code-block:: console
+ .. code::
 
 	SW1#show ip interface
 	Vlan1 is up, line protocol is up
@@ -190,8 +190,8 @@ show ip interface
 	  WCCP Redirect exclude is disabled 
 	  BGP Policy Mapping is disabled    
 
- show ip int brief
- .. code-block:: console
+show ip int brief
+ .. code::
 
     RTA(config)#do show ip int brief
      Interface              IP-Address      OK? Method Status                Protocol 
@@ -199,8 +199,8 @@ show ip interface
      GigabitEthernet0/1     10.10.20.1      YES manual up                    up 
      Vlan1                  unassigned      YES unset  administratively down down 
 
- show ip interface
- .. code-block:: console
+show ip interface
+ .. code::
 
     RTA(config)#do show ip interface
      GigabitEthernet0/0 is up, line protocol is up (connected)
@@ -274,8 +274,8 @@ show ip interface
      Vlan1 is administratively down, line protocol is down
        Internet protocol processing disabled
 
- show ip route
- .. code:: 
+show ip route
+.. code:: 
     
     RTA(config)#do show ip route
     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
@@ -294,8 +294,8 @@ show ip interface
     C       10.10.20.0/24 is directly connected, GigabitEthernet0/1
     L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
 
- show ip route connected
- .. code:: console
+show ip route connected
+.. code::
 
     RTA(config)#do show ip route connected
      C   10.10.10.0/24  is directly connected, GigabitEthernet0/0
@@ -352,7 +352,7 @@ EIGRP
 
      Equal cost load balancing can be cfd to use both dynamic routing protocols and static routes ONLY EIGRP support UNEQUAL COST LOAD BALANCING
 
-DMINISTRATIVE DISTANCE
+ADMINISTRATIVE DISTANCE
 -----------------------
 For example, if both RIP and EIGRP are configured on a router, both routing protocols may learn of the same destination network.
 However, each routing protocol may decide on a different path to reach the destination based on that routing protocol’s metrics.
