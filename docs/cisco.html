@@ -898,28 +898,25 @@ This is another type of static route that is <em>used in older IOSs, prior to CE
 <p>The next hop must be directly connected to the specified exit interface.</p>
 <div class="section" id="example">
 <h5>example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h5>
-<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
-                                                 PC2
-                                                  |
-                                                  |_
-                         172.16.1.0/24   |__|
-                                                               |
-                                                               |
-                                                       G0/0|.1
-                                                          _|__
-                                                         (_R2_)
-                                         S0/0/0 /.2 .2\ S0/0/1
-                                                       /       \ DCE
-                         172.16.2.0/24/         \/\
-                                                 /             \      192.168.1.0/24
-                                              .1/                           \.1
+<div class="highlight-html"><div class="highlight"><pre><span></span>                             PC2
+                              |
+                              |
+             172.16.1.0/24   |__|
+                               |
+                               |
+                           G0/0|.1
+                              _|__
+                             (_R2_)
+                     S0/0/0 /.2 .2\ S0/0/1
+                           /       \ DCE
+             172.16.2.0/24/         \/\
+                         /             \  192.168.1.0/24
+                      .1/               \.1
           __           /__S0/0/0  S0/0/1_\        __
-PC1------|__|---------(_R1_) DCE          (_R3_)-----|__|----PC3
-                         G0/0  .1           .1 G0/0
+PC1------|__|---------(_R1_) DCE      (_R3_)-----|__|----PC3
+                 G0/0  .1           .1 G0/0
 
-               172.16.3.0/24                              192.168.2.0/24
-
-<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+       172.16.3.0/24                  192.168.2.0/24
 </pre></div>
 </div>
 </div>
