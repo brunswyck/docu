@@ -275,7 +275,7 @@ show ip interface
        Internet protocol processing disabled
 
 show ip route
-.. code:: 
+ .. code:: 
     
     RTA(config)#do show ip route
     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
@@ -295,7 +295,7 @@ show ip route
     L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
 
 show ip route connected
-.. code::
+ .. code::
 
     RTA(config)#do show ip route connected
      C   10.10.10.0/24  is directly connected, GigabitEthernet0/0
