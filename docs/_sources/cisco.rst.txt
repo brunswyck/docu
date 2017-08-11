@@ -542,3 +542,45 @@ D 10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0
    * Route timestamp - Identifies how much time has passed since the route was learned.
 
    * Outgoing interface - Identifies the exit interface to use to forward a packet toward the final destination.
+
+Chapter 2 Static Routes
+=======================
+
+ipv4 syntax
+-----------
+.. code::
+
+    Router(config)# ip route network mask { next-hop-ip | exit-intf }
+
+A static route is identified in the routing table with the code ‘S’.
+
+To configure an IPv4 default static route, use the following command:
+
+.. code::
+
+    Router(config)# ip route 0.0.0.0 0.0.0.0 { exit-intf | next-hop-ip } 
+
+combination of exit interface and next hop
+------------------------------------------
+.. code::
+
+    R2(config)# ip route 192.168.2.0 255.255.255.0 s0/0/1 192.168.1.1
+
+
+ipv6 default static route
+-------------------------
+.. code::
+
+    R1(config)# ipv6 route ::/0 s0/0/0
+
+.. note:: The ‘S’ signifies that the route source is a static route. Unlike the IPv4 static route, there is no asterisk (*) or Gateway of Last Resort explicitly identified. 
+
+.. code::
+
+    ipv6 route ipv6-prefix/prefix-length {ipv6-address|interface-type interface-number}
+    -
+    R2(config)# ipv6 route 2001:0DB8:ACAD:1::/64 2001:0DB8:ACAD:3::1
+    R2(config)# ipv6 route 2001:0DB8:ACAD:2::/64 s0/0/0
+
+
+

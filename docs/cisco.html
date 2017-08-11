@@ -116,6 +116,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-2-static-routes">Chapter 2 Static Routes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -769,6 +775,42 @@ C 192.168.1.0/24 is directly connected, Loopback0
 <li>Outgoing interface - Identifies the exit interface to use to forward a packet toward the final destination.</li>
 </ul>
 </div></blockquote>
+</div>
+</div>
+<div class="section" id="chapter-2-static-routes">
+<h3>Chapter 2 Static Routes<a class="headerlink" href="#chapter-2-static-routes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ipv4-syntax">
+<h4>ipv4 syntax<a class="headerlink" href="#ipv4-syntax" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Router(config)# ip route network mask { next-hop-ip | exit-intf }
+</pre></div>
+</div>
+<p>A static route is identified in the routing table with the code ‘S’.</p>
+<p>To configure an IPv4 default static route, use the following command:</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Router(config)# ip route 0.0.0.0 0.0.0.0 { exit-intf | next-hop-ip }
+</pre></div>
+</div>
+</div>
+<div class="section" id="combination-of-exit-interface-and-next-hop">
+<h4>combination of exit interface and next hop<a class="headerlink" href="#combination-of-exit-interface-and-next-hop" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R2(config)# ip route 192.168.2.0 255.255.255.0 s0/0/1 192.168.1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="ipv6-default-static-route">
+<h4>ipv6 default static route<a class="headerlink" href="#ipv6-default-static-route" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ipv6 route ::/0 s0/0/0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The ‘S’ signifies that the route source is a static route. Unlike the IPv4 static route, there is no asterisk (*) or Gateway of Last Resort explicitly identified.</p>
+</div>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ipv6 route ipv6-prefix/prefix-length {ipv6-address|interface-type interface-number}
+-
+R2(config)# ipv6 route 2001:0DB8:ACAD:1::/64 2001:0DB8:ACAD:3::1
+R2(config)# ipv6 route 2001:0DB8:ACAD:2::/64 s0/0/0
+</pre></div>
+</div>
 </div>
 </div>
 </div>
