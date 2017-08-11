@@ -514,7 +514,7 @@ Directly Connected n Remote Network Routes
     Remote routes
 	 These are remote networks connected to other routers. Routes to these networks can either be statically configured or dynamically learned through dynamic routing protocols.
 
-The sources of the routing table entries are identified by a *code*. The code identifies how the route was learned. For instance, common codes include:
+The sources of the routing table entries are identified by a *code*. The code identifies how the route was learned. For instance, common codes include
 
    * L - Identifies the address assigned to a router’s interface.
 	This allows the router to efficiently determine when it receives a packet for the interface instead of being forwarded.
