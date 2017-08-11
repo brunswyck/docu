@@ -67,7 +67,7 @@ Loopback interfaces
 configure loopback interface
 ----------------------------
   
-  .. code-block::
+  .. code-block:: console
   
      Router(config)# interface loopback 0
      Router(config-if)# ip address 10.0.0.1 255.255.255.0
@@ -81,32 +81,28 @@ Filtering parameters
 
   section
    Shows entire section that starts with the filtering expression::
-
    R1# show running-config | section line vty
 
   include
    Includes all output lines that match the filtering expression::
-
    R1# show ip interface brief | include up
 
   exclude
    Excludes all output lines that match the filtering expression::
-
    R1# show ip interface brief | exclude unassigned
 
   begin
    hows all the output lines from a certain point, starting with the line that matches the filtering expression::
-
    R1# show ip route | begin Gateway
    R1# show running-config | begin line
 
 History
 =======
  
- History commands
- ----------------
+History commands
+----------------
  
- .. code-block::
+ .. code-block:: console
     
     R1# terminal history size 200
     R1# show history
@@ -115,8 +111,7 @@ History
 Show command examples
 =====================
 show interfaces
- .. code-block::
-	:emphasize-lines: 1
+ .. code-block:: console
  
     TA(config)#do show interfaces
     GigabitEthernet0/0 is up, line protocol is up (connected)

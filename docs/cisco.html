@@ -104,7 +104,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#filtering-parameters">Filtering parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#history">History</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#history-commands">History commands</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#show-command-examples">Show command examples</a></li>
 </ul>
 </li>
@@ -236,7 +239,12 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <div class="section" id="configure-loopback-interface">
 <h4>configure loopback interface<a class="headerlink" href="#configure-loopback-interface" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div></div></blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">Router(config)# interface loopback 0</span>
+<span class="go">Router(config-if)# ip address 10.0.0.1 255.255.255.0</span>
+<span class="go">Router(config-if)# exit</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="filtering-parameters">
@@ -246,36 +254,71 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <blockquote>
 <div><dl class="docutils">
 <dt>section</dt>
-<dd><p class="first">Shows entire section that starts with the filtering expression:</p>
-<p class="last">R1# show running-config | section line vty</p>
-</dd>
+<dd>Shows entire section that starts with the filtering expression::
+R1# show running-config | section line vty</dd>
 <dt>include</dt>
-<dd><p class="first">Includes all output lines that match the filtering expression:</p>
-<p class="last">R1# show ip interface brief | include up</p>
-</dd>
+<dd>Includes all output lines that match the filtering expression::
+R1# show ip interface brief | include up</dd>
 <dt>exclude</dt>
-<dd><p class="first">Excludes all output lines that match the filtering expression:</p>
-<p class="last">R1# show ip interface brief | exclude unassigned</p>
-</dd>
+<dd>Excludes all output lines that match the filtering expression::
+R1# show ip interface brief | exclude unassigned</dd>
 <dt>begin</dt>
-<dd><p class="first">hows all the output lines from a certain point, starting with the line that matches the filtering expression:</p>
-<p class="last">R1# show ip route | begin Gateway
-R1# show running-config | begin line</p>
-</dd>
+<dd>hows all the output lines from a certain point, starting with the line that matches the filtering expression::
+R1# show ip route | begin Gateway
+R1# show running-config | begin line</dd>
 </dl>
 </div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="history">
 <h3>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="history-commands">
+<h4>History commands<a class="headerlink" href="#history-commands" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div></div></blockquote>
+<div><div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# terminal history size 200</span>
+<span class="go">R1# show history</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 </div>
 <div class="section" id="show-command-examples">
 <h3>Show command examples<a class="headerlink" href="#show-command-examples" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt>show interfaces</dt>
-<dd></dd>
+<dd><div class="first last highlight-console"><div class="highlight"><pre><span></span><span class="go">TA(config)#do show interfaces</span>
+<span class="go">GigabitEthernet0/0 is up, line protocol is up (connected)</span>
+<span class="go">OB Hardware is CN Gigabit Ethernet, address is 0004.9ae8.b901 (bia 0004.9ae8.b901)</span>
+<span class="go">Description: Link RTA G0/0 to SW1 G0/1</span>
+<span class="go">Internet address is 10.10.10.1/24</span>
+<span class="go">MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,</span>
+<span class="go">   reliability 255/255, txload 1/255, rxload 1/255</span>
+<span class="go">Encapsulation ARPA, loopback not set</span>
+<span class="go">Keepalive set (10 sec)</span>
+<span class="go">Full-duplex, 100Mb/s, media type is RJ45</span>
+<span class="go">output flow-control is unsupported, input flow-control is unsupported</span>
+<span class="go">ARP type: ARPA, ARP Timeout 04:00:00,</span>
+<span class="go">Last input 00:00:08, output 00:00:05, output hang never</span>
+<span class="go">Last clearing of &quot;show interface&quot; counters never</span>
+<span class="go">Input queue: 0/75/0 (size/max/drops); Total output drops: 0</span>
+<span class="go">Queueing strategy: fifo</span>
+<span class="go">Output queue :0/40 (size/max)</span>
+<span class="go">5 minute input rate 0 bits/sec, 0 packets/sec</span>
+<span class="go">5 minute output rate 0 bits/sec, 0 packets/sec</span>
+<span class="go">   0 packets input, 0 bytes, 0 no buffer</span>
+<span class="go">   Received 0 broadcasts, 0 runts, 0 giants, 0 throttles</span>
+<span class="go">   0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort</span>
+<span class="go">   0 watchdog, 1017 multicast, 0 pause input</span>
+<span class="go">   0 input packets with dribble condition detected</span>
+<span class="go">   0 packets output, 0 bytes, 0 underruns</span>
+<span class="go">   0 output errors, 0 collisions, 2 interface resets</span>
+<span class="go">   0 unknown protocol drops</span>
+<span class="go">   0 babbles, 0 late collision, 0 deferred</span>
+<span class="go">   0 lost carrier, 0 no carrier</span>
+<span class="go">   0 output buffer failures, 0 output buffers swapped out</span>
+</pre></div>
+</div>
+</dd>
 </dl>
 <p>show ip interface</p>
 <blockquote>
