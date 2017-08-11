@@ -13,9 +13,11 @@ Add fundamentals content here
 **********************************
 Routing and Switching Fundamentals
 **********************************
+Chapter 1 Routing Concepts
+==========================
 
 basic concepts
-==================
+--------------
  RAM
   Running IOS
   Running config file
@@ -48,7 +50,7 @@ basic concepts
  
 
 Router's 3 packet-forwarding mechanisms
-======================================= 
+---------------------------------------
 
   Process Switching
    An older packet forwarding mechanism still available for Cisco routers. When a packet arrives on an interface, it is forwarded to the control plane where the CPU matches the destination address with an entry in its routing table, and then determines the exit interface and forwards the packet. It is important to understand that the router does this for every packet, even if the destination is the same for a stream of packets. This process-switching mechanism is very slow and rarely implemented in modern networks.
@@ -60,7 +62,7 @@ Router's 3 packet-forwarding mechanisms
    CEF is the most recent and preferred Cisco IOS packet-forwarding mechanism. Like fast switching, CEF builds a Forwarding Information Base (FIB), and an adjacency table. However, the table entries are not packet-triggered like fast switching but change-triggered such as when something changes in the network topology. Therefore, when a network has converged, the FIB and adjacency tables contain all the information a router would have to consider when forwarding a packet. The FIB contains pre-computed reverse lookups, next hop information for routes including the interface and Layer 2 information. Cisco Express Forwarding is the fastest forwarding mechanism and the preferred choice on Cisco routers.
 
 Loopback interfaces
-===================
+-------------------
  
  Multiple loopback interfaces can be enabled on a router. The IPv4 address for each loopback interface must be unique and unused by any other interface.
 
@@ -75,7 +77,7 @@ configure loopback interface
 
 
 Filtering parameters
-====================
+--------------------
 
  Used after the pipe are:
 
@@ -96,8 +98,6 @@ Filtering parameters
    R1# show ip route | begin Gateway
    R1# show running-config | begin line
 
-History
-=======
  
 History commands
 ----------------
@@ -109,7 +109,8 @@ History commands
 
 
 Show command examples
-=====================
+---------------------
+
 show interfaces
  .. code-block:: console
  
@@ -146,12 +147,250 @@ show interfaces
 
 
 show ip interface
- 
+ .. code-block:: console
+
+	SW1#show ip interface
+	Vlan1 is up, line protocol is up
+	  Internet address is 10.10.10.2/24
+	  Broadcast address is 255.255.255.255 
+	  Address determined by setup command 
+	  MTU is 1500 bytes 
+	  Helper address is not set
+	  Directed broadcast forwarding is disabled 
+	  Outgoing access list is not set 
+	  Inbound  access list is not set 
+	  Proxy ARP is enabled 
+	  Local Proxy ARP is disabled 
+	  Security level is default 
+	  Split horizon is enabled 
+	  ICMP redirects are always sent 
+	  ICMP unreachables are always sent 
+	  ICMP mask replies are never sent 
+	  IP fast switching is disabled 
+	  IP fast switching on the same interface is disabled 
+	  IP Null turbo vector 
+	  IP multicast fast switching is disabled 
+	  IP multicast distributed fast switching is disabled 
+	  IP route-cache flags are None 
+	  Router Discovery is disabled 
+	  IP output packet accounting is disabled 
+	  IP access violation accounting is disabled 
+	  TCP/IP header compression is disabled 
+	  RTP/IP header compression is disabled 
+	  Probe proxy name replies are disabled 
+	  Policy routing is disabled 
+	  Network address translation is disable 
+	  WCCP Redirect outbound is disabled 
+	  WCCP Redirect inbound is disabled 
+	  WCCP Redirect exclude is disabled 
+	  BGP Policy Mapping is disabled    
 
  show ip int brief
+ .. code-block:: console
+
+    RTA(config)#do show ip int brief
+     Interface              IP-Address      OK? Method Status                Protocol 
+     GigabitEthernet0/0     10.10.10.1      YES manual up                    up 
+     GigabitEthernet0/1     10.10.20.1      YES manual up                    up 
+     Vlan1                  unassigned      YES unset  administratively down down 
 
  show ip interface
+ .. code-block:: console
+
+    RTA(config)#do show ip interface
+    GigabitEthernet0/0 is up, line protocol is up (connected)
+      Internet address is 10.10.10.1/24
+      Broadcast address is 255.255.255.255
+      Address determined by setup command
+      MTU is 1500 bytes
+      Helper address is not set
+      Directed broadcast forwarding is disabled
+      Outgoing access list is not set
+      Inbound  access list is not set
+      Proxy ARP is enabled
+      Security level is default
+      Split horizon is enabled
+      ICMP redirects are always sent
+      ICMP unreachables are always sent
+      ICMP mask replies are never sent
+      IP fast switching is disabled
+      IP fast switching on the same interface is disabled
+      IP Flow switching is disabled
+      IP Fast switching turbo vector
+      IP multicast fast switching is disabled
+      IP multicast distributed fast switching is disabled
+      Router Discovery is disabled
+      IP output packet accounting is disabled
+      IP access violation accounting is disabled
+      TCP/IP header compression is disabled
+      RTP/IP header compression is disabled
+      Probe proxy name replies are disabled
+      Policy routing is disabled
+      Network address translation is disabled
+      BGP Policy Mapping is disabled
+      Input features: MCI Check
+      WCCP Redirect outbound is disabled
+      WCCP Redirect inbound is disabled
+      WCCP Redirect exclude is disabled
+    GigabitEthernet0/1 is up, line protocol is up (connected)
+      Internet address is 10.10.20.1/24
+      Broadcast address is 255.255.255.255
+      Address determined by setup command
+      MTU is 1500 bytes
+      Helper address is not set
+      Directed broadcast forwarding is disabled
+      Outgoing access list is not set
+      Inbound  access list is not set
+      Proxy ARP is enabled
+      Security level is default
+      Split horizon is enabled
+      ICMP redirects are always sent
+      ICMP unreachables are always sent
+      ICMP mask replies are never sent
+      IP fast switching is disabled
+      IP fast switching on the same interface is disabled
+      IP Flow switching is disabled
+      IP Fast switching turbo vector
+      IP multicast fast switching is disabled
+      IP multicast distributed fast switching is disabled
+      Router Discovery is disabled
+      IP output packet accounting is disabled
+      IP access violation accounting is disabled
+      TCP/IP header compression is disabled
+      RTP/IP header compression is disabled
+      Probe proxy name replies are disabled
+      Policy routing is disabled
+      Network address translation is disabled
+      BGP Policy Mapping is disabled
+      Input features: MCI Check
+      WCCP Redirect outbound is disabled
+      WCCP Redirect inbound is disabled
+      WCCP Redirect exclude is disabled
+    Vlan1 is administratively down, line protocol is down
+      Internet protocol processing disabled
 
  show ip route
+ .. code-block:: console
+
+    RTA(config)#do show ip route
+    Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+           D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+           N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+           E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+           i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+           * - candidate default, U - per-user static route, o - ODR
+           P - periodic downloaded static route
+    
+    Gateway of last resort is not set
+    
+         10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+    C       10.10.10.0/24 is directly connected, GigabitEthernet0/0
+    L       10.10.10.1/32 is directly connected, GigabitEthernet0/0
+    C       10.10.20.0/24 is directly connected, GigabitEthernet0/1
+    L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
 
  show ip route connected
+ .. code-block:: console
+
+    RTA(config)#do show ip route connected
+     C   10.10.10.0/24  is directly connected, GigabitEthernet0/0
+     C   10.10.20.0/24  is directly connected, GigabitEthernet0/1
+
+ARP - Neighbor Advertisement/Sollicitation
+------------------------------------------
+A similar process is used for IPv6 packets. Instead of the ARP process, IPv6 address resolution uses ICMPv6 Neighbor Solicitation and Neighbor Advertisement messages. IPv6-to-MAC address mapping are kept in a table similar to the ARP cache, called the neighbor cache.
+
+MAC addresses on Serial Interfaces
+----------------------------------
+When the interface is a point-to-point (P2P) serial connection, the router encapsulates the IPv4 packet into the proper data link frame format used by the exit interface (HDLC, PPP, etc.). Because there are no MAC addresses on serial interfaces, R2 sets the data link destination address to an equivalent of a broadcast.
+The router does not need to know any info about the destination L2 address, so the router just sends the frame out the corresponding serial interface. No source address is required on a P2P serial connection
+
+HDLC frames can be transmitted over synchronous or asynchronous serial communication links. Those links have no mechanism to mark the beginning or end of a frame, so the beginning and end of each frame has to be identified. This is done by using a frame delimiter, or flag, which is a unique sequence of bits that is guaranteed not to be seen inside a frame.
+This sequence is '01111110', or, in hexadecimal notation, 0x7E. Each frame begins and ends with a frame delimiter. A frame delimiter at the end of a frame may also mark the start of the next frame.
+A sequence of 7 or more consecutive 1-bits within a frame will cause the frame to be aborted.
+
++-------++------+-------+--------+-----------------+---+-------+
+|Flag 7E|Address|Control|Protocol|        Data     |FCS|Flag 7E|
++-------+-------+-------+--------+-----------------+---+-------+
+|8 bits |8 bits | 8 bits| 16 bits|~ length 0 or x*8|16b| 8 bits|
++-------+-------+-------+--------+-----------------+---+-------+
+
+The Address field is used to specify the type of packet contained in the cHDLC frame; 0x0F for Unicast and 0x8F for Broadcast packets.
+The Control field is always set to zero (0x00).
+The Protocol Code field is used to specify the protocol type encapsulated within the cHDLC frame (e.g. 0x0800 for Internet Protocol).
+
+Packet Forwarding Decision Process
+----------------------------------
+
+Directly Connected Interface?
+Yes -> Check ARP cache (ARP request if necessary) and forward to host on local subnet
+Remote Network? Yes -> Encapsulate the frame and forward out of the exit interface to the next hop
+else Gateway of last resort or drop
+
+Routing BEST PATH selection
+---------------------------
+
+RIP
+ Routing Information Protocol - Hop count
+
+OSPF
+ Open Shortest Path First     - Cisco’s cost based on CUMULATIVE bandwidth from source to destination
+
+EIGRP
+ Enhanced Interior Gateway Routing Protocol - Bandwidth, delay, load, reliability (bladder)
+
+  .. note::
+     
+     two or more paths with identical metrics = LOAD BALANCING
+
+  .. note::
+
+     Equal cost load balancing can be cfd to use both dynamic routing protocols and static routes ONLY EIGRP support UNEQUAL COST LOAD BALANCING
+
+DMINISTRATIVE DISTANCE
+-----------------------
+For example, if both RIP and EIGRP are configured on a router, both routing protocols may learn of the same destination network.
+However, each routing protocol may decide on a different path to reach the destination based on that routing protocol’s metrics.
+RIP chooses a path based on hop count, whereas EIGRP chooses a path based on its composite metric. How does the router know which route to use?
+
+Cisco IOS uses what is known as the administrative distance (AD) to determine the route to install into the IP routing table.
+The AD represents the "trustworthiness" of the route; the lower the AD,
+the more trustworthy the route source. For example, a static route has an AD of 1,
+whereas an EIGRP-discovered route has an AD of 90.
+Given two separate routes to the same destination, the router chooses the route with the lowest AD.
+When a router has the choice of a static route and an EIGRP route, the static route takes precedence.
+
+ Default Distance Value Table
+
+ This table lists the administrative distance default values of the protocols that Cisco supports:
+
+ ========================================= ========================
+ Routing Protocol                           Administrative distance
+ ========================================= ========================
+ Directly connected interface                          0
+ Static route out an interface                         1
+ Static route to next-hop address                      1
+ DMNR - Dynamic Mobile Network Routing                 3
+ EIGRP summary route                                   5
+ External BGP                                          20
+ Internal EIGRP                                        90
+ IGRP                                                  100
+ OSPF                                                  110
+ IS-IS                                                 115
+ Routing Information Protocol (RIP)                    120
+ Exterior Gateway Protocol (EGP)                       140
+ On Demand Routing (ODR)                               160
+ External EIGRP                                        170
+ Internal BGP                                          200
+ Next Hop Resolution Protocol (NHRP)                   250
+ Floating Static Route (ex. DHCP-learned)              254
+ Unknown (Others)                                      255
+ ========================================= ========================
+
+ .. note::
+     If the administrative distance is 255, the router does not believe the source of that route and does not install the route in the routing table.
+     Since IOS 12.2, the administrative distance of a static route with an exit interface is 1.
+     Only the interface itself has an administrative distance of 0, since a route cannot have a distance of less than 1.
+     Directly connected routes have an administrative distance of 0.
+
+
