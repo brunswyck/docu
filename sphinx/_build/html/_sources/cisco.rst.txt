@@ -407,7 +407,9 @@ You can modify the administrative distance of a protocol through the distance co
 This command specifies that the administrative distance is assigned to the routes learned from a particular routing protocol.
 You need to use this procedure generally when you migrate the network from one routing protocol to another,
 and the latter has a higher administrative distance. However, a change in the administrative distance *can lead to routing loops and black holes*.
-.. warning:: use caution if you change the administrative distance.
+
+.. warning::
+    use caution if you change the administrative distance.
 
 .. code::
 
@@ -443,13 +445,16 @@ You can observe that the IGRP routes are preferred over the RIP routes in the ro
     I 192.168.1.0/24 [100/1600] via 172.16.1.100, 00:00:33,
 
 In order to enable the router to prefer RIP routes to IGRP, configure the distance command on R1 like this:
+
 .. code::
  
  R1(config)#router rip
  R1(config-router)#distance 90
 
 Now look at the routing table. The routing table shows that the router prefers the RIP routes. The router learns RIP routes with an administrative distance of 90, although the default is 120.
-.. note:: The new administrative distance value is relevant only to the routing process of a single router (in this case R1). R2 still has IGRP routes in the routing table.
+
+.. note::
+    The new administrative distance value is relevant only to the routing process of a single router (in this case R1). R2 still has IGRP routes in the routing table.
 
 .. code::
 
@@ -471,7 +476,8 @@ Now look at the routing table. The routing table shows that the router prefers t
     C 10.0.0.0/8 is directly connected, Loopback0
     I 192.168.1.0/24 [100/1600] via 172.16.1.100, 00:00:33,
 
-.. note:: There are no general guidelines to assign administrative distances because each network has varied requirements. You must determine a reasonable matrix of administrative distances for the network as a whole. Similarly, a directly connected route with an AD of 0 takes precedence over a static route with an AD of 1.
+.. note::
+    There are no general guidelines to assign administrative distances because each network has varied requirements. You must determine a reasonable matrix of administrative distances for the network as a whole. Similarly, a directly connected route with an AD of 0 takes precedence over a static route with an AD of 1.
 
 Other applications of A.D.
 --------------------------
@@ -481,6 +487,7 @@ This is normally used to bring up a backup link when the primary fails.
 
 For example, assume that you use the routing table from R1. However, in this case,
 there is also an ISDN line that you can use as a backup if the primary connection fails. Here is an example of a Floating Static for this route:
+
 .. code::
 
     ip route 10.0.0.0 255.0.0.0 Dialer 1 250   
