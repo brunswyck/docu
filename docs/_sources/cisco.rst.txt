@@ -79,24 +79,29 @@ configure loopback interface
 Filtering parameters
 --------------------
 
- Used after the pipe are:
+Used after the pipe are:
 
-  section
-   Shows entire section that starts with the filtering expression::
-   R1# show running-config | section line vty
+section
+ Shows entire section that starts with the filtering expression
+ .. highlight:: console
+ R1# show running-config | section line vty
 
-  include
-   Includes all output lines that match the filtering expression::
-   R1# show ip interface brief | include up
+include
+ Includes all output lines that match the filtering expression
+ .. highlight:: console
+ R1# show ip interface brief | include up
 
-  exclude
-   Excludes all output lines that match the filtering expression::
-   R1# show ip interface brief | exclude unassigned
 
-  begin
-   hows all the output lines from a certain point, starting with the line that matches the filtering expression::
-   R1# show ip route | begin Gateway
-   R1# show running-config | begin line
+exclude
+ Excludes all output lines that match the filtering expression
+ .. highlight:: console
+ R1# show ip interface brief | exclude unassigned
+
+begin
+ hows all the output lines from a certain point, starting with the line that matches the filtering expression
+ .. highlight:: console
+ R1# show ip route | begin Gateway
+ R1# show running-config | begin line
 
  
 History commands
@@ -198,96 +203,96 @@ show ip interface
  .. code-block:: console
 
     RTA(config)#do show ip interface
-    GigabitEthernet0/0 is up, line protocol is up (connected)
-      Internet address is 10.10.10.1/24
-      Broadcast address is 255.255.255.255
-      Address determined by setup command
-      MTU is 1500 bytes
-      Helper address is not set
-      Directed broadcast forwarding is disabled
-      Outgoing access list is not set
-      Inbound  access list is not set
-      Proxy ARP is enabled
-      Security level is default
-      Split horizon is enabled
-      ICMP redirects are always sent
-      ICMP unreachables are always sent
-      ICMP mask replies are never sent
-      IP fast switching is disabled
-      IP fast switching on the same interface is disabled
-      IP Flow switching is disabled
-      IP Fast switching turbo vector
-      IP multicast fast switching is disabled
-      IP multicast distributed fast switching is disabled
-      Router Discovery is disabled
-      IP output packet accounting is disabled
-      IP access violation accounting is disabled
-      TCP/IP header compression is disabled
-      RTP/IP header compression is disabled
-      Probe proxy name replies are disabled
-      Policy routing is disabled
-      Network address translation is disabled
-      BGP Policy Mapping is disabled
-      Input features: MCI Check
-      WCCP Redirect outbound is disabled
-      WCCP Redirect inbound is disabled
-      WCCP Redirect exclude is disabled
-    GigabitEthernet0/1 is up, line protocol is up (connected)
-      Internet address is 10.10.20.1/24
-      Broadcast address is 255.255.255.255
-      Address determined by setup command
-      MTU is 1500 bytes
-      Helper address is not set
-      Directed broadcast forwarding is disabled
-      Outgoing access list is not set
-      Inbound  access list is not set
-      Proxy ARP is enabled
-      Security level is default
-      Split horizon is enabled
-      ICMP redirects are always sent
-      ICMP unreachables are always sent
-      ICMP mask replies are never sent
-      IP fast switching is disabled
-      IP fast switching on the same interface is disabled
-      IP Flow switching is disabled
-      IP Fast switching turbo vector
-      IP multicast fast switching is disabled
-      IP multicast distributed fast switching is disabled
-      Router Discovery is disabled
-      IP output packet accounting is disabled
-      IP access violation accounting is disabled
-      TCP/IP header compression is disabled
-      RTP/IP header compression is disabled
-      Probe proxy name replies are disabled
-      Policy routing is disabled
-      Network address translation is disabled
-      BGP Policy Mapping is disabled
-      Input features: MCI Check
-      WCCP Redirect outbound is disabled
-      WCCP Redirect inbound is disabled
-      WCCP Redirect exclude is disabled
-    Vlan1 is administratively down, line protocol is down
-      Internet protocol processing disabled
+     GigabitEthernet0/0 is up, line protocol is up (connected)
+       Internet address is 10.10.10.1/24
+       Broadcast address is 255.255.255.255
+       Address determined by setup command
+       MTU is 1500 bytes
+       Helper address is not set
+       Directed broadcast forwarding is disabled
+       Outgoing access list is not set
+       Inbound  access list is not set
+       Proxy ARP is enabled
+       Security level is default
+       Split horizon is enabled
+       ICMP redirects are always sent
+       ICMP unreachables are always sent
+       ICMP mask replies are never sent
+       IP fast switching is disabled
+       IP fast switching on the same interface is disabled
+       IP Flow switching is disabled
+       IP Fast switching turbo vector
+       IP multicast fast switching is disabled
+       IP multicast distributed fast switching is disabled
+       Router Discovery is disabled
+       IP output packet accounting is disabled
+       IP access violation accounting is disabled
+       TCP/IP header compression is disabled
+       RTP/IP header compression is disabled
+       Probe proxy name replies are disabled
+       Policy routing is disabled
+       Network address translation is disabled
+       BGP Policy Mapping is disabled
+       Input features: MCI Check
+       WCCP Redirect outbound is disabled
+       WCCP Redirect inbound is disabled
+       WCCP Redirect exclude is disabled
+     GigabitEthernet0/1 is up, line protocol is up (connected)
+       Internet address is 10.10.20.1/24
+       Broadcast address is 255.255.255.255
+       Address determined by setup command
+       MTU is 1500 bytes
+       Helper address is not set
+       Directed broadcast forwarding is disabled
+       Outgoing access list is not set
+       Inbound  access list is not set
+       Proxy ARP is enabled
+       Security level is default
+       Split horizon is enabled
+       ICMP redirects are always sent
+       ICMP unreachables are always sent
+       ICMP mask replies are never sent
+       IP fast switching is disabled
+       IP fast switching on the same interface is disabled
+       IP Flow switching is disabled
+       IP Fast switching turbo vector
+       IP multicast fast switching is disabled
+       IP multicast distributed fast switching is disabled
+       Router Discovery is disabled
+       IP output packet accounting is disabled
+       IP access violation accounting is disabled
+       TCP/IP header compression is disabled
+       RTP/IP header compression is disabled
+       Probe proxy name replies are disabled
+       Policy routing is disabled
+       Network address translation is disabled
+       BGP Policy Mapping is disabled
+       Input features: MCI Check
+       WCCP Redirect outbound is disabled
+       WCCP Redirect inbound is disabled
+       WCCP Redirect exclude is disabled
+     Vlan1 is administratively down, line protocol is down
+       Internet protocol processing disabled
 
  show ip route
  .. code-block:: console
 
     RTA(config)#do show ip route
-    Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
-           D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
-           N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
-           E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
-           i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
-           * - candidate default, U - per-user static route, o - ODR
-           P - periodic downloaded static route
-    
-    Gateway of last resort is not set
-    
-         10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
-    C       10.10.10.0/24 is directly connected, GigabitEthernet0/0
-    L       10.10.10.1/32 is directly connected, GigabitEthernet0/0
-    C       10.10.20.0/24 is directly connected, GigabitEthernet0/1
-    L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
+     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+            N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+            E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+            * - candidate default, U - per-user static route, o - ODR
+            P - periodic downloaded static route
+     
+     Gateway of last resort is not set
+     
+          10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+     C       10.10.10.0/24 is directly connected, GigabitEthernet0/0
+     L       10.10.10.1/32 is directly connected, GigabitEthernet0/0
+     C       10.10.20.0/24 is directly connected, GigabitEthernet0/1
+     L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
 
  show ip route connected
  .. code-block:: console

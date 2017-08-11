@@ -254,26 +254,26 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div>
 <div class="section" id="filtering-parameters">
 <h4>Filtering parameters<a class="headerlink" href="#filtering-parameters" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div><p>Used after the pipe are:</p>
-<blockquote>
-<div><dl class="docutils">
+<p>Used after the pipe are:</p>
+<dl class="docutils">
 <dt>section</dt>
-<dd>Shows entire section that starts with the filtering expression::
+<dd>Shows entire section that starts with the filtering expression
+.. highlight:: console
 R1# show running-config | section line vty</dd>
 <dt>include</dt>
-<dd>Includes all output lines that match the filtering expression::
+<dd>Includes all output lines that match the filtering expression
+.. highlight:: console
 R1# show ip interface brief | include up</dd>
 <dt>exclude</dt>
-<dd>Excludes all output lines that match the filtering expression::
+<dd>Excludes all output lines that match the filtering expression
+.. highlight:: console
 R1# show ip interface brief | exclude unassigned</dd>
 <dt>begin</dt>
-<dd>hows all the output lines from a certain point, starting with the line that matches the filtering expression::
+<dd>hows all the output lines from a certain point, starting with the line that matches the filtering expression
+.. highlight:: console
 R1# show ip route | begin Gateway
 R1# show running-config | begin line</dd>
 </dl>
-</div></blockquote>
-</div></blockquote>
 </div>
 <div class="section" id="history-commands">
 <h4>History commands<a class="headerlink" href="#history-commands" title="Permalink to this headline">¶</a></h4>
@@ -373,10 +373,11 @@ Vlan1                  unassigned      YES unset  administratively down down</dd
 <p>show ip interface
 .. code-block:: console</p>
 <blockquote>
-<div><p>RTA(config)#do show ip interface
-GigabitEthernet0/0 is up, line protocol is up (connected)</p>
-<blockquote>
-<div>Internet address is 10.10.10.1/24
+<div><dl class="docutils">
+<dt>RTA(config)#do show ip interface</dt>
+<dd><dl class="first last docutils">
+<dt>GigabitEthernet0/0 is up, line protocol is up (connected)</dt>
+<dd>Internet address is 10.10.10.1/24
 Broadcast address is 255.255.255.255
 Address determined by setup command
 MTU is 1500 bytes
@@ -408,8 +409,7 @@ BGP Policy Mapping is disabled
 Input features: MCI Check
 WCCP Redirect outbound is disabled
 WCCP Redirect inbound is disabled
-WCCP Redirect exclude is disabled</div></blockquote>
-<dl class="docutils">
+WCCP Redirect exclude is disabled</dd>
 <dt>GigabitEthernet0/1 is up, line protocol is up (connected)</dt>
 <dd>Internet address is 10.10.20.1/24
 Broadcast address is 255.255.255.255
@@ -447,26 +447,32 @@ WCCP Redirect exclude is disabled</dd>
 <dt>Vlan1 is administratively down, line protocol is down</dt>
 <dd>Internet protocol processing disabled</dd>
 </dl>
+</dd>
+</dl>
 </div></blockquote>
 <p>show ip route
 .. code-block:: console</p>
 <blockquote>
-<div><p>RTA(config)#do show ip route
-Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP</p>
-<blockquote>
-<div>D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+<div><dl class="docutils">
+<dt>RTA(config)#do show ip route</dt>
+<dd><dl class="first docutils">
+<dt>Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP</dt>
+<dd>D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
 N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
 E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
 i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
 * - candidate default, U - per-user static route, o - ODR
-P - periodic downloaded static route</div></blockquote>
+P - periodic downloaded static route</dd>
+</dl>
 <p>Gateway of last resort is not set</p>
 <blockquote>
 <div>10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks</div></blockquote>
-<p>C       10.10.10.0/24 is directly connected, GigabitEthernet0/0
+<p class="last">C       10.10.10.0/24 is directly connected, GigabitEthernet0/0
 L       10.10.10.1/32 is directly connected, GigabitEthernet0/0
 C       10.10.20.0/24 is directly connected, GigabitEthernet0/1
 L       10.10.20.1/32 is directly connected, GigabitEthernet0/1</p>
+</dd>
+</dl>
 </div></blockquote>
 <p>show ip route connected
 .. code-block:: console</p>
