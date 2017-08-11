@@ -95,12 +95,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">VIM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#workflow">workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#using-relative-line-numbers">using relative line numbers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#replace-tabs-with-spaces">replace tabs with spaces</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#adding-whitespace-across-multiple-lines">adding whitespace across multiple lines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#indenting-across-multiple-lines">indenting across multiple lines</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#visualizing-syntax-highlighting">visualizing/syntax highlighting</a></li>
 </ul>
 </li>
 </ul>
@@ -108,6 +112,7 @@
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Command Examples</a></li>
 </ul>
 
             
@@ -188,6 +193,17 @@
 </div>
 <div class="section" id="replacing">
 <h3>replacing<a class="headerlink" href="#replacing" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="replace-tabs-with-spaces">
+<h4>replace tabs with spaces<a class="headerlink" href="#replace-tabs-with-spaces" title="Permalink to this headline">¶</a></h4>
+<p>select your block with ctrl+v
+now enter :retab</p>
+<p>should look like
+.. code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="s1">&#39;&lt;,&#39;</span><span class="o">&gt;</span><span class="n">retab</span>
+</pre></div>
+</div>
+<p>awesome feature</p>
+</div>
 </div>
 <div class="section" id="formatting">
 <h3>formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h3>
@@ -199,6 +215,13 @@
 <h4>indenting across multiple lines<a class="headerlink" href="#indenting-across-multiple-lines" title="Permalink to this headline">¶</a></h4>
 <p>ctrl+V selectblock &gt; or &lt; ESC</p>
 </div>
+</div>
+<div class="section" id="visualizing-syntax-highlighting">
+<h3>visualizing/syntax highlighting<a class="headerlink" href="#visualizing-syntax-highlighting" title="Permalink to this headline">¶</a></h3>
+<p>I like using special characters to show whitespace, is more clear. Even a map to toggle is a key feature, for a quick check.
+add this to ~/.vimrc</p>
+<p>install plugin on vim</p>
+<p>:PluginInstall</p>
 </div>
 </div>
 </div>

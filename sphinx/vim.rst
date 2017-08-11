@@ -53,6 +53,17 @@ for more help::
 
 replacing
 =========
+replace tabs with spaces
+------------------------
+select your block with ctrl+v
+now enter :retab
+
+should look like
+.. code::
+
+ :'<,'>retab
+
+awesome feature
 
 formatting
 ==========
@@ -66,4 +77,18 @@ indenting across multiple lines
 -------------------------------
 ctrl+V selectblock > or < ESC
 
+visualizing/syntax highlighting
+===============================
+
+
+I like using special characters to show whitespace, is more clear. Even a map to toggle is a key feature, for a quick check.
+add this to ~/.vimrc
+
+.. code::
+ Plugin 'albfan/cream-invisibles'
+ let g:creamInvisibleShortCut = "<F5>" "for my F4 goto next error
+
+install plugin on vim
+
+:PluginInstall
 
