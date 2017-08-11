@@ -398,4 +398,21 @@ When a router has the choice of a static route and an EIGRP route, the static ro
      Only the interface itself has an administrative distance of 0, since a route cannot have a distance of less than 1.
      Directly connected routes have an administrative distance of 0.
 
+When you use *route redistribution*, occasionally you need to modify the administrative distance of a protocol so that it takes precedence.
+For example, if you want the router to select RIP-learned routes (default value 120) rather than IGRP-learned routes (default value 100)
+to the same destination, you must increase the administrative distance for IGRP to 120+,
+or decrease the administrative distance of RIP to a value less than 100.
 
+You can modify the administrative distance of a protocol through the distance command in the routing process subconfiguration mode.
+This command specifies that the administrative distance is assigned to the routes learned from a particular routing protocol.
+You need to use this procedure generally when you migrate the network from one routing protocol to another,
+and the latter has a higher administrative distance. However, a change in the administrative distance can lead to routing loops and *black holes*.
+.. warning:: use caution if you change the administrative distance.
+
+.. code::
+
+    R1(config)#router eigrp 10
+    R1(config-router)#distance eigrp xx yy
+
+    where xx representes the new value of internal administrative distance and yy representes the new value of the external administrative distance.
+        
