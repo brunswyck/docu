@@ -43,6 +43,8 @@ search replace
  :.,+2s/foo/bar/g    Change each 'foo' to 'bar' for the current line (.) and the two next lines (+2).
  :g/^baz/s/foo/bar/g     Change each 'foo' to 'bar' in each line starting with 'baz'. 
 
+.. _a link: http://vim.wikia.com/wiki/Search_and_replace
+
 
 formatting
 ==========
