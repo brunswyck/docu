@@ -16,11 +16,14 @@ Add to your .vimrc file::
 
 file exploring
 ==============
-NERDTree file explorer `Link NERDTree <https://github.com/scrooloose/nerdtree>`_
-+ git plugin `Link GITPlugin <https://github.com/Xuyuanp/nerdtree-git-plugin>`_
+
+`NERDTree file explorer <https://github.com/scrooloose/nerdtree>`_
 Plugin 'scrooloose/nerdtree'
+
+`NERDTree git plugin <https://github.com/Xuyuanp/nerdtree-git-plugin>`_
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-NERD Commenter
+
+`NERD Commenter <https://github.com/scrooloose/nerdcommenter>`_
 for more info type :help nerdcommenter
 Plugin 'scrooloose/nerdcommenter'
 
