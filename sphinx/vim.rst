@@ -18,14 +18,14 @@ file exploring
 ==============
 
 `NERDTree file explorer <https://github.com/scrooloose/nerdtree>`_
-Plugin 'scrooloose/nerdtree'
+  Plugin 'scrooloose/nerdtree'
 
 `NERDTree git plugin <https://github.com/Xuyuanp/nerdtree-git-plugin>`_
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+  Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 `NERD Commenter <https://github.com/scrooloose/nerdcommenter>`_
-for more info type :help nerdcommenter
-Plugin 'scrooloose/nerdcommenter'
+  for more info type :help nerdcommenter
+  Plugin 'scrooloose/nerdcommenter'
 
 
 
@@ -67,7 +67,7 @@ search replace
  :.,+2s/foo/bar/g    Change each 'foo' to 'bar' for the current line (.) and the two next lines (+2).
  :g/^baz/s/foo/bar/g     Change each 'foo' to 'bar' in each line starting with 'baz'. 
 
- |vim_searchnreplace|
+|vim_searchnreplace|
 
 
 
@@ -85,7 +85,6 @@ ctrl+V selectblock > or < ESC
 
 syntax highlighting & checking
 ==============================
-
 
 Asynchronous Lint Engine
 ------------------------
