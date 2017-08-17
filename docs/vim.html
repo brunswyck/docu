@@ -97,6 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#using-relative-line-numbers">using relative line numbers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#replace-tabs-with-spaces">replace tabs with spaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-replace">search replace</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
@@ -104,7 +105,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#indenting-across-multiple-lines">indenting across multiple lines</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#visualizing-syntax-highlighting">visualizing/syntax highlighting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualizing-syntax-highlighting">visualizing/syntax highlighting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#show-special-characters-in-vim">show special characters in vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-plugin-on-vim">install plugin on vim</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -204,6 +209,17 @@ now enter :retab</p>
 </div>
 <p>awesome feature</p>
 </div>
+<div class="section" id="search-replace">
+<h4>search replace<a class="headerlink" href="#search-replace" title="Permalink to this headline">¶</a></h4>
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a>:s/foo/bar/g    Change each ‘foo’ to ‘bar’ in the current line.
+<a href="#id3"><span class="problematic" id="id4">*</span></a>:%s/foo/bar/g   Change each ‘foo’ to ‘bar’ in all the lines.
+<a href="#id5"><span class="problematic" id="id6">*</span></a>:5,12s/foo/bar/g    Change each ‘foo’ to ‘bar’ for all lines from line 5 to line 12 (inclusive).
+<a href="#id7"><span class="problematic" id="id8">*</span></a>:’a,’bs/foo/bar/g   Change each ‘foo’ to ‘bar’ for all lines from mark a to mark b inclusive (see Note below).
+<a href="#id9"><span class="problematic" id="id10">*</span></a>:’&lt;,’&gt;s/foo/bar/g   When compiled with +visual, change each ‘foo’ to ‘bar’ for all lines within a visual selection. Vim automatically appends the visual selection range (‘&lt;,’&gt;) for any ex command when you select an area and enter :. Also, see Note below.
+<a href="#id11"><span class="problematic" id="id12">*</span></a>:.,$s/foo/bar/g     Change each ‘foo’ to ‘bar’ for all lines from the current line (.) to the last line ($) inclusive.
+<a href="#id13"><span class="problematic" id="id14">*</span></a>:.,+2s/foo/bar/g    Change each ‘foo’ to ‘bar’ for the current line (.) and the two next lines (+2).
+<a href="#id15"><span class="problematic" id="id16">*</span></a>:g/^baz/s/foo/bar/g     Change each ‘foo’ to ‘bar’ in each line starting with ‘baz’.</p>
+</div>
 </div>
 <div class="section" id="formatting">
 <h3>formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h3>
@@ -218,10 +234,23 @@ now enter :retab</p>
 </div>
 <div class="section" id="visualizing-syntax-highlighting">
 <h3>visualizing/syntax highlighting<a class="headerlink" href="#visualizing-syntax-highlighting" title="Permalink to this headline">¶</a></h3>
-<p>I like using special characters to show whitespace, is more clear. Even a map to toggle is a key feature, for a quick check.
-add this to ~/.vimrc</p>
-<p>install plugin on vim</p>
+<div class="section" id="show-special-characters-in-vim">
+<h4>show special characters in vim<a class="headerlink" href="#show-special-characters-in-vim" title="Permalink to this headline">¶</a></h4>
+<p>:set list
+:set listchars=eol:¬,tab:&gt;-,trail:~,extends:&gt;,precedes:&lt;,space:␣</p>
+<p>for help
+:help listchars
+turn off
+:set nolist
+just show tabs n whitespace
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+:syntax on
+:set syntax=whitespace</p>
+</div>
+<div class="section" id="install-plugin-on-vim">
+<h4>install plugin on vim<a class="headerlink" href="#install-plugin-on-vim" title="Permalink to this headline">¶</a></h4>
 <p>:PluginInstall</p>
+</div>
 </div>
 </div>
 </div>
