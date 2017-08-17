@@ -83,15 +83,12 @@ indenting across multiple lines
 -------------------------------
 ctrl+V selectblock > or < ESC
 
-visualizing/syntax highlighting
-===============================
+syntax highlighting & checking
+==============================
 
-
-syntax linting
---------------
 
 Asynchronous Lint Engine
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim and Vim 8 while you edit your text files.
 
 Plugin 'w0rp/ale'
