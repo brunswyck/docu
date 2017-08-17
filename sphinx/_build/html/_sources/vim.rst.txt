@@ -14,6 +14,17 @@ Add to your .vimrc file::
 
     inoremap jj <ESC>
 
+file exploring
+==============
+NERDTree file explorer `Link text https://github.com/scrooloose/nerdtree`
++ git plugin `Link text https://github.com/Xuyuanp/nerdtree-git-plugin`
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+NERD Commenter
+for more info type :help nerdcommenter
+Plugin 'scrooloose/nerdcommenter'
+
+
 syntax checking
 ===============
 Asynchronous Lint Engine
