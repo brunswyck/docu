@@ -13,11 +13,40 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" NERDTree file explorer + git plugin
+" https://github.com/scrooloose/nerdtree
+" https://github.com/Xuyuanp/nerdtree-git-plugin
+Plugin 'scrooloose/nerdtree'
+" Crtl+ww cycle though all windows
+" Crtl+wh takes you left a window
+" Crtl+wj takes you down a window
+" Crtl+wk takes you up a window
+" Crtl+wl takes you right a window
+" t open new tab
+" T open new tab while staying in current tab
+" gt cycle though all tabs
+" gT cycle though all tabs (moves to the left)
+"  
+"  Give a shortcut key to NERD Tree
+map <F2> :NERDTreeToggle<CR>
+
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+" NERD Commenter
+" for more info type :help nerdcommenter
+
+Plugin 'scrooloose/nerdcommenter'
+
+" quick git commands in vim
+" https://github.com/tpope/vim-fugitive
+
+Plugin 'tpope/vim-fugitive'
 " syntax checker for vim 8 and up
 " Asynchronous Lint Engine
+
 Plugin 'w0rp/ale'
 " vim-monokai
 " https://github.com/crusoexia/vim-monokai
+
 Plugin 'crusoexia/vim-monokai'
 
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
@@ -50,4 +79,6 @@ set termguicolors
 " else set t_Co=256
 "
 " configure keyboard mappings here
+" type Ojj or ojj to quickly insert newline
 inoremap jj <ESC> 
+
