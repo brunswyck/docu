@@ -5,6 +5,15 @@ VIM
 ********
 workflow
 ********
+keyboard shortcuts
+==================
+exit from insert mode to normal mode
+------------------------------------
+
+Add to your .vimrc file::
+
+    inoremap jj <ESC>
+
 syntax checking
 ===============
 Asynchronous Lint Engine
