@@ -16,6 +16,10 @@ Plugin 'VundleVim/Vundle.vim'
 " NERDTree file explorer + git plugin
 " https://github.com/scrooloose/nerdtree
 " https://github.com/Xuyuanp/nerdtree-git-plugin
+
+" Molokai-dark color scheme for Vim
+Plugin 'pR0Ps/molokai-dark'
+
 Plugin 'scrooloose/nerdtree'
 " Crtl+ww cycle though all windows
 " Crtl+wh takes you left a window
@@ -71,7 +75,7 @@ set ts=4 sw=2
 set number " show current line number
 set relativenumber " show relative line numbers
 syntax on
-colorscheme monokai
+colorscheme molokai-dark
 " for terminal which supports truecolor
 set termguicolors
 " else set t_Co=256
@@ -79,4 +83,3 @@ set termguicolors
 " configure keyboard mappings here
 " type Ojj or ojj to quickly insert newline
 inoremap jj <ESC> 
-
