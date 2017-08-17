@@ -13,6 +13,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" syntax checker for vim 8 and up
+" Asynchronous Lint Engine
+Plugin 'w0rp/ale'
 " vim-monokai
 " https://github.com/crusoexia/vim-monokai
 Plugin 'crusoexia/vim-monokai'
