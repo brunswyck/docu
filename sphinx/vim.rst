@@ -120,4 +120,4 @@ install plugin on vim
 
 .. |vim_syntax_ale| raw:: html
 
-   <a href="https://github.com/w0rp/ale" target="_blank">click here for mor info</a>
+   <a href="https://github.com/w0rp/ale" target="_blank">click here for more info</a>
