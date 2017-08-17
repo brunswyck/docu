@@ -211,14 +211,14 @@ now enter :retab</p>
 </div>
 <div class="section" id="search-replace">
 <h4>search replace<a class="headerlink" href="#search-replace" title="Permalink to this headline">¶</a></h4>
-<p><a href="#id1"><span class="problematic" id="id2">*</span></a>:s/foo/bar/g    Change each ‘foo’ to ‘bar’ in the current line.
-<a href="#id3"><span class="problematic" id="id4">*</span></a>:%s/foo/bar/g   Change each ‘foo’ to ‘bar’ in all the lines.
-<a href="#id5"><span class="problematic" id="id6">*</span></a>:5,12s/foo/bar/g    Change each ‘foo’ to ‘bar’ for all lines from line 5 to line 12 (inclusive).
-<a href="#id7"><span class="problematic" id="id8">*</span></a>:’a,’bs/foo/bar/g   Change each ‘foo’ to ‘bar’ for all lines from mark a to mark b inclusive (see Note below).
-<a href="#id9"><span class="problematic" id="id10">*</span></a>:’&lt;,’&gt;s/foo/bar/g   When compiled with +visual, change each ‘foo’ to ‘bar’ for all lines within a visual selection. Vim automatically appends the visual selection range (‘&lt;,’&gt;) for any ex command when you select an area and enter :. Also, see Note below.
-<a href="#id11"><span class="problematic" id="id12">*</span></a>:.,$s/foo/bar/g     Change each ‘foo’ to ‘bar’ for all lines from the current line (.) to the last line ($) inclusive.
-<a href="#id13"><span class="problematic" id="id14">*</span></a>:.,+2s/foo/bar/g    Change each ‘foo’ to ‘bar’ for the current line (.) and the two next lines (+2).
-<a href="#id15"><span class="problematic" id="id16">*</span></a>:g/^baz/s/foo/bar/g     Change each ‘foo’ to ‘bar’ in each line starting with ‘baz’.</p>
+<p>:s/foo/bar/g    Change each ‘foo’ to ‘bar’ in the current line.
+:%s/foo/bar/g   Change each ‘foo’ to ‘bar’ in all the lines.
+:5,12s/foo/bar/g    Change each ‘foo’ to ‘bar’ for all lines from line 5 to line 12 (inclusive).
+:’a,’bs/foo/bar/g   Change each ‘foo’ to ‘bar’ for all lines from mark a to mark b inclusive (see Note below).
+:’&lt;,’&gt;s/foo/bar/g   When compiled with +visual, change each ‘foo’ to ‘bar’ for all lines within a visual selection. Vim automatically appends the visual selection range (‘&lt;,’&gt;) for any ex command when you select an area and enter :. Also, see Note below.
+:.,$s/foo/bar/g     Change each ‘foo’ to ‘bar’ for all lines from the current line (.) to the last line ($) inclusive.
+:.,+2s/foo/bar/g    Change each ‘foo’ to ‘bar’ for the current line (.) and the two next lines (+2).
+:g/^baz/s/foo/bar/g     Change each ‘foo’ to ‘bar’ in each line starting with ‘baz’.</p>
 </div>
 </div>
 <div class="section" id="formatting">
