@@ -5,6 +5,15 @@ VIM
 ********
 workflow
 ********
+syntax checking
+===============
+Asynchronous Lint Engine
+------------------------
+ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim and Vim 8 while you edit your text files.
+
+Plugin 'w0rp/ale'
+
+|vim_syntax_ale|
 
 using relative line numbers
 ===========================
@@ -33,8 +42,6 @@ awesome feature
 search replace
 --------------
 
- |vim_searchnreplace|
-
 .. code::
 
  :s/foo/bar/g    Change each 'foo' to 'bar' in the current line.
@@ -45,6 +52,9 @@ search replace
  :.,$s/foo/bar/g     Change each 'foo' to 'bar' for all lines from the current line (.) to the last line ($) inclusive.
  :.,+2s/foo/bar/g    Change each 'foo' to 'bar' for the current line (.) and the two next lines (+2).
  :g/^baz/s/foo/bar/g     Change each 'foo' to 'bar' in each line starting with 'baz'. 
+
+ |vim_searchnreplace|
+
 
 
 formatting
@@ -84,3 +94,7 @@ install plugin on vim
 .. |vim_searchnreplace| raw:: html
 
    <a href="http://vim.wikia.com/wiki/Search_and_replace" target="_blank">more examples here</a>
+
+.. |vim_syntax_ale| raw:: html
+
+   <a href="https://github.com/w0rp/ale" target="_blank">click here for mor info</a>
