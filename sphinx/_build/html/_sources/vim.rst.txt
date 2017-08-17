@@ -113,6 +113,11 @@ install plugin on vim
 ---------------------
 :PluginInstall
 
+to install all of them
+
+:BundleInstall
+
+.. Place Source links below 
 
 .. |vim_searchnreplace| raw:: html
 
