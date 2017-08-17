@@ -16,8 +16,8 @@ Add to your .vimrc file::
 
 file exploring
 ==============
-NERDTree file explorer `Link text https://github.com/scrooloose/nerdtree`
-+ git plugin `Link text https://github.com/Xuyuanp/nerdtree-git-plugin`
+NERDTree file explorer `Link NERDTree <https://github.com/scrooloose/nerdtree>`_
++ git plugin `Link GITPlugin <https://github.com/Xuyuanp/nerdtree-git-plugin>`_
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 NERD Commenter
