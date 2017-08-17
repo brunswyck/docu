@@ -32,6 +32,9 @@ awesome feature
 
 search replace
 --------------
+
+ |vim_searchnreplace|
+
 .. code::
 
  :s/foo/bar/g    Change each 'foo' to 'bar' in the current line.
@@ -42,8 +45,6 @@ search replace
  :.,$s/foo/bar/g     Change each 'foo' to 'bar' for all lines from the current line (.) to the last line ($) inclusive.
  :.,+2s/foo/bar/g    Change each 'foo' to 'bar' for the current line (.) and the two next lines (+2).
  :g/^baz/s/foo/bar/g     Change each 'foo' to 'bar' in each line starting with 'baz'. 
-
-.. _a link: http://vim.wikia.com/wiki/Search_and_replace
 
 
 formatting
@@ -79,3 +80,7 @@ install plugin on vim
 ---------------------
 :PluginInstall
 
+
+.. |vim_searchnreplace| raw:: html
+
+   <a href="http://vim.wikia.com/wiki/Search_and_replace" target="_blank">more examples here</a>
