@@ -47,4 +47,7 @@ syntax on
 colorscheme monokai
 " for terminal which supports truecolor
 set termguicolors
-" else set t_Co=256 
+" else set t_Co=256
+"
+" configure keyboard mappings here
+inoremap jj <ESC> 
