@@ -28,15 +28,6 @@ for more info type :help nerdcommenter
 Plugin 'scrooloose/nerdcommenter'
 
 
-syntax checking
-===============
-Asynchronous Lint Engine
-------------------------
-ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim and Vim 8 while you edit your text files.
-
-Plugin 'w0rp/ale'
-
-|vim_syntax_ale|
 
 using relative line numbers
 ===========================
@@ -94,6 +85,18 @@ ctrl+V selectblock > or < ESC
 
 visualizing/syntax highlighting
 ===============================
+
+
+syntax linting
+--------------
+
+Asynchronous Lint Engine
+^^^^^^^^^^^^^^^^^^^^^^^^
+ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim and Vim 8 while you edit your text files.
+
+Plugin 'w0rp/ale'
+
+|vim_syntax_ale|
 
 show special characters in vim
 ------------------------------
