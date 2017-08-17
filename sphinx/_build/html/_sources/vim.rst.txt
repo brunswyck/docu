@@ -81,6 +81,7 @@ for help
 :help listchars
 turn off
 :set nolist
+
 just show tabs n whitespace
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 :syntax on
