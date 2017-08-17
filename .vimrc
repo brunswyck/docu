@@ -46,10 +46,6 @@ Plugin 'tpope/vim-fugitive'
 " Asynchronous Lint Engine
 
 Plugin 'w0rp/ale'
-" vim-monokai
-" https://github.com/crusoexia/vim-monokai
-
-Plugin 'crusoexia/vim-monokai'
 
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Plugin 'godlygeek/tabular'
