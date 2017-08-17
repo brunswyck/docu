@@ -1,3 +1,4 @@
+alias sudo='sudo -E'
 alias ll='ls -hal --color=auto'
 alias pt7='. /opt/pt/packettracer &'
 alias upping="sudo apt-get update;sudo apt-get upgrade -y;sudo apt-get autoclean;sudo apt-get autoremove"

@@ -17,7 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 " https://github.com/scrooloose/nerdtree
 " https://github.com/Xuyuanp/nerdtree-git-plugin
 
-" Molokai-dark color scheme for Vim
+" Molokai-dark color scheme for Vim https://github.com/pR0Ps/molokai-dark
 Plugin 'pR0Ps/molokai-dark'
 
 Plugin 'scrooloose/nerdtree'
@@ -36,6 +36,8 @@ map <F2> :NERDTreeToggle<CR>
 " autopen NERDTree and focus cursor in new document
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+" for now I'm just toggling hidden files by pressing uppercase i
+" let NERDTreeShowHidden=1
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " NERD Commenter
 " for more info type :help nerdcommenter
@@ -46,9 +48,9 @@ Plugin 'scrooloose/nerdcommenter'
 " https://github.com/tpope/vim-fugitive
 
 Plugin 'tpope/vim-fugitive'
+
 " syntax checker for vim 8 and up
 " Asynchronous Lint Engine
-
 Plugin 'w0rp/ale'
 
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
