@@ -29,7 +29,9 @@ Plugin 'scrooloose/nerdtree'
 "  
 "  Give a shortcut key to NERD Tree
 map <F2> :NERDTreeToggle<CR>
-
+" autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " NERD Commenter
 " for more info type :help nerdcommenter
