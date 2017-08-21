@@ -874,4 +874,146 @@ Routing protocols allow routers to dynamically share information about remote ne
 
 Routing protocols determine the best path, or route, to each network. That route is then offered to the routing table. The route will be installed in the routing table is there is not another routing source with a lower administrative distance. For example, a static route with an administrative distance of 1 will have precedence over the same network learned by a dynamic routing protocol. A primary benefit of dynamic routing protocols is that routers exchange routing information when there is a topology change. This exchange allows routers to automatically learn about new networks and also to find alternate paths when there is a link failure to a current network. 
 
+Static Routing Uses
+-------------------
+
+Static routing has several primary uses, including:
+
+   * Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.
+   * Routing to and from a stub network, which is a network with only one default route out and no knowledge of any remote networks.
+   * Accessing a single default route (which is used to represent a path to any network that does not have a more specific match with another route in the routing table).
+
+Pros static
+^^^^^^^^^^^
+    * Predictability: route to destination is always the same. 
+
+    * Network bandwidth overhead / no extra cpu,ram resources needed: Static routing has zero overhead, whereas all dynamic routing protocols have some degree of overhead. For example, on a network with 200 segments, the router will send updates from each interface every 30 seconds, and those updates are about 3KB of data. Over the course of a day, this traffic adds up.
+
+    * Easy to configure: This issue is relative, depending on the size of your network. Although small networks are easy to configure, as a network grows, applying changes to all the routers can become a big task.
+
+    * Very secure, No advertisements are sent.
+
+Cons static
+^^^^^^^^^^^
+   * Lack of scalability: For the 200 segment network mentioned previously, which possibly contains 200 routers, you could be dealing with thousands of routing table entries. Manually calculating all those routes and keeping them up-to-date would be a Herculean task and very prone to error. Even if you implement a good network-addressing design that allows for route summarization, you are still left with an overwhelming number of routes to manage.
+
+   * Large network implementation: When working with a network of 200 routers, the task of updating one route can become a complex task, especially if you update the routes in the wrong order. In that case, you could lose access to a large section of the network until someone visits that router with a rollover cable or connects from another area of the network.
+
+   * No redundancy: Dynamic routing protocols can update routing tables in the event of device or interface failure, so if there are multiple possible paths, these protocols will continue to allow data flow. Static routes do not allow for this automatic failover or redundant paths, so if you have a failure, you must manually adjust routes to move data through an alternative path.
+
+Dynamic routing is the best choice for large networks like the one shown.
+
+Dynamic Routing Uses
+--------------------
+
+Pros Dynamic
+^^^^^^^^^^^^
+
+ * Suitable in all topologies where multiple routers are required
+ * Generally independent of the network size
+ * Automatically addapts topology to reroute traffic if possible
+
+Cons Dynamic
+^^^^^^^^^^^^
+
+ * Can be more complex to implement
+ * Less secure. Additional config settings are required to secure.
+ * Route depends on the current topology.
+ * Requires additional CPU, RAM, and link bandwidth.
+
+RIPv2
+-----
+enable/disable
+--------------
+
+.. code::
+
+	R1# conf t
+	R1(config)# router rip
+    R1(config-router)# version 2
+
+verify rip routing
+^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+	R1# show ip protocols
+	R1# show ip protocols | section Default
+	R1# show ip route | begin Gateway
+
+disable auto summarization
+--------------------------
+
+.. code::
+
+	R1(config)# router rip
+	R1(config-router)# no auto-summary
+	R1(config-router)# end
+    R1# show ip protocols | section Automatic 
+
+configure passive interfaces
+----------------------------
+
+
+By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.
+
+.. image:: _static/configure_passive_ifs_on_R1.png
+
+For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:
+
+	* Wasted Bandwidth - Bandwidth is used to transport unnecessary updates. Because RIP updates are either broadcasted or multicasted, switches also forward the updates out all ports.
+
+    * Wasted Resources - All devices on the LAN must process the update up to the transport layers, at which point the devices will discard the update.
+
+    * Security Risk - Advertising updates on a broadcast network is a security risk. RIP updates can be intercepted with packet sniffing software. Routing updates can be modified and sent back to the router, corrupting the routing table with false metrics that misdirect traffic.
+
+Use the **passive-interface** router configuration command to prevent the transmission of routing updates through a router interface, *but still allow that network to be advertised to other routers*. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.
+
+.. image:: _static/configure_passive_ifs_on_R1_2.png
+
+There is no need for R1, R2, and R3 to forward RIP updates out of their LAN interfaces. The configuration in Figure 2 identifies the R1 G0/0 interface as passive. *The show ip protocols command is then used to verify that the Gigabit Ethernet interface was passive.*
+.. note:: Notice that the G0/0 interface is no longer listed as sending or receiving version 2 updates, but instead is now listed under the Passive Interface(s) section. Also notice that the network 192.168.1.0 is still listed under Routing for Networks, which means that this network is still included as a route entry in RIP updates that are sent to R2.
+
+.. note:: All routing protocols support the passive-interface command.
+
+configure the LAN interface as a passive interface on R2 and R3.
+
+.. code::
+
+	R2(config)# router rip
+	R2(config-router)# passive-interface g0/0
+	R2(config-router)# end
+   	
+	Verify the RIP protocol settings on R2
+	R2# show ip protocols
+
+	R3(config)# router rip
+	R3(config-router)# passive-interface default
+	R3(config-router)# no passive-interface s0/0/1
+	R3(config-router)# end
+
+	Verify the RIP protocol settings on R3
+	R3# show ip protocols
+
+As an alternative, all interfaces can be made passive using the passive-interface default command. Interfaces that should not be passive can be re-enabled using the no passive-interface command.
+
+propagate a default route
+-------------------------
+
+.. image:: _static/propagate_default_route.png
+
+To propagate a default route in RIP, the edge router must be configured with:
+
+   * A default static route using the ip route 0.0.0.0 0.0.0.0 command.
+
+    * The **default-information originate** router configuration command. This instructs R1 to originate default information, by propagating the static default route in RIP updates.
+
+.. code::
+
+	R1(config)# ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226
+	R1(config)# router rip
+	R1(config-router)# default-information originate
+	R1(config-router)# end 
+
+Example above configures a fully-specified default static route to the service provider and then the route is propagated by RIP. Notice that R1 now has a Gateway of Last Resort and default route installed in its routing table.
 
