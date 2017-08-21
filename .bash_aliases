@@ -9,3 +9,4 @@ alias bustwickrclient="kill -n 9 \$(ps -C wickr-me | awk 'BEGIN {RS=\"\\n\"; FS=
 alias ssh-add-github="eval \$(ssh-agent -s);ssh-add ~/.ssh/github_id_rsa"
 alias goto-sphinx="cd ~/github/docu/sphinx/"
 alias envdocu="source ~/github/docu/env/bin/activate"
+alias cddocu="cd $HOME/github/docu/"
