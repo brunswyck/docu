@@ -580,6 +580,12 @@ Static routing has three primary uses:
    # Routing to and from stub networks. A STUB NETWORK is a network accessed by a single route, and the router has ONLY ONE NEIGHBOR.
    # Using a single default route to represent a path to any network that does not have a more specific match with another route in the routing table.
 
+   benefits:
+
+   * Are not advertised over the network, resulting in better security
+   * Use less bandwidth than dynamic routing protocols
+   * Use known paths to send data
+
 .. note:: Default routes are used to send traffic to any destination beyond the next upstream router.
 
 Use static routes to...
@@ -832,5 +838,40 @@ Solve a connectivity problem
  #. traceroute 192.168.2.1
  #. show ip route | begin Gateway
  #. show running-config | section ip route
+
+
+Chapter 3 Dynamic Routing 
+=========================
+
+Router metrics are metrics used by a router to make routing decisions. A metric is typically one of many fields in a routing table.
+
+Metrics are used to determine whether one route should be chosen over another. The routing table stores possible routes, while link-state or topological databases may store all other information as well. For example, Routing Information Protocol uses hopcount (number of hops) to determine the best possible route. The route will go in the direction of the gateway with the lowest metric. The direction with the lowest metric can be a default gateway.
+
+Router metrics can contain any number of values that help the router determine the best route among multiple routes to a destination. A router metric typically based on information like **path length, bandwidth, load, hop count, path cost, delay, maximum transmission unit (MTU), reliability and communications cost**.
+
+Dynamic Routing Protocols Components
+------------------------------------
+
+Routing protocols are used to facilitate the exchange of routing information between routers. A routing protocol is a set of processes, algorithms, and messages that are used to exchange routing information and populate the routing table with the routing protocol's choice of best paths. The purpose of dynamic routing protocols includes:
+
+   * Discovery of remote networks
+
+   * Maintaining up-to-date routing information
+
+   * Choosing the best path to destination networks
+
+   * Ability to find a new best path if the current path is no longer available
+
+The main components of dynamic routing protocols include:
+
+   * Data structures - Routing protocols typically use tables or databases for its operations. This information is kept in RAM.
+
+   * Routing protocol messages - Routing protocols use various types of messages to discover neighboring routers, exchange routing information, and other tasks to learn and maintain accurate information about the network.
+
+   * Algorithm - An algorithm is a finite list of steps used to accomplish a task. Routing protocols use algorithms for facilitating routing information and for best path determination.
+
+Routing protocols allow routers to dynamically share information about remote networks and automatically offer this information to their own routing tables. 
+
+Routing protocols determine the best path, or route, to each network. That route is then offered to the routing table. The route will be installed in the routing table is there is not another routing source with a lower administrative distance. For example, a static route with an administrative distance of 1 will have precedence over the same network learned by a dynamic routing protocol. A primary benefit of dynamic routing protocols is that routers exchange routing information when there is a topology change. This exchange allows routers to automatically learn about new networks and also to find alternate paths when there is a link failure to a current network. 
 
 
