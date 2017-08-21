@@ -1,0 +1,138 @@
+R1#show running-config 
+Building configuration...
+
+Current configuration : 1993 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+security passwords min-length 10
+!
+hostname R1
+!
+login block-for 180 attempts 4 within 120
+!
+enable secret 5 $1$mERr$Amm/da5NtiazLuZDbgqZ60
+!
+no ip cef
+ipv6 unicast-routing
+no ipv6 cef
+!
+!
+!
+username Admin1 privilege 15 secret 5 $1$mERr$Ty/EkWXcSXEwIckISrps8/
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name CCNA-lab.com
+!
+spanning-tree mode pvst
+!
+interface GigabitEthernet0/0
+ ip address 192.168.0.1 255.255.255.128
+ duplex auto
+ speed auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD::1/64
+!
+interface GigabitEthernet0/1
+ ip address 192.168.0.129 255.255.255.192
+ duplex auto
+ speed auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:1::1/64
+!
+interface GigabitEthernet0/2
+ ip address 192.168.0.193 255.255.255.224
+ duplex auto
+ speed auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:2::1/64
+!
+interface Serial0/0/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/0/1
+ ip address 172.16.1.2 255.255.255.252
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:2::1/64
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 172.16.1.1 
+ip flow-export version 9
+!
+ipv6 route ::/0 2001:DB8:2::2
+!
+ip access-list extended sl_def_acl
+ deny tcp any any eq telnet
+ deny tcp any any eq www
+ deny tcp any any eq 22
+ permit tcp any any eq 22
+!
+banner motd ^CWARNING do not be naughty WARNING ^C
+!
+line con 0
+ session-limit 2
+ transport output none
+ exec-timeout 5 0
+ password 7 0802455D0A1606181C1B0D517F
+ login
+!
+line aux 0
+!
+line vty 0 15
+ exec-timeout 5 0
+ password 7 0802455D0A1606181C1B0D517F
+ login
+ transport input ssh
+!
+!
+end
+
+
+S1#show run
+Building configuration...
+
+Current configuration : 1219 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname S1
+!
+enable secret 5 $1$mERr$Amm/da5NtiazLuZDbgqZ60
+!
+no ip domain-lookup
+!
+spanning-tree mode pvst
+!
+interface FastEthernet0/1
+interface GigabitEthernet0/1
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.0.2 255.255.255.128
+!
+ip default-gateway 192.168.0.1
+!
+line con 0
+ password 7 0802455D0A1606181C1B0D517F
+ login
+ exec-timeout 5 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+end

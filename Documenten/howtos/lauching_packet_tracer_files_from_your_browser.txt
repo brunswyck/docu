@@ -1,0 +1,74 @@
+check if your java is working correctly here by clicking the verify java version button
+https://www.java.com/en/download/installed.jsp
+make sure you allow the java plugin in my case IcedTea-Web
+You should get a message similar to this
+
+Verified Java Version
+Completion checkmark
+Congratulations!
+
+You have the recommended Java installed (Version 8 Update 131).
+
+
+I added to the /etc/profile the following lines
+
+guru@vdab10:~$ sudo tail -n 5 /etc/profile
+export PATH="$PATH:/opt/pt/bin"
+PT7HOME="/opt/pt"
+export PT7HOME
+PTHOME="/opt/pt"
+export PTHOME
+
+
+These variables didn't seem to load when logging off but that is because you are only logging out of your graphical session
+Graphical logins do not read a shell's startup files (/etc/profile and ~/.profile and so on) by default,
+but you as a user may choose to create a ~/.xsessionrc file which does this.
+
+put this in your ~/.bashrc file
+if [ -f ~/.xsessionrc ]; then
+     . ~/.xsessionrc
+fi
+
+and this in the ~/.xsessionrc file
+export PATH="$PATH:/opt/pt/bin"
+PT7HOME="/opt/pt"
+export PT7HOME
+PTHOME="/opt/pt"
+export PTHOME
+
+
+One way to fix this is by going to the preferences of your terminal
+on your graphical terminal select edit>preferences> Command> "Run command as login shell"
+You might be more successful by adding it to your ~/.bashrc file but I was just to stubborn to abandon my /etc/profile approach :-p
+
+now when you launch your terminal again you should see these variables to make sure cisco finds what it needs to launch packet tracer 7
+guru@vdab10:~$ env | grep pt
+PT7HOME=/opt/pt
+PTHOME=/opt/pt
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/opt/pt/bin
+
+
+
+go to https://assessment.netacad.net/check/check.html and download the Cisco Packet Tracer Assessment Environment Checker
+
+run javaws + filenameyoudownloaded.jnlp
+javaws PT-Assessment-Client.jnlp 
+
+when successful you should see something like
+vailable Ports -- 100%
+
+Browser Name -- Firefox
+
+Large File Download Capability -- Yes
+
+JRE Version -- 1.8.0_131
+
+Operating System Name -- Linux
+
+Packet Tracer Deployment Directory -- /opt/pt
+
+Packet Tracer IPC Ports Available -- Yes
+
+Packet Tracer Version -- 7.0.0.0306
+
+goodluck!

@@ -1,0 +1,872 @@
+CSCO
+The multicast MAC address associated with an IPv4 multicast address is a special value that begins with
+01-00-5E in hexadecimal
+The remaining portion of the multicast MAC address is created by converting the lower 23 bits of the IP multicast group address into 6 hexadecimal characters. For an IPv6 address, the multicast MAC address begins with 33-33.
+
+An example, as shown in the animation, is the multicast hexadecimal address 01-00-5E-00-00-C8.
+The last byte, or eight bits, of the IPv4 address 224.0.0.200, is the decimal value 200.
+The easiest way to see the hexadecimal equivalent is to first convert it to binary with a space between each four bits,
+200 (decimal) = 1100 1000 (binary).
+Using the binary to hexadecimal conversion chart shown earlier, 1100 1000 (binary) = 0xC8.
+
+The MAC address table already contains PC-A’s MAC address, so the five-minute refresh timer for that entry is reset. 
+
+In privileged EXEC mode
+
+S2#show mac-address-table
+S2#clear mac-address-table dynamic
+
+SWITCH PACKET FORWARDING METHODS
+--------------------------------
+In store-and-forward switching, when the switch receives the frame, it stores the data in buffers until the complete
+frame has been received. During the storage process,
+the switch analyzes the frame for information about its destination. In this process,
+the switch also performs an error check using the Cyclic Redundancy Check (CRC) trailer portion of the Ethernet frame.
+Store-and-forward switching is required for Quality of Service (QoS) analysis on converged networks
+where frame classification for traffic prioritization is necessary
+
+A cut-through switch forwards the frame b4 it is entirely received. At a min the destination address of the frame
+must be read b4 the frame can be forwarded
+
+2 VARIANTS ->
+Fast forward switching
+offers the lowest level of latency.
+Fast-forward switching immediately forwards a packet after reading the destination address.
+Because fast-forward switching starts forwarding before the entire packet has been received,
+there may be times when packets are relayed with errors. This occurs infrequently,
+and the destination network adapter discards the faulty packet upon receipt.
+In fast-forward mode, latency is measured from the first bit received to the first bit transmitted.
+Fast-forward switching is the typical cut-through method of switching.
+
+Fragment-free switching
+the switch stores the first 64 bytes of the frame before forwarding.
+can be viewed as a compromise between store-and-forward switching and fast-forward switching.
+The reason fragment-free switching stores only the first 64 bytes of the frame is
+that most network errors and collisions occur during the first 64 bytes.
+
+Some switches are configured to perform cut-through switching on a per-port basis
+until a user-defined error threshold is reached, and then they automatically change to store-and-forward.
+When the error rate falls below the threshold,
+the port automatically changes back to cut-through switching.
+
+In port-based memory buffering, frames are stored in queues that are linked to specific incoming and outgoing ports.
+A frame is transmitted to the outgoing port only when all the frames ahead of it in the queue have been
+successfully transmitted. It is possible for a single frame to delay the transmission of all the frames in memory
+because of a busy destination port.
+This delay occurs even if the other frames could be transmitted to open destination ports.
+
+Shared memory buffering deposits all frames into a common memory buffer that all the ports on the switch share.
+The amount of buffer memory required by a port is dynamically allocated.
+The frames in the buffer are linked dynamically to the destination port.
+This allows the packet to be received on one port and then transmitted on another port,
+without moving it to a different queue.
+
+he switch keeps a map of frame to port links showing where a packet needs to be transmitted.
+The map link is cleared after the frame has been successfully transmitted.
+The number of frames stored in the buffer is restricted by the size of the entire memory buffer
+and not limited to a single port buffer. This permits larger frames to be transmitted with fewer dropped frames.
+This is especially important to asymmetric switching. Asymmetric switching allows for different data rates on different ports.
+This allows more bandwidth to be dedicated to certain ports, such as a port connected to a server.
+
+ARP messages have a type field of 0x806.
+This informs the receiving NIC that the data portion of the frame needs to be passed to the ARP process.
+IPv6 uses a similar process to ARP for IPv4, known as ICMPv6 neighbor discovery.
+IPv6 uses neighbor solicitation and neighbor advertisement messages, similar to IPv4 ARP requests and ARP replies.
+
+router#show ip arp
+
+Logical link control is implemented in software.
+
+Significant fields in the IPv4 header include:
+
+    Version - Contains a 4-bit binary value set to 0100 that identifies this as an IP version 4 packet.
+
+    Differentiated Services or DiffServ (DS) - Formerly called the Type of Service (ToS) field,
+    the DS field is an 8-bit field used to determine the priority of each packet.
+    The six most significant bits of the DiffServ field is the Differentiated Services Code Point (DSCP)
+    and the last two bits are the Explicit Congestion Notification (ECN) bits.
+
+    Time-to-Live (TTL) - Contains an 8-bit binary value that is used to limit the lifetime of a packet.
+    The packet sender sets the initial TTL value, and it is decreased by one each time the packet is processed by a router.
+    If the TTL field decrements to zero, the router discards the packet and sends an Internet Control Message Protocol (ICMP)
+    Time Exceeded message to the source IP address.
+
+    Protocol - Field is used to identify the NEXT LEVEL protocol.
+    This 8-bit binary value indicates the data payload type that the packet is carrying, which enables the network layer
+    to pass the data to the appropriate upper-layer protocol. Common values include ICMP (1), TCP (6), and UDP (17).
+
+    Source IPv4 Address - Contains a 32-bit binary value that represents the source IPv4 address of the packet.
+    The source IPv4 address is always a unicast address.
+
+    Destination IPv4 Address - Contains a 32-bit binary value that represents the destination IPv4 address of the packet.
+    The destination IPv4 address is a unicast, multicast, or broadcast address.
+    
+Lack of end-to-end connectivity
+Internet routing table expansion
+
+
+Improvements that IPv6 provides include:
+
+    Increased address space - IPv6 addresses are based on 128-bit hierarchical addressing as opposed to IPv4 with 32 bits.
+
+    Improved packet handling - The IPv6 header has been simplified with fewer fields.
+
+    Eliminates the need for NAT - With such a large number of public IPv6 addresses,
+    NAT between a private IPv4 address and a public IPv4 is not needed.
+    This avoids some of the NAT-induced application problems experienced by applications requiring end-to-end connectivity.
+
+	b1					b2			b3			 b4
+|----------------|-----------|--------------|-----------|
+Version--|Traffic Class|--------Flow Label--------------|
+---------Payload Length -----| Next Header -| Hop Limit-|
+				Source IP Address
+				Dest IP address
+				
+http://ipv6.com/articles/general/IPv6-Header.htm
+
+Version = 0110 4bit = ipv6
+-------
+The 4-bit version field contains the number 6. It indicates the version of the IPv6 protocol.
+This field is the same size as the IPv4 version field that contains the number 4.
+However, this field has a limited use because IPv4 and IPv6 packets are not distinguished based on the value in the version field
+but by the protocol type present in the layer 2 envelope. 
+
+Traffic Class (Packet Priority)= 0101 0101 8bit= Differentiated Services in ipv4
+------------------------------
+The 8-bit Priority field in the IPv6 header can assume different values to enable the source node
+to differentiate between the packets generated by it by associating different delivery priorities to them.
+This field is subsequently used by the originating node and the routers to identify the data packets
+that belong to the same traffic class and distinguish between packets with different priorities. 
+sysctl -a | grep ipv6
+Flow Label (QoS mgmt) = 0000 0000 0000 0000 0000 20bit = suggests all packets w same flow label receive
+----------------------
+the same type of handling by routers
+The 20-bit flow label field in the IPv6 header can be used by a source to label a set of packets belonging to the same flow.
+A flow is uniquely identified by the combination of the source address and of a non-zero Flow label.
+Multiple active flows may exist from a source to a destination as well as traffic that are not associated with any flow
+(Flow label = 0).
+The IPv6 routers must handle the packets belonging to the same flow in a similar fashion.
+The information on handling of IPv6 data packets belonging to a given flow may be specified within the data packets
+themselves or it may be conveyed by a control protocol such as the RSVP (Resource reSerVation Protocol).
+When routers receive the first packet of a new flow, they can process the information carried by the IPv6 header, Routing header,
+and Hop-by-Hop extension headers, and store the result (e.g. determining the retransmission of specific IPv6 data packets)
+in a cache memory and use the result to route all other packets
+belonging to the same flow (having the same source address and the same Flow Label),
+by using the data stored in the cache memory. 
+
+
+Payload Length = 0000 0000 0000 0000 16bit = length of the data portion or payload of ipv6 packet
+--------------
+The 16-bit payload length field contains the length of the data field in octets/bits following the IPv6 packet header.
+The 16-bit Payload length field puts an upper limit on the maximum packet payload to 64 kilobytes.
+In case a higher packet payload is required, a Jumbo payload extension header is provided in the IPv6 protocol.
+A Jumbo payload (Jumbogram) is indicated by the value zero in the Payload Length field.
+Jumbograms are frequently used in supercomputer communication using the IPv6 protocol to transmit heavy data payload.
+
+Next Header = 8bits
+-------------------
+The 8-bit Next Header field identifies the type of header immediately following the IPv6 header and located
+at the beginning of the data field (payload) of the IPv6 packet.
+This field usually specifies the transport layer protocol used by a packet's payload.
+The two most common kinds of Next Headers are TCP (6) and UDP (17), but many other headers are also possible.
+The format adopted for this field is the one proposed for IPv4 by RFC 1700. In case of IPv6 protocol,
+the Next Header field is similar to the IPv4 Protocol field. 
+
+Hop Limit = 0000 0000 8bit replacement for TTL if 0 = discarded && ICMPv6 Time Exceeded message forwarded to the sending
+host dest not reached as hop limit was exceeded
+
+----------
+The 8-bit Hop Limit field is decremented by one, by each node (typically a router) that forwards a packet.
+If the Hop Limit field is decremented to zero, the packet is discarded.
+The main function of this field is to identify and to discard packets that are stuck in an indefinite loop due to
+any routing information errors. The 8-bit field also puts an upper limit on the maximum number of links between two IPv6 nodes.
+In this way, an IPv6 data packet is allowed a maximum of 255 hops before it is eventually discarded.
+An IPv6 data packet can pas through a maximum of 254 routers before being discarded.
+
+In case of IPv6 protocol, the fields for handling fragmentation do not form a part of the basic header.
+They are put into a separate extension header.
+Moreover, fragmentation is exclusively handled by the sending host.
+Routers are not employed in the Fragmentation process.
+
+For further details, please see RFC 2460 - Internet Protocol, Version 6 (IPv6) Specification.
+----------
+
+source = 128bit
+dest = 128
+
+width = 40 bytes span = 4byte
+
+[may also contain Extension Headers for optional NWlayer information]
+Are placed between ipv6 header and the payload
+are used for fragmentation, security, to support mobility & more
+Unlike IPv4 ROUTERS DO NOT FRAGMENT ROUTED IPv6 packets!!
+
+40bits *8bits = 320bits 
+
+Simplified header format for efficient packet handling
+Larger payload for increased throughput and transport efficiency
+Hierarchical network architecture for routing efficiency
+Autoconfiguration for addresses
+Elimination of need for network address translation (NAT) between private and public addresses
+
+
+===============
+multicasting
+-------------
+
+IPv4 has reserved the 224.0.0.0 to 239.255.255.255 addresses as a multicast range.
+The IPv4 multicast addresses 224.0.0.0 to 224.0.0.255 are reserved for multicasting on the local network only
+
+A typical use of reserved local network multicast address is in routing protocols using multicast transmission
+to exchange routing information. For instance, 224.0.0.9 is the multicast address used by Routing Information Protocol
+(RIP) version 2 to communicate with other RIPv2 routers.
+
+Hosts that receive particular multicast data are called multicast clients. The multicast clients use services
+requested by a client program to subscribe to the multicast group.
+
+Each multicast group is represented by a single IPv4 multicast destination address.
+When an IPv4 host subscribes to a multicast group, the host processes packets addressed to this multicast address,
+and packets addressed to its uniquely allocated unicast address. 
+
+https://www.iana.org/assignments/multicast-addresses/multicast-addresses.xhtml
+
+private ip address allocation
+-----------------------------
+https://tools.ietf.org/html/rfc1918
+
+
+https://tools.ietf.org/html/rfc3330
+
+Summary Table
+
+   Address Block             Present Use                       Reference
+   ---------------------------------------------------------------------
+   0.0.0.0/8            "This" Network                 [RFC1700, page 4]
+   10.0.0.0/8           Private-Use Networks                   [RFC1918]
+   14.0.0.0/8           Public-Data Networks         [RFC1700, page 181]
+   24.0.0.0/8           Cable Television Networks                    --
+   39.0.0.0/8           Reserved but subject
+                           to allocation                       [RFC1797]
+   127.0.0.0/8          Loopback                       [RFC1700, page 5]
+   128.0.0.0/16         Reserved but subject
+                           to allocation                             --
+   169.254.0.0/16       Link Local                                   --
+   172.16.0.0/12        Private-Use Networks                   [RFC1918]
+   191.255.0.0/16       Reserved but subject
+                           to allocation                             --
+   192.0.0.0/24         Reserved but subject
+                           to allocation                             --
+   192.0.2.0/24         Test-Net
+   192.88.99.0/24       6to4 Relay Anycast                     [RFC3068]
+   192.168.0.0/16       Private-Use Networks                   [RFC1918]
+   198.18.0.0/15        Network Interconnect
+                           Device Benchmark Testing            [RFC2544]
+   223.255.255.0/24     Reserved but subject
+                           to allocation                             --
+   224.0.0.0/4          Multicast                              [RFC3171]
+   240.0.0.0/4          Reserved for Future Use        [RFC1700, page 4]
+
+https://tools.ietf.org/
+https://tools.ietf.org/html/
+
+Classless Inter-Domain Routing (CIDR, pronounced “cider”)
+
+ARIN
+-----
+American Registry for Internet Numbers (ARIN) manages and maintains IPv4 and IPv6 addresses for North America.
+For more information, go to http://www.arin.net
+
+RIPE
+-----
+Réseaux IP Europeans (RIPE) manages and maintains IPv4 and IPv6 addresses for Europe, the Middle East, and Central Asia http://www.ripe.net
+
+APNIC
+-----
+Asia Pacific Network Information Centre (APNIC) manages and maintains IPv4 and IPv6 addresses for the Asia and Pacific regions including Australia.
+For more information, go to http://www.apnic.net
+
+AfriNIC
+-------
+African Network Information Centre (AfriNIC) manages and maintains IPv4 and IPv6 addresses for Africa.
+For more information, go to http://www.afrinic.net
+
+LACNIC
+------
+Regional Latin-American and Caribbean IP Address Registry (LACNIC) manages and maintains IPv4 and IPv6 addresses for Latin America and some Caribbean islands.
+For more information, go to http://www.lacnic.net
+
+oth IPv4 and IPv6 addresses are managed by the Internet Assigned Numbers Authority (IANA) (http://www.iana.org). The IANA manages and allocates blocks of IP addresses to the Regional Internet Registries (RIRs). Click each of the RIRs in the figure to view more information.
+
+
+RIRs are responsible for allocating IP addresses to ISPs who in turn provide IPv4 address blocks to organizations and smaller ISPs.
+Organizations can get their addresses directly from an RIR subject to the policies of that RIR.
+
+
+IPv6
+=============
+Pv4 and IPv6 Coexistence
+
+The IETF has created various protocols and tools to help network administrators migrate their networks to IPv6. The migration techniques can be divided into three categories:
+
+    Dual Stack – As shown in Figure 1, dual stack allows IPv4 and IPv6 to coexist on the same network segment. Dual stack devices run both IPv4 and IPv6 protocol stacks simultaneously.
+
+    Tunneling – As shown in Figure 2, tunneling is a method of transporting an IPv6 packet over an IPv4 network. The IPv6 packet is encapsulated inside an IPv4 packet, similar to other types of data.
+
+    Translation – As shown in Figure 3, Network Address Translation 64 (NAT64) allows IPv6-enabled devices to communicate with IPv4-enabled devices using a translation technique similar to NAT for IPv4.
+    An IPv6 packet is translated to an IPv4 packet and vice versa.
+
+Note: Tunneling and translation are only used where needed. The goal should be native IPv6 communications from source to destination.
+
+1 Omit leading zeros
+2 Using double colons
+  The double colon (::) can only be used once within an address
+
+
+
+There are three types of IPv6 addresses:
+
+    Unicast - An IPv6 unicast address uniquely identifies an interface on an IPv6-enabled device.
+    a source IPv6 address must be a unicast address.
+
+    Multicast - An IPv6 multicast address is used to send a single IPv6 packet to multiple destinations.
+
+    Anycast - An IPv6 anycast address is any IPv6 unicast address that can be assigned to multiple devices.
+    A packet sent to an anycast address is routed to the nearest device having that address. Anycast addresses are beyond the scope of this course.
+
+Unlike IPv4, IPv6 does not have a broadcast address. However, there is an IPv6 all-nodes multicast address that essentially gives the same result.
+
+IPv6 Prefix Length
+------------------
+The prefix length can range from 0 to 128. A typical IPv6 prefix length for LANs and most other types of networks is /64.
+This means the prefix or network portion of the address is 64 bits in length, leaving another 64 bits for the interface ID (host portion) of the address.
+
+IPv6 Unicast Addresses [RFC3513]
+==============================
+https://tools.ietf.org/html/rfc3513
+
+PREFIX # MEANS PRESERVE THE FIRST # OF BITS, DONT CHANGE
+one number = 4 bits in binary so prefix 10 BITS IN IPV6 = WOULD BE 40 bits in binary
+
+a source IPv6 address must be a unicast address. The destination IPv6 address can be either a unicast or a multicast address.
+The most common types of IPv6 unicast addresses are global unicast addresses (GUA) and link-local unicast addresses.
+
+UNICAST:	*GLOBAL UNICAST			2000::/3 -> 3FFF::/3	globally unique internet routable addresses. Can be configured statically or assigned dynamically
+========							
+
+ICANN), the operator for IANA, allocates IPv6 address blocks to the five RIRs. Currently, only global unicast addresses with the first three bits of 001 or 2000::/3 are being assigned.
+In other words, the first hexadecimal digit of a GUA address will begin with a 2 or a 3.
+This is only 1/8th of the total available IPv6 address space, excluding only a very small portion for other types of unicast and multicast addresses.
+NOTE: The 2001:0DB8::/32 (2 hextets) address has been reserved for documentation purposes, including use in examples.
+
+Figure 1 shows the structure and range of a global unicast address.
+
+A global unicast address has three parts:
+
+    Global routing prefix
+
+    Subnet ID
+
+    Interface ID
+
+Global Routing Prefix
+
+The global routing prefix is the prefix, or network, portion of the address that is assigned by the provider, such as an ISP, to a customer or site. Typically, RIRs assign a /48 global routing prefix to customers. This can include everyone from enterprise business networks to individual households.
+
+Figure 2 shows the structure of a global unicast address using a /48 global routing prefix. /48 prefixes are the most common global routing prefixes assigned and will be used in most of the examples throughout this course.
+
+For example, the IPv6 address 2001:0DB8:ACAD::/48 has a prefix that indicates that the first 48 bits (3 hextets) (2001:0DB8:ACAD) is the prefix or network portion of the address
+
+			*LINK-LOCAL				FE80::/10  Used to communicate with other devices on the same local link. Uniqueness on that link because they are not routable.
+			FE80 -> FEBF						Router will not forward linklocal source/destination
+									JE KAN DUS HETZELFDE ADRES GEBRUIKEN OP ALLE INTERFACES VAN EEN ROUTER
+									NOTE: Typically, it is the link-local address of the router, and not the global unicast address, that is used as the default gateway for other devices on the link. 
+									
+									
+https://tools.ietf.org/html/rfc3513#section-2.5.6
+			|   10     |
+			|  bits    |         54 bits         |          64 bits           |
+			+----------+-------------------------+----------------------------+
+			|1111111010|           0             |       interface ID         |
+			+----------+-------------------------+----------------------------+
+
+   Link-Local addresses are designed to be used for addressing on a
+   single link for purposes such as automatic address configuration,
+   neighbor discovery, or when no routers are present.
+
+   Routers must not forward any packets with link-local source or
+   destination addresses to other links.
+   
+   
+								
+			*LOOPBACK				::1/128	
+			*UNSPECIFIED ADDRESS	 ::/128
+			
+			*UNIQUE LOCAL  FC00::/7 - FDFF::/7 			https://tools.ietf.org/html/rfc4193
+									Used for addressing within a site or between limited # of sites. Should not be routable nor translated to a global ipv6 address
+									Unique local addresses can be used for devices that will never need or have access from another network. 
+									= ipv4 private ip ranges
+			3.1.  Format
+
+   The Unique Local IPv6 addresses are created using a pseudo-randomly
+   allocated global ID.  They have the following format:
+
+      | 7 bits |1|  40 bits   |  16 bits  |          64 bits           |
+      +--------+-+------------+-----------+----------------------------+
+      | Prefix |L| Global ID  | Subnet ID |        Interface ID        |
+      +--------+-+------------+-----------+----------------------------+
+
+   Where:
+
+      Prefix            FC00::/7 prefix to identify Local IPv6 unicast
+                        addresses.
+
+      L                 Set to 1 if the prefix is locally assigned.
+                        Set to 0 may be defined in the future.  See
+                        Section 3.2 for additional information.
+
+      Global ID         40-bit global identifier used to create a
+                        globally unique prefix.  See Section 3.2 for
+                        additional information.
+
+      Subnet ID         16-bit Subnet ID is an identifier of a subnet
+                        within the site.
+
+      Interface ID      64-bit Interface ID as defined in [ADDARCH].
+      
+									
+			https://networkengineering.stackexchange.com/questions/6505/ipv6-link-local-vs-unique-local
+			Link local addresses are used in one single network segment, they can't be routed. Unique local addresses can be routed, but only within one routing domain.(VB VOOR BRANCHES connected met BGP)
+			So an ISP can choose to use ULA for services which can't be publicly accessible. 
+			They are not expected to be routable on the global Internet.  They are routable inside of a more limited area such as a site.
+			They may also be routed between a limited set of sites.
+									
+			EMBEDDED IPV4 https://tools.ietf.org/html/rfc2893
+   |                80 bits               | 16 |      32 bits        |
+   +--------------------------------------+--------------------------+
+   |0000..............................0000|0000|    IPv4 address     |
+   +--------------------------------------+----+---------------------+
+			
+			#The global unicast address is not a requirement. However, every IPv6-enabled network interface is required to have a link-local address.
+			f a link-local address is not configured manually on an interface, the device will automatically create its own without communicating with a DHCP server.
+			IPv6-enabled hosts create an IPv6 link-local address even if the device has not been assigned a global unicast IPv6 address.
+			This allows IPv6-enabled devices to communicate with other IPv6-enabled devices on the same subnet. This includes communication with the default gateway (router).
+			
+   |         n bits         |   m bits  |       128-n-m bits         |
+   +------------------------+-----------+----------------------------+
+   | global routing prefix  | subnet ID |       interface ID         |
+   +------------------------+-----------+----------------------------+
+
+			IPv6 link-local addresses are in the FE80::/10 range. The /10 indicates that the first 10 bits are 1111 1110 10xx xxxx.
+			The first hextet has a range of 1111 1110 1000 0000 (FE80) to 1111 1110 1011 1111 (FEBF).
+			
+			Note: Typically, it is the link-local address of the router, and not the global unicast address, that is used as the default gateway for other devices on the link
+
+			*ANYCAST
+			o  An anycast address must not be used as the source address of anIPv6 packet.
+
+   o  An anycast address must not be assigned to an IPv6 host, that is,
+      it may be assigned to an IPv6 router only.
+
+Anycast Addresses
+
+   An IPv6 anycast address is an address that is assigned to more than
+   one interface (typically belonging to different nodes), with the
+   property that a packet sent to an anycast address is routed to the
+   "nearest" interface having that address, according to the routing
+   protocols' measure of distance.
+
+
+	    2.6.1 Required Anycast Address
+
+   The Subnet-Router anycast address is predefined.  Its format is as
+   follows:
+
+   |                         n bits                 |   128-n bits   |
+   +------------------------------------------------+----------------+
+   |                   subnet prefix                | 00000000000000 |
+   +------------------------------------------------+----------------+
+
+   The "subnet prefix" in an anycast address is the prefix which
+   identifies a specific link.  This anycast address is syntactically
+   the same as a unicast address for an interface on the link with the
+   interface identifier set to zero.
+
+   Packets sent to the Subnet-Router anycast address will be delivered
+   to one router on the subnet.  All routers are required to support the
+   Subnet-Router anycast addresses for the subnets to which they have
+   interfaces.
+
+   The subnet-router anycast address is intended to be used for
+   applications where a node needs to communicate with any one of the
+   set of routers.
+			
+			Structure Global Unicast Address
+			---------------------------------
+			IPv6 global unicast addresses (GUA) are globally unique and routable on the IPv6 Internet.
+			These addresses are equivalent to public IPv4 addresses. The Internet Committee for Assigned Names and Numbers (ICANN),
+			the operator for IANA, allocates IPv6 address blocks to the five RIRs. Currently, only global unicast addresses with the first three bits of 001 or 2000::/3 are being assigned.
+			In other words, the first hexadecimal digit of a GUA address will begin with a 2 or a 3. This is only 1/8th of the total available IPv6 address space,
+			excluding only a very small portion for other types of unicast and multicast addresses.
+			2000::/3 dus from 0010 0000 0000 0000 (2000) [first hextet] to 0011 1111 1111 1111 3FFF
+			
+			NOTE: The 2001:0DB8::/32 address has been reserved for documentation purposes, including use in examples. https://tools.ietf.org/html/rfc3849
+			
+			0010 0000 0000 0001:0000 1101 1011 1000:0000 0000 0000 0000:0000 0000 0000 0000 ---> 0010 0000 0000 0001:1111 1111 1111 1111:1111 1111 1111 1111
+			---------------------------------------------------
+			| Global Routing Prefix | Subnet ID | Interface ID|
+			---------------------------------------------------
+			Network portion eg /48		for					Host Portion
+			= first 3 hextets		 subnets > = more
+			
+			48 bits = 3 hextets + 1  hextet subnet ID
+			= /64 prefix
+			
+			The term Interface ID is used because a single host may have multiple interfaces, each having one or more IPv6 addresses.
+			It is highly recommended that in most cases /64 subnets should be used. In other words a 64-bit interface ID
+
+			NOTE: Unlike IPv4, in IPv6, the all-0s and all-1s host addresses can be assigned to a device.
+			The all-1s address can be used due to the fact that broadcast addresses are not used within IPv6. The all-0s address can also be used,
+			but is reserved as a Subnet-Router anycast address, and should be assigned only to routers.
+
+(config)# interface gigabitethernet 0/0
+(config-if)# ipv6 address 2001:db8:acad:1::1/64
+(config-if)# no shutdown
+(config-if)# exit
+(config)# 
+
+			There are two ways in which a device can obtain an IPv6 global unicast address automatically:
+				* Stateless Address Autoconfiguration (SLAAC)
+				* Stateful DHCPv6
+
+			NOTE: When DHCPv6 or SLAAC is used, the local router's link-local address will automatically be specified as the default gateway address.
+			
+			Dynamic Configuration - SLAAC
+			
+			Stateless Address Autoconfiguration (SLAAC) is a method that allows a device to obtain its prefix, prefix length, default gateway address, and other information from an IPv6 router without the use of a DHCPv6 server.
+			Using SLAAC, devices rely on the local router’s ICMPv6 Router Advertisement (RA) messages to obtain the necessary information.
+			
+			IPv6 routers periodically send out ICMPv6 RA messages, every 200 seconds, to all IPv6-enabled devices on the network. An RA message will also be sent in response to a host sending an ICMPv6 Router Solicitation (RS) message.
+			
+			IPv6 routing is not enabled by default. To enable a router as an IPv6 router, the ipv6 unicast-routing global configuration command must be used.
+			
+			Note: IPv6 addresses can be configured on a router without it being an IPv6 router.
+			
+			The ICMPv6 RA message is a suggestion to a device on how to obtain an IPv6 global unicast address. The ultimate decision is up to the device’s operating system. The ICMPv6 RA message includes:
+			
+			    Network prefix and prefix length – Tells the device which network it belongs to.
+			
+			    Default gateway address – This is an IPv6 link-local address, the source IPv6 address of the RA message.
+			
+			    DNS addresses and domain name – Addresses of DNS servers and a domain name.
+			
+			As shown in Figure 1, there are three options for RA messages:
+			
+			    Option 1: SLAAC
+			
+			    Option 2: SLAAC with a stateless DHCPv6 server
+			
+			    Option 3: Stateful DHCPv6 (no SLAAC)
+			
+			RA Option 1: SLAAC
+			
+			By default, the RA message suggests that the receiving device use the information in the RA message to create its own IPv6 global unicast address and for all other information.
+			The services of a DHCPv6 server are not required.
+			
+			SLAAC is stateless, which means there is no central server (for example, a stateful DHCPv6 server) allocating global unicast addresses and keeping a list of devices and their addresses.
+			With SLAAC, the client device uses the information in the RA message to create its own global unicast address. As shown in Figure 2, the two parts of the address are created as follows:
+			
+			    Prefix – Received in the RA message
+			
+			    Interface ID – Uses the EUI-64 process or by generating a random 64-bit number
+			
+						
+			
+			
+				Option 1 (SLAAC Only) – "I'm everything you need (Prefix, Prefix-length, Default Gateway)"
+				Option 2 (SLAAC and DHCPv6) – "Here is my information but you need to get other information such as DNS addresses from a DHCPv6 server."
+				Option 3 (DHCPv6 Only) – "I can’t help you. Ask a DHCPv6 server for all your information."
+							
+				Stateless Address Autoconfiguration (SLAAC) is a method that allows a device to obtain its prefix, prefix length, default gateway address, and other information from an IPv6 router without the use of a DHCPv6 server. Using SLAAC, devices rely on the local router’s ICMPv6 Router Advertisement (RA) messages to obtain the necessary information.
+				
+				IPv6 routers periodically send out ICMPv6 RA messages, every 200 seconds, to all IPv6-enabled devices on the network. An RA message will also be sent in response to a host sending an ICMPv6 Router Solicitation (RS) message.
+							
+							
+
+			Dynamic Configuration – DHCPv6
+			
+			By default, the RA message is option 1, SLAAC only. The router’s interface can be configured to send a router advertisement using SLAAC and stateless DHCPv6, or stateful DHCPv6 only.
+			
+			RA Option 2: SLAAC and Stateless DHCPv6
+			
+			With this option, the RA message suggests devices use:
+			
+			    SLAAC to create its own IPv6 global unicast address.
+			
+			    The router’s link-local address, the RA’s source IPv6 address for the default gateway address.
+			
+			    A stateless DHCPv6 server to obtain other information such as a DNS server address and a domain name.
+			
+			A stateless DHCPv6 server distributes DNS server addresses and domain names. It does not allocate global unicast addresses.
+			
+			RA Option 3: Stateful DHCPv6
+			
+			Stateful DHCPv6 is similar to DHCP for IPv4. A device can automatically receive its addressing information including a global unicast address, prefix length,
+			and the addresses of DNS servers using the services of a stateful DHCPv6 server.
+			
+			With this option the RA message suggests devices use:
+			
+			    The router’s link-local address, the RA’s source IPv6 address for the default gateway address.
+			
+			    A stateful DHCPv6 server to obtain a global unicast address, DNS server address, domain name and all other information.
+			
+			A stateful DHCPv6 server allocates and maintains a list of which device receives which IPv6 address. DHCP for IPv4 is stateful.
+			
+			Note: The default gateway address can only be obtained dynamically from the RA message. The stateless or stateful DHCPv6 server does not provide the default gateway address.
+			
+			
+	An EUI-64 Interface ID is represented in binary and is made up of three parts:
+
+    24-bit OUI from the client MAC address, but the 7th bit (the Universally/Locally (U/L) bit) is reversed. This means that if the 7th bit is a 0, it becomes a 1, and vice versa.
+
+    The inserted 16-bit value FFFE (in hexadecimal).
+
+    24-bit Device Identifier from the client MAC address.
+
+	Note: The use of the U/L bit, and the reasons for reversing its value, are discussed in https://tools.ietf.org/html/rfc5342
+	The advantage of EUI-64 is the Ethernet MAC address can be used to determine the Interface ID. It also allows network administrators to easily track an IPv6 address to an end-device using the unique MAC address.
+	However, this has caused privacy concerns among many users. They are concerned that their packets can be traced to the actual physical computer. Due to these concerns, a randomly generated Interface ID may be used instead.
+	
+	Randomly Generated Interface IDs
+	Note: To ensure the uniqueness of any IPv6 unicast address, the client may use a process known as Duplicate Address Detection (DAD).
+	This is similar to an ARP request for its own address. If there isn’t a reply, then the address is unique.
+	
+	Dynamically Created Link-Local Addresses
+	----------------------------------------
+	To make it easier to recognize and remember these addresses on routers, it is common to statically configure IPv6 link-local addresses on routers.
+	
+	NOTE: Recall that the link-local address is automatically added to the interface when a global unicast address is assigned. 
+	
+	Also, notice that R1’s Serial 0/0/0 link-local address is the same as its GigabitEthernet 0/0 interface. Serial interfaces do not have Ethernet MAC addresses, so Cisco IOS uses the MAC address of the first available Ethernet interface.
+	This is possible because link-local interfaces only have to be unique on that link.
+	
+	IPV6 ENABLE = AUTOMATISCH LINK LOCAL IF NOT ENABLED && YOU CONFIGURE MANUAL GLOBAL ADDRESS = AUTO LINK LOCAL FOR THAT INTERFACE
+	
+	L FF00::/8 [0/0]
+		via Null0, receive
+	drop multicast traffic
+	
+2.7 Multicast Addresses
+
+   An IPv6 multicast address is an identifier for a group of interfaces
+   (typically on different nodes).  An interface may belong to any
+   number of multicast groups.  Multicast addresses have the following
+   format:
+
+   |   8    |  4 |  4 |                  112 bits                   |
+   +------ -+----+----+---------------------------------------------+
+   |11111111|flgs|scop|                  group ID                   |
+   +--------+----+----+---------------------------------------------+
+
+         binary 11111111 at the start of the address identifies the
+         address as being a multicast address.
+
+                                       +-+-+-+-+
+         flgs is a set of 4 flags:     |0|0|0|T|
+                                       +-+-+-+-+
+
+            The high-order 3 flags are reserved, and must be initialized
+            to 0.
+
+            T = 0 indicates a permanently-assigned ("well-known")
+            multicast address, assigned by the Internet Assigned Number
+            Authority (IANA).
+
+            T = 1 indicates a non-permanently-assigned ("transient")
+            multicast address.
+
+         scop is a 4-bit multicast scope value used to limit the scope
+         of the multicast group.  The values are:
+
+            0  reserved
+            1  interface-local scope
+            2  link-local scope
+            3  reserved
+            4  admin-local scope
+            5  site-local scope
+            6  (unassigned)
+            7  (unassigned)
+            8  organization-local scope
+            9  (unassigned)
+            A  (unassigned)
+            B  (unassigned)
+            C  (unassigned)
+            D  (unassigned)
+            E  global scope
+            F  reserved
+
+            interface-local scope spans only a single interface on a
+            node, and is useful only for loopback transmission of
+            multicast.
+
+            link-local and site-local multicast scopes span the same
+            topological regions as the corresponding unicast scopes.
+
+            admin-local scope is the smallest scope that must be
+            administratively configured, i.e., not automatically derived
+            from physical connectivity or other, non- multicast-related
+            configuration.
+
+            organization-local scope is intended to span multiple sites
+            belonging to a single organization.
+
+            scopes labeled "(unassigned)" are available for
+            administrators to define additional multicast regions.
+
+         group ID identifies the multicast group, either permanent or
+         transient, within the given scope.
+
+   The "meaning" of a permanently-assigned multicast address is
+   independent of the scope value.  For example, if the "NTP servers
+   group" is assigned a permanent multicast address with a group ID of
+   101 (hex), then:
+
+      FF01:0:0:0:0:0:0:101 means all NTP servers on the same interface
+      (i.e., the same node) as the sender.
+
+      FF02:0:0:0:0:0:0:101 means all NTP servers on the same link as the
+      sender.
+
+      FF05:0:0:0:0:0:0:101 means all NTP servers in the same site as the
+      sender.
+
+      FF0E:0:0:0:0:0:0:101 means all NTP servers in the internet.
+
+   Non-permanently-assigned multicast addresses are meaningful only
+   within a given scope.  For example, a group identified by the non-
+   permanent, site-local multicast address FF15:0:0:0:0:0:0:101 at one
+   site bears no relationship to a group using the same address at a
+   different site, nor to a non-permanent group using the same group ID
+   with different scope, nor to a permanent group with the same group
+   ID.
+
+   Multicast addresses must not be used as source addresses in IPv6
+   packets or appear in any Routing header.
+
+   Routers must not forward any multicast packets beyond of the scope
+   indicated by the scop field in the destination multicast address.
+
+   Nodes must not originate a packet to a multicast address whose scop
+   field contains the reserved value 0; if such a packet is received, it
+   must be silently dropped.  Nodes should not originate a packet to a
+   multicast address whose scop field contains the reserved value F; if
+   such a packet is sent or received, it must be treated the same as
+   packets destined to a global (scop E) multicast address.
+
+2.7.1 Pre-Defined Multicast Addresses
+
+   The following well-known multicast addresses are pre-defined.  The
+   group ID's defined in this section are defined for explicit scope
+   values.
+
+   Use of these group IDs for any other scope values, with the T flag
+   equal to 0, is not allowed.
+
+
+
+Hinden & Deering            Standards Track                    [Page 15]
+
+ 
+RFC 3513              IPv6 Addressing Architecture            April 2003
+
+
+      Reserved Multicast Addresses:   FF00:0:0:0:0:0:0:0
+                                      FF01:0:0:0:0:0:0:0
+                                      FF02:0:0:0:0:0:0:0
+                                      FF03:0:0:0:0:0:0:0
+                                      FF04:0:0:0:0:0:0:0
+                                      FF05:0:0:0:0:0:0:0
+                                      FF06:0:0:0:0:0:0:0
+                                      FF07:0:0:0:0:0:0:0
+                                      FF08:0:0:0:0:0:0:0
+                                      FF09:0:0:0:0:0:0:0
+                                      FF0A:0:0:0:0:0:0:0
+                                      FF0B:0:0:0:0:0:0:0
+                                      FF0C:0:0:0:0:0:0:0
+                                      FF0D:0:0:0:0:0:0:0
+                                      FF0E:0:0:0:0:0:0:0
+                                      FF0F:0:0:0:0:0:0:0
+
+   The above multicast addresses are reserved and shall never be
+   assigned to any multicast group.
+
+      All Nodes Addresses:    FF01:0:0:0:0:0:0:1
+                              FF02:0:0:0:0:0:0:1
+
+   The above multicast addresses identify the group of all IPv6 nodes,
+   within scope 1 (interface-local) or 2 (link-local). (all IPv6 enabled devices on the local link​ or network)
+
+      All Routers Addresses:   FF01:0:0:0:0:0:0:2
+                               FF02:0:0:0:0:0:0:2
+                               FF05:0:0:0:0:0:0:2
+
+   The above multicast addresses identify the group of all IPv6 routers,
+   within scope 1 (interface-local), 2 (link-local), or 5 (site-local).
+
+      Solicited-Node Address:  FF02:0:0:0:0:1:FFXX:XXXX
+
+   Solicited-node multicast address are computed as a function of a
+   node's unicast and anycast addresses.  A solicited-node multicast
+   address is formed by taking the low-order 24 bits of an address
+   (unicast or anycast) and appending those bits to the prefix
+   FF02:0:0:0:0:1:FF00::/104 resulting in a multicast address in the
+   range
+
+      FF02:0:0:0:0:1:FF00:0000
+
+   to
+
+      FF02:0:0:0:0:1:FFFF:FFFF
+
+
+   For example, the solicited node multicast address corresponding to
+   the IPv6 address 4037::01:800:200E:8C6C is FF02::1:FF0E:8C6C.  IPv6
+   addresses that differ only in the high-order bits, e.g., due to
+   multiple high-order prefixes associated with different aggregations,
+   will map to the same solicited-node address thereby, reducing the
+   number of multicast addresses a node must join.
+
+   A node is required to compute and join (on the appropriate interface)
+   the associated Solicited-Node multicast addresses for every unicast
+   and anycast address it is assigned.
+
+2.8 A Node's Required Addresses
+
+   A host is required to recognize the following addresses as
+   identifying itself:
+
+      o  Its required Link-Local Address for each interface.
+      o  Any additional Unicast and Anycast Addresses that have been
+         configured for the node's interfaces (manually or
+         automatically).
+      o  The loopback address.
+      o  The All-Nodes Multicast Addresses defined in section 2.7.1.
+      o  The Solicited-Node Multicast Address for each of its unicast
+         and anycast addresses.
+      o  Multicast Addresses of all other groups to which the node
+         belongs.
+
+   A router is required to recognize all addresses that a host is
+   required to recognize, plus the following addresses as identifying
+   itself:
+
+      o  The Subnet-Router Anycast Addresses for all interfaces for
+         which it is configured to act as a router.
+      o  All other Anycast Addresses with which the router has been
+         configured.
+      o  The All-Routers Multicast Addresses defined in section 2.7.1.
+
+
+ICMP
+====
+https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml
+https://www.iana.org/protocols

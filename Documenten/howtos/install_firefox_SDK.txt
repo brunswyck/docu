@@ -1,0 +1,47 @@
+view system variables in firefox
+--------------------------------
+guru@vdab10:~$ sudo apt-get install nodejs-legacy
+guru@vdab10:~$ /usr/bin/env node -v
+v4.8.2
+guru@vdab10:~$ sudo apt-get install npm
+guru@vdab10:~$ sudo npm install jpm --global
+
+
+https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm#Installation
+guru@vdab10:~$ mkdir my-addon
+guru@vdab10:~$ cd my-addon/
+guru@vdab10:~/my-addon$ jpm init
+title: (My Jetpack Addon) 
+name: (my-addon) 
+version: (0.0.1) 
+description: (A basic add-on) 
+entry point: (index.js) 
+author: pat
+engines (comma separated): (firefox,fennec) 
+license: (MIT) 
+JPM [info] About to write to /home/guru/my-addon/package.json:
+
+{
+  "title": "My Jetpack Addon",
+  "name": "my-addon",
+  "version": "0.0.1",
+  "description": "A basic add-on",
+  "main": "index.js",
+  "author": "pat",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}
+
+
+Is this ok? (yes) yes
+guru@vdab10:~/my-addon$ jpm run
+
+
+
+https://developer.mozilla.org/en-US/Add-ons/WebExtensions

@@ -1,0 +1,79 @@
+
+guru@vdab10:/opt/pt/bin$ sudo apt-cache search flashplugin-nonfree
+flashplugin-nonfree - Adobe Flash Player - browser plugin
+flashplugin-nonfree-extrasound - Adobe Flash Player platform support library for Esound and OSS
+guru@vdab10:/opt/pt/bin$ sudo apt-get install flashplugin-nonfree
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  binutils libpango1.0-0 libpangox-1.0-0
+Suggested packages:
+  binutils-doc iceweasel konqueror-nsplugins ttf-mscorefonts-installer
+  ttf-xfree86-nonfree hal-flash
+The following NEW packages will be installed:
+  binutils flashplugin-nonfree libpango1.0-0 libpangox-1.0-0
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 4,007 kB of archives.
+After this operation, 24.3 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://ftp.be.debian.org/debian stretch/main amd64 libpangox-1.0-0 amd64 0.0.2-5+b2 [42.3 kB]
+Get:2 http://ftp.be.debian.org/debian stretch/main amd64 libpango1.0-0 amd64 1.40.5-1 [177 kB]
+Get:3 http://ftp.be.debian.org/debian stretch/main amd64 binutils amd64 2.28-5 [3,770 kB]
+Get:4 http://ftp.be.debian.org/debian stretch/contrib amd64 flashplugin-nonfree amd64 1:3.7 [18.0 kB]
+Fetched 4,007 kB in 0s (4,052 kB/s)            
+Selecting previously unselected package libpangox-1.0-0:amd64.
+(Reading database ... 101465 files and directories currently installed.)
+Preparing to unpack .../libpangox-1.0-0_0.0.2-5+b2_amd64.deb ...
+Unpacking libpangox-1.0-0:amd64 (0.0.2-5+b2) ...
+Selecting previously unselected package libpango1.0-0:amd64.
+Preparing to unpack .../libpango1.0-0_1.40.5-1_amd64.deb ...
+Unpacking libpango1.0-0:amd64 (1.40.5-1) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../binutils_2.28-5_amd64.deb ...
+Unpacking binutils (2.28-5) ...
+Selecting previously unselected package flashplugin-nonfree.
+Preparing to unpack .../flashplugin-nonfree_1%3a3.7_amd64.deb ...
+Unpacking flashplugin-nonfree (1:3.7) ...
+Processing triggers for mime-support (3.60) ...
+Processing triggers for desktop-file-utils (0.23-1) ...
+Processing triggers for libc-bin (2.24-10) ...
+Setting up libpangox-1.0-0:amd64 (0.0.2-5+b2) ...
+Processing triggers for man-db (2.7.6.1-2) ...
+Setting up binutils (2.28-5) ...
+Processing triggers for hicolor-icon-theme (0.15-1) ...
+Setting up libpango1.0-0:amd64 (1.40.5-1) ...
+Setting up flashplugin-nonfree (1:3.7) ...
+ERROR: wget failed to download http://people.debian.org/~bartm/flashplugin-nonfree/D5C0FC14/fp.25.0.0.171.sha512.amd64.pgp.asc
+More information might be available at:
+  http://wiki.debian.org/FlashPlayer
+Processing triggers for libc-bin (2.24-10) ...
+
+
+guru@vdab10:/opt/pt/bin$ sudo update-flashplugin-nonfree --status
+Flash Player version installed on this system  : 
+Flash Player version available on upstream site: 25.0.0.171
+update-alternatives: error: no alternatives for flash-mozilla.so
+guru@vdab10:/opt/pt/bin$ sudo update-flashplugin-nonfree --install
+ERROR: wget failed to download http://people.debian.org/~bartm/flashplugin-nonfree/D5C0FC14/fp.25.0.0.171.sha512.amd64.pgp.asc
+More information might be available at:
+  http://wiki.debian.org/FlashPlayer
+
+
+Download the latest release of the plugin in tar.gz format from https://get.adobe.com/flashplayer/
+As root, extract the tar.gz package and copy libflashplayer.so to /usr/lib/flashplugin-nonfree
+Give the file sane permission/ownership values: 
+
+
+guru@vdab10:~/Downloads$ sudo cp libflashplayer.so /usr/lib/flashplugin-nonfree/
+[sudo] password for guru: 
+guru@vdab10:~/Downloads$ sudo chmod 644 /usr/lib/flashplugin-nonfree/libflashplayer.so 
+guru@vdab10:~/Downloads$ sudo chown root:root /usr/lib/flashplugin-nonfree/libflashplayer.so 
+
+
+
+guru@vdab10:~/Downloads$ sudo update-alternatives --list flash-mozilla.so
+update-alternatives: error: no alternatives for flash-mozilla.so
+guru@vdab10:~/Downloads$ sudo update-alternatives --quiet --install /usr/lib/mozilla/plugins/flash-mozilla.so flash-mozilla.so /usr/lib/flashplugin-nonfree/libflashplayer.so 50
+guru@vdab10:~/Downloads$ sudo update-alternatives --list flash-mozilla.so
+/usr/lib/flashplugin-nonfree/libflashplayer.so

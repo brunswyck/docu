@@ -1,0 +1,34 @@
+helpful source
+http://blog.alexolivan.com/cisco-packettracer-7-on-debian-stretch/
+However don't just install one package with dpkg -i
+Better to put the backports repository in our system with -1 priority
+
+root@vdab10:/lib# vi /etc/apt/sources.list.d/jessie-backports.list
+
+root@vdab10:/lib# vi /etc/apt/preferences.d/jessie-backports.pref
+
+root@vdab10:/lib# cat /etc/apt/sources.list.d/jessie-backports.list /etc/apt/preferences.d/jessie-backports.pref 
+deb http://ftp.be.debian.org/debian jessie-backports main
+
+Package: *
+Pin: release a=jessie-backports
+Pin-Priority: -1
+root@vdab10:/lib# 
+
+
+root@vdab10:/lib# apt-get update
+
+root@vdab10:/lib# apt-get install -t jessie-backports libssl1.0.0
+De volgende NIEUWE pakketten zullen geïnstalleerd worden:
+  libssl1.0.0
+0 opgewaardeerd, 1 nieuw geïnstalleerd, 0 te verwijderen en 1 niet opgewaardeerd.
+Er moeten 1.296 kB aan archieven opgehaald worden.
+Na deze bewerking zal er 3.588 kB extra schijfruimte gebruikt worden.
+Ophalen:1 http://ftp.be.debian.org/debian jessie-backports/main amd64 libssl1.0.0 amd64 1.0.2k-1~bpo8+1 [1.296 kB]
+1.296 kB opgehaald in 0s (3.553 kB/s) 
+Voorconfigureren van pakketten ...
+Voorheen niet geselecteerd pakket libssl1.0.0:amd64 wordt geselecteerd.
+(Database wordt ingelezen ... 94141 bestanden en mappen momenteel geïnstalleerd.)
+Uitpakken van .../libssl1.0.0_1.0.2k-1~bpo8+1_amd64.deb wordt voorbereid...
+Bezig met uitpakken van libssl1.0.0:amd64 (1.0.2k-1~bpo8+1) ...
+Instellen van libssl1.0.0:amd64 (1.0.2k-1~bpo8+1) ...
