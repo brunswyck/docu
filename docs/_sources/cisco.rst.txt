@@ -808,7 +808,7 @@ Router is only connected to R2 = stub router = default static route
 
 
 verify a default static route
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 .. code::
 
@@ -819,18 +819,18 @@ verify a default static route
 Troubleshooting a missing route
 -------------------------------
 
-# ping
-# traceroute
-# show ip route
-# show ip interface brief
-# show cdp neighbors detail
+ # ping
+ # traceroute
+ # show ip route
+ # show ip interface brief
+ # show cdp neighbors detail
 
 Solve a connectivity problem
 ----------------------------
 
-# ping 192.168.2.1 source g0/0
-# traceroute 192.168.2.1
-# show ip route | begin Gateway
-# show running-config | section ip route
+ # ping 192.168.2.1 source g0/0
+ # traceroute 192.168.2.1
+ # show ip route | begin Gateway
+ # show running-config | section ip route
 
 
