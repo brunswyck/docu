@@ -1201,12 +1201,8 @@ R1# show ip protocols | section Automatic
 <img alt="_images/configure_passive_ifs_on_R1.png" src="_images/configure_passive_ifs_on_R1.png" />
 <p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
 <blockquote>
-<div><blockquote>
 <div><ul class="simple">
 <li>Wasted Bandwidth - Bandwidth is used to transport unnecessary updates. Because RIP updates are either broadcasted or multicasted, switches also forward the updates out all ports.</li>
-</ul>
-</div></blockquote>
-<ul class="simple">
 <li>Wasted Resources - All devices on the LAN must process the update up to the transport layers, at which point the devices will discard the update.</li>
 <li>Security Risk - Advertising updates on a broadcast network is a security risk. RIP updates can be intercepted with packet sniffing software. Routing updates can be modified and sent back to the router, corrupting the routing table with false metrics that misdirect traffic.</li>
 </ul>

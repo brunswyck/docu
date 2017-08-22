@@ -151,6 +151,7 @@ Escape or not?
  </tr>
  </tbody></table>
 
+
 keyboard shortcuts
 ==================
 exit from insert mode to normal mode
