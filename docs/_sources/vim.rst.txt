@@ -12,7 +12,8 @@ Escape or not?
  <h2><a name="unescapedspecialcharacters">Regular Expression Special Characters Not Requiring Escaping</a></h2>
  <p>The following special characters are interpreted as regular expression operators <u><strong><em>without</em></strong></u> escaping (escaping will result in them being intepreted as literals):</p>
  <table>
- <tbody><tr>
+ <tbody>
+ <tr>
  <td><code>\</code></td>
  <td>Escape next character (use “<code>\\</code>” for literal backslash).</td>
  </tr>
@@ -48,11 +49,13 @@ Escape or not?
  <td><code>&amp;</code></td>
  <td>In replacement pattern: insert the whole matched search pattern.</td>
  </tr>
- </tbody></table>
+ </tbody>
+ </table>
  <h2><a name="escapedspecialcharacters">Regular Expression Special Characters Requiring Escaping</a></h2>
  <p>The following special characters are interpreted as regular expression operators <u><strong><em>only when escaped</em></strong></u> (otherwise they will be interpreted as literals):</p>
  <table>
- <tbody><tr>
+ <tbody>
+ <tr>
  <td><code>\&lt;</code></td>
  <td>Matches beginning of a word (left word break/boundary).</td>
  </tr>
@@ -88,8 +91,13 @@ Escape or not?
  <td><code>\{</code></td>
  <td>
              Multi-item count match specification (greedy).<p></p>
+ </td>
+ </tr>
+ </tbody>
+ </table>
  <table>
- <tbody><tr>
+ <tbody>
+ <tr>
  <td><code>\{</code>n<code>,</code>m<code>}</code></td>
  <td>n to m occurrences of the preceding atom (as many as possible).</td>
  </tr>
@@ -109,15 +117,16 @@ Escape or not?
  <td><code>\{}</code></td>
  <td>0 or more occurrences of the preceding atom (as many as possible).</td>
  </tr>
- </tbody></table>
- </td>
- </tr>
+ </tbody>
+ </table>
+ <table>
+ <tbody>
  <tr>
  <td><code>\{-</code></td>
  <td>
              Multi-item count match specification (non-greedy).<p></p>
- <table>
- <tbody><tr>
+ </tr>
+ <tr>
  <td><code>\{-</code>n<code>,</code>m<code>}</code></td>
  <td>n to m occurrences of the preceding atom (as few as possible).</td>
  </tr>
