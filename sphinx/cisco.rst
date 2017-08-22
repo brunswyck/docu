@@ -632,6 +632,7 @@ The key point here is that if you had a much larger network, the process would b
 
 To see which packet switching method your router interface is using, use the command show ip interface.
 
+
 Chapter 2 Static Routes
 =======================
 
@@ -654,9 +655,6 @@ combination of exit interface and next hop
 .. code::
 
     R2(config)# ip route 192.168.2.0 255.255.255.0 s0/0/1 192.168.1.1
-
-
-
 
 
 When to Use Static Routes
@@ -927,6 +925,19 @@ Solve a connectivity problem
  #. show ip route | begin Gateway
  #. show running-config | section ip route
 
+.. note:: In a recursive static route, only the next-hop IPv6 address is specified. As a consequence, the router must perform a recursive route table lookup to find an exit interface associated with the network of the IPv6 address.
+
+.. note:: To test a floating static route, take down the main route/link in order to see whether the backup link appears in the routing table.
+
+.. note:: When a static route is to be configured via the next-hop IP address, the IP address of the interface of the next router in the path to the destination is used.
+
+.. note:: An example of a floating static route used in conjunction with the EIGRP routing protocol would be as follows.
+
+   .. code::  
+
+      R1(config)# ip route 192.168.10.0 255.255.255.0 95
+
+   Notice the extra number at the end of the static route. This route only appears in the routing table if the EIGRP-learned route with an administrative distance of 90 went down. That floating static route cannot appear in the routing table when a route with a better administrative distance exists. 
 
 Chapter 3 Dynamic Routing 
 =========================

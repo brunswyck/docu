@@ -99,7 +99,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#exit-from-insert-mode-to-normal-mode">exit from insert mode to normal mode</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#file-exploring">file exploring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-exploring">file exploring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#open-new-file-from-within-vim">open new file from within vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#working-with-tabs">working with tabs</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#using-relative-line-numbers">using relative line numbers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#replace-tabs-with-spaces">replace tabs with spaces</a></li>
@@ -356,6 +360,62 @@
 <dd>for more info type :help nerdcommenter
 Plugin ‘scrooloose/nerdcommenter’</dd>
 </dl>
+<div class="section" id="open-new-file-from-within-vim">
+<h4>open new file from within vim<a class="headerlink" href="#open-new-file-from-within-vim" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">e</span> <span class="n">newfile</span><span class="o">.</span><span class="n">rst</span>
+<span class="ow">or</span> <span class="n">browse</span> <span class="k">for</span> <span class="n">it</span>
+<span class="p">:</span><span class="n">Explore</span> <span class="o">&lt;</span><span class="n">directory</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-tabs">
+<h4>working with tabs<a class="headerlink" href="#working-with-tabs" title="Permalink to this headline">¶</a></h4>
+<p>Set tab label to show tab number, filename, if modified (‘+’ is shown if the current window in the tab has been modified):</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="nb">set</span> <span class="n">guitablabel</span><span class="o">=%</span><span class="n">N</span><span class="o">/</span>\ <span class="o">%</span><span class="n">t</span>\ <span class="o">%</span><span class="n">M</span>
+</pre></div>
+</div>
+<p>The -p option opens each file in a seperate tab</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="o">-</span><span class="n">p</span> <span class="n">file1</span><span class="o">.</span><span class="n">rst</span> <span class="n">file2</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+<p>Once Vim has been launched, there are many commands that directly create or close tabs:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">tabedit</span> <span class="p">{</span><span class="n">file</span><span class="p">}</span>   <span class="n">edit</span> <span class="n">specified</span> <span class="n">file</span> <span class="p">(</span><span class="ow">or</span> <span class="n">new</span> <span class="n">one</span><span class="p">)</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabfind</span> <span class="p">{</span><span class="n">file</span><span class="p">}</span>   <span class="nb">open</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span> <span class="k">with</span> <span class="n">filename</span> <span class="n">given</span><span class="p">,</span> <span class="n">searching</span> <span class="n">the</span> <span class="s1">&#39;path&#39;</span> <span class="n">to</span> <span class="n">find</span> <span class="n">it</span>
+<span class="p">:</span><span class="n">tabclose</span>         <span class="n">close</span> <span class="n">current</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabclose</span> <span class="p">{</span><span class="n">i</span><span class="p">}</span>     <span class="n">close</span> <span class="n">i</span><span class="o">-</span><span class="n">th</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabonly</span>          <span class="n">close</span> <span class="nb">all</span> <span class="n">other</span> <span class="n">tabs</span> <span class="p">(</span><span class="n">show</span> <span class="n">only</span> <span class="n">the</span> <span class="n">current</span> <span class="n">tab</span><span class="p">)</span>
+<span class="p">:</span><span class="n">tab</span> <span class="n">sp</span>           <span class="n">split</span> <span class="n">the</span> <span class="n">current</span> <span class="n">window</span><span class="p">,</span> <span class="n">but</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">sp</span> <span class="n">file</span><span class="o">.</span><span class="n">txt</span>      <span class="n">creates</span> <span class="n">a</span> <span class="n">new</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">T</span>         <span class="n">move</span> <span class="n">the</span> <span class="n">window</span> <span class="n">to</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">c</span>         <span class="n">close</span> <span class="n">the</span> <span class="n">current</span> <span class="n">window</span>
+</pre></div>
+</div>
+<p>navigation</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">tabs</span>         <span class="nb">list</span> <span class="nb">all</span> <span class="n">tabs</span> <span class="n">including</span> <span class="n">their</span> <span class="n">displayed</span> <span class="n">windows</span>
+<span class="p">:</span><span class="n">tabm</span> <span class="mi">0</span>       <span class="n">move</span> <span class="n">current</span> <span class="n">tab</span> <span class="n">to</span> <span class="n">first</span>
+<span class="p">:</span><span class="n">tabm</span>         <span class="n">move</span> <span class="n">current</span> <span class="n">tab</span> <span class="n">to</span> <span class="n">last</span>
+<span class="p">:</span><span class="n">tabm</span> <span class="p">{</span><span class="n">i</span><span class="p">}</span>     <span class="n">move</span> <span class="n">current</span> <span class="n">tab</span> <span class="n">to</span> <span class="n">position</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="p">:</span><span class="n">tabn</span>         <span class="n">go</span> <span class="n">to</span> <span class="nb">next</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabp</span>         <span class="n">go</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabfirst</span>     <span class="n">go</span> <span class="n">to</span> <span class="n">first</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tablast</span>      <span class="n">go</span> <span class="n">to</span> <span class="n">last</span> <span class="n">tab</span>
+</pre></div>
+</div>
+<p>In normal mode, you can type:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">gt</span>            <span class="n">go</span> <span class="n">to</span> <span class="nb">next</span> <span class="n">tab</span>
+<span class="n">gT</span>            <span class="n">go</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">tab</span>
+<span class="p">{</span><span class="n">i</span><span class="p">}</span><span class="n">gt</span>         <span class="n">go</span> <span class="n">to</span> <span class="n">tab</span> <span class="ow">in</span> <span class="n">position</span> <span class="n">i</span>
+</pre></div>
+</div>
+<p>Note that the gt command counts from one. That means 3gt will jump to the third tab. Also note is 0gt and 1gt mean the same thing: jumping to the first tab.</p>
+<p>Using recent vim versions, in normal mode and in insert mode, you can type:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Ctrl</span><span class="o">-</span><span class="n">PgDn</span>     <span class="n">go</span> <span class="n">to</span> <span class="nb">next</span> <span class="n">tab</span>
+<span class="n">Ctrl</span><span class="o">-</span><span class="n">PgUp</span>     <span class="n">go</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">tab</span>
+</pre></div>
+</div>
+<p>Jumping to a specific tab with {i}gt is easier if you set up your tabline to show the tab number.</p>
+</div>
 </div>
 <div class="section" id="using-relative-line-numbers">
 <h3>using relative line numbers<a class="headerlink" href="#using-relative-line-numbers" title="Permalink to this headline">¶</a></h3>

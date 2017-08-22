@@ -1208,6 +1208,26 @@ R1# ping 2001:DB8:ACAD:4::2 source 2001:DB8:ACAD:1::2
 <li>show running-config | section ip route</li>
 </ol>
 </div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In a recursive static route, only the next-hop IPv6 address is specified. As a consequence, the router must perform a recursive route table lookup to find an exit interface associated with the network of the IPv6 address.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To test a floating static route, take down the main route/link in order to see whether the backup link appears in the routing table.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a static route is to be configured via the next-hop IP address, the IP address of the interface of the next router in the path to the destination is used.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>An example of a floating static route used in conjunction with the EIGRP routing protocol would be as follows.</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ip route 192.168.10.0 255.255.255.0 95
+</pre></div>
+</div>
+<p class="last">Notice the extra number at the end of the static route. This route only appears in the routing table if the EIGRP-learned route with an administrative distance of 90 went down. That floating static route cannot appear in the routing table when a route with a better administrative distance exists.</p>
+</div>
 </div>
 </div>
 <div class="section" id="chapter-3-dynamic-routing">

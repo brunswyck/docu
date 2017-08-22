@@ -174,7 +174,78 @@ file exploring
   for more info type :help nerdcommenter
   Plugin 'scrooloose/nerdcommenter'
 
+open new file from within vim
+-----------------------------
 
+.. code::
+
+    :e newfile.rst
+    or browse for it
+    :Explore <directory> 
+
+working with tabs
+-----------------
+.. _a link: http://vim.wikia.com/wiki/Using_tab_pages
+
+Set tab label to show tab number, filename, if modified ('+' is shown if the current window in the tab has been modified):
+
+.. code::
+
+    :set guitablabel=%N/\ %t\ %M
+
+The -p option opens each file in a seperate tab
+
+.. code::
+
+    vim -p file1.rst file2.rst
+
+
+Once Vim has been launched, there are many commands that directly create or close tabs:
+   
+.. code::
+
+    :tabedit {file}   edit specified file (or new one) in a new tab
+    :tabfind {file}   open a new tab with filename given, searching the 'path' to find it
+    :tabclose         close current tab
+    :tabclose {i}     close i-th tab
+    :tabonly          close all other tabs (show only the current tab)
+    :tab sp           split the current window, but open the split in a new tab
+    :sp file.txt      creates a new window in the current tab
+    :ctrl-W T         move the window to a new tab
+    :ctrl-W c         close the current window
+
+navigation
+
+.. code::
+
+    :tabs         list all tabs including their displayed windows
+    :tabm 0       move current tab to first
+    :tabm         move current tab to last
+    :tabm {i}     move current tab to position i+1
+    
+    :tabn         go to next tab
+    :tabp         go to previous tab
+    :tabfirst     go to first tab
+    :tablast      go to last tab
+
+In normal mode, you can type:
+
+.. code::
+
+    gt            go to next tab
+    gT            go to previous tab
+    {i}gt         go to tab in position i
+
+Note that the gt command counts from one. That means 3gt will jump to the third tab. Also note is 0gt and 1gt mean the same thing: jumping to the first tab.
+
+Using recent vim versions, in normal mode and in insert mode, you can type:
+
+.. code::
+
+    Ctrl-PgDn     go to next tab
+    Ctrl-PgUp     go to previous tab
+
+Jumping to a specific tab with {i}gt is easier if you set up your tabline to show the tab number. 
 
 using relative line numbers
 ===========================

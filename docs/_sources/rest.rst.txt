@@ -71,6 +71,8 @@ See :ref:`inline-markup` for roles added by Sphinx.
 Lists and Quote-like blocks
 ---------------------------
 
+.. warning:: For nesting make sure you start exactly @ the same indentation!!
+
 List markup (:duref:`ref <bullet-lists>`) is natural: just place an asterisk at
 the start of a paragraph and indent properly.  The same goes for numbered lists;
 they can also be autonumbered using a ``#`` sign::
