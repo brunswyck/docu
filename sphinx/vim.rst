@@ -7,7 +7,7 @@ workflow
 ********
 Escape or not?
 ==============
-.. code-block:: html
+.. raw:: html
 
  <h2><a name="unescapedspecialcharacters">Regular Expression Special Characters Not Requiring Escaping</a></h2>
  <p>The following special characters are interpreted as regular expression operators <u><strong><em>without</em></strong></u> escaping (escaping will result in them being intepreted as literals):</p>
