@@ -569,25 +569,20 @@ User on Host_A pinged Host_B’s IP address. Routing doesn’t get any simpler t
 #. The routing table must have an entry for the network 172.16.20.0 or the packet will be discarded immediately and an ICMP message will be sent back to the originating device with a destination network unreachable message.
 #. If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected::
 
-	* .. code::
-	  Lab_A>sh ip route
-      C       172.16.10.0 is directly connected,    Ethernet0
-      L       172.16.10.1/32 is directly connected, Ethernet0
-      C       172.16.20.0 is directly connected,    Ethernet1
-      L       172.16.20.1/32 is directly connected, Ethernet1
+ 	Lab_A>sh ip route
+ 	C       172.16.10.0 is directly connected,    Ethernet0
+ 	L       172.16.10.1/32 is directly connected, Ethernet0
+ 	C       172.16.20.0 is directly connected,    Ethernet1
+ 	L       172.16.20.1/32 is directly connected, Ethernet1
 #. The router packet-switches the packet to the Ethernet 1 buffer.
-#. The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache::
+#. The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache. If the hardware address of Host_B has already been resolved and is in the router’s ARP cache, then the packet and the hardware address will be handed down to the Data Link layer to be framed.let’s take a look at the ARP cache on the Lab_A router by using the show ip arp command::
 
-	* If the hardware address of Host_B has already been resolved and is in the router’s ARP cache, then the packet and the hardware address will be handed down to the Data Link layer to be framed. Let’s take a look at the ARP cache on the Lab_A router by using the show ip arp command:
-
-   .. code::
-
-       Lab_A#sh ip arp
-       Protocol  Address     Age(min) Hardware Addr  Type   Interface
-       Internet  172.16.20.1   -     00d0.58ad.05f4  ARPA   Ethernet1
-       Internet  172.16.20.2   3     0030.9492.a5dd  ARPA   Ethernet1
-       Internet  172.16.10.1   -     00d0.58ad.06aa  ARPA   Ethernet0
-       Internet  172.16.10.2  12     0030.9492.a4ac  ARPA   Ethernet0
+    Lab_A#sh ip arp
+    Protocol  Address     Age(min) Hardware Addr  Type   Interface
+    Internet  172.16.20.1   -     00d0.58ad.05f4  ARPA   Ethernet1
+    Internet  172.16.20.2   3     0030.9492.a5dd  ARPA   Ethernet1
+    Internet  172.16.10.1   -     00d0.58ad.06aa  ARPA   Ethernet0
+    Internet  172.16.10.2  12     0030.9492.a4ac  ARPA   Ethernet0
 
 	* Now if the hardware address hasn’t already been resolved, the router will send an ARP request out E1 looking for the 172.16.20.2 hardware address. Host_B responds with its hardware address, and the packet and destination hardware addresses are then both sent to the Data Link layer for framing.
 
@@ -599,7 +594,7 @@ User on Host_A pinged Host_B’s IP address. Routing doesn’t get any simpler t
 #. IP then checks to see whether the destination IP address is a device on the local LAN or on a remote network. Since the destination device is on a remote network, the packet needs to be sent to the default gateway.
 #. The default gateway IP address is found in the Registry of the Windows device, and the ARP cache is checked to see if the hardware address has already been resolved from an IP address.
 #. Once the hardware address of the default gateway is found, the packet and destination hardware addresses are handed down to the Data Link layer for framing.
-#. The Data Link layer frames the packet of information and includes the following in the header::
+#. The Data Link layer frames the packet of information and includes the following in the header
 
 	* The destination and source hardware addresses
 	* The Ether-Type field with 0x0800 (IP) in it
@@ -613,7 +608,7 @@ User on Host_A pinged Host_B’s IP address. Routing doesn’t get any simpler t
 	.. warning:: IP does not run a complete CRC as the Data Link layer does—it only checks the header for errors.
 	* Since the IP destination address doesn’t match any of the router’s interfaces, the routing table is checked to see whether it has a route to 172.16.10.0. If it doesn’t have a route over to the destination network, the packet will be discarded immediately. I want to take a minute to point out that this is exactly where the source of confusion begins for a lot of administrators because when a ping fails, most people think the packet never reached the destination host. But as we see here, that’s not always the case. All it takes for this to happen is for even just one of the remote routers to lack a route back to the originating host’s network and— poof!—the packet is dropped on the return trip, not on its way to the host!
 
-.. note:: Just a quick note to mention that when (and if) the packet is lost on the way back to the originating host, you will typically see a request timed-out message because it is an unknown error. If the error occurs because of a known issue, such as if a route is not in the routing table on the way to the destination device, you will see a destination unreachable message. This should help you determine if the problem occurred on the way to the destination or on the way back.
+	.. note:: Just a quick note to mention that when (and if) the packet is lost on the way back to the originating host, you will typically see a request timed-out message because it is an unknown error. If the error occurs because of a known issue, such as if a route is not in the routing table on the way to the destination device, you will see a destination unreachable message. This should help you determine if the problem occurred on the way to the destination or on the way back.
 
 #. In this case, the router happens to know how to get to network 172.16.10.0—the exit interface is Ethernet 0—so the packet is switched to interface Ethernet 0.
 #. The router then checks the ARP cache to determine whether the hardware address for 172.16.10.2 has already been resolved.
