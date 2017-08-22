@@ -833,18 +833,15 @@ C 192.168.1.0/24 is directly connected, Loopback0
 <li><p class="first">The routing table must have an entry for the network 172.16.20.0 or the packet will be discarded immediately and an ICMP message will be sent back to the originating device with a destination network unreachable message.</p>
 </li>
 <li><p class="first">If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected:</p>
-</li>
-</ol>
-<blockquote>
-<div><div class="code highlight-rest"><div class="highlight"><pre><span></span>    Lab_A&gt;sh ip route
+<div class="highlight-rest"><div class="highlight"><pre><span></span>  <span class="m">*</span> .. code::
+    Lab_A&gt;sh ip route
 C       172.16.10.0 is directly connected,    Ethernet0
 L       172.16.10.1/32 is directly connected, Ethernet0
 C       172.16.20.0 is directly connected,    Ethernet1
 L       172.16.20.1/32 is directly connected, Ethernet1
 </pre></div>
 </div>
-</div></blockquote>
-<ol class="arabic">
+</li>
 <li><p class="first">The router packet-switches the packet to the Ethernet 1 buffer.</p>
 </li>
 <li><p class="first">The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache:</p>

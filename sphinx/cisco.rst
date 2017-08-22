@@ -567,16 +567,14 @@ User on Host_A pinged Host_B’s IP address. Routing doesn’t get any simpler t
 #. The packet is pulled from the frame, and what is left of the frame is discarded. The packet is handed to the protocol listed in the Ether-Type field—it’s given to IP.
 #. IP receives the packet and checks the IP destination address. Since the packet’s destination address doesn’t match any of the addresses configured on the receiving router itself, the router will look up the destination IP network address in its routing table.
 #. The routing table must have an entry for the network 172.16.20.0 or the packet will be discarded immediately and an ICMP message will be sent back to the originating device with a destination network unreachable message.
-#. If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected:
+#. If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected::
 
-  .. code::
-
+	* .. code::
 	  Lab_A>sh ip route
       C       172.16.10.0 is directly connected,    Ethernet0
       L       172.16.10.1/32 is directly connected, Ethernet0
       C       172.16.20.0 is directly connected,    Ethernet1
       L       172.16.20.1/32 is directly connected, Ethernet1
-
 #. The router packet-switches the packet to the Ethernet 1 buffer.
 #. The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache::
 
