@@ -38,7 +38,9 @@ utils
 .xfce4-session.verbose-log.last
 .xsession-errors
 .xsession-errors.old
- 
+.eclipse/
+.jmc/
+.oracle_jre_usage/ 
 
 
 # Except for the themes directories
