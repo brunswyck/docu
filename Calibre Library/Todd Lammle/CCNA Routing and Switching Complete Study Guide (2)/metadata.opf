@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">2</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">7fa7d5d3-8c1b-42b0-acd2-4d423f0593dd</dc:identifier>
+        <dc:title>CCNA Routing and Switching Complete Study Guide</dc:title>
+        <dc:creator opf:file-as="Lammle, Todd" opf:role="aut">Todd Lammle</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (2.75.1) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2016-09-12T00:00:00+00:00</dc:date>
+        <dc:description>&lt;b&gt;Networking's leading authority joins Sybex for the ultimate CCNA prep guide&lt;/b&gt; &lt;p&gt;&lt;i&gt;CCNA Routing and Switching Complete Study Guide, 2nd Edition&lt;/i&gt; is your comprehensive review for the CCNA exams. Written by the leading authority on networking technology, this guide covers 100% of all objectives for the latest ICND1, ICND2, and CCNA Composite exams. Hands-on labs help you gain experience in critical procedures and practices, and the network simulator provides a realistic lab environment so you can practice at your own pace. Gain access to the Sybex online learning environment, featuring a robust set of study tools including: practice questions, flashcards, video instruction, and an extensive glossary of terms to help you better prepare for exam day. The pre-assessment test helps you prioritize your study time, and bonus practice exams allow you to test your understanding. Need more practice? Get 20% off a year subscription and free access to premium Cisco...</dc:description>
+        <dc:publisher>Wiley</dc:publisher>
+        <dc:identifier opf:scheme="ISBN">9781119288299</dc:identifier>
+        <dc:language>eng</dc:language>
+        <meta content="{&quot;Todd Lammle&quot;: &quot;&quot;}" name="calibre:author_link_map"/>
+        <meta content="2017-08-22T07:19:54.150139+00:00" name="calibre:timestamp"/>
+        <meta content="CCNA Routing and Switching Complete Study Guide" name="calibre:title_sort"/>
+    </metadata>
+    <guide>
+        <reference href="cover.jpg" title="Cover" type="cover"/>
+    </guide>
+</package>

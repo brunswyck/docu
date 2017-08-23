@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">1</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">a05ab1fc-bcea-4127-9fe8-cabeb0b9d54e</dc:identifier>
+        <dc:title>Quick Start Guide</dc:title>
+        <dc:creator opf:file-as="Schember, John" opf:role="aut">John Schember</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (2.75.1) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>0101-01-01T00:00:00+00:00</dc:date>
+        <dc:description>calibre Quick Start Guide</dc:description>
+        <dc:language>eng</dc:language>
+        <meta content="{&quot;John Schember&quot;: &quot;&quot;}" name="calibre:author_link_map"/>
+        <meta content="2017-08-22T07:19:52.008239+00:00" name="calibre:timestamp"/>
+        <meta content="Quick Start Guide" name="calibre:title_sort"/>
+    </metadata>
+    <guide>
+        <reference href="cover.jpg" title="Cover" type="cover"/>
+    </guide>
+</package>
