@@ -13,3 +13,10 @@ update-alternatives --config java
 update-alternatives --config javaws 
 update-alternatives --config javac
 kill -s 9 `ps -u guru | grep firefox | awk '{ print $1 }'`
+
+
+wget https://assessment.netacad.net/check/PT-Assessment-Client.jnlp
+sudo apt-get install icedtea-netx
+javaws -version
+itweb-settings
+sudo dpkg-reconfigure dash
