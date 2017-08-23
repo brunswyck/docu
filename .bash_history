@@ -1021,4 +1021,600 @@ sudo create_ap -m bridge wlx74da385e308a enp0s25 vdab-quest Sh0wmethemoney
 sudo dhclient -4 br0
 sudo reboot
 sudo ip link show
+sudo ip addr showsudo create_ap -m bridge wlx74da385e308a enp0s25 vdab-quest Sh0wmethemoney
+cat /etc/resolv.conf 
+sudo dhclient -4
+guru
+cat /etc/resolv.conf 
+ls
+ll
+cd ..
+ll
+vim .gitignore
+cd Muziek/
+ll
+rm -rf California\ Dreaming\ _\ Endless\ Summer\ \(Back\ To\ School\ Mix\)-sRAvQVf33Xo.mkv 
+rm -rf California\ Dreaming\ _\ Endless\ Summer\ \(Back\ To\ School\ Mix\)-sRAvQVf33Xo.mkv Daughter\ -\ Candles-90mzH1kvznQ.mkv 
+rm -rf ./*
+ll
+cd ..
+ll
+cd Documenten/
+ll
+rm 2017-joboffergent.pdf 
+cd ..
+ls
+vim set_github.sh 
+ls
+ll
+ls
+man ls
+ls -C
+ls -C 1
+ls -
+ls -l
+ls -a
+ls -1 ./
+ls -1 -l ./
+ls -1 -a ./
+vim .wget-hsts 
+ls
+cd Bureaublad/
+ll
+cd ..
+ls
+vim .config/
+ll
+cd utils/
+ll
+cd ..
+ll
+vim .profile 
+vim .gitignore 
+clear
+git status
+git add .bash_aliases 
+git status
+git commit -m "added alias"
+git push 
+ssh-add-github 
+git push 
+cd ..
+ll
+clear
+sudo apt-get install transmission
+upping 
+alias
+vim ~/.bash_aliases 
+vim /etc/bash.bashrc 
+sudo vim /etc/bash.bashrc 
+exit
+git status
+git add .bash_aliases .vimrc
+git status
+git commit -m 'update aliases n vimrc'
+git push
+ssh-add-github 
+git push
+sudo dhclient -4
+git status
+cd ~
+git status
+git add .ssh/*
+git add Documenten/cisco/RoutingAndSwitchingEssentials.txt 
+git add github/docu
+git add pt/PT.conf 
+git  status
+git add Afbeeldingen/cisco/*
+git commit -m 'updating b4 goin home'
+git push
+git status
+git rm .packettracer 
+git add .packettracer 
+git add pt/*
+git status
+git commit -m 'updating b4 goin home'
+git push
+git status
+sudo dhclient -4 br0
 sudo ip addr show
+sudo apt-cache search dukto
+sudo apt-get install dukto
+sudo apt-cache search resilio
+sudo apt-cache search btsync
+sudo apt-cache search sync
+echo "deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free" | sudo tee /etc/apt/sources.list.d/resilio-sync.list
+wget -qO - https://linux-packages.resilio.com/resilio-sync/key.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get 
+upping 
+sudo vim /etc/apt/sources.list
+vim /etc/apt/sources.list
+sudo rm -rf /etc/apt/sources.list.d/jitsi-unstable.list 
+upping 
+sudo apt-get install resilio-sync 
+upping 
+sudo systemctl enable resilio-sync
+vim /usr/lib/systemd/user/resilio-sync.service 
+sudo - vim /usr/lib/systemd/user/resilio-sync.service 
+man sudo
+sudo -E /usr/lib/systemd/user/resilio-sync.service
+sudo -E vim /usr/lib/systemd/user/resilio-sync.service
+alias
+vim ~/.vimrc 
+source ~/.bashrc 
+systemctl --user start  resilio-sync
+git status
+sudo dhclient -4
+git status
+git show remote
+git show master 
+ls
+ll
+cd ..
+ll
+vim .vimrc 
+vim .gitignore 
+git status
+git add *
+git status
+git add *
+git status
+git add .bash*
+git status
+git add .gitconfig 
+git add .ssh/*
+git add .vim/*
+git add .wickrid 
+git status
+git add .gitignore 
+git add .vim/.netrwhist 
+git status
+git show remote
+git commit -m 'adding home files to github'
+git push 
+alias
+ssh-add-github 
+git push 
+git status
+git add Documenten/books/No.Starch.TCP.IP.Guide.Oct.2005.pdf.tar.bz2 
+git status 
+git commit -m 'book'
+git push 
+git status
+git push 
+git status
+git rm Documenten/books/No.Starch.TCP.IP.Guide.Oct.2005.pdf
+
+git status
+git commit -m "status check"
+git push 
+git status
+git rm .packettracer 
+git rm .packettracer
+git rm -f .packettracer
+rm .packettracer 
+git status
+clear
+git status
+git add .bashrc 
+git status
+ls
+mkdir history
+cp .bash_history history/history_vdab_august.txt
+git status
+git add history/*
+git status
+git add history/*
+git add .bashrc 
+git status
+vim .gitignore 
+git status
+git add .gitignore 
+git status
+git commit -m "update"
+git status
+git push
+ssh-add-github 
+git push
+git pull
+vim ~/.bash_aliases 
+alias
+git status
+git push 
+git status 
+git branch -a
+git checkout origin/origin/master 
+git branch -a
+git branch master 
+git checkout master 
+git status
+ls
+ll
+vim .vimrc 
+cd .vim/bundle/
+ll
+cd ..
+ll
+git status
+ll
+git checkout origin/origin/master 
+git status
+git branch -a
+git checkout origin/origin/master 
+git checkout origin/master 
+git status
+ll
+cd ..
+ll
+vim .vimrc 
+git add .vimrc 
+git status
+git difftool master origin/origin/master 
+sudo apt-get install tig
+git difftool master origin/origin/master 
+git diff master origin/origin/master
+clear
+git status
+git merge origin/origin/master master 
+git status
+vim .vimrc 
+git status
+git checkout master 
+git add .vim/*
+vim .gitignore 
+git checkout origin/origin/master 
+git branch origin/origin/master 
+git status
+clear
+git branch all
+git branch -a
+git checkout origin/master 
+vim .gitignore 
+git add .gitignore 
+git checkout origin/master 
+git checkout origin/master master
+git status
+git checkout master 
+git checkout origin/master .gitignore
+git status
+git add .vim/*
+git add github/*
+git status
+git commit -m 'merging some files from other branch'
+git push 
+git push --set-upstream origin master
+git status
+git add .ssh/*
+git status
+git commit -m "ok"
+git push 
+vim .gitignore 
+ll
+vim .vimrc 
+git checkout origin/master .vimrc
+git checkout origin/master .vim/*
+git status
+git commit -m "adding files"
+git push
+git status
+git add .ssh/known_hosts 
+git commit -m "okay"
+git push
+
+git checkout origin/master *
+git checkout origin/master ./*
+ls
+ll
+git checkout origin/master
+git merge ours master 
+git merge --strategy=ours master
+git checkout master
+git merge origin/master
+git status
+git push 
+git status
+clear
+git status
+vim .gitignore 
+clear
+cddocu
+alias
+gotosphinx
+goto-sphinx 
+clear
+git status
+ls
+envdocu 
+rstcheck cisco.rst 
+push_docs2github 
+git status
+git commit -m "added a part troubleshooting static routes"
+git add cisco.rst 
+git commit -m "added a part troubleshooting static routes"
+git push
+rstcheck cisco.rst 
+push_docs2github 
+git status
+ll
+cd ..
+ll
+cd docs/
+ll
+firefox cisco.html 
+rstcheck cisco.rst 
+rstcheck ../sphinx/cisco.rst 
+push_docs2github 
+vim ~/.bash_aliases 
+sudo vim /etc/bash.bashrc 
+git status
+rstcheck cisco.rst 
+upping 
+vim ~/.vimrc 
+ll
+rstcheck cisco.rst 
+push_docs2github 
+ll
+cd _build/
+ll
+cd html/
+ll
+cd ..
+ll
+pwd
+cd _static/
+ll
+cd ..
+rstcheck cisco.rst 
+push_docs2github 
+git status
+ls
+cd ..
+ll
+vim .gitignore 
+git status
+git add .gitignore 
+git add sphinx/vim.rst 
+git status
+git commit -m 'adding mod. gitignore and vim.rst'
+ssh-add-github 
+git push
+push_docs2github 
+git status
+git add vim.rst 
+git commit -m 'adding mod. vim.rst'
+git push
+push_docs2github 
+sudo apt-cache epub
+sudo apt-cache search epub
+sudo apt-cache search 'ebook reader'
+sudo apt-cache search ebook
+alias
+cd ..
+ls
+cd ..
+ls
+cd ~/
+ls
+cd github/
+ll
+git status
+cd docu/
+clear
+pwd
+echo $HOME
+echo 'alias cddocu="$HOME/github/docu/"' >> ~/.bash_aliases 
+source ~/.bash_aliases 
+cddocu 
+cd ..
+cddocu 
+vim ~/.bash_aliases 
+source ~/.bash_aliases 
+cddocu 
+clear
+git status
+clear
+vim ~/.bashrc 
+git status
+ll
+cddocu 
+envdocu 
+clear
+vim sphinx/cisco.rst 
+ls
+ll
+git status
+vim sphinx/cisco.rst 
+git status
+git add sphinx/cisco.rst 
+git commit -m 'update'
+ll
+git push 
+push_docs2github 
+ssh-add-github 
+chmod 700 ~/.ssh/
+chmod 600 ~/.ssh/*
+push_docs2github 
+git status
+vim sphinx/cisco.rst 
+git stat
+git status
+push_docs2github 
+git status
+push_docs2github 
+rstcheck cisco.rst 
+push_docs2github 
+rstcheck cisco.rst 
+push_docs2github 
+rstcheck cisco.rst 
+push_docs2github 
+ssh-add -l
+ssh-add-github 
+ssh-add -l
+rstcheck cisco.rst 
+ssh-add-github 
+push_docs2github 
+ssh-add-github 
+ssh-add -l
+ssh-add-github 
+rstcheck cisco.rst 
+push_docs2github 
+rstcheck cisco.rst 
+push_docs2github 
+rstcheck cisco.rst 
+push_docs2github 
+ls
+ll
+rm newfile.lol 
+rstcheck cisco.rst 
+push_docs2github 
+cd /tmp/mozilla_guru0/
+ll
+javaws PT-Assessment-Client-17802981.jnlp 
+rm PT-Assessment-Client-17802981.jnlp
+ls
+echo $PATH
+echo $PT7HOME 
+echo $PTHOME 
+cd ~/Downloads/
+ll
+gunzip jre-8u144-linux-x64.tar.gz 
+ll
+tar -xvf jre-8u144-linux-x64.tar 
+ll
+mkdir ~/packages
+cp jre-8u144-linux-x64.tar ~/packages/
+ll
+rm jre-8u144-linux-x64.tar 
+ll
+cd jre1.8.0_144/
+ll
+cat README 
+firefox Welcome.html 
+cd lib/
+ll
+cd ..
+clear
+sudo apt-get install default-jre
+sudo aptitude search "?provides(java-runtime)"
+sudo update-java-alternatives 
+sudo update-java-alternatives -a
+sudo update-java-alternatives --fre
+sudo update-java-alternatives --jre
+sudo update-java-alternatives --jre -l
+sudo update-java-alternatives --jre -a
+ps -u patrick
+ps -a -u patrick
+ps -ax -u patrick
+ps -aux -u patrick
+ps -u guru
+ps -u guru | grep firefox
+ps -u guru | grep firefox | awk { print $1 }
+ps -u guru | grep firefox | awk '{ print $1 }'
+kill -s 9 `ps -u guru | grep firefox | awk '{ print $1 }'`
+cd /tmp/mozilla_guru0/
+ls
+ll
+javaws PT-Assessment-Client-3.jnlp 
+env | grep pt
+/opt/pt/packettracer
+javaws PT-Assessment-Client-4.jnlp 
+javac -version
+javaws -version
+sudo apt-cache search icedtea-web
+sudo apt-cache policy icedtea-netx
+sudo apt-cache policy sid/icedtea-netx
+sudo update-alternatives --config java
+sudo apt-get install apt-get software-properties-common dirmngr
+sudo apt-get install software-properties-common dirmngr
+sudo add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu yakkety main"
+sudo apt-get update
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886
+sudo apt-get install oracle-java8-installer
+sudo apt install oracle-java8-set-default
+sudo apt-get install oracle-java9-installer
+clear
+update-alternatives --config java
+update-alternatives --config javaws 
+update-alternatives --config javac
+kill -s 9 `ps -u guru | grep firefox | awk '{ print $1 }'`
+history
+ll
+clear
+uname -m
+uname -a
+kill -s 9 `ps -u guru | grep firefox | awk '{ print $1 }'`
+ll
+cd ~/Downloads/
+ll
+sudo su
+ps -u guru
+kill -s 9 6799
+ls
+vim -o cisco.rst vim.rst 
+cddocu 
+envdocu 
+sudo vim /etc/apt/sources.list
+sudo vim /etc/apt/sources.list.d/jessie.list
+sudo cat /etc/apt/sources.list.d/jessie.list /etc/apt/sources.list.d/sid.list
+sudo cat /etc/apt/sources.list.d/jessie.list >> /etc/apt/sources.list.d/sid.list
+sudo su
+git add github/docu
+git status
+cddocu 
+envdocu 
+sudo apt-get install calibre
+alias
+pimpen 
+java --version
+javaws --version
+update-alternatives --config javaws 
+sudo apt-cache search jdk
+sudo apt-policy search openjdk-8-jdk
+sudo apt-cache policy openjdk-8-jdk
+sudo apt-policy search default-jre
+sudo apt-policy search default-jre*
+sudo apt-policy search default-*
+sudo apt-cache policy default-j*
+ll
+kill -s 9 `ps -u guru | grep firefox | awk '{ print $1 }'`
+'/tmp/mozilla_guru0/PT-Assessment-Client-1.jnlp'
+sudo '/tmp/mozilla_guru0/PT-Assessment-Client-1.jnlp'
+javaws -verbose /tmp/mozilla_guru0/PT-Assessment-Client-1.jnlp 
+javaws /tmp/mozilla_guru0/PT-Assessment-Client-1.jnlp 
+sudo apt-get purge default-jre*
+sudo apt-get purge oracle-java8-installer 
+sudo apt-get remove oracle-java9-installer
+sudo apt-get purge java-common 
+sudo apt-get purge openjdk-8-jre*
+sudo apt-get purge default-jre-headless 
+sudo apt-get purge oracle-java9-installer
+sudo vim /etc/apt/sources.list
+sudo apt-get clean 
+sudo apt-get autoremove 
+sudo apt-get purge icedtea-netx*
+sudo apt-get remove -f oracle-java9-installer
+ll
+rm /usr/lib/mozilla/plugins/libjavaplugin.so 
+sudo rm /usr/lib/mozilla/plugins/libjavaplugin.so 
+sudo locate java
+sudo apt-get purge -f oracle*
+sudo locate java
+sudo apt-get purge -f oracle-java9-installer
+sudo su
+clear
+sudo apt-get update
+sudo apt-get autoremove 
+sudo apt-get autoclean 
+sudo cat /etc/apt/sources.list.d/jessie.list /etc/apt/sources.list.d/sid.list
+sudo cat /etc/apt/sources.list.d/buster.list 
+sudo cat /etc/apt/preferences.d/buster.pref 
+sudo apt-get update 
+sudo apt-get upgrade 
+sudo mv /etc/apt/sources.list.d/buster.list /etc/apt/sources.list.d/buster.list.backup
+sudo mv /etc/apt/preferences.d/buster.pref /etc/apt/preferences.d/buster.pref.backup
+sudo apt-get update
+sudo apt-get upgrade 
+clear
+pimpen 
+sudo reboot 
