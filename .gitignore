@@ -7,8 +7,7 @@ Bureaublad
 .config
 .dbus
 .dmrc
-!Downloads/
-Downloads/*
+Downloads
 .gconf
 .gimp-2.8
 .git
