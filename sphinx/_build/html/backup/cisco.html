@@ -26,19 +26,19 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
 
   
         <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/> 
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="../index.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -54,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> debian & networking
+            <a href="../index.html" class="icon icon-home"> debian & networking
           
 
           
@@ -71,7 +71,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -171,7 +171,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">debian & networking</a>
+          <a href="../index.html">debian & networking</a>
         
       </nav>
 
@@ -199,7 +199,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
       <li>CCNA</li>
     
@@ -207,7 +207,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/cisco.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/backup/cisco.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -1353,7 +1353,7 @@ R1# show ip protocols | section Automatic
 <div class="section" id="configure-passive-interfaces">
 <h4>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h4>
 <p>By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.</p>
-<img alt="_images/configure_passive_ifs_on_R11.png" src="_images/configure_passive_ifs_on_R11.png" />
+<img alt="../_images/configure_passive_ifs_on_R1.png" src="../_images/configure_passive_ifs_on_R1.png" />
 <p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1466,7 +1466,7 @@ R3# show ip protocols
 </div>
 <div class="section" id="propagate-a-default-route">
 <h4>propagate a default route<a class="headerlink" href="#propagate-a-default-route" title="Permalink to this headline">¶</a></h4>
-<img alt="_images/propagate_default_route1.png" src="_images/propagate_default_route1.png" />
+<img alt="../_images/propagate_default_route.png" src="../_images/propagate_default_route.png" />
 <p>To propagate a default route in RIP, the edge router must be configured with:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1524,7 +1524,7 @@ R1(config-router)# end
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
+            URL_ROOT:'../',
             VERSION:'20170824',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -1532,15 +1532,15 @@ R1(config-router)# end
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   

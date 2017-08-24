@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CCNA &mdash; debian and networking 20170808 documentation</title>
+  <title>CCNA &mdash; debian &amp; networking 20170824 documentation</title>
   
 
   
@@ -35,9 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="debian and networking 20170808 documentation" href="index.html"/>
-        <link rel="next" title="GIT" href="git.html"/>
-        <link rel="prev" title="reStructuredText Primer" href="rest.html"/> 
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -56,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> debian and networking
+            <a href="index.html" class="icon icon-home"> debian & networking
           
 
           
@@ -66,7 +64,7 @@
             
             
               <div class="version">
-                20170808
+                201708
               </div>
             
           
@@ -90,66 +88,77 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CCNA</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#networking-fundamentals">Networking Fundamentals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#routing-and-switching-fundamentals">Routing and Switching Fundamentals</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#chapter-1-routing-concepts">Chapter 1 Routing Concepts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#basic-concepts">basic concepts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#router-s-3-packet-forwarding-mechanisms">Router’s 3 packet-forwarding mechanisms</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#loopback-interfaces">Loopback interfaces</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#configure-loopback-interface">configure loopback interface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#filtering-parameters">Filtering parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#history-commands">History commands</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#show-command-examples">Show command examples</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#arp-neighbor-advertisement-sollicitation">ARP - Neighbor Advertisement/Sollicitation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#routing-best-path-selection">Routing BEST PATH selection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#changing-administrative-distance">Changing Administrative Distance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#example-of-changing-ad-for-rip">example of changing AD for rip</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#other-applications-of-a-d">Other applications of A.D.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-ip-routing-process">The IP routing process</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">CCNA</a><ul>
+<li><a class="reference internal" href="#networking-fundamentals">Networking Fundamentals</a></li>
+<li><a class="reference internal" href="#routing-and-switching-fundamentals">Routing and Switching Fundamentals</a><ul>
+<li><a class="reference internal" href="#chapter-1-routing-concepts">Chapter 1 Routing Concepts</a><ul>
+<li><a class="reference internal" href="#basic-concepts">basic concepts</a></li>
+<li><a class="reference internal" href="#router-s-3-packet-forwarding-mechanisms">Router’s 3 packet-forwarding mechanisms</a></li>
+<li><a class="reference internal" href="#loopback-interfaces">Loopback interfaces</a></li>
+<li><a class="reference internal" href="#configure-loopback-interface">configure loopback interface</a></li>
+<li><a class="reference internal" href="#filtering-parameters">Filtering parameters</a></li>
+<li><a class="reference internal" href="#history-commands">History commands</a></li>
+<li><a class="reference internal" href="#show-command-examples">Show command examples</a></li>
+<li><a class="reference internal" href="#arp-neighbor-advertisement-sollicitation">ARP - Neighbor Advertisement/Sollicitation</a></li>
+<li><a class="reference internal" href="#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
+<li><a class="reference internal" href="#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
+<li><a class="reference internal" href="#routing-best-path-selection">Routing BEST PATH selection</a></li>
+<li><a class="reference internal" href="#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
+<li><a class="reference internal" href="#changing-administrative-distance">Changing Administrative Distance</a></li>
+<li><a class="reference internal" href="#example-of-changing-ad-for-rip">example of changing AD for rip</a></li>
+<li><a class="reference internal" href="#other-applications-of-a-d">Other applications of A.D.</a></li>
+<li><a class="reference internal" href="#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
+<li><a class="reference internal" href="#the-ip-routing-process">The IP routing process</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#chapter-2-static-routes">Chapter 2 Static Routes</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#when-to-use-static-routes">When to Use Static Routes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#default-static-route">Default static route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#summary-static-route">Summary static route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#floating-static-route">Floating static route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#fully-specified-static-route">Fully Specified Static Route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ipv6-static-routing">ipv6 static routing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#verify-a-default-static-route">verify a default static route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#troubleshooting-a-missing-route">Troubleshooting a missing route</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#solve-a-connectivity-problem">Solve a connectivity problem</a></li>
+<li><a class="reference internal" href="#chapter-2-static-routes">Chapter 2 Static Routes</a><ul>
+<li><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
+<li><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
+<li><a class="reference internal" href="#when-to-use-static-routes">When to Use Static Routes</a></li>
+<li><a class="reference internal" href="#default-static-route">Default static route</a></li>
+<li><a class="reference internal" href="#summary-static-route">Summary static route</a></li>
+<li><a class="reference internal" href="#floating-static-route">Floating static route</a></li>
+<li><a class="reference internal" href="#fully-specified-static-route">Fully Specified Static Route</a><ul>
+<li><a class="reference internal" href="#example">example</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#chapter-3-dynamic-routing">Chapter 3 Dynamic Routing</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#dynamic-routing-protocols-components">Dynamic Routing Protocols Components</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#static-routing-uses">Static Routing Uses</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dynamic-routing-uses">Dynamic Routing Uses</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ripv2">RIPv2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#enable-disable">enable/disable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#disable-auto-summarization">disable auto summarization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#configure-passive-interfaces">configure passive interfaces</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#propagate-a-default-route">propagate a default route</a></li>
+<li><a class="reference internal" href="#ipv6-static-routing">ipv6 static routing</a></li>
+<li><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
+<li><a class="reference internal" href="#verify-a-default-static-route">verify a default static route</a></li>
+<li><a class="reference internal" href="#troubleshooting-a-missing-route">Troubleshooting a missing route</a></li>
+<li><a class="reference internal" href="#solve-a-connectivity-problem">Solve a connectivity problem</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#chapter-3-dynamic-routing">Chapter 3 Dynamic Routing</a><ul>
+<li><a class="reference internal" href="#dynamic-routing-protocols-components">Dynamic Routing Protocols Components</a></li>
+<li><a class="reference internal" href="#static-routing-uses">Static Routing Uses</a><ul>
+<li><a class="reference internal" href="#pros-static">Pros static</a></li>
+<li><a class="reference internal" href="#cons-static">Cons static</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dynamic-routing-uses">Dynamic Routing Uses</a><ul>
+<li><a class="reference internal" href="#pros-dynamic">Pros Dynamic</a></li>
+<li><a class="reference internal" href="#cons-dynamic">Cons Dynamic</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ripv2">RIPv2</a></li>
+<li><a class="reference internal" href="#enable-disable">enable/disable</a><ul>
+<li><a class="reference internal" href="#verify-rip-routing">verify rip routing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#disable-auto-summarization">disable auto summarization</a></li>
+<li><a class="reference internal" href="#configure-passive-interfaces">configure passive interfaces</a></li>
+<li><a class="reference internal" href="#propagate-a-default-route">propagate a default route</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 </ul>
-
+</div>
             
           
         </div>
@@ -162,7 +171,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">debian and networking</a>
+          <a href="index.html">debian & networking</a>
         
       </nav>
 
@@ -1344,7 +1353,7 @@ R1# show ip protocols | section Automatic
 <div class="section" id="configure-passive-interfaces">
 <h4>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h4>
 <p>By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.</p>
-<img alt="_static/configure_passive_ifs_on_R1.png" src="_static/configure_passive_ifs_on_R1.png" />
+<img alt="_images/configure_passive_ifs_on_R11.png" src="_images/configure_passive_ifs_on_R11.png" />
 <p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1354,7 +1363,82 @@ R1# show ip protocols | section Automatic
 </ul>
 </div></blockquote>
 <p>Use the <strong>passive-interface</strong> router configuration command to prevent the transmission of routing updates through a router interface, <em>but still allow that network to be advertised to other routers</em>. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.</p>
-<img alt="_static/configure_passive_ifs_on_R1_2.png" src="_static/configure_passive_ifs_on_R1_2.png" />
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Configure passive interface on G0/0 and return to privileged EXEC mode.
+R2(config)# router rip
+R2(config-router)# passive-interface g0/0
+R2(config-router)# end
+R2#
+*Mar 10 16:33:32.391: %SYS-5-CONFIG_I: Configured from console by console
+Verify the RIP protocol settings on R2.
+R2# show ip protocols
+
+<span class="gs">*** IP Routing is NSF aware **</span>*
+
+Routing Protocol is &quot;rip&quot;
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Sending updates every 30 seconds, next due in 17 seconds
+  Invalid after 180 seconds, hold down 180, flushed after 240
+  Redistributing: rip
+  Default version control: send version 2, receive version 2
+    Interface             Send  Recv  Triggered RIP  Key-chain
+    Serial0/0/0           2     2
+    Serial0/0/1           2     2
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    192.168.2.0
+    192.168.3.0
+    192.168.4.0
+  Passive Interface(s):
+    GigabitEthernet0/0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    192.168.2.1          120      00:00:24
+    Gateway         Distance      Last Update
+    192.168.4.1          120      00:00:23
+  Distance: (default is 120)
+R2#
+
+You are now logged into R3. Configure passive interface to be the default setting. Remove the passive interface setting from S0/0/1 and return to privileged EXEC mode.
+R3(config)# router rip
+R3(config-router)# passive-interface default
+R3(config-router)# no passive-interface s0/0/1
+R3(config-router)# end
+R3#
+*Mar 10 16:34:28.899: %SYS-5-CONFIG_I: Configured from console by console
+Verify the RIP protocol settings on R3.
+R3# show ip protocols
+<span class="gs">*** IP Routing is NSF aware **</span>*
+
+Routing Protocol is &quot;rip&quot;
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Sending updates every 30 seconds, next due in 15 seconds
+  Invalid after 180 seconds, hold down 180, flushed after 240
+  Redistributing: rip
+  Default version control: send version 2, receive version 2
+    Interface             Send  Recv  Triggered RIP  Key-chain
+    Serial0/0/1           2     2
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    192.168.4.0
+    192.168.5.0
+  Passive Interface(s):
+    Embedded-Service-Engine0/0
+    GigabitEthernet0/0
+    GigabitEthernet0/1
+    GigabitEthernet0/3
+    Serial0/0/0
+    RG-AR-IF-INPUT1
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    192.168.4.2          120      00:00:23
+  Distance: (default is 120)
+R3#
+</pre></div>
+</div>
 <p>There is no need for R1, R2, and R3 to forward RIP updates out of their LAN interfaces. The configuration in Figure 2 identifies the R1 G0/0 interface as passive. <em>The show ip protocols command is then used to verify that the Gigabit Ethernet interface was passive.</em>
 .. note:: Notice that the G0/0 interface is no longer listed as sending or receiving version 2 updates, but instead is now listed under the Passive Interface(s) section. Also notice that the network 192.168.1.0 is still listed under Routing for Networks, which means that this network is still included as a route entry in RIP updates that are sent to R2.</p>
 <div class="admonition note">
@@ -1382,7 +1466,7 @@ R3# show ip protocols
 </div>
 <div class="section" id="propagate-a-default-route">
 <h4>propagate a default route<a class="headerlink" href="#propagate-a-default-route" title="Permalink to this headline">¶</a></h4>
-<img alt="_static/propagate_default_route.png" src="_static/propagate_default_route.png" />
+<img alt="_images/propagate_default_route1.png" src="_images/propagate_default_route1.png" />
 <p>To propagate a default route in RIP, the edge router must be configured with:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1414,15 +1498,6 @@ R1(config-router)# end
           </div>
           <footer>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="git.html" class="btn btn-neutral float-right" title="GIT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="rest.html" class="btn btn-neutral" title="reStructuredText Primer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
@@ -1450,7 +1525,7 @@ R1(config-router)# end
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'20170808',
+            VERSION:'20170824',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
