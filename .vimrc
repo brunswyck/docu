@@ -1,3 +1,5 @@
+" git clone https://github.com/VundleVim/Vundle.vim.git
+" ~/.vim/bundle/Vundle.vim
 " for more info check
 " in vim do :PluginUpdate
 " https://github.com/VundleVim/Vundle.vim
