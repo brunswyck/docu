@@ -1618,3 +1618,158 @@ sudo apt-get upgrade
 clear
 pimpen 
 sudo reboot 
+alias
+vim ~/bashrc_addons/myfunctions.sh 
+LL
+ll
+cd docu/
+ll
+cd sphinx/
+ll
+mv index.rst index.rst_backup
+git status
+push_docs2github 
+echo 'alias logout="xfce4-session-logout"' >> ~/.bash_aliases 
+git status
+vim ~/.bash_aliases 
+cd
+git status
+git add .bash_aliases 
+git add bashrc_addons/myfunctions.sh 
+git add pt/PT.conf 
+ll
+git status
+git commit -m 'changed aliases n alias function'
+git push
+git status
+git checkout .bash_history
+git status
+git branch -a
+clear
+cddocu 
+git status
+alias
+ssh-add-github 
+envdocu 
+vim ~/.bash_aliases 
+source ~/.bashrc 
+alias
+envdocu 
+push_docs2github 
+pip3 install sphinx
+ll
+push_docs2github 
+vim ~/bashrc_addons/
+source ~/.bashrc 
+push_docs2github 
+vim ~/bashrc_addons/
+source ~/.bashrc 
+push_docs2github 
+vim ~/bashrc_addons/
+ll
+make html
+vim conf.py 
+which pip3
+which pip2.7
+which pip2
+pip2.7 install sphinx
+push_docs2github 
+pip2.7 install sphinx_rtd_theme
+ll
+push_docs2github 
+ll
+mkdir _static
+vim cisco.rst 
+git status
+mkdir html
+ll
+rmdir html/
+ll
+mkdir backup
+cp -r _build/ backup/
+cp -r *.rst backup/
+cp -r _static/ backup/
+cp -r index.md backup/
+cp Makefile backup/
+ll backup/
+cp conf.py backup/
+ll backup/
+ll
+sphinx-quickstart 
+cd ..
+ll
+pwd
+cd sphinx/
+sphinx-quickstart 
+rm conf.py 
+sphinx-quickstart 
+ll
+vim backup/conf.py 
+ll
+git status
+git add cisco.rst 
+git add conf.py index.rst 
+git status
+git add Makefile 
+git commit -m 'upping'
+git push
+ll
+cd ..
+ll
+vim .gitignore 
+git status
+git add sphinx/_static/
+ll
+git add sphinx/backup/
+git add sphinx/index.rst_backup 
+git status
+git add .gitignore 
+git commit -m 'adding all sphinx files'
+git push
+git status
+ll
+cd sphinx/
+ll
+pip2.7 install rstcheck
+rstcheck cisco.rst 
+rstcheck index.rst
+rstcheck rest.rst 
+rstcheck vim.rst 
+push_docs2github 
+vim index.rst
+git status
+git commit -m 'index toctree updated'
+git add index.rst 
+git commit -m 'index toctree updated'
+git push
+git status
+git push
+push_docs2github 
+cd ..
+ls
+pwd
+ls
+ll
+vim sphinx/conf.py 
+git status
+git add sphinx/conf.py 
+git status
+clear
+cddocu 
+git status 
+cd ~/docu/sphinx/
+clear
+vim conf.py 
+cd backup/
+ll
+vim index.rst 
+cd ..
+vim .gitignore
+ll
+cd ..
+ll
+vim .gitignore 
+git status
+git add sphinx/conf.py 
+git commit -m 'excluded include/*.rst files '
+git push

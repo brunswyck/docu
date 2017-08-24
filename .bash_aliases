@@ -13,3 +13,5 @@ alias pimpen='sudo apt update;sudo apt upgrade;sudo apt clean;sudo apt autoremov
 alias startpgadmin4='python3 /home/patrick/.local/lib/python3.5/site-packages/pgadmin4/pgAdmin4.py'
 alias connect_pgsql_cloud='psql "sslmode=disable dbname=postgres user=postgres hostaddr=35.195.23.178"'
 alias logout="xfce4-session-logout"
+alias history="history | awk '{\$1=\"\";print substr(\$0,2)}'"
+alias installhistory="cat /var/log/apt/history.log | grep 'apt-get install'"
