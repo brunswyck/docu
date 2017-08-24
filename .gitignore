@@ -1,4 +1,5 @@
 # Ignore the following
+pt/logs
 docu
 .adobe
 .bash_logout

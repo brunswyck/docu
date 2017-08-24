@@ -15,20 +15,33 @@ Pin: release a=jessie-backports
 Pin-Priority: -1
 root@vdab10:/lib# 
 
+# after having configured the jessie-backports repository you can install the libssl1.0.0 package
 
 root@vdab10:/lib# apt-get update
-
 root@vdab10:/lib# apt-get install -t jessie-backports libssl1.0.0
-De volgende NIEUWE pakketten zullen geïnstalleerd worden:
-  libssl1.0.0
-0 opgewaardeerd, 1 nieuw geïnstalleerd, 0 te verwijderen en 1 niet opgewaardeerd.
-Er moeten 1.296 kB aan archieven opgehaald worden.
-Na deze bewerking zal er 3.588 kB extra schijfruimte gebruikt worden.
-Ophalen:1 http://ftp.be.debian.org/debian jessie-backports/main amd64 libssl1.0.0 amd64 1.0.2k-1~bpo8+1 [1.296 kB]
-1.296 kB opgehaald in 0s (3.553 kB/s) 
-Voorconfigureren van pakketten ...
-Voorheen niet geselecteerd pakket libssl1.0.0:amd64 wordt geselecteerd.
-(Database wordt ingelezen ... 94141 bestanden en mappen momenteel geïnstalleerd.)
-Uitpakken van .../libssl1.0.0_1.0.2k-1~bpo8+1_amd64.deb wordt voorbereid...
-Bezig met uitpakken van libssl1.0.0:amd64 (1.0.2k-1~bpo8+1) ...
-Instellen van libssl1.0.0:amd64 (1.0.2k-1~bpo8+1) ...
+Instellen van libssl1.0.0:amd64 (1.0.2k-1~bpo8+1) ..
+.
+# lookup missing modules with the apt-file utility
+
+guru@lab:~/docu[brunswyck:docu.git master]$ /opt/pt/bin/PacketTracer7 
+/opt/pt/bin/PacketTracer7: error while loading shared libraries: libQt5Multimedia.so.5: cannot open shared object file: No such file or directory
+
+sudo apt-file search libQt5Multimedia.so.5
+libqt5multimedia5: /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so.5
+libqt5multimedia5: /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so.5.7
+libqt5multimedia5: /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so.5.7.1
+
+sudo apt-get install libqt5webkit5
+sudo apt-get install libqt5multimedia5
+sudo apt-get install libqt5xml5
+sudo apt-get install libqt5script5
+sudo apt-get install libqt5scripttools5
+
+# so yeah
+sudo apt-get install libqt5webkit5 libqt5multimedia5 libqt5xml5 libqt5script5 libqt5scripttools5
+
+# create your ~/.xsessionrc and logout in again
+cat ~/.xsessionrc 
+PT7HOME="/opt/pt"
+export PT7HOME
+
