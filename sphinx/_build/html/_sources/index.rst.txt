@@ -10,7 +10,11 @@ Welcome to REPLACE's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   vim
+   git
+   commands
+   rest
+   cisco
 
 Indices and tables
 ==================
