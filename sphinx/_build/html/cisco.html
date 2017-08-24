@@ -35,7 +35,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/> 
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/>
+        <link rel="prev" title="reStructuredText Primer" href="rest.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,69 +89,58 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">CCNA</a><ul>
-<li><a class="reference internal" href="#networking-fundamentals">Networking Fundamentals</a></li>
-<li><a class="reference internal" href="#routing-and-switching-fundamentals">Routing and Switching Fundamentals</a><ul>
-<li><a class="reference internal" href="#chapter-1-routing-concepts">Chapter 1 Routing Concepts</a><ul>
-<li><a class="reference internal" href="#basic-concepts">basic concepts</a></li>
-<li><a class="reference internal" href="#router-s-3-packet-forwarding-mechanisms">Router’s 3 packet-forwarding mechanisms</a></li>
-<li><a class="reference internal" href="#loopback-interfaces">Loopback interfaces</a></li>
-<li><a class="reference internal" href="#configure-loopback-interface">configure loopback interface</a></li>
-<li><a class="reference internal" href="#filtering-parameters">Filtering parameters</a></li>
-<li><a class="reference internal" href="#history-commands">History commands</a></li>
-<li><a class="reference internal" href="#show-command-examples">Show command examples</a></li>
-<li><a class="reference internal" href="#arp-neighbor-advertisement-sollicitation">ARP - Neighbor Advertisement/Sollicitation</a></li>
-<li><a class="reference internal" href="#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
-<li><a class="reference internal" href="#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
-<li><a class="reference internal" href="#routing-best-path-selection">Routing BEST PATH selection</a></li>
-<li><a class="reference internal" href="#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
-<li><a class="reference internal" href="#changing-administrative-distance">Changing Administrative Distance</a></li>
-<li><a class="reference internal" href="#example-of-changing-ad-for-rip">example of changing AD for rip</a></li>
-<li><a class="reference internal" href="#other-applications-of-a-d">Other applications of A.D.</a></li>
-<li><a class="reference internal" href="#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
-<li><a class="reference internal" href="#the-ip-routing-process">The IP routing process</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CCNA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#networking-fundamentals">Networking Fundamentals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#routing-and-switching-fundamentals">Routing and Switching Fundamentals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-1-routing-concepts">Chapter 1 Routing Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-concepts">basic concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#router-s-3-packet-forwarding-mechanisms">Router’s 3 packet-forwarding mechanisms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loopback-interfaces">Loopback interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-loopback-interface">configure loopback interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-parameters">Filtering parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#history-commands">History commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-command-examples">Show command examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arp-neighbor-advertisement-sollicitation">ARP - Neighbor Advertisement/Sollicitation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routing-best-path-selection">Routing BEST PATH selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#changing-administrative-distance">Changing Administrative Distance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-of-changing-ad-for-rip">example of changing AD for rip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#other-applications-of-a-d">Other applications of A.D.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-ip-routing-process">The IP routing process</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#chapter-2-static-routes">Chapter 2 Static Routes</a><ul>
-<li><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
-<li><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
-<li><a class="reference internal" href="#when-to-use-static-routes">When to Use Static Routes</a></li>
-<li><a class="reference internal" href="#default-static-route">Default static route</a></li>
-<li><a class="reference internal" href="#summary-static-route">Summary static route</a></li>
-<li><a class="reference internal" href="#floating-static-route">Floating static route</a></li>
-<li><a class="reference internal" href="#fully-specified-static-route">Fully Specified Static Route</a><ul>
-<li><a class="reference internal" href="#example">example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-2-static-routes">Chapter 2 Static Routes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#when-to-use-static-routes">When to Use Static Routes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-static-route">Default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-static-route">Summary static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#floating-static-route">Floating static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fully-specified-static-route">Fully Specified Static Route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-static-routing">ipv6 static routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verify-a-default-static-route">verify a default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting-a-missing-route">Troubleshooting a missing route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#solve-a-connectivity-problem">Solve a connectivity problem</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ipv6-static-routing">ipv6 static routing</a></li>
-<li><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
-<li><a class="reference internal" href="#verify-a-default-static-route">verify a default static route</a></li>
-<li><a class="reference internal" href="#troubleshooting-a-missing-route">Troubleshooting a missing route</a></li>
-<li><a class="reference internal" href="#solve-a-connectivity-problem">Solve a connectivity problem</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#chapter-3-dynamic-routing">Chapter 3 Dynamic Routing</a><ul>
-<li><a class="reference internal" href="#dynamic-routing-protocols-components">Dynamic Routing Protocols Components</a></li>
-<li><a class="reference internal" href="#static-routing-uses">Static Routing Uses</a><ul>
-<li><a class="reference internal" href="#pros-static">Pros static</a></li>
-<li><a class="reference internal" href="#cons-static">Cons static</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#dynamic-routing-uses">Dynamic Routing Uses</a><ul>
-<li><a class="reference internal" href="#pros-dynamic">Pros Dynamic</a></li>
-<li><a class="reference internal" href="#cons-dynamic">Cons Dynamic</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#ripv2">RIPv2</a></li>
-<li><a class="reference internal" href="#enable-disable">enable/disable</a><ul>
-<li><a class="reference internal" href="#verify-rip-routing">verify rip routing</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#disable-auto-summarization">disable auto summarization</a></li>
-<li><a class="reference internal" href="#configure-passive-interfaces">configure passive interfaces</a></li>
-<li><a class="reference internal" href="#propagate-a-default-route">propagate a default route</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-3-dynamic-routing">Chapter 3 Dynamic Routing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-routing-protocols-components">Dynamic Routing Protocols Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#static-routing-uses">Static Routing Uses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-routing-uses">Dynamic Routing Uses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ripv2">RIPv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enable-disable">enable/disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-auto-summarization">disable auto summarization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-passive-interfaces">configure passive interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#propagate-a-default-route">propagate a default route</a></li>
 </ul>
 </li>
 </ul>
@@ -158,7 +148,7 @@
 </ul>
 </li>
 </ul>
-</div>
+
             
           
         </div>
@@ -1497,6 +1487,13 @@ R1(config-router)# end
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="rest.html" class="btn btn-neutral" title="reStructuredText Primer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
