@@ -148,7 +148,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command Examples</a></li>
 </ul>
 
             
@@ -1345,7 +1344,7 @@ R1# show ip protocols | section Automatic
 <div class="section" id="configure-passive-interfaces">
 <h4>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h4>
 <p>By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.</p>
-<img alt="_images/configure_passive_ifs_on_R1.png" src="_images/configure_passive_ifs_on_R1.png" />
+<img alt="_static/configure_passive_ifs_on_R1.png" src="_static/configure_passive_ifs_on_R1.png" />
 <p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1355,7 +1354,7 @@ R1# show ip protocols | section Automatic
 </ul>
 </div></blockquote>
 <p>Use the <strong>passive-interface</strong> router configuration command to prevent the transmission of routing updates through a router interface, <em>but still allow that network to be advertised to other routers</em>. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.</p>
-<img alt="_images/configure_passive_ifs_on_R1_2.png" src="_images/configure_passive_ifs_on_R1_2.png" />
+<img alt="_static/configure_passive_ifs_on_R1_2.png" src="_static/configure_passive_ifs_on_R1_2.png" />
 <p>There is no need for R1, R2, and R3 to forward RIP updates out of their LAN interfaces. The configuration in Figure 2 identifies the R1 G0/0 interface as passive. <em>The show ip protocols command is then used to verify that the Gigabit Ethernet interface was passive.</em>
 .. note:: Notice that the G0/0 interface is no longer listed as sending or receiving version 2 updates, but instead is now listed under the Passive Interface(s) section. Also notice that the network 192.168.1.0 is still listed under Routing for Networks, which means that this network is still included as a route entry in RIP updates that are sent to R2.</p>
 <div class="admonition note">
@@ -1383,7 +1382,7 @@ R3# show ip protocols
 </div>
 <div class="section" id="propagate-a-default-route">
 <h4>propagate a default route<a class="headerlink" href="#propagate-a-default-route" title="Permalink to this headline">¶</a></h4>
-<img alt="_images/propagate_default_route.png" src="_images/propagate_default_route.png" />
+<img alt="_static/propagate_default_route.png" src="_static/propagate_default_route.png" />
 <p>To propagate a default route in RIP, the edge router must be configured with:</p>
 <blockquote>
 <div><ul class="simple">
