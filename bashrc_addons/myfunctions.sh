@@ -3,9 +3,9 @@
 
 push_docs2github() {
     goto-sphinx    
-    source ~/github/docu/env/bin/activate
+    source ~/docu/sphinx/env/bin/activate
     make html
-    cp -r ~/github/docu/sphinx/_build/html/* ~/github/docu/docs/
+    cp -r ~/docu/sphinx/_build/html/* ~/docu/docs/
     git add --all
     git commit -m "upping html to github"
     git push --no-verify
