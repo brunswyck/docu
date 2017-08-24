@@ -1066,7 +1066,82 @@ For instance, refer to the topology above. RIP sends updates out of its G0/0 int
 
 Use the **passive-interface** router configuration command to prevent the transmission of routing updates through a router interface, *but still allow that network to be advertised to other routers*. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.
 
-.. image:: _static/configure_passive_ifs_on_R1_2.png
+.. code:: 
+
+   Configure passive interface on G0/0 and return to privileged EXEC mode.
+   R2(config)# router rip
+   R2(config-router)# passive-interface g0/0
+   R2(config-router)# end
+   R2#
+   *Mar 10 16:33:32.391: %SYS-5-CONFIG_I: Configured from console by console
+   Verify the RIP protocol settings on R2.
+   R2# show ip protocols
+   
+   *** IP Routing is NSF aware *** 
+    
+   Routing Protocol is "rip" 
+     Outgoing update filter list for all interfaces is not set 
+     Incoming update filter list for all interfaces is not set 
+     Sending updates every 30 seconds, next due in 17 seconds 
+     Invalid after 180 seconds, hold down 180, flushed after 240 
+     Redistributing: rip 
+     Default version control: send version 2, receive version 2 
+       Interface             Send  Recv  Triggered RIP  Key-chain 
+       Serial0/0/0           2     2
+       Serial0/0/1           2     2
+     Automatic network summarization is not in effect 
+     Maximum path: 4 
+     Routing for Networks: 
+       192.168.2.0 
+       192.168.3.0 
+       192.168.4.0 
+     Passive Interface(s): 
+       GigabitEthernet0/0 
+     Routing Information Sources: 
+       Gateway         Distance      Last Update 
+       192.168.2.1          120      00:00:24 
+       Gateway         Distance      Last Update 
+       192.168.4.1          120      00:00:23 
+     Distance: (default is 120)
+   R2#
+   
+   You are now logged into R3. Configure passive interface to be the default setting. Remove the passive interface setting from S0/0/1 and return to privileged EXEC mode.
+   R3(config)# router rip
+   R3(config-router)# passive-interface default
+   R3(config-router)# no passive-interface s0/0/1
+   R3(config-router)# end
+   R3#
+   *Mar 10 16:34:28.899: %SYS-5-CONFIG_I: Configured from console by console
+   Verify the RIP protocol settings on R3.
+   R3# show ip protocols
+   *** IP Routing is NSF aware *** 
+    
+   Routing Protocol is "rip" 
+     Outgoing update filter list for all interfaces is not set 
+     Incoming update filter list for all interfaces is not set 
+     Sending updates every 30 seconds, next due in 15 seconds 
+     Invalid after 180 seconds, hold down 180, flushed after 240 
+     Redistributing: rip 
+     Default version control: send version 2, receive version 2 
+       Interface             Send  Recv  Triggered RIP  Key-chain 
+       Serial0/0/1           2     2
+     Automatic network summarization is not in effect 
+     Maximum path: 4 
+     Routing for Networks: 
+       192.168.4.0 
+       192.168.5.0 
+     Passive Interface(s): 
+       Embedded-Service-Engine0/0 
+       GigabitEthernet0/0 
+       GigabitEthernet0/1 
+       GigabitEthernet0/3 
+       Serial0/0/0 
+       RG-AR-IF-INPUT1 
+     Routing Information Sources: 
+       Gateway         Distance      Last Update 
+       192.168.4.2          120      00:00:23 
+     Distance: (default is 120) 
+   R3#
 
 There is no need for R1, R2, and R3 to forward RIP updates out of their LAN interfaces. The configuration in Figure 2 identifies the R1 G0/0 interface as passive. *The show ip protocols command is then used to verify that the Gigabit Ethernet interface was passive.*
 .. note:: Notice that the G0/0 interface is no longer listed as sending or receiving version 2 updates, but instead is now listed under the Passive Interface(s) section. Also notice that the network 192.168.1.0 is still listed under Routing for Networks, which means that this network is still included as a route entry in RIP updates that are sent to R2.

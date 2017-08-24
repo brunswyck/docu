@@ -1,20 +1,16 @@
-.. debian and networking documentation master file, created by
-   sphinx-quickstart on Tue Aug  8 09:29:56 2017.
+.. REPLACE documentation master file, created by
+   sphinx-quickstart on Thu Aug 24 11:52:20 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Documentation on debian and networking
-======================================
+Welcome to REPLACE's documentation!
+===================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   vim
-   rest
-   cisco 
-   git
-   commands
+
 
 Indices and tables
 ==================
