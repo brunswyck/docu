@@ -16,8 +16,6 @@ guru@vdab10:~$ sudo tail -n 5 /etc/profile
 export PATH="$PATH:/opt/pt/bin"
 PT7HOME="/opt/pt"
 export PT7HOME
-PTHOME="/opt/pt"
-export PTHOME
 
 
 These variables didn't seem to load when logging off but that is because you are only logging out of your graphical session
@@ -33,9 +31,6 @@ and this in the ~/.xsessionrc file
 export PATH="$PATH:/opt/pt/bin"
 PT7HOME="/opt/pt"
 export PT7HOME
-PTHOME="/opt/pt"
-export PTHOME
-
 
 One way to fix this is by going to the preferences of your terminal
 on your graphical terminal select edit>preferences> Command> "Run command as login shell"
@@ -44,9 +39,7 @@ You might be more successful by adding it to your ~/.bashrc file but I was just 
 now when you launch your terminal again you should see these variables to make sure cisco finds what it needs to launch packet tracer 7
 guru@vdab10:~$ env | grep pt
 PT7HOME=/opt/pt
-PTHOME=/opt/pt
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/opt/pt/bin
-
 
 
 go to https://assessment.netacad.net/check/check.html and download the Cisco Packet Tracer Assessment Environment Checker
@@ -72,3 +65,14 @@ Packet Tracer IPC Ports Available -- Yes
 Packet Tracer Version -- 7.0.0.0306
 
 goodluck!
+
+to allow netacad in noscript
+https://noscript.net/abe/abe_rules.pdf
+https://noscript.net/abe/
+https://www.ghacks.net/2015/04/21/how-to-add-custom-site-exclusions-to-noscript/
+# Prevent Internet sites from requesting LAN resources.
+Site LOCAL
+Accept from LOCAL
+Accept from .netacad.com
+Accept from .netacad.net
+Deny
