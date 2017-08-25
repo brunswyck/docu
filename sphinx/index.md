@@ -11,6 +11,7 @@ Documentation on debian and networking
    :caption: Contents:
 
    vim
+   git
    rest
    cisco 
 
