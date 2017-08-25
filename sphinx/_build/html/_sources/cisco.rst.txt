@@ -1050,6 +1050,12 @@ disable auto summarization
 	R1(config-router)# end
     R1# show ip protocols | section Automatic 
 
+.. warning:: auto-summary = classful, no auto-summary = you can see /25 routes = classless, don't confuse with summarization. If you want a summary address you can apply the following on the **outgoing interface you want de summary address advertised**
+   
+   .. code::
+      
+      ip summary-address rip 192.168.0.0 255.255.252.0
+
 configure passive interfaces
 ----------------------------
 
@@ -1188,4 +1194,104 @@ To propagate a default route in RIP, the edge router must be configured with:
 	R1(config-router)# end 
 
 Example above configures a fully-specified default static route to the service provider and then the route is propagated by RIP. Notice that R1 now has a Gateway of Last Resort and default route installed in its routing table.
+
+exercise example
+----------------
+
+ .. code::
+
+   a router that is connected to an isp
+   ------------------------------------ 
+   hostname R1
+   !
+   ip cef
+   no ipv6 cef
+   !
+   interface GigabitEthernet0/0
+    ip address 192.168.1.1 255.255.255.0
+    duplex auto
+    speed auto
+   !
+   interface GigabitEthernet0/1
+    no ip address
+    duplex auto
+    speed auto
+    shutdown
+   !
+   interface GigabitEthernet0/2
+    no ip address
+    duplex auto
+    speed auto
+    shutdown
+   !
+   interface Serial0/0/0
+    ip address 192.168.2.1 255.255.255.0
+    clock rate 2000000
+   !
+   interface Serial0/0/0
+    ip address 192.168.2.1 255.255.255.0
+    clock rate 2000000
+   !
+   interface Serial0/0/1
+    ip address 209.165.200.225 255.255.255.252
+   !
+   interface Vlan1
+    no ip address
+    shutdown
+   !
+   router rip
+    version 2
+    passive-interface GigabitEthernet0/0
+    network 192.168.1.0
+    network 192.168.2.0
+    default-information originate
+   !
+   ip classless
+   ip route 0.0.0.0 0.0.0.0 Serial0/0/1 
+
+Remote Networks in Routing table
+--------------------------------
+.. image:: _static/RemoteNetworkEntries.png
+
+* Route Source: ids how route was learned
+* Dest Network: ids address of the remote network
+* Administrative Distance: ids *trustworthiness* of route source
+* Metric: ids value assigned to reach remote NW. Lower is better
+* Next hop: ids ipv4 address of next router to forward packet to
+* route timestamp: ids from when the route was last heard
+* Outgoing interface: ids exit interface to use to forward packet to final destination
+
+.. image:: _RemoteNetworkEntriesExercise.png
+
+Routing table terms
+-------------------
+* Ultimate route:
+   has next-hop ip and/or exit interface
+   
+* Level 1 route:
+   a route with a subnet mask *equal or less than classful mask* of the network address
+   * Network route - *equal* to that of classful mask
+   * Supernet route - *less* than classful mask, eg summary address
+   * Default route - static route with the address 0.0.0.0/0
+   .. note:: source of Level 1 route = D.C. network, static, or dynamic routing protocol
+   .. note:: level 1 route are also ultimate routes
+
+* Level 1 parent route: Level 1 network route (=mask) that is subnetted
+   .. note:: L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks
+
+* Level 2 child routes aka **subnet** route: subnet of a *classful network address*
+   .. note:: L1 parent route contains L2 child routes
+   .. warning:: no L1 parent = it ain't no L2 child
+
+  +-------------+------------------+
+  |172.16.0.0   |   172.16.1.0/24  |
+  |             |   172.16.2.0/24  |
+  |             |   172.16.3.0/24  |
+  |             |   172.16.4.0/28  |
+  +-------------+------------------+
+  |209.165.200.0|209.165.200.224/30|
+  |             |209.165.200.228/30|
+  |             |209.165.200.232/30|
+  +-------------+------------------+
+
 

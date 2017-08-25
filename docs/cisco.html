@@ -36,7 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/>
-        <link rel="prev" title="reStructuredText Primer" href="rest.html"/> 
+        <link rel="next" title="Frequently Used Command Keeper" href="commands.html"/>
+        <link rel="prev" title="Welcome to REPLACE’s documentation!" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,9 +92,6 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">CCNA</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#networking-fundamentals">Networking Fundamentals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#routing-and-switching-fundamentals">Routing and Switching Fundamentals</a><ul>
@@ -141,12 +139,19 @@
 <li class="toctree-l4"><a class="reference internal" href="#disable-auto-summarization">disable auto summarization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configure-passive-interfaces">configure passive interfaces</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#propagate-a-default-route">propagate a default route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exercise-example">exercise example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remote-networks-in-routing-table">Remote Networks in Routing table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routing-table-terms">Routing table terms</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Frequently Used Command Keeper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 </ul>
 
             
@@ -1339,6 +1344,13 @@ R1# show ip route | begin Gateway
 R1# show ip protocols | section Automatic
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>auto-summary = classful, no auto-summary = you can see /25 routes = classless, don’t confuse with summarization. If you want a summary address you can apply the following on the <strong>outgoing interface you want de summary address advertised</strong></p>
+<div class="code last highlight-rest"><div class="highlight"><pre><span></span>ip summary-address rip 192.168.0.0 255.255.252.0
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="configure-passive-interfaces">
 <h4>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h4>
@@ -1476,6 +1488,138 @@ R1(config-router)# end
 </div>
 <p>Example above configures a fully-specified default static route to the service provider and then the route is propagated by RIP. Notice that R1 now has a Gateway of Last Resort and default route installed in its routing table.</p>
 </div>
+<div class="section" id="exercise-example">
+<h4>exercise example<a class="headerlink" href="#exercise-example" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><div class="code highlight-rest"><div class="highlight"><pre><span></span><span class="gh">a router that is connected to an isp</span>
+<span class="gh">------------------------------------</span>
+hostname R1
+!
+ip cef
+no ipv6 cef
+!
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 192.168.2.1 255.255.255.0
+ clock rate 2000000
+!
+interface Serial0/0/0
+ ip address 192.168.2.1 255.255.255.0
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 209.165.200.225 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ passive-interface GigabitEthernet0/0
+ network 192.168.1.0
+ network 192.168.2.0
+ default-information originate
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/1
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="remote-networks-in-routing-table">
+<h4>Remote Networks in Routing table<a class="headerlink" href="#remote-networks-in-routing-table" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/RemoteNetworkEntries.png" src="_images/RemoteNetworkEntries.png" />
+<ul class="simple">
+<li>Route Source: ids how route was learned</li>
+<li>Dest Network: ids address of the remote network</li>
+<li>Administrative Distance: ids <em>trustworthiness</em> of route source</li>
+<li>Metric: ids value assigned to reach remote NW. Lower is better</li>
+<li>Next hop: ids ipv4 address of next router to forward packet to</li>
+<li>route timestamp: ids from when the route was last heard</li>
+<li>Outgoing interface: ids exit interface to use to forward packet to final destination</li>
+</ul>
+<img alt="_RemoteNetworkEntriesExercise.png" src="_RemoteNetworkEntriesExercise.png" />
+</div>
+<div class="section" id="routing-table-terms">
+<h4>Routing table terms<a class="headerlink" href="#routing-table-terms" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><dl class="first docutils">
+<dt>Ultimate route:</dt>
+<dd><p class="first last">has next-hop ip and/or exit interface</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Level 1 route:</dt>
+<dd><p class="first last">a route with a subnet mask <em>equal or less than classful mask</em> of the network address
+* Network route - <em>equal</em> to that of classful mask
+* Supernet route - <em>less</em> than classful mask, eg summary address
+* Default route - static route with the address 0.0.0.0/0
+.. note:: source of Level 1 route = D.C. network, static, or dynamic routing protocol
+.. note:: level 1 route are also ultimate routes</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Level 1 parent route: Level 1 network route (=mask) that is subnetted</dt>
+<dd><div class="first last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Level 2 child routes aka <strong>subnet</strong> route: subnet of a <em>classful network address</em></dt>
+<dd><div class="first admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L1 parent route contains L2 child routes</p>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">no L1 parent = it ain’t no L2 child</p>
+</div>
+</dd>
+</dl>
+<table border="1" class="docutils">
+<colgroup>
+<col width="42%" />
+<col width="58%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>172.16.0.0</td>
+<td>172.16.1.0/24
+172.16.2.0/24
+172.16.3.0/24
+172.16.4.0/28</td>
+</tr>
+<tr class="row-even"><td>209.165.200.0</td>
+<td>209.165.200.224/30
+209.165.200.228/30
+209.165.200.232/30</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1490,8 +1634,10 @@ R1(config-router)# end
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="commands.html" class="btn btn-neutral float-right" title="Frequently Used Command Keeper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="rest.html" class="btn btn-neutral" title="reStructuredText Primer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to REPLACE’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -369,3 +369,14 @@ if you want command output straight into a variable
     Use system() to capture the output of an external command in a script.
     Use shellescape() to escape any arguments to an external command to avoid passing possibly dangerous commands to the shell.
     Use setline() to change text without moving the cursor. 
+
+~/.vimrc configuration
+======================
+have vim recognize your aliases
+-------------------------------
+you have to tell vim to use an interactive shell
+
+.. code::
+   set shell=/bin/bash\ -i
+
+
