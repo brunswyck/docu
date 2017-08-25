@@ -19,7 +19,7 @@ apt-get install libqt5script5
 apt-get install libqt5scripttools5
 apt-get install virtualenv
 apt-get install python3-pip
-
+apt-get install
 pip installs
 ------------
 pip2.7 install sphinx
@@ -30,3 +30,7 @@ other configurations
 --------------------
 ~/docu/sphinx/virtualenv env
 ~/docu/sphinx/sphinx-quickstart
+
+sudo sed -n -i -e 's/main/main contrib non-free/p' /etc/apt/sources.list
+
+
