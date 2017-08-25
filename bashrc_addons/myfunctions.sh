@@ -10,3 +10,7 @@ push_docs2github() {
     git commit -m "upping html to github"
     git push --no-verify
 }
+
+showinstalled() {
+  grep 'apt-get install ' /var/log/apt/history.log | cut -d ':' -f2 |awk '!seen[$0]++' | sed -e 's/^ //'  
+}

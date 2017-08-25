@@ -79,6 +79,7 @@ set ts=4 sw=2
 set number " show current line number
 set relativenumber " show relative line numbers
 syntax on
+set shell=/bin/bash\ -i
 colorscheme molokai-dark
 " for terminal which supports truecolor
 set termguicolors
