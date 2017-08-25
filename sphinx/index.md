@@ -7,14 +7,11 @@ Documentation on debian and networking
 ======================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 4
+	:caption: Contents:
+    :glob:
 
-   vim
-   git
-   rest
-   cisco 
-
+    *
 
 Indices and tables
 ==================
