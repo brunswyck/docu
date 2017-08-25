@@ -185,7 +185,7 @@ open new file from within vim
 
 working with tabs
 -----------------
-.. _a link: http://vim.wikia.com/wiki/Using_tab_pages
+`vim_tabs <http://vim.wikia.com/wiki/Using_tab_pages>`_
 
 Set tab label to show tab number, filename, if modified ('+' is shown if the current window in the tab has been modified):
 
@@ -344,3 +344,28 @@ to install all of them
 .. |vim_syntax_ale| raw:: html
 
    <a href="https://github.com/w0rp/ale" target="_blank">click here for more info</a>
+
+: commands
+==========
+
+append output of external command
+---------------------------------
+`append_output <http://vim.wikia.com/wiki/Append_output_of_an_external_command>`_
+
+.. code::
+
+   :read !ip neigh show dev enp0s25
+   172.16.4.254 lladdr 52:54:10:ff:10:02 REACHABLE
+
+   insert output after specified line
+   :12read !date
+
+if you want command output straight into a variable
+
+.. code::
+
+   :let curdate=system('date')
+
+    Use system() to capture the output of an external command in a script.
+    Use shellescape() to escape any arguments to an external command to avoid passing possibly dangerous commands to the shell.
+    Use setline() to change text without moving the cursor. 

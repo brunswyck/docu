@@ -121,11 +121,16 @@
 <li class="toctree-l4"><a class="reference internal" href="#install-plugin-on-vim">install plugin on vim</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#commands">: commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#append-output-of-external-command">append output of external command</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Frequently Used Command Keeper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
 </ul>
@@ -369,6 +374,7 @@ Plugin ‘scrooloose/nerdcommenter’</dd>
 </div>
 <div class="section" id="working-with-tabs">
 <h4>working with tabs<a class="headerlink" href="#working-with-tabs" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://vim.wikia.com/wiki/Using_tab_pages">vim_tabs</a></p>
 <p>Set tab label to show tab number, filename, if modified (‘+’ is shown if the current window in the tab has been modified):</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="nb">set</span> <span class="n">guitablabel</span><span class="o">=%</span><span class="n">N</span><span class="o">/</span>\ <span class="o">%</span><span class="n">t</span>\ <span class="o">%</span><span class="n">M</span>
 </pre></div>
@@ -493,6 +499,28 @@ turn off
 <p>:PluginInstall</p>
 <p>to install all of them</p>
 <p>:BundleInstall</p>
+</div>
+</div>
+<div class="section" id="commands">
+<h3>: commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="append-output-of-external-command">
+<h4>append output of external command<a class="headerlink" href="#append-output-of-external-command" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://vim.wikia.com/wiki/Append_output_of_an_external_command">append_output</a></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>:read !ip neigh show dev enp0s25
+172.16.4.254 lladdr 52:54:10:ff:10:02 REACHABLE
+
+insert output after specified line
+:12read !date
+</pre></div>
+</div>
+<p>if you want command output straight into a variable</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">let</span> <span class="n">curdate</span><span class="o">=</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+
+ <span class="n">Use</span> <span class="n">system</span><span class="p">()</span> <span class="n">to</span> <span class="n">capture</span> <span class="n">the</span> <span class="n">output</span> <span class="n">of</span> <span class="n">an</span> <span class="n">external</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">script</span><span class="o">.</span>
+ <span class="n">Use</span> <span class="n">shellescape</span><span class="p">()</span> <span class="n">to</span> <span class="n">escape</span> <span class="nb">any</span> <span class="n">arguments</span> <span class="n">to</span> <span class="n">an</span> <span class="n">external</span> <span class="n">command</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">passing</span> <span class="n">possibly</span> <span class="n">dangerous</span> <span class="n">commands</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shell</span><span class="o">.</span>
+ <span class="n">Use</span> <span class="n">setline</span><span class="p">()</span> <span class="n">to</span> <span class="n">change</span> <span class="n">text</span> <span class="n">without</span> <span class="n">moving</span> <span class="n">the</span> <span class="n">cursor</span><span class="o">.</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
