@@ -1568,12 +1568,25 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 </li>
 <li><dl class="first docutils">
 <dt>Level 1 route:</dt>
-<dd><p class="first last">a route with a subnet mask <em>equal or less than classful mask</em> of the network address
-* Network route - <em>equal</em> to that of classful mask
-* Supernet route - <em>less</em> than classful mask, eg summary address
-* Default route - static route with the address 0.0.0.0/0
-.. note:: source of Level 1 route = D.C. network, static, or dynamic routing protocol
-.. note:: level 1 route are also ultimate routes</p>
+<dd><dl class="first last docutils">
+<dt>a route with a subnet mask <em>equal or less than classful mask</em> of the network address</dt>
+<dd><ul class="first simple">
+<li>Network route - <em>equal</em> to that of classful mask</li>
+<li>Supernet route - <em>less</em> than classful mask, eg summary address</li>
+<li>Default route - static route with the address 0.0.0.0/0</li>
+</ul>
+<blockquote class="last">
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">source of Level 1 route = D.C. network, static, or dynamic routing protocol</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">level 1 route are also ultimate routes</p>
+</div>
+</div></blockquote>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>
