@@ -1,4 +1,6 @@
 # Ignore the following
+.ssh/.agent_env
+.ssh/ssh_auth_sock
 .fltk/
 .kde/
 .pgadmin/
