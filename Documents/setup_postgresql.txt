@@ -1,0 +1,275 @@
+﻿Postgresql
+https://www.tutorialspoint.com/postgresql/postgresql_create_table.htm
+
+patrick@debian:~$ sudo apt-get install postgresql-client
+
+patrick@debian:~$ psql "sslmode=disable dbname=postgres user=postgres hostaddr=35.195.23.178"
+
+
+get help on sql commands
+
+postgres-> \h create table
+
+
+Command:     CREATE TABLE
+Description: define a new table
+Syntax:
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXISTS ] table_name ( [
+  { column_name data_type [ COLLATE collation ] [ column_constraint [ ... ] ]
+    | table_constraint
+    | LIKE source_table [ like_option ... ] }
+    [, ... ]
+] )
+[ INHERITS ( parent_table [, ... ] ) ]
+[ WITH ( storage_parameter [= value] [, ... ] ) | WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE tablespace_name ]
+
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXISTS ] table_name
+    OF type_name [ (
+  { column_name WITH OPTIONS [ column_constraint [ ... ] ]
+    | table_constraint }
+    [, ... ]
+) ]
+[ WITH ( storage_parameter [= value] [, ... ] ) | WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE tablespace_name ]
+
+where column_constraint is:
+
+[ CONSTRAINT constraint_name ]
+{ NOT NULL |
+  NULL |
+  CHECK ( expression ) [ NO INHERIT ] |
+  DEFAULT default_expr |
+  UNIQUE index_parameters |
+  PRIMARY KEY index_parameters |
+  REFERENCES reftable [ ( refcolumn ) ] [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ]
+    [ ON DELETE action ] [ ON UPDATE action ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+
+and table_constraint is:
+
+[ CONSTRAINT constraint_name ]
+{ CHECK ( expression ) [ NO INHERIT ] |
+  UNIQUE ( column_name [, ... ] ) index_parameters |
+  PRIMARY KEY ( column_name [, ... ] ) index_parameters |
+  EXCLUDE [ USING index_method ] ( exclude_element WITH operator [, ... ] ) index_parameters [ WHERE ( predicate ) ] |
+  FOREIGN KEY ( column_name [, ... ] ) REFERENCES reftable [ ( refcolumn [, ... ] ) ]
+    [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ] [ ON DELETE action ] [ ON UPDATE action ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+
+and like_option is:
+
+{ INCLUDING | EXCLUDING } { DEFAULTS | CONSTRAINTS | INDEXES | STORAGE | COMMENTS | ALL }
+
+index_parameters in UNIQUE, PRIMARY KEY, and EXCLUDE constraints are:
+
+[ WITH ( storage_parameter [= value] [, ... ] ) ]
+[ USING INDEX TABLESPACE tablespace_name ]
+
+exclude_element in an EXCLUDE constraint is:
+
+{ column_name | ( expression ) } [ opclass ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+
+
+
+select database to use
+
+postgres=> \l
+                                                List of databases
+     Name      |       Owner       | Encoding |  Collate   |   Ctype    |            Access privileges            
+---------------+-------------------+----------+------------+------------+-----------------------------------------
+ cloudsqladmin | cloudsqladmin     | UTF8     | en_US.UTF8 | en_US.UTF8 | 
+ postgres      | cloudsqlsuperuser | UTF8     | en_US.UTF8 | en_US.UTF8 | 
+ taste         | postgres          | UTF8     | en_US.UTF8 | en_US.UTF8 | 
+ template0     | cloudsqladmin     | UTF8     | en_US.UTF8 | en_US.UTF8 | =c/cloudsqladmin                       +
+               |                   |          |            |            | cloudsqladmin=CTc/cloudsqladmin
+ template1     | cloudsqlsuperuser | UTF8     | en_US.UTF8 | en_US.UTF8 | =c/cloudsqlsuperuser                   +
+               |                   |          |            |            | cloudsqlsuperuser=CTc/cloudsqlsuperuser
+(5 rows)
+
+
+
+
+Connection
+  \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}
+                         connect to new database (currently "postgres")
+  \encoding [ENCODING]   show or set client encoding
+  \password [USERNAME]   securely change the password for a user
+  \conninfo              display information about current connection
+
+postgres-> \conninfo 
+You are connected to database "postgres" as user "postgres" on host "35.195.23.178" at port "5432".
+
+postgres-> \connect taste postgres localhost 5432
+could not connect to server: Connection refused
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+
+postgres=> \connect taste postgres 35.195.23.178 5432
+Password for user postgres: 
+psql (9.6.3, server 9.6.1)
+SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES128-GCM-SHA256, bits: 128, compression: off)
+You are now connected to database "taste" as user "postgres" on host "35.195.23.178" at port "5432".
+taste=> 
+
+taste=> CREATE TABLE personen (
+taste(> id integer PRIMARY KEY,
+taste(> naam varchar(50) NOT NULL CHECK (naam <> ''),
+taste(> biologisch BOOLEAN NOT NULL,
+taste(> roken BOOLEAN NOT NULL,
+taste(> leeftijd smallint NOT NULL,
+taste(> age_class smallint NOT NULL,
+taste(> geslacht BOOLEAN NOT NULL,
+taste(> vegetarisch BOOLEAN NOT NULL
+taste(> );
+CREATE TABLE
+taste=> \d
+          List of relations
+ Schema |   Name   | Type  |  Owner   
+--------+----------+-------+----------
+ public | personen | table | postgres
+(1 row)
+
+
+
+
+
+
+
+taste=> \d personen
+             Table "public.personen"
+   Column    |         Type          | Modifiers 
+-------------+-----------------------+-----------
+ id          | integer               | not null
+ naam        | character varying(50) | not null
+ biologisch  | boolean               | not null
+ roken       | boolean               | not null
+ leeftijd    | smallint              | not null
+ age_class   | smallint              | not null
+ geslacht    | boolean               | not null
+ vegetarisch | boolean               | not null
+Indexes:
+    "personen_pkey" PRIMARY KEY, btree (id)
+Check constraints:
+    "personen_naam_check" CHECK (naam::text <> ''::text)
+
+
+Create tables
+
+
+
+-- Table: public.personen
+
+CREATE TABLE public.personen
+(
+  id integer NOT NULL,
+  naam character varying(50) NOT NULL,
+  biologisch boolean NOT NULL,
+  roken boolean NOT NULL,
+  leeftijd smallint NOT NULL,
+  age_class smallint NOT NULL,
+  geslacht boolean NOT NULL,
+  vegetarisch boolean NOT NULL,
+  CONSTRAINT personen_pkey PRIMARY KEY (id),
+  CONSTRAINT personen_naam_check CHECK (naam::text <> ''::text)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.personen
+  OWNER TO postgres;
+
+
+
+
+
+-- Table: public.proeven
+
+CREATE TABLE public.proeven
+(
+  id integer NOT NULL,
+  naam proefnaam NOT NULL,
+  smaakverwachting integer, -- tussen 0 en 5
+  smaakbeoordeling integer, -- tussen 0 en 10
+  persoon integer NOT NULL,
+  CONSTRAINT proeven_pk PRIMARY KEY (id),
+  CONSTRAINT personen_id FOREIGN KEY (persoon)
+      REFERENCES public.personen (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.proeven
+  OWNER TO postgres;
+COMMENT ON COLUMN public.proeven.smaakverwachting IS 'tussen 0 en 5';
+COMMENT ON COLUMN public.proeven.smaakbeoordeling IS 'tussen 0 en 10';
+
+Populating a table
+
+INSERT INTO public.proeven(
+            id, naam, smaakverwachting, smaakbeoordeling, persoon)
+    VALUES (?, ?, ?, ?, ?);
+
+
+Create ENUM type
+
+CREATE TYPE proefnaam AS ENUM ('bouillonsoep', 'wortel uit blik', 'préparé', 'natuurdesembrood', 'gesuikerde ontbijtgranen', 'soja yoghurt natuur', 'Pure chocolade (85%)', 'seitan gehakt', 'zoete aardappelchips', 'tofu salsa', 'appelmoes', 'hummus'); 
+
+Alter type to an enum type
+
+ALTER TABLE proeven
+ALTER COLUMN naam TYPE proefnaam USING naam::proefnaam
+
+ALTER TABLE proeven
+ALTER COLUMN id TYPE SERIAL
+
+Rename Sequence
+ALTER SEQUENCE public.test_id_seq
+  RENAME TO proeven_id_seq;
+
+Change an integer primary key to an auto incrementing primary key starting
+
+CREATE SEQUENCE proeven_id_seq MINVALUE 2;
+ALTER TABLE proeven 
+ALTER id SET DEFAULT nextval('proeven_id_seq');
+
+this generates
+
+-- Sequence: public.proeven_id_seq
+
+-- DROP SEQUENCE public.proeven_id_seq;
+
+CREATE SEQUENCE public.proeven_id_seq
+  INCREMENT 1
+  MINVALUE 2
+  MAXVALUE 9223372036854775807
+  START 2
+  CACHE 1;
+ALTER TABLE public.proeven_id_seq
+  OWNER TO postgres;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

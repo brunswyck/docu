@@ -1,5 +1,15 @@
 # Ignore the following
-github/docu
+.fltk/
+.kde/
+.pgadmin/
+.pgadmin3
+.pgadmin_histoqueries
+.quodlibet/
+Pictures/
+Sync/
+lgg5/
+lgg5main/
+pgadmin*
 pt/logs
 docu
 .adobe
