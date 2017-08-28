@@ -1261,7 +1261,7 @@ Remote Networks in Routing table
 * route timestamp: ids from when the route was last heard
 * Outgoing interface: ids exit interface to use to forward packet to final destination
 
-.. image:: _static/RemoteNetworkEntriesExercise.png
+.. image:: _RemoteNetworkEntriesExercise.png
 
 Routing table terms
 -------------------
@@ -1270,11 +1270,11 @@ Routing table terms
    
 * Level 1 route:
    a route with a subnet mask *equal or less than classful mask* of the network address
-   * Network route - *equal* to that of classful mask
-   * Supernet route - *less* than classful mask, eg summary address
-   * Default route - static route with the address 0.0.0.0/0
-   .. note:: source of Level 1 route = D.C. network, static, or dynamic routing protocol
-   .. note:: level 1 route are also ultimate routes
+    * Network route - *equal* to that of classful mask
+    * Supernet route - *less* than classful mask, eg summary address
+    * Default route - static route with the address 0.0.0.0/0
+    .. note:: source of Level 1 route = D.C. network, static, or dynamic routing protocol
+    .. note:: level 1 route are also ultimate routes
 
 * Level 1 parent route: Level 1 network route (=mask) that is subnetted
    .. note:: L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks
