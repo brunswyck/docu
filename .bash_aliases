@@ -5,7 +5,7 @@ alias keepy="keepassx --keyfile ~/Persoonlijk.kdbx &"
 alias toetsenbordus="setxkbmap us"
 alias toetsenbordbe="setxkbmap be"
 alias bustwickrclient="kill -n 9 \$(ps -C wickr-me | awk 'BEGIN {RS=\"\\n\"; FS=\" \"} FNR==2 {print \$1}')"
-alias ssh-add-github="eval \$(ssh-agent -s);ssh-add ~/.ssh/github_id_rsa"
+alias addgithubkey="ssh-add -t 18000 ~/.ssh/github_id_rsa"
 alias envdocu="source ~/docu/sphinx/env/bin/activate"
 alias cddocu="cd $HOME/docu/sphinx/"
 alias pimpen='sudo apt update;sudo apt upgrade;sudo apt clean;sudo apt autoremove'
