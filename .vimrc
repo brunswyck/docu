@@ -3,6 +3,10 @@
 " for more info check
 " in vim do :PluginUpdate
 " https://github.com/VundleVim/Vundle.vim
+" to config on a new git clone
+" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" :echo &rtp
+" set rtp+=/home/[YourUserName]/.vim/bundle/Vundle.vim
 " ---------------------------------------
 set nocompatible " turn off defaults required
 filetype off     " turn off defaults required
@@ -79,7 +83,6 @@ set ts=4 sw=2
 set number " show current line number
 set relativenumber " show relative line numbers
 syntax on
-set shell=/bin/bash\ -i
 colorscheme molokai-dark
 " for terminal which supports truecolor
 set termguicolors

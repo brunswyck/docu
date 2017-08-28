@@ -2,7 +2,7 @@
 # part of a Git repository. Includes color-coding and indicators to quickly
 
 push_docs2github() {
-    goto-sphinx    
+    cddocu    
     source ~/docu/sphinx/env/bin/activate
     make html
     cp -r ~/docu/sphinx/_build/html/* ~/docu/docs/
@@ -12,5 +12,13 @@ push_docs2github() {
 }
 
 showinstalled() {
-  grep 'apt-get install ' /var/log/apt/history.log | cut -d ':' -f2 |awk '!seen[$0]++' | sed -e 's/^ //'  
+    grep 'apt-get install ' /var/log/apt/history.log | cut -d ':' -f2 |awk '!seen[$0]++' | sed -e 's/^ //'  
+}
+
+commitall() {
+	cd
+	git status
+	read  -n 1 -p "type space when ready"
+	git commit -m 'synchronzing home dir'
+	git push
 }

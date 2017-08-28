@@ -2031,3 +2031,33 @@ source ~/.bashrc
 vim ~/bashrc_addons/myfunctions.sh 
 clear
 tr --help
+ping 208.67.222.222
+sudo ip addr sho
+dig monkeynews.com
+update-alternatives --config flash-mozilla.so
+sudo apt-cache policy flashplugin-nonfree
+git status
+git pull
+alias
+history 
+git status
+rm .bash_history 
+clear
+git status
+git pull
+ssh-add-github 
+git pull
+git status
+vim .psql_history 
+vim ~/.vimrc 
+clear
+ll
+vim .vimrc
+history
+cd
+git clone git@github.com:brunswyck/docu.git
+source ~/.bashrc 
+cddocu 
+vim ~/.bash_aliases 
+jobs
+fg 1
