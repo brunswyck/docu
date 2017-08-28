@@ -1,73 +1,3 @@
-ll
-vim cisco.rst 
-ll
-mv cisco.rst rest.rst
-vim index.rst 
-ll
-touch cisco.rst
-vim cisco.rst
-vim index.rst 
-source ../env/bin/activate
-make html
-cd ..
-ll
-vim ~/.vimrc
-cd ..
-git init
-ll
-vim .gitignore
-git status --all
-git status
-cat .viminfo 
-ll utils/
-sudo dpkg -r netbeez-agent 
-ll utils/
-rm rf utils/netbeez*
-rm -rf utils/netbeez*
-ll utils/
-vim utils/4firewall.xml 
-rm -rf utils/welcometonetbeez.zip 
-l
-ll
-ll .packettracer 
-vim .packettracer 
-git add .vimrc 
-git add -f .vimrc 
-git status
-git commit -m "first commit"
-vim github/docu/.git/config 
-git remote add origin git@github.com:brunswyck/home.git
-git remote -v
-git push origin master
-git status
-vim github/docu/.git/config 
-git remote add origin https://github.com/brunswyck/home.git
-vim .git/config
-git status
-git push origin master
-git add .gitignore 
-git add -f .gitignore 
-git commit -m 'first commit'
-git config --global user.email "brunswyck@users.noreply.github.com"
-git config --global user.name "Patrick Brunswyck"
-git commit -m 'first commit'
-git push origin master 
-vim ./.git/config 
-git push origin master 
-ssh-agent -l
-ssh-add -L
-ssh-add ~/.ssh/github_id_rsa 
-vim ~/.bash_aliases 
-source ~/.bash_aliases 
-ssh-add-github 
-vim ~/.bash_aliases 
-source ~/.bash_aliases 
-ssh-add-github 
-ssh-agent
-git status
-git add ~/.bash_aliases 
-git add -f ~/.bash_aliases 
-git status
 git commit -m "add aliases"
 git push origin master 
 git pull
@@ -2061,3 +1991,10 @@ cddocu
 vim ~/.bash_aliases 
 jobs
 fg 1
+LATEST_FLASH_VERSION=$(curl -s http://get.adobe.com/flashplayer/about/ | awk 'c&&!--c; /Firefox/{c=2}' | head -n1 | tr -d '[:space:]' | sed 's/<[^>]\+>//g')
+echo $LATEST_FLASH_VERSION 
+git status
+cd 
+git status
+git add Documents/
+git status
