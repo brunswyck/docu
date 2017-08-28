@@ -154,6 +154,12 @@ Escape or not?
 
 keyboard shortcuts
 ==================
+
+repeat last command
+-------------------
+press `.` to repeat last change made in normal mode
+eg `dw` to delete a word and `.` to delete some more words$
+
 exit from insert mode to normal mode
 ------------------------------------
 
@@ -374,9 +380,5 @@ if you want command output straight into a variable
 ======================
 have vim recognize your aliases
 -------------------------------
-you have to tell vim to use an interactive shell
-
-.. code::
-   set shell=/bin/bash\ -i
-
+ use bash interactive?
 
