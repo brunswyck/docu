@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frequently Used Command Keeper &mdash; debian &amp; networking 20170824 documentation</title>
+  <title>BASH &mdash; debian &amp; networking 20170824 documentation</title>
   
 
   
@@ -93,12 +93,12 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Used Command Keeper</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#networking">Networking</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#modifiable-network-kernel-params">modifiable network kernel params</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#sysctl">sysctl</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BASH</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modify-kernel-settings">modify kernel settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sysctl">sysctl</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#networking">networking</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ip-utility">ip utility</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#show-mac-table">show mac table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#show-neighbors">show neighbors</a></li>
@@ -113,9 +113,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#apt-get">apt-get</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#aliases">aliases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#escaping-characters-for-aliases">escaping characters for aliases</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#aliases">aliases</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#awk">AWK</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#general-syntax">General Syntax</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#begin-and-end">BEGIN and END</a></li>
@@ -177,7 +180,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Frequently Used Command Keeper</li>
+      <li>BASH</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -196,19 +199,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="frequently-used-command-keeper">
-<h1>Frequently Used Command Keeper<a class="headerlink" href="#frequently-used-command-keeper" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="networking">
-<h2>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="modifiable-network-kernel-params">
-<h3>modifiable network kernel params<a class="headerlink" href="#modifiable-network-kernel-params" title="Permalink to this headline">¶</a></h3>
+  <div class="section" id="bash">
+<h1>BASH<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="modify-kernel-settings">
+<h2>modify kernel settings<a class="headerlink" href="#modify-kernel-settings" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sysctl">
-<h4>sysctl<a class="headerlink" href="#sysctl" title="Permalink to this headline">¶</a></h4>
+<h3>sysctl<a class="headerlink" href="#sysctl" title="Permalink to this headline">¶</a></h3>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sysctl</span> <span class="o">-</span><span class="n">a</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">ipv6</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="networking">
+<h2>networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="ip-utility">
 <h3>ip utility<a class="headerlink" href="#ip-utility" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="show-mac-table">
@@ -312,9 +315,10 @@
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="aliases">
-<h2>aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
+<h3>aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="escaping-characters-for-aliases">
+<h4>escaping characters for aliases<a class="headerlink" href="#escaping-characters-for-aliases" title="Permalink to this headline">¶</a></h4>
 <div class="code highlight-default"><div class="highlight"><pre><span></span>read -d &#39;&#39; KICKASSCOMMAND &lt;&lt;&quot;EOF&quot;
 alias bustwickrclient=&quot;kill -n 9 \\$(ps -C wickr-me | awk &#39;BEGIN {RS=\\&quot;\\\\n\\&quot;; FS=\\&quot; \\&quot;} FNR==2 {print \\$1}&#39;)&quot;
 EOF
@@ -326,6 +330,8 @@ alias
 alias bustwickrclient=&#39;kill -n 9 $(ps -C wickr-me | awk &#39;\&#39;&#39;BEGIN {RS=&quot;\n&quot;; FS=&quot; &quot;} FNR==2 {print $1}&#39;\&#39;&#39;)&#39;
 alias ll=&#39;ls -hal --color=auto&#39;
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="awk">

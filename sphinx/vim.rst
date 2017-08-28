@@ -305,6 +305,7 @@ for more help::
 
 replacing
 =========
+
 replace tabs with spaces
 ------------------------
 select your block with ctrl+v
@@ -327,6 +328,17 @@ should look like
  :g/^baz/s/foo/bar/g     Change each 'foo' to 'bar' in each line starting with 'baz'. 
 
 |vim_searchnreplace|
+
+deleting
+========
+Delete `{motion}` text [into register x] and start insert
+
+`["x]c{motion}`
+
+.. code::
+
+   :help c
+   
 
 
 

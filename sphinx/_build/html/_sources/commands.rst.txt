@@ -1,27 +1,28 @@
-##############################
-Frequently Used Command Keeper
-##############################
+####
+BASH
+####
 
-**********
-Networking
-**********
-
-modifiable network kernel params
-================================
+**********************
+modify kernel settings
+**********************
 
 sysctl
-------
+======
 
 .. code::
 
    sysctl -a | grep ipv6
+
+**********
+networking
+**********
+
 
 ip utility
 ==========
 
 show mac table
 --------------
-
 .. code::
 
    sudo ip maddress show dev enp0s25
@@ -89,7 +90,6 @@ watch your neighbors ;)
   
 
 
-
 ******************
 Package Management
 ******************
@@ -127,11 +127,11 @@ install from different repository
 
    sudo apt-get install -t unstable flashplugin-nonfree
 
-*******
 aliases
-*******
+=======
 
-
+escaping characters for aliases
+-------------------------------
 .. code::
 
    read -d '' KICKASSCOMMAND <<"EOF"
@@ -150,6 +150,7 @@ AWK
 ***
 General Syntax
 ==============
+
 `gawk.pdf <https://www.gnu.org/software/gawk/manual/gawk.pdf>`_
 
 BEGIN and END
@@ -204,7 +205,6 @@ stripping | removing
 
 remove duplicate lines
 ----------------------
-
 .. code::
 
    sudo awk '!seen[$0]++' /etc/apt/sources.list
