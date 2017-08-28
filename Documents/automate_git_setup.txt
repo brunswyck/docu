@@ -31,18 +31,3 @@ cat /sys/class/net/eno2/operstate
  1954  ip monitor dev eno2 | grep -qs 'DOWN' if [ $? = 0 ]; sudo ip addr flush eno2
  1955  sudo ip addr show
 
-
-automation git setup
------------
-cd;git clone https://github.com/brunswyck/home.git
-cd;git clone https://github.com/brunswyck/docu.git
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-git clone git@github.com:brunswyck/docu.git
-patrick@debian:~$ source ~/.bashrc 
-chmod 0600 ~/.ssh/*
-chmod 0700 ~/.ssh/
-
-------------
-chmod 0700 ~/.ssh/
-trap 'test -n "$SSH_AGENT_PID" && eval `/usr/bin/ssh-agent -k`' 0
