@@ -20,6 +20,6 @@ commitall() {
 	cd
 	git status
 	read  -n 1 -p "cancel:ctrl-c continue:enter"
-	git commit -m 'synchronzing $(show_repository) ...'
+	git commit -m "synchronzing \$show_repository ..."
 	git push
 }
