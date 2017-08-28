@@ -252,9 +252,49 @@ Using recent vim versions, in normal mode and in insert mode, you can type:
     Ctrl-PgUp     go to previous tab
 
 Jumping to a specific tab with {i}gt is easier if you set up your tabline to show the tab number. 
+    
+copy paste
+==========
+yank line on line x
+-------------------
+From `:help :yank:`
 
-using relative line numbers
-===========================
+`:[range]y[ank] [x]`    Yank [range] lines [into register x].
+
+So, to yank line 4, one would type:
+.. code::
+
+   :4yank
+
+.. note:: you can easily do this from insert mode with CTRL+o This allows you to execute one command, after which you're returned to insert mode
+
+.. code::
+
+   <C-o>:4yank
+
+You can, of course, also use other ranges:
+
+ * Lines 1 to 3: :1,3yank
+ * The entire buffer: :%yank
+ * From the current line to the end of the buffer: :.,$:yank
+ * The current line and the next 3: :.,+3yank
+ * The current line and the previous 3: :-3,.yank
+ * The line 3 lines above the current line: :-3yank
+
+If you want to copy line 4 to right below the current line you can do this:
+
+.. code::
+
+   :4t.
+
+or that, if you want to copy that line right above the current line:
+
+.. code::
+
+   :4t-
+
+yank lines relative numbers
+---------------------------
 lines spanning from 10 to 15 lines above::
    
    :-15,-10y
@@ -274,12 +314,7 @@ should look like
 .. code::
 
  :'<,'>retab
-
-awesome feature
-
-search replace
---------------
-
+ 
 .. code::
 
  :s/foo/bar/g    Change each 'foo' to 'bar' in the current line.
@@ -333,8 +368,8 @@ just show tabs n whitespace
 :syntax on
 :set syntax=whitespace
 
-install plugin on vim
----------------------
+install vundle plugin on vim
+----------------------------
 :PluginInstall
 
 to install all of them
@@ -380,5 +415,4 @@ if you want command output straight into a variable
 ======================
 have vim recognize your aliases
 -------------------------------
- use bash interactive?
 

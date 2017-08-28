@@ -108,10 +108,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#working-with-tabs">working with tabs</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#using-relative-line-numbers">using relative line numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-paste">copy paste</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yank-line-on-line-x">yank line on line x</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yank-lines-relative-numbers">yank lines relative numbers</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#replace-tabs-with-spaces">replace tabs with spaces</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#search-replace">search replace</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
@@ -122,7 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#syntax-highlighting-checking">syntax highlighting &amp; checking</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#asynchronous-lint-engine">Asynchronous Lint Engine</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#show-special-characters-in-vim">show special characters in vim</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-plugin-on-vim">install plugin on vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-vundle-plugin-on-vim">install vundle plugin on vim</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#commands">: commands</a><ul>
@@ -431,8 +434,46 @@ Plugin ‘scrooloose/nerdcommenter’</dd>
 <p>Jumping to a specific tab with {i}gt is easier if you set up your tabline to show the tab number.</p>
 </div>
 </div>
-<div class="section" id="using-relative-line-numbers">
-<h3>using relative line numbers<a class="headerlink" href="#using-relative-line-numbers" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="copy-paste">
+<h3>copy paste<a class="headerlink" href="#copy-paste" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="yank-line-on-line-x">
+<h4>yank line on line x<a class="headerlink" href="#yank-line-on-line-x" title="Permalink to this headline">¶</a></h4>
+<p>From <cite>:help :yank:</cite></p>
+<p><cite>:[range]y[ank] [x]</cite>    Yank [range] lines [into register x].</p>
+<p>So, to yank line 4, one would type:
+.. code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">4</span><span class="n">yank</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">you can easily do this from insert mode with CTRL+o This allows you to execute one command, after which you’re returned to insert mode</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">o</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">4</span><span class="n">yank</span>
+</pre></div>
+</div>
+<p>You can, of course, also use other ranges:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Lines 1 to 3: :1,3yank</li>
+<li>The entire buffer: :%yank</li>
+<li>From the current line to the end of the buffer: :.,$:yank</li>
+<li>The current line and the next 3: :.,+3yank</li>
+<li>The current line and the previous 3: :-3,.yank</li>
+<li>The line 3 lines above the current line: :-3yank</li>
+</ul>
+</div></blockquote>
+<p>If you want to copy line 4 to right below the current line you can do this:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">4</span><span class="n">t</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>or that, if you want to copy that line right above the current line:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">4</span><span class="n">t</span><span class="o">-</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="yank-lines-relative-numbers">
+<h4>yank lines relative numbers<a class="headerlink" href="#yank-lines-relative-numbers" title="Permalink to this headline">¶</a></h4>
 <p>lines spanning from 10 to 15 lines above:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="n">y</span>
 </pre></div>
@@ -440,6 +481,7 @@ Plugin ‘scrooloose/nerdcommenter’</dd>
 <p>for more help:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="replacing">
@@ -453,10 +495,6 @@ now enter :retab</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="s1">&#39;&lt;,&#39;</span><span class="o">&gt;</span><span class="n">retab</span>
 </pre></div>
 </div>
-<p>awesome feature</p>
-</div>
-<div class="section" id="search-replace">
-<h4>search replace<a class="headerlink" href="#search-replace" title="Permalink to this headline">¶</a></h4>
 <div class="code highlight-default"><div class="highlight"><pre><span></span>:s/foo/bar/g    Change each &#39;foo&#39; to &#39;bar&#39; in the current line.
 :%s/foo/bar/g   Change each &#39;foo&#39; to &#39;bar&#39; in all the lines.
 :5,12s/foo/bar/g    Change each &#39;foo&#39; to &#39;bar&#39; for all lines from line 5 to line 12 (inclusive).
@@ -503,8 +541,8 @@ turn off
 :set syntax=whitespace</p>
 </div>
 </div>
-<div class="section" id="install-plugin-on-vim">
-<h4>install plugin on vim<a class="headerlink" href="#install-plugin-on-vim" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="install-vundle-plugin-on-vim">
+<h4>install vundle plugin on vim<a class="headerlink" href="#install-vundle-plugin-on-vim" title="Permalink to this headline">¶</a></h4>
 <p>:PluginInstall</p>
 <p>to install all of them</p>
 <p>:BundleInstall</p>
@@ -536,8 +574,6 @@ insert output after specified line
 <h3>~/.vimrc configuration<a class="headerlink" href="#vimrc-configuration" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="have-vim-recognize-your-aliases">
 <h4>have vim recognize your aliases<a class="headerlink" href="#have-vim-recognize-your-aliases" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div>use bash interactive?</div></blockquote>
 </div>
 </div>
 </div>

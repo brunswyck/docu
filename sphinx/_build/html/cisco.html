@@ -1355,7 +1355,7 @@ R1# show ip protocols | section Automatic
 <div class="section" id="configure-passive-interfaces">
 <h4>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h4>
 <p>By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.</p>
-<img alt="_images/configure_passive_ifs_on_R11.png" src="_images/configure_passive_ifs_on_R11.png" />
+<img alt="_images/configure_passive_ifs_on_R1.png" src="_images/configure_passive_ifs_on_R1.png" />
 <p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
 <blockquote>
 <div><ul class="simple">
@@ -1468,7 +1468,7 @@ R3# show ip protocols
 </div>
 <div class="section" id="propagate-a-default-route">
 <h4>propagate a default route<a class="headerlink" href="#propagate-a-default-route" title="Permalink to this headline">¶</a></h4>
-<img alt="_images/propagate_default_route1.png" src="_images/propagate_default_route1.png" />
+<img alt="_images/propagate_default_route.png" src="_images/propagate_default_route.png" />
 <p>To propagate a default route in RIP, the edge router must be configured with:</p>
 <blockquote>
 <div><ul class="simple">
