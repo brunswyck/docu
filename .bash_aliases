@@ -14,4 +14,3 @@ alias connect_pgsql_cloud='psql "sslmode=disable dbname=postgres user=postgres h
 alias logout="xfce4-session-logout"
 alias history="history | awk '{\$1=\"\";print substr(\$0,2)}'"
 alias installhistory="cat /var/log/apt/history.log | grep 'apt-get install'"
-alias kommit="git commit -m updatingdocu; git push"

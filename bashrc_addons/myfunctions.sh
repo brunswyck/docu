@@ -15,11 +15,13 @@ showinstalled() {
     grep 'apt-get install ' /var/log/apt/history.log | cut -d ':' -f2 |awk '!seen[$0]++' | sed -e 's/^ //'  
 }
 
-commitall() {
-    show_repository=$(echo $(git_repo) | cut -d. -f1)
-	cd
+pusshy() {
 	git status
 	read  -n 1 -p "cancel:ctrl-c continue:enter"
-	git commit -m "synchronzing \$show_repository ..."
+	git commit -m "synching $show_repository ..."
 	git push
+}
+
+show_repository() {
+    show_repository=$(echo $(git_repo) | cut -d. -f1)
 }
