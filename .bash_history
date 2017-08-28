@@ -1998,3 +1998,172 @@ cd
 git status
 git add Documents/
 git status
+ls
+ll
+chmod 0700 ~/.ssh/
+trap 'test -n "$SSH_AGENT_PID" && eval `/usr/bin/ssh-agent -k`' 0
+ssh-add -l
+ssh-add -L
+vim ~/.bash_logout
+echo $SHLVL 
+cddocu 
+git status
+git add vim.rst 
+git status
+git commit -m 'updating docu git'
+git push 
+sudo apt-vim install -y https://github.com/scrooloose/nerdtree.git
+sudo apt-get install apt-vim
+:q
+vim .viminfo 
+vim ~/.vimrc
+cd ~/.vim/
+ll
+cd bundle/
+ll
+sudo apt-get install curl
+cd ~/.vim/bundle/
+git status
+ll
+cd .vundle/
+ll
+vim ~/.bash_aliases 
+cd
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim ~/.xsession-errors
+nano ~/.vimrc
+git status
+cddocu 
+history
+jobs
+git status
+cd Music/
+ll
+git add ~/.python_history 
+git add ~/.psql_history 
+cat .pgpass
+cat ~/.pgpass
+vim ~/.pgpass 
+jobs
+git status
+cd ../.pgadmin/
+ll
+vim pgadmin4.db 
+git status
+git add fuck/
+git checkout ../github/*
+git add ../.bash_*
+git status
+git add ../.vim*
+git status
+git add ../bashrc_addons/*
+git status
+cd ~ 
+ll Desktop/
+vim Desktop/queries 
+cddocu 
+pwd
+source ~/.bashrc 
+cddocu 
+ll
+vim vim.rst 
+git status
+git add vim.rst 
+git status
+cd
+git status
+vim ~/bashrc_addons/myfunctions.sh 
+source ~/.bashrc 
+vim ~/.bashrc 
+commitall 
+git add bashrc_addons/*
+vim .gitignore 
+git status
+vim github/docu/
+cd
+cd github/
+cd docu/
+ll
+cd con
+cd sphinx/
+ll
+cd
+ll
+vim set_github.sh 
+git add set_github.sh 
+git status
+cd ..
+ll
+cd
+ll
+git add set_github.sh 
+git status
+git add .gitignore 
+cd /github
+cd github/
+cd docu/
+git status
+ll
+cd
+alias
+ll ~/.ssh/
+alias
+rm -rf github/
+ll
+git status
+git rm github/*
+git status
+commitall 
+ssh-add -L
+ssh-add -l
+ssh-add-github 
+
+ssh-add-github 
+ssh-ident
+sudo apt-cache search ssh-ident
+vim ~/.bash_aliases
+man ssh-add 
+vim ~/.bash_aliases
+vim ~/.bash_logout 
+git status
+git add ~/.bash_aliases 
+git add ~/.bash_logout 
+git add -f ~/.bash_logout 
+git status
+commitall 
+git status
+cd Document
+cd Documents/
+ll
+rm SMAAKTEST.ods 
+open setup_postgresql.odt 
+vim ~/.gitignore 
+git status
+cd ../fuck/
+ll
+vim commands.json 
+git add ../.pgpass 
+git add ../fuck/
+cd 
+cd Videos/
+ll
+rm \[\ www.CpasBien.cm\ \]\ Demain.2015.FRENCH.BDRip.XviD.AC3-SVR.avi 
+ll
+cd ..
+git status
+git add .gitignore 
+cd Desktop/
+ll
+cat queries 
+vim queries 
+rm queries 
+cd ../Music/
+ll
+git status
+cd ..
+git status
+git add Music/
+git status
+commitall 
+git status
+git add .bash_history 

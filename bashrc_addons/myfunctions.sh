@@ -16,9 +16,10 @@ showinstalled() {
 }
 
 commitall() {
+    show_repository=$(echo $(git_repo) | cut -d. -f1)
 	cd
 	git status
-	read  -n 1 -p "type space when ready"
-	git commit -m 'synchronzing home dir'
+	read  -n 1 -p "cancel:ctrl-c continue:enter"
+	git commit -m 'synchronzing $(show_repository) ...'
 	git push
 }

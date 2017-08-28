@@ -44,3 +44,5 @@ chmod 0600 ~/.ssh/*
 chmod 0700 ~/.ssh/
 
 ------------
+chmod 0700 ~/.ssh/
+trap 'test -n "$SSH_AGENT_PID" && eval `/usr/bin/ssh-agent -k`' 0

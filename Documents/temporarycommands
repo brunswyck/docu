@@ -14,67 +14,15 @@ patrick@debian:~$ git init
 Initialized empty Git repository in /home/patrick/.git/
 patrick@debian:~$ git remote add origin git@github.com:brunswyck/home.git
 patrick@debian:~$ git pull origin master
-Enter passphrase for key '/home/patrick/.ssh/github_id_rsa': 
-remote: Counting objects: 22, done.
-remote: Compressing objects: 100% (15/15), done.
-remote: Total 22 (delta 6), reused 18 (delta 4), pack-reused 0
-Unpacking objects: 100% (22/22), done.
-From github.com:brunswyck/home
- * branch            master     -> FETCH_HEAD
- * [new branch]      master     -> origin/master
-error: The following untracked working tree files would be overwritten by merge:
-	.bash_aliases
-	.bash_history
-	.gitconfig
-	.ssh/config
-Please move or remove them before you merge.
-Aborting
-
-
-patrick@debian:~$ ssh-add ~/.ssh/github_id_rsa
-Enter passphrase for /home/patrick/.ssh/github_id_rsa: 
-Identity added: /home/patrick/.ssh/github_id_rsa (/home/patrick/.ssh/github_id_rsa)
-
-
-
-
-
-alias ll='ls -hal' 
-alias upd8virtualenv_docu='source ~/github/docu/env/bin/activate' 
-alias pimpen='sudo apt update;sudo apt upgrade;sudo apt clean;sudo apt autoremove' 
-alias startpgadmin4='python3 /home/patrick/.local/lib/python3.5/site-packages/pgadmin4/pgAdmin4.py' 
-alias connect_pgsql_cloud='psql "sslmode=disable dbname=postgres user=postgres hostaddr=35.195.23.178"'
-
-                                                                                                                                  5         1,1           All
-alias ll='ls -hal' 
-alias upd8virtualenv_docu='source ~/github/docu/env/bin/activate' 
-alias pimpen='sudo apt update;sudo apt upgrade;sudo apt clean;sudo apt autoremove' 
-alias startpgadmin4='python3 /home/patrick/.local/lib/python3.5/site-packages/pgadmin4/pgAdmin4.py' 
-alias connect_pgsql_cloud='psql "sslmode=disable dbname=postgres user=postgres hostaddr=35.195.23.178"'
-
-
-
-sudo apt-get install locate
-sudo ip addr del 192.168.2.116/24 dev eno2
-
-ssh-keygen -t rsa -b 4096 -C "brunswyck@users.noreply.github.com"
+E
 
 sudo apt-get install vim ctags vim-doc vim-scripts
-git config --global user.name "Patrick Brunswyck"
-git config --global core.editor vim
+
 man gittutorial
 
-sudo apt-get install virtualenv
-virtualenv --version
 mkdir ~/pgadmin4
 pip3 install ./pgadmin4/pgadmin4-1.6-py2.py3-none-any.whl
 
-man git-help
 
-
-Host github github.com 
-  HostName github.com 
-  IdentityFile ~/.ssh/github_id_rsa 
-  User brunswyck 
                                                                                                                                        4         1,13          All
 
