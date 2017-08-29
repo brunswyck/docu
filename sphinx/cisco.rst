@@ -1261,7 +1261,7 @@ Remote Networks in Routing table
 * route timestamp: ids from when the route was last heard
 * Outgoing interface: ids exit interface to use to forward packet to final destination
 
-.. image:: _RemoteNetworkEntriesExercise.png
+.. image:: _static/RemoteNetworkEntriesExercise.png
 
 Routing table terms
 -------------------
