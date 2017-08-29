@@ -1,4 +1,5 @@
 # Ignore the following
+.bash_history
 .ssh/.agent_env
 .ssh/ssh_auth_sock
 .fltk/
