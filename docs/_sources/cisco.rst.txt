@@ -1277,23 +1277,28 @@ Routing table terms
       .. note:: source of Level 1 route = D.C. network, static, or dynamic routing protocol
       .. note:: level 1 route are also ultimate routes
 
-* Level 1 parent route: Level 1 network route (=mask) that is subnetted
+* Level 1 parent route: Level 1 network route (=mask) that is subnetted:
   
   .. note:: L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks
 
-* Level 2 child routes aka **subnet** route: subnet of a *classful network address*
+* Level 2 child routes aka **subnet** route: subnet of a *classful network address*:
   
   .. note:: L1 parent route contains L2 child routes
   .. warning:: no L1 parent = it ain't no L2 child
 
   +-------------+------------------+
   |172.16.0.0   |   172.16.1.0/24  |
+  |             +------------------+
   |             |   172.16.2.0/24  |
+  |             +------------------+
   |             |   172.16.3.0/24  |
+  |             +------------------+
   |             |   172.16.4.0/28  |
   +-------------+------------------+
   |209.165.200.0|209.165.200.224/30|
+  |             +------------------+
   |             |209.165.200.228/30|
+  |             +------------------+
   |             |209.165.200.232/30|
   +-------------+------------------+
 

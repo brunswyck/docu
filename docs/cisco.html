@@ -1591,13 +1591,13 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 </dd>
 </dl>
 </li>
-<li><p class="first">Level 1 parent route: Level 1 network route (=mask) that is subnetted</p>
+<li><p class="first">Level 1 parent route: Level 1 network route (=mask) that is subnetted:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks</p>
 </div>
 </li>
-<li><p class="first">Level 2 child routes aka <strong>subnet</strong> route: subnet of a <em>classful network address</em></p>
+<li><p class="first">Level 2 child routes aka <strong>subnet</strong> route: subnet of a <em>classful network address</em>:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">L1 parent route contains L2 child routes</p>
@@ -1612,16 +1612,21 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 <col width="58%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>172.16.0.0</td>
-<td>172.16.1.0/24
-172.16.2.0/24
-172.16.3.0/24
-172.16.4.0/28</td>
+<tr class="row-odd"><td rowspan="4">172.16.0.0</td>
+<td>172.16.1.0/24</td>
 </tr>
-<tr class="row-even"><td>209.165.200.0</td>
-<td>209.165.200.224/30
-209.165.200.228/30
-209.165.200.232/30</td>
+<tr class="row-even"><td>172.16.2.0/24</td>
+</tr>
+<tr class="row-odd"><td>172.16.3.0/24</td>
+</tr>
+<tr class="row-even"><td>172.16.4.0/28</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">209.165.200.0</td>
+<td>209.165.200.224/30</td>
+</tr>
+<tr class="row-even"><td>209.165.200.228/30</td>
+</tr>
+<tr class="row-odd"><td>209.165.200.232/30</td>
 </tr>
 </tbody>
 </table>
