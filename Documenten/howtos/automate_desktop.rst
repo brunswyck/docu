@@ -21,16 +21,25 @@ apt-get install virtualenv
 apt-get install python3-pip
 apt-get install curl
 
+sudo apt-get install libevent-dev python-all-dev 
+
 pip installs
 ------------
-pip2.7 install sphinx
-pip2.7 install sphinx_rtd_theme
-pip2.7 install rstcheck
+cddocu
+envdocu
+
+pip install sphinx
+pip install sphinx_rtd_theme
+pip install rstcheck
+pip install sphinx-autobuild
+
+
 
 other configurations
 --------------------
 ~/docu/sphinx/virtualenv env
 ~/docu/sphinx/sphinx-quickstart
+
 
 sudo sed -n -i -e 's/main/main contrib non-free/p' /etc/apt/sources.list
 

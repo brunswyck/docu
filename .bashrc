@@ -98,41 +98,7 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
     export LANG=en_US.UTF-8
-	
 fi
-
-# Start ssh-agent to keep you logged in with keys, use `ssh-add` to log in
-agent=`pgrep ssh-agent -u $USER` # get only your agents           
-if [[ "$agent" == "" || ! -e ~/.ssh/.agent_env ]]; then
-    # if no agents or environment file is missing create a new one
-    # remove old agents / environment variable files
-    kill $agent running
-    rm ~/.ssh/.agent_env 
-
-    # restart
-    eval `ssh-agent` 
-    echo 'export SSH_AUTH_SOCK'=$SSH_AUTH_SOCK >> ~/.ssh/.agent_env             
-    echo 'export SSH_AGENT_PID'=$SSH_AGENT_PID >> ~/.ssh/.agent_env             
-fi
-
-# create our own hardlink to the socket (with random name)           
-source ~/.ssh/.agent_env                                                    
-MYSOCK=/tmp/ssh_agent.${RANDOM}.sock                                        
-ln -T $SSH_AUTH_SOCK $MYSOCK                                                
-export SSH_AUTH_SOCK=$MYSOCK                                                
-
-end_agent()                                                                     
-{
-    # if we are the last holder of a hardlink, then kill the agent
-    nhard=`ls -l $SSH_AUTH_SOCK | awk '{print $2}'`                             
-    if [[ "$nhard" -eq 2 ]]; then                                               
-        rm ~/.ssh/.agent_env                                                    
-        ssh-agent -k                                                            
-    fi                                                                          
-    rm $SSH_AUTH_SOCK                                                           
-}                                                                               
-trap end_agent EXIT                                                             
-set +x
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -147,6 +113,12 @@ fi
 if [ -f ~/.xsessionrc ]; then
     . ~/.xsessionrc
 fi
+if [ -d ~/bashrc_addons/ ]; then
+  for f in ~/bashrc_addons/*.sh;do source "$f";done
+fi
+
+eval $(/usr/bin/ssh-agent -s)
+/usr/bin/ssh-add -t 18000 ~/.ssh/github_id_rsa
 if [ -d ~/bashrc_addons/ ]; then
   for f in ~/bashrc_addons/*.sh;do source "$f";done
 fi
