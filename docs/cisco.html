@@ -1570,13 +1570,13 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 <dt>Level 1 route:</dt>
 <dd><dl class="first last docutils">
 <dt>a route with a subnet mask <em>equal or less than classful mask</em> of the network address</dt>
-<dd><ul class="first simple">
-<li>Network route - <em>equal</em> to that of classful mask</li>
-<li>Supernet route - <em>less</em> than classful mask, eg summary address</li>
-<li>Default route - static route with the address 0.0.0.0/0</li>
-</ul>
-<blockquote class="last">
-<div><div class="admonition note">
+<dd><ul class="first last">
+<li><p class="first">Network route - <em>equal</em> to that of classful mask</p>
+</li>
+<li><p class="first">Supernet route - <em>less</em> than classful mask, eg summary address</p>
+</li>
+<li><p class="first">Default route - static route with the address 0.0.0.0/0</p>
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">source of Level 1 route = D.C. network, static, or dynamic routing protocol</p>
 </div>
@@ -1584,33 +1584,28 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 <p class="first admonition-title">Note</p>
 <p class="last">level 1 route are also ultimate routes</p>
 </div>
-</div></blockquote>
+</li>
+</ul>
 </dd>
 </dl>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Level 1 parent route: Level 1 network route (=mask) that is subnetted</dt>
-<dd><div class="first last admonition note">
+<li><p class="first">Level 1 parent route: Level 1 network route (=mask) that is subnetted</p>
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks</p>
 </div>
-</dd>
-</dl>
 </li>
-<li><dl class="first docutils">
-<dt>Level 2 child routes aka <strong>subnet</strong> route: subnet of a <em>classful network address</em></dt>
-<dd><div class="first admonition note">
+<li><p class="first">Level 2 child routes aka <strong>subnet</strong> route: subnet of a <em>classful network address</em></p>
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">L1 parent route contains L2 child routes</p>
 </div>
-<div class="last admonition warning">
+<div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">no L1 parent = it ain’t no L2 child</p>
 </div>
-</dd>
-</dl>
 <table border="1" class="docutils">
 <colgroup>
 <col width="42%" />
