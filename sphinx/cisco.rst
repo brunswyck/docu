@@ -1,8 +1,7 @@
-.. highlightlang:: rest
-
 ####
 CCNA
 ####
+
 
 ***********************
 Networking Fundamentals
@@ -1308,10 +1307,9 @@ Route lookup process
 #. if a level 1 ultimate route (exit|nhop) = forward
 #. if lvl 1 parent route (equal to snmask & never and no exit|nhop) then
   
-   #. check if match with level 2 child (subnet) route (=bigger than nwmask)
+   * check if match with level 2 child (subnet) route (=bigger than nwmask)
 
 #. continue searching lvl 1 supernet routes (=less than nwmask) for match including default route if there is one
 #. sorry no match, drop it like it's hot
 
 .. note:: A route referencing only a next-hop IP address and not an exit interface, must be resolved to a route with an exit interface, if Cisco Express Forwarding (CEF) is not being used. Without CEF, a recursive lookup is performed on the next-hop IP address until the route is resolved to an exit interface. CEF is enabled by default.
-
