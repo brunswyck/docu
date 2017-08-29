@@ -142,6 +142,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#exercise-example">exercise example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#remote-networks-in-routing-table">Remote Networks in Routing table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#routing-table-terms">Routing table terms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#route-lookup-process">Route lookup process</a></li>
 </ul>
 </li>
 </ul>
@@ -1632,6 +1633,16 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 </table>
 </li>
 </ul>
+</div>
+<div class="section" id="route-lookup-process">
+<h4>Route lookup process<a class="headerlink" href="#route-lookup-process" title="Permalink to this headline">¶</a></h4>
+<p># if a level 1 ultimate route (exit|nhop) = forward
+# if lvl 1 parent route (equal to snmask &amp; never and no exit|nhop) then</p>
+<blockquote>
+<div># check if match with level 2 child (subnet) route (=bigger than nwmask)</div></blockquote>
+<p># continue searching lvl 1 supernet routes (=less than nwmask) for match including default route if there is one
+# sorry no match, drop it like it’s hot
+.. note:: A route referencing only a next-hop IP address and not an exit interface, must be resolved to a route with an exit interface, if Cisco Express Forwarding (CEF) is not being used. Without CEF, a recursive lookup is performed on the next-hop IP address until the route is resolved to an exit interface. CEF is enabled by default.</p>
 </div>
 </div>
 </div>
