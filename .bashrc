@@ -1,6 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# ~/.bashrc: executed by bash(1) for non-login shells.  # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) # for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -115,6 +113,12 @@ fi
 if [ -f ~/.xsessionrc ]; then
     . ~/.xsessionrc
 fi
+if [ -d ~/bashrc_addons/ ]; then
+  for f in ~/bashrc_addons/*.sh;do source "$f";done
+fi
+
+eval $(/usr/bin/ssh-agent -s)
+/usr/bin/ssh-add -t 28800 ~/.ssh/github_id_rsa
 if [ -d ~/bashrc_addons/ ]; then
   for f in ~/bashrc_addons/*.sh;do source "$f";done
 fi
