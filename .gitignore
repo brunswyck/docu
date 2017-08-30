@@ -37,6 +37,7 @@ Downloads
 .java
 .lesshst
 .local
+!.local/share/xfce4/terminal/colorschemes/
 .macromedia
 .mozilla
 .nano
