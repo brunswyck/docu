@@ -143,6 +143,35 @@
 <li class="toctree-l4"><a class="reference internal" href="#remote-networks-in-routing-table">Remote Networks in Routing table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#routing-table-terms">Routing table terms</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#route-lookup-process">Route lookup process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-routing-table-entries">IPv6 Routing Table Entries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna">QnA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-4-switched-networks">Chapter 4 switched networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elements-of-a-converged-network">elements of a converged network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hierarchy-in-the-borderless-switched-network">Hierarchy in the Borderless Switched Network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#access-layer">Access Layer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#distribution-layer">Distribution Layer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#core-layer">Core Layer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#considerations-switch">considerations switch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#store-n-forward-switching">store n forward switching</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cut-through-switching">Cut-Through Switching</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#collision-domains">Collision domains</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna-ch4">QnA Ch4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-5-switch-configuration">Chapter 5 Switch Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configure-boot-environment-variable">Configure BOOT Environment variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#switch-boot-sequence">Switch boot sequence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#recover-from-system-crash">Recover from System Crash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-sw-management-ipv4">Configure Sw management ipv4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-a-static-mac-address">Setup a static MAC address</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#duplex-communication">Duplex communication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#speed-auto-mdix">Speed/auto-MDIX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verify-interface-status">Verify interface status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-switch-setup">SSH Switch Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-unused-ports">Disable unused ports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#port-security">Port Security</a></li>
 </ul>
 </li>
 </ul>
@@ -1648,6 +1677,418 @@ ip route 0.0.0.0 0.0.0.0 Serial0/0/1
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">A route referencing only a next-hop IP address and not an exit interface, must be resolved to a route with an exit interface, if Cisco Express Forwarding (CEF) is not being used. Without CEF, a recursive lookup is performed on the next-hop IP address until the route is resolved to an exit interface. CEF is enabled by default.</p>
+</div>
+</div>
+<div class="section" id="ipv6-routing-table-entries">
+<h4>IPv6 Routing Table Entries<a class="headerlink" href="#ipv6-routing-table-entries" title="Permalink to this headline">¶</a></h4>
+<p>reference topology</p>
+<img alt="_images/ipv6_routingtable_entries.png" src="_images/ipv6_routingtable_entries.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because IPv6 is classless by design, all routes are effectively <strong>L1 ultimate routes</strong>. There is no L1 parent or L2 child routes</p>
+</div>
+<p>R1,2,3 in full mesh topology. All routers have redundant paths to various networks.
+R2 is the edge router to the ISP, however a default static route is not being advertised
+EIGRP is cfgd on all of them</p>
+<p>Directly connected routes on R1 = show ipv6 route –&gt; C and L</p>
+<img alt="_images/routingtable_ipv6.png" src="_images/routingtable_ipv6.png" />
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">RIP configuration on a router should contain network statements for connected networks only. Remote networks are learned from routing updates from other routers.</p>
+</div>
+</div>
+<div class="section" id="qna">
+<h4>QnA<a class="headerlink" href="#qna" title="Permalink to this headline">¶</a></h4>
+<p>What is a purpose of the network command when configuring RIPv2 as the routing protocol?</p>
+<p>V  It identifies the interfaces that belong to a specified network.</p>
+<p>X  It specifies the remote network that can now be reached.</p>
+<blockquote>
+<div><p>It immediately advertises the specified network to neighbor routers with a classful mask.</p>
+<p>It populates the routing table with the network entry.</p>
+</div></blockquote>
+<p>The network command is used to advertise the directly connected networks of a router. It enables RIP on the interfaces that belong to the specified network.</p>
+<p>The command being entered by the engineer will cause RIPv2 to activate on the interface for the 192.168.10.0 network. <strong>If RIPv1 is configured, the router will send only version 1 updates, but will listen for both version 1 and version 2 updates. If RIPv2 is configured, the router will send and listen to only version 2 updates.</strong></p>
+</div>
+</div>
+<div class="section" id="chapter-4-switched-networks">
+<h3>Chapter 4 switched networks<a class="headerlink" href="#chapter-4-switched-networks" title="Permalink to this headline">¶</a></h3>
+<p>examination of the flow of traffic in a modern network. It examines some of the current network design models and the way LAN switches build forwarding tables and use the MAC address information to efficiently switch data between hosts.</p>
+<div class="section" id="elements-of-a-converged-network">
+<h4>elements of a converged network<a class="headerlink" href="#elements-of-a-converged-network" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Call control - Telephone call processing, caller ID, call transfer, hold, and conference</li>
+<li>Voice messaging - Voicemail</li>
+<li>Mobility - Receive important calls wherever you are</li>
+<li>Automated attendant - Serve customers faster by routing calls directly to the right department or individual</li>
+</ul>
+</div>
+<div class="section" id="hierarchy-in-the-borderless-switched-network">
+<h4>Hierarchy in the Borderless Switched Network<a class="headerlink" href="#hierarchy-in-the-borderless-switched-network" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Hierarchical - Facilitates understanding the role of each device at every tier, simplifies deployment, operation, and management, and reduces fault domains at every tier</li>
+<li>Modularity - Allows seamless network expansion and integrated service enablement on an on-demand basis</li>
+<li>Resiliency - Satisfies user expectations for keeping the network always on</li>
+<li>Flexibility - Allows intelligent traffic load sharing by using all network resources</li>
+</ul>
+<p>The three critical layers within these tiered designs are the <strong>access, distribution, and core layers</strong>.</p>
+<img alt="_images/accesslayer.png" src="_images/accesslayer.png" />
+<p>Access, Distribution, and Core Layers</p>
+</div>
+<div class="section" id="access-layer">
+<h4>Access Layer<a class="headerlink" href="#access-layer" title="Permalink to this headline">¶</a></h4>
+<p>The access layer represents the network edge, where traffic enters or exits the campus network. Traditionally, the primary function of an access layer switch is to provide network access to the user. Access layer switches connect to distribution layer switches, which implement network foundation technologies such as routing, quality of service, and security.</p>
+<p>To meet network application and end-user demand, the next-generation switching platforms now provide more converged, integrated, and intelligent services to various types of endpoints at the network edge. Building intelligence into access layer switches allows applications to operate on the network more efficiently and securely.</p>
+</div>
+<div class="section" id="distribution-layer">
+<h4>Distribution Layer<a class="headerlink" href="#distribution-layer" title="Permalink to this headline">¶</a></h4>
+<p>The distribution layer interfaces between the access layer and the core layer to provide many important functions, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Aggregating large-scale wiring closet networks</li>
+<li>Aggregating Layer 2 broadcast domains and Layer 3 routing boundaries</li>
+<li>Providing intelligent switching, routing, and network access policy functions to access the rest of the network</li>
+<li>Providing high availability through redundant distribution layer switches to the end-user and equal cost paths to the core</li>
+<li>Providing differentiated services to various classes of service applications at the edge of the network</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="core-layer">
+<h4>Core Layer<a class="headerlink" href="#core-layer" title="Permalink to this headline">¶</a></h4>
+<p>The core layer is the network backbone. It connects several layers of the campus network. The core layer serves as the aggregator for all of the other campus blocks and ties the campus together with the rest of the network. The primary purpose of the core layer is to provide fault isolation and high-speed backbone connectivity.</p>
+<p>Figure 1 shows a three-tier campus network design for organizations where the access, distribution, and core are each separate layers. To build a simplified, scalable, cost-effective, and efficient physical cable layout design, the recommendation is to build an extended-star physical network topology from a centralized building location to all other buildings on the same campus.</p>
+<img alt="_images/corelayer1.png" src="_images/corelayer1.png" />
+<p>In some cases where extensive physical or network scalability does not exist, maintaining separate distribution and core layers is not required. In smaller campus locations where there are fewer users accessing the network or in campus sites consisting of a single building, separate core and distribution layers may not be needed. In this scenario, the recommendation is the alternate two-tier campus network design, also known as the collapsed core network design.</p>
+<p>Figure 2 shows a two-tier campus network design example for an enterprise campus where the distribution and core layers are collapsed into a single layer.
+.. image:: _static/corelayercollapsed.png</p>
+<p>Borderless switched networks</p>
+<img alt="_images/borderlessswitchednetworks.png" src="_images/borderlessswitchednetworks.png" />
+</div>
+<div class="section" id="considerations-switch">
+<h4>considerations switch<a class="headerlink" href="#considerations-switch" title="Permalink to this headline">¶</a></h4>
+<p>Fixed - Modular - Stackable</p>
+<ul class="simple">
+<li>Cost: The cost of a switch will depend on the number and speed of the interfaces, supported features, and expansion capability.</li>
+<li>Port Density: Network switches must support the appropriate number of devices on the network.</li>
+<li>Power: It is now common to power access points, IP phones, and even compact switches using Power over Ethernet (PoE). In addition to PoE considerations, some chassis-based switches support redundant power supplies.</li>
+<li>Reliability: The switch should provide continuous access to the network.</li>
+<li>Port Speed: The speed of the network connection is of primary concern to end users.</li>
+<li>Frame Buffers: The ability of the switch to store frames is important in a network where there might be congested ports to servers or other areas of the network.</li>
+<li>Scalability: The number of users on a network typically grows over time; therefore, the switch should provide the opportunity for growth.</li>
+</ul>
+</div>
+<div class="section" id="store-n-forward-switching">
+<h4>store n forward switching<a class="headerlink" href="#store-n-forward-switching" title="Permalink to this headline">¶</a></h4>
+<p>Store-and-forward switching has two primary characteristics that distinguish it from cut-through: error checking and automatic buffering.</p>
+<p>A store-and-forward switch drops frames that do not pass the FCS check; therefore, it does not forward invalid frames. By contrast, a cut-through switch may forward invalid frames because no FCS check is performed.</p>
+</div>
+<div class="section" id="cut-through-switching">
+<h4>Cut-Through Switching<a class="headerlink" href="#cut-through-switching" title="Permalink to this headline">¶</a></h4>
+<p>start forwarding a frame earlier than store-and-forward switching. There are two primary characteristics of cut-through switching: rapid frame forwarding and fragment free.</p>
+<div class="section" id="rapid-frame-forwarding">
+<h5>Rapid Frame Forwarding<a class="headerlink" href="#rapid-frame-forwarding" title="Permalink to this headline">¶</a></h5>
+<p>With today’s MAC controllers and ASICs, a switch using the cut-through method can quickly decide whether it needs to examine a larger portion of a frame’s headers for additional filtering purposes. For example, the switch can analyze past the first 14 bytes (the source MAC address, destination MAC, and the EtherType fields), and examine an additional 40 bytes in order to perform more sophisticated functions relative to IPv4 Layers 3 and 4.</p>
+</div>
+<div class="section" id="fragment-free-forwarding">
+<h5>Fragment Free Forwarding<a class="headerlink" href="#fragment-free-forwarding" title="Permalink to this headline">¶</a></h5>
+<p>Fragment free switching is a modified form of cut-through switching in which the switch waits for the collision window (64 bytes) to pass before forwarding the frame. This means each frame will be checked into the data field to make sure no fragmentation has occurred. Fragment free switching provides better error checking than cut-through, with practically no increase in latency.</p>
+</div>
+</div>
+<div class="section" id="collision-domains">
+<h4>Collision domains<a class="headerlink" href="#collision-domains" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/collisiondomains.png" src="_images/collisiondomains.png" />
+<img alt="_images/collisiondomains2.png" src="_images/collisiondomains2.png" />
+</div>
+<div class="section" id="qna-ch4">
+<h4>QnA Ch4<a class="headerlink" href="#qna-ch4" title="Permalink to this headline">¶</a></h4>
+<p>Which service is provided by an automated attendant feature on a converged network?
+* Call routing</p>
+<ul class="simple">
+<li>The automated attendant feature increases the speed of voice services by routing calls directly to individuals or departments. Point-to-point video and video conferencing describe video services on a converged network. An IT management interface is part of a converged network solution that allows IT personnel to facilitate moves, adds, and changes through a centralized application.</li>
+</ul>
+<p>Stackable switches provide fault tolerance and bandwidth availability by using special cables between switches and are less costly to implement than modular switches.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">What is a basic function of the Cisco Borderless Architecture distribution layer? Aggregating Layer 3 routing boundaries</p>
+</div>
+<p>Match the borderless switched network guideline description to the principle.</p>
+<img alt="_images/borderlessswitchednetworks_matchup.png" src="_images/borderlessswitchednetworks_matchup.png" />
+<p>Place the options in the following order:</p>
+<dl class="docutils">
+<dt>flexibility:</dt>
+<dd>allows intelligent traffic load sharing by using all network resources</dd>
+<dt>hierarchical:</dt>
+<dd>facilitates understanding the role of each device at every tier, simplifies deployment, operation, management, and reduces fault domains at every tier</dd>
+<dt>modularity:</dt>
+<dd>allows seamless network expansion and integrated service enablement on an on-demand basis</dd>
+<dt>resiliency:</dt>
+<dd>satisfies user expectations for keeping the network always on</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="chapter-5-switch-configuration">
+<h3>Chapter 5 Switch Configuration<a class="headerlink" href="#chapter-5-switch-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="configure-boot-environment-variable">
+<h4>Configure BOOT Environment variable<a class="headerlink" href="#configure-boot-environment-variable" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash:/c2960-lanbasek9-mz.150-2.SE/c2960-lanbasek9-mz.150-2.SE.bin</span>
+             <span class="n">command</span>     <span class="n">storage</span>   <span class="n">path</span> <span class="n">to</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">fs</span>     <span class="n">IOS</span> <span class="n">filename</span>
+
+<span class="n">S1</span><span class="c1"># show boot</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="switch-boot-sequence">
+<h4>Switch boot sequence<a class="headerlink" href="#switch-boot-sequence" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>loads POST from ROM. Checks CPU subsystem. Tests CPU, DRAM &amp; portion of flash device</li>
+<li>loads BOOT LOADER software from ROM, runs immediately after POST</li>
+<li>BOOT LOADER performs low-level CPU initialization. Initializes CPU registers that control where physical memory is mapped, quantity of memory and its speed</li>
+<li>BOOT LOADER initializes flash file system on the system board</li>
+<li>BOOT LOADER locates &amp; loads a default IOS image into memory</li>
+</ol>
+<p>BOOT environment variable. If this variable is not set, the switch attempts to load and execute the first executable file it can by performing a recursive, depth-first search throughout the flash file system</p>
+</div>
+<div class="section" id="recover-from-system-crash">
+<h4>Recover from System Crash<a class="headerlink" href="#recover-from-system-crash" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>connect by console cable, configure terminal emulation software</li>
+<li>unplug power cord</li>
+<li>reconnect power and hold down MODE button while system LED is flashing green</li>
+<li>Continue pressing MODE button while LED turns briefly amber and then solid green. Now release the button</li>
+<li>boot loader <strong>switch:</strong> prompt appears</li>
+</ol>
+<p>switch: dir flash:</p>
+<div class="section" id="catalyst-2960-switch-leds">
+<h5>Catalyst 2960 switch LEDs<a class="headerlink" href="#catalyst-2960-switch-leds" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/c2960leds.png" src="_images/c2960leds.png" />
+<ol class="arabic simple">
+<li>System LED: system has power and is functioning properly. If Amber = power but not working properly</li>
+<li>RPS LED: blinking = connected but providing power to another device. Amber = standby mode Blinking Amber = providing power due to main PSU failed</li>
+<li>Port Status LED (default mode): alternating green-amber = link fault. Amber/blinking Amber = no forwarding/port blocked to prevent loop</li>
+<li>Port Duplex mode LED: green = full duplex</li>
+<li>Port Speed LED: off = 10Mb/s green=100Mb/s blinking green=1000Mb/s</li>
+<li>PoE Mode LED: Amber = 1or+ denied power BlinkingAmber = off due to fault| PoE fault Green= PoE on Alterating Green-Amber = no power to not exceed switch power capacity</li>
+<li>Mode button</li>
+<li>port LEDs</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, the switch is configured to have the management of the switch controlled through VLAN 1. All ports are assigned to VLAN 1 by default. For security purposes, it is considered a best practice to use a VLAN other than VLAN 1 for the management VLAN.</p>
+</div>
+</div>
+</div>
+<div class="section" id="configure-sw-management-ipv4">
+<h4>Configure Sw management ipv4<a class="headerlink" href="#configure-sw-management-ipv4" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface vlan 99</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 172.17.99.11 255.255.255.0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">S1</span><span class="c1"># copy running-config startup-config</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Notice that the VLAN 99 interface is in the down state even though you entered the no shutdown command. The interface is currently down because no switch ports are assigned to VLAN 99.</p>
+</div>
+<div class="section" id="assign-all-user-ports-to-vlan">
+<h5>Assign all user ports to vlan<a class="headerlink" href="#assign-all-user-ports-to-vlan" title="Permalink to this headline">¶</a></h5>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>S1(config)#
+interface range f0/1 – 24,g0/1 - 2
+S1(config-if-range)# switchport access vlan 99
+S1(config-if-range)#exit
+S1(config)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed state to up
+
+S1# configure terminal
+S1(config)# ip default-gateway 172.17.99.1
+S1(config)# end
+S1# copy run start
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-apply-vlan-99">
+<h5>configure &amp; apply vlan 99<a class="headerlink" href="#configure-apply-vlan-99" title="Permalink to this headline">¶</a></h5>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 99</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name vlan_name</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface interface_id</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 99</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h5>troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h5>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show interface vlan99</span>
+<span class="n">S1</span><span class="c1"># show ip interface vlan99</span>
+<span class="n">S1</span><span class="c1"># show vlan brief</span>
+<span class="n">S1</span><span class="c1"># show mac address-table</span>
+<span class="n">S1</span><span class="c1"># show mac address-table dynamic</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-template-for-less-hassle">
+<h5>basic template for less hassle<a class="headerlink" href="#basic-template-for-less-hassle" title="Permalink to this headline">¶</a></h5>
+<p>from global conf mode past:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">hostname</span> <span class="n">S1</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
+<span class="n">Unauthorized</span> <span class="n">access</span> <span class="ow">is</span> <span class="n">strictly</span> <span class="n">prohibited</span><span class="o">.</span> <span class="c1">#</span>
+<span class="n">Line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">15</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">exit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setup-a-static-mac-address">
+<h4>Setup a static MAC address<a class="headerlink" href="#setup-a-static-mac-address" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># clear mac address-table dynamic</span>
+<span class="n">S1</span><span class="c1"># show mac address-table</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># mac address-table static 0050.56BE.6C89 vlan 99 interface fastethernet 0/6</span>
+<span class="n">S1</span><span class="c1"># show mac address-table</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no mac address-table static 0050.56BE.6C89 vlan 99 interface fastethernet 0/6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="duplex-communication">
+<h4>Duplex communication<a class="headerlink" href="#duplex-communication" title="Permalink to this headline">¶</a></h4>
+<p>When a switch port is operating in full-duplex mode, there is no collision domain associated with the port.</p>
+<p>Gigabit Ethernet and 10Gb NICs require full-duplex connections to operate. In full-duplex mode, the collision detection circuit on the NIC is disabled. Frames that are sent by the two connected devices cannot collide because the devices use two separate circuits in the network cable. Full-duplex connections require a switch that supports full-duplex configuration, or a direct connection using an Ethernet cable between two devices.</p>
+<p>Standard, shared hub-based Ethernet configuration efficiency is typically rated at 50 to 60 percent of the stated bandwidth. Full-duplex offers 100 percent efficiency in both directions (transmitting and receiving). This results in a 200 percent potential use of the stated bandwidth.</p>
+</div>
+<div class="section" id="speed-auto-mdix">
+<h4>Speed/auto-MDIX<a class="headerlink" href="#speed-auto-mdix" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 0/1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># duplex auto</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># speed auto</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># mdix auto</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">S1</span><span class="c1"># copy run start</span>
+
+<span class="n">show</span> <span class="n">controllers</span> <span class="n">ethernet</span><span class="o">-</span><span class="n">controller</span> <span class="n">fa</span> <span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="n">phy</span> <span class="o">|</span> <span class="n">include</span> <span class="n">Auto</span><span class="o">-</span><span class="n">MDIX</span>
+</pre></div>
+</div>
+<p>check with show interfaces interface id</p>
+</div>
+<div class="section" id="verify-interface-status">
+<h4>Verify interface status<a class="headerlink" href="#verify-interface-status" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/interface_errors.png" src="_images/interface_errors.png" />
+<img alt="_images/interface_error_types.png" src="_images/interface_error_types.png" />
+<p>“Input errors” is the sum of all errors in datagrams that were received on the interface being examined. This includes runts, giants, CRC, no buffer, frame, overrun, and ignored counts.</p>
+<p>“Output errors” is the sum of all errors that prevented the final transmission of datagrams out the interface that is being examined.</p>
+</div>
+<div class="section" id="ssh-switch-setup">
+<h4>SSH Switch Setup<a class="headerlink" href="#ssh-switch-setup" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># config t</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># hostname myswitch</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip domain-name thegeekstuff.com</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># crypto key generate rsa</span>
+
+<span class="n">S1</span><span class="c1"># line vty 0 4</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># transport input ssh</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># login local</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># password 7</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="c1"># line console 0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># logging synchronous</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># login local</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># exit</span>
+
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip ssh version 2</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># username god secret h3ll0n34rth</span>
+<span class="n">S1</span><span class="c1"># enable secret class</span>
+<span class="n">S1</span><span class="c1"># service password-encryption</span>
+<span class="n">S1</span><span class="c1"># show ip ssh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-unused-ports">
+<h4>Disable unused ports<a class="headerlink" href="#disable-unused-ports" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show run</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range fastethernet0/1 - 4, fastethernet0/10 - 15</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="port-security">
+<h4>Port Security<a class="headerlink" href="#port-security" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="secure-mac-address-types">
+<h5>Secure MAC Address Types<a class="headerlink" href="#secure-mac-address-types" title="Permalink to this headline">¶</a></h5>
+<p>There are a number of ways to configure port security. The type of secure address is based on the configuration and includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Static secure MAC addresses - MAC addresses that are manually configured on a port by using the switchport port-security mac-address mac-address interface configuration mode command. MAC addresses configured in this way are stored in the address table and are added to the running configuration on the switch.</li>
+<li>Dynamic secure MAC addresses - MAC addresses that are dynamically learned and stored only in the address table. MAC addresses configured in this way are removed when the switch restarts.</li>
+<li>Sticky secure MAC addresses - MAC addresses that can be dynamically learned or manually configured, then stored in the address table and added to the running configuration.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="sticky-secure-mac-addresses">
+<h5>Sticky Secure MAC addresses<a class="headerlink" href="#sticky-secure-mac-addresses" title="Permalink to this headline">¶</a></h5>
+<p>To configure an interface to convert dynamically learned MAC addresses to sticky secure MAC addresses and add them to the running configuration, you must enable sticky learning.</p>
+<p>Sticky learning is enabled on an interface by using the <strong>switchport port-security mac-address sticky interface configuration mode command</strong>.
+When this command is entered, the switch converts all dynamically learned MAC addresses, including those that were dynamically learned before sticky learning was enabled, into sticky secure MAC addresses. All sticky secure MAC addresses are added to the address table and to the running configuration.</p>
+<p>Sticky secure MAC addresses can also be manually defined. When sticky secure MAC addresses are configured by using the switchport port-security mac-address sticky mac-address interface configuration mode command, all specified addresses are added to the address table and the running configuration.
+If the sticky secure MAC addresses are saved to the startup configuration file, then when the switch restarts or the interface shuts down, the interface does not need to relearn the addresses. If the sticky secure addresses are not saved, they will be lost.</p>
+<p>If sticky learning is disabled by using the no switchport port-security mac-address sticky interface configuration mode command, the sticky secure MAC addresses remain part of the address table, but are removed from the running configuration.</p>
+<p>Characteristics of sticky secure MAC addresses.</p>
+<img alt="_images/sticky_secure.png" src="_images/sticky_secure.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The port security feature will not work until port security is enabled on the interface using the switchport port-security command.</p>
+</div>
+</div>
+<div class="section" id="security-violation-modes">
+<h5>Security Violation Modes<a class="headerlink" href="#security-violation-modes" title="Permalink to this headline">¶</a></h5>
+<p>Security Violation Modes include: <strong>Protect Restrict Shutdown</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="16%" />
+<col width="16%" />
+<col width="19%" />
+<col width="21%" />
+<col width="13%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Violation Mode</td>
+<td>Forwards Traffic</td>
+<td>Sends Syslog msg</td>
+<td>Displays Error msg</td>
+<td>up violation counter</td>
+<td>Shutdown port</td>
+</tr>
+<tr class="row-even"><td>Protect</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Restrict</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>Shutdown</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
