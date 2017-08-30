@@ -94,3 +94,4 @@ inoremap jj <ESC>
 set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
 " Quickly go to line number
 :nnoremap <CR> G
+set pastetoggle=<F2>
