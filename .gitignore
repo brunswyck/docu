@@ -1,4 +1,6 @@
 # Ignore the following
+.xournal
+Desktop
 .bash_history
 .ssh/.agent_env
 .ssh/ssh_auth_sock
