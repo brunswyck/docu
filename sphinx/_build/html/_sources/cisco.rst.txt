@@ -1982,4 +1982,292 @@ Check if ports in Error disabled state
 ``S1# show port-security interface fastethernet 0/18``
 
 
+example exercise
+^^^^^^^^^^^^^^^^
+Requirements
+
+· Configure S1 with the following initial settings:
+  - Hostname
+  - Banner that includes the word warning 
+  - Console port login and password cisco
+  - Encrypted enable password of class
+  - Encrypt plain text passwords
+  - Management interface addressing
+· Configure SSH to secure remote access with the following settings:
+  - Domain name of cisco.com
+  - RSA key-pair parameters to support SSH version 2
+  - Set SSH version 2
+  - User admin with secret password ccna
+  - VTY lines only accept SSH connections and use local login for authentication
+· Configure the port security feature to restrict network access:
+  - Disable all unused ports.
+  - Set the interface mode to access.
+  - Enable port security to allow only two hosts per port.
+  - Record the MAC address in the running configuration.
+  - Ensure that port violations disable ports.
+
+.. code::
+
+   S1#show port-security interface ?
+     Ethernet         IEEE 802.3
+     FastEthernet     FastEthernet IEEE 802.3
+     GigabitEthernet  GigabitEthernet IEEE 802.3z
+   	
+   S1#show port-security interface FastEthernet 0/1
+   Port Security              : Enabled
+   Port Status                : Secure-up
+   Violation Mode             : Shutdown
+   Aging Time                 : 0 mins
+   Aging Type                 : Absolute
+   SecureStatic Address Aging : Disabled
+   Maximum MAC Addresses      : 2
+   Total MAC Addresses        : 0
+   Configured MAC Addresses   : 0
+   Sticky MAC Addresses       : 0
+   Last Source Address:Vlan   : 0000.0000.0000:0
+   Security Violation Count   : 0
+   
+   S1#show port-security ?
+     address    Show secure address
+     interface  Show secure interface
+     <cr>
+   S1#show port-security address
+   			Secure Mac Address Table
+   -------------------------------------------------------------------------------
+   Vlan	Mac Address	Type			Ports		Remaining Age
+   								(mins)
+   ----	-----------	----			-----		-------------
+   ------------------------------------------------------------------------------
+   Total Addresses in System (excluding one mac per port)     : 0
+   Max Addresses limit in System (excluding one mac per port) : 1024
+   S1#show ip ?
+     access-lists  List access lists
+     arp           IP ARP table
+     dhcp          Show items in the DHCP database
+     interface     IP interface status and configuration
+     ssh           Information on SSH
+   	
+   S1#show interface FastEthernet0/1
+   FastEthernet0/1 is up, line protocol is up (connected)
+     Hardware is Lance, address is 00d0.bc57.1001 (bia 00d0.bc57.1001)
+    BW 100000 Kbit, DLY 1000 usec,
+        reliability 255/255, txload 1/255, rxload 1/255
+     Encapsulation ARPA, loopback not set
+     Keepalive set (10 sec)
+     Full-duplex, 100Mb/s
+     input flow-control is off, output flow-control is off
+     ARP type: ARPA, ARP Timeout 04:00:00
+     Last input 00:00:08, output 00:00:05, output hang never
+     Last clearing of "show interface" counters never
+     Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
+     Queueing strategy: fifo
+     Output queue :0/40 (size/max)
+     5 minute input rate 0 bits/sec, 0 packets/sec
+     5 minute output rate 0 bits/sec, 0 packets/sec
+        956 packets input, 193351 bytes, 0 no buffer
+        Received 956 broadcasts, 0 runts, 0 giants, 0 throttles
+        0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+        0 watchdog, 0 multicast, 0 pause input
+        0 input packets with dribble condition detected
+        2357 packets output, 263570 bytes, 0 underruns
+        0 output errors, 0 collisions, 10 interface resets
+        0 babbles, 0 late collision, 0 deferred
+        0 lost carrier, 0 no carrier
+        0 output buffer failures, 0 output buffers swapped out
+   
+   S1#show port-security interface FastEthernet 0/1
+   Port Security              : Enabled
+   Port Status                : Secure-up
+   Violation Mode             : Shutdown
+   Aging Time                 : 0 mins
+   Aging Type                 : Absolute
+   SecureStatic Address Aging : Disabled
+   Maximum MAC Addresses      : 2
+   Total MAC Addresses        : 0
+   Configured MAC Addresses   : 0
+   Sticky MAC Addresses       : 0
+   Last Source Address:Vlan   : 0000.0000.0000:0
+   Security Violation Count   : 0
+   
+   S1#show port-security interface FastEthernet 0/2
+   Port Security              : Enabled
+   Port Status                : Secure-up
+   Violation Mode             : Shutdown
+   Aging Time                 : 0 mins
+   Aging Type                 : Absolute
+   SecureStatic Address Aging : Disabled
+   Maximum MAC Addresses      : 2
+   Total MAC Addresses        : 0
+   Configured MAC Addresses   : 0
+   Sticky MAC Addresses       : 0
+   Last Source Address:Vlan   : 0000.0000.0000:0
+   Security Violation Count   : 0
+
+   S1#show port-security 
+   Secure Port MaxSecureAddr CurrentAddr SecurityViolation Security Action
+                  (Count)       (Count)        (Count)
+   --------------------------------------------------------------------
+           Fa0/1        2          0                 0         Shutdown
+           Fa0/2        2          0                 0         Shutdown
+   ----------------------------------------------------------------------
+
+There are 10 best practices that represent the best insurance for a network:
+
+#. Develop a written security policy for the organization.
+#. Shut down unused services and ports.
+#. Use strong passwords and change them often.
+#. Control physical access to devices.
+#. Avoid using standard insecure HTTP websites, especially for login screens. Instead use the more secure HTTPS.
+#. Perform backups and test the backed up files on a regular basis.
+#. Educate employees about social engineering attacks, and develop policies to validate identities over the phone, via email, and in person.
+#. Encrypt sensitive data and protect it with a strong password.
+#. Implement security hardware and software, such as firewalls.
+#. Keep IOS software up-to-date by installing security patches weekly or daily, if possible.
+
+
+Chapter 6 VLANS
+===============
+
+One of the technologies used to improve network performance is the separation of large broadcast domains into smaller ones.
+
+The role of providing access into a LAN is normally reserved for an access layer switch. A virtual local area network (VLAN) can be created on a Layer 2 switch to reduce the size of broadcast domains, similar to a Layer 3 device. VLANs are commonly incorporated into network design making it easier for a network to support the goals of an organization. While VLANs are primarily used within switched local area networks, modern implementations of VLANs allow them to span MANs and WANs.
+
+Because VLANs segment the network, a Layer 3 process is required to allow traffic to move from one network segment to another.
+
+This Layer 3 routing process can either be implemented using a router or a Layer 3 switch interface. The use of a Layer 3 device provides a method for controlling the flow of traffic between network segments, including network segments created by VLANs.
+
+The first part of this chapter will cover how to configure, manage, and troubleshoot VLANs and VLAN trunks. The second part of this chapter focuses on implementing inter-VLAN routing using a router. Inter-VLAN routing on a Layer 3 switch is covered in a later course.
+
+
+Packets destined for devices that do not belong to the VLAN must be forwarded through a device that supports routing.
+
+.. note:: A VLAN creates a logical broadcast domain that can span multiple physical LAN segments. VLANs improve network performance by separating large broadcast domains into smaller ones. If a device in one VLAN sends a broadcast Ethernet frame, all devices in the VLAN receive the frame, but devices in other VLANs do not.
+
+.. note:: VLANs enable the implementation of access and security policies according to specific groupings of users. Each switch port can be assigned to only one VLAN (with the exception of a port connected to an IP phone or to another switch).
+
+VLAN Benefits
+-------------
+
+* Improved Security:
+   Groups that have sensitive data are separated from the rest of the network
+* Reduced Cost:
+   Reduced need for expensive network upgrades and more efficient use of existing bandwidth and uplinks
+* Better Performance:
+   Dividing L2 networks into multiple logical workgroups (broadcast domains) reduces unnecessary traffic
+* Smaller Broadcast Domains
+* IT Efficiency:
+   VLANs make it easier to manage the network because users with similar network requirements share the same VLAN. When a new switch is provisioned, all the policies and procedures already configured for the particular VLAN are implemented when the ports are assigned. It is also easy for the IT staff to identify the function of a VLAN by giving it an appropriate name
+* Management Efficiency
+* Simpler Project and Application Management: VLANs aggregate users and network devices to support business or geographic requirements. Having separate functions makes managing a project or working with a specialized application easier; an example of such an application is an e-learning development platform for faculty.
+
+
+Each VLAN in a switched network corresponds to an IP network. Therefore, VLAN design must take into consideration the implementation of a hierarchical network-addressing scheme. Hierarchical network addressing means that IP network numbers are applied to network segments or VLANs in an orderly fashion that takes the network as a whole into consideration.
+
+VLAN Types
+----------
+
+Data VLAN:
+ for user generated traffic aka user VLAN. Used to seperate the network into groups of users or devices
+
+Default VLAN:
+ All switch ports become part of it after initial boot. VLAN 1. View with ``show vlan brief``. VLAN 2 cannot be renamed or deleted
+
+Native VLAN:
+ Assigned to an 802.1Q trunk port (links between switches) that supports VLAN tagged traffic & untagged traffic. Tagged means there is a **4-byte** tag inserted in original Ethernet frame header. The 802.1Q trunk port places untagged traffic on the native VLAN, that is **VLAN 1 by default**. It is a best practice to configure the native VLAN as an unused VLAN, distinct from VLAN 1 and other VLANs
+
+Management VLAN:
+ VLAN configured to access the management capabilities of a switch. VLAN 1 is the management VLAN by default. To create the management VLAN, the switch virtual interface (SVI) of that VLAN is assigned an IP address and a subnet mask, allowing the switch to be managed via HTTP, Telnet, SSH, or SNMP.
+
+Voice VLANs
+-----------
+VoIP traffic requires:
+
+* Assured bandwidth to ensure voice quality
+* Transmission priority over other types of network traffic
+* Ability to be routed around congested areas on the network
+* Delay of less than 150 ms across the network
+
+To meet these requirements, the entire network has to be designed to support VoIP. 
+
+.. image:: _static/voice_vlans.png
+
+VLAN Trunks
+-----------
+
+A trunk is a point-to-point link between 2 network devices dat carries more than one VLAN. It extends VLANS across an entire network. This way no router is needed.
+
+A trunk does not belong to a specific VLAN, it is a conduit for multiple VLANS between switches and routers. A trunk can also be used between a NW device and server or other device that is equiped with an 802.1Q capable NIC
+
+.. image:: _static/vlan_trunks.png
+
+802.1Q Frame
+------------
+
+.. image:: _static/802.1Q_frame.png
+
+When the switch receives a frame on a port configured in access mode and assigned a VLAN, the switch inserts a VLAN tag in the frame header, recalculates the Frame Check Sequence (FCS), and sends the tagged frame out of a trunk port.
+
+VLAN Tag Field Details
+^^^^^^^^^^^^^^^^^^^^^^
+
+The VLAN tag field consists of a Type field, a Priority field, a Canonical Format Identifier field, and VLAN ID field:
+ * **Type** - A 2-byte value called the tag protocol ID (TPID) value. For Ethernet, it is set to hexadecimal 0x8100.
+ * **User priority** - A 3-bit value that supports level or **service implementation**.
+ * **Canonical Format Identifier** (CFI) - A 1-bit identifier that **enables Token Ring frames to be carried across Ethernet links**.
+ * **VLAN ID** (VID) - A 12-bit VLAN identification number that supports up to 4096 VLAN IDs.
+
+.. note:: After the switch inserts the Type and tag control information fields, it recalculates the FCS values and inserts the new FCS into the frame.
+
+Native VLANS & 802.1Q Tagging
+-----------------------------
+
+Tagged Frames on the Native VLAN
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. warning:: If an 802.1Q trunk port receives a tagged frame with the VLAN ID that is the same as the native VLAN, it drops the frame.
+
+Consequently, when configuring a switch port on a Cisco switch, configure devices so that they do not send tagged frames on the native VLAN. Devices from other vendors that support tagged frames on the native VLAN include IP phones, servers, routers, and non-Cisco switches.
+
+
+This scenario reflects poor network design for several reasons: it uses a hub, it has a host connected to a trunk link, and it implies that the switches have access ports assigned to the native VLAN. It also illustrates the motivation for the IEEE 802.1Q specification for native VLANs as a means of handling legacy scenarios.
+
+.. image:: _static/trunkbehavior_nativevlans.png
+
+
+Untagged Frames on the Native VLAN
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a Cisco switch trunk port receives untagged frames (which are unusual in a well-designed network), it forwards those frames to the native VLAN. If there are no devices associated with the native VLAN (which is not unusual) and there are no other trunk ports (which is not unusual), then the frame is dropped. The default native VLAN is VLAN 1. When configuring an 802.1Q trunk port, a default Port VLAN ID (PVID) is assigned the value of the native VLAN ID. All untagged traffic coming in or out of the 802.1Q port is forwarded based on the PVID value. For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all untagged traffic is forwarded to VLAN 99. If the native VLAN has not been reconfigured, the PVID value is set to VLAN 1. 
+
+Voice VLAN Tagging
+------------------
+
+.. image:: _static/voice_vlan_tagging.png
+
+
+* Port 1 connects to the switch or other VoIP device.
+* Port 2 is an internal 10/100 interface that carries the IP phone traffic.
+* Port 3 (access port) connects to a PC or other device.
+
+
+.. note:: An access port that is used to connect a Cisco IP phone can be configured to use two separate VLANs: one VLAN for voice traffic and another VLAN for data traffic from a device attached to the phone. The link between the switch and the IP phone acts as a trunk to carry both voice VLAN traffic and data VLAN traffic.
+
+On the switch, the access is configured to send Cisco Discovery Protocol (CDP) packets that instruct an attached IP phone to send voice traffic to the switch in one of three ways, depending on the type of traffic:
+
+
+* In a voice VLAN tagged with a Layer 2 class of service (CoS) priority value
+* In an access VLAN tagged with a Layer 2 CoS priority value
+* In an access VLAN, untagged (no Layer 2 CoS priority value)
+
+
+
++----------------------------------------------+
+|              802.1Q tag format               |
++===================+========+=======+=========+
+| 16 bits           | 3 bits | 1 bit | 12 bits |
++-------------------+--------+-------+---------+
+| TPID              |           TCI            |
++                   +--------+-------+---------+
+|                   | PCP    | DEI   |  VID    |
++-------------------+--------+-------+---------+
+
 
