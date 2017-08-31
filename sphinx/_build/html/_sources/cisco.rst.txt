@@ -1719,13 +1719,13 @@ Sticky Secure MAC addresses
 
 To configure an interface to convert dynamically learned MAC addresses to sticky secure MAC addresses and add them to the running configuration, you must enable sticky learning.
 
-Sticky learning is enabled on an interface by using the **switchport port-security mac-address sticky interface configuration mode command**.
+Sticky learning is enabled on an interface by using the ``switchport port-security mac-address sticky interface configuration mode command``.
 When this command is entered, the switch converts all dynamically learned MAC addresses, including those that were dynamically learned before sticky learning was enabled, into sticky secure MAC addresses. All sticky secure MAC addresses are added to the address table and to the running configuration.
 
-Sticky secure MAC addresses can also be manually defined. When sticky secure MAC addresses are configured by using the switchport port-security mac-address sticky mac-address interface configuration mode command, all specified addresses are added to the address table and the running configuration.
+Sticky secure MAC addresses can also be manually defined. When sticky secure MAC addresses are configured by using the ``switchport port-security mac-address sticky mac-address`` interface configuration mode command, all specified addresses are added to the address table and the running configuration.
 If the sticky secure MAC addresses are saved to the startup configuration file, then when the switch restarts or the interface shuts down, the interface does not need to relearn the addresses. If the sticky secure addresses are not saved, they will be lost.
 
-If sticky learning is disabled by using the no switchport port-security mac-address sticky interface configuration mode command, the sticky secure MAC addresses remain part of the address table, but are removed from the running configuration.
+If sticky learning is disabled by using the ``no switchport port-security mac-address sticky`` interface configuration mode command, the sticky secure MAC addresses remain part of the address table, but are removed from the running configuration.
 
 Characteristics of sticky secure MAC addresses.
 
@@ -1738,13 +1738,248 @@ Security Violation Modes
 
 Security Violation Modes include: **Protect Restrict Shutdown**
 
-+--------------+----------------+----------------+------------------+--------------------+-------------+
-|Violation Mode|Forwards Traffic|Sends Syslog msg|Displays Error msg|up violation counter|Shutdown port|
-+--------------+----------------+----------------+------------------+--------------------+-------------+
-| Protect      |  NO            | NO             | NO               | NO                 | NO          |
-+--------------+----------------+----------------+------------------+--------------------+-------------+
-| Restrict     |  NO            | YES            | NO               | YES                | NO          |
-+--------------+----------------+----------------+------------------+--------------------+-------------+
-| Shutdown     |  NO            | NO             | NO               | YES                | YES         |
-+--------------+----------------+----------------+------------------+--------------------+-------------+
++--------------+----------------+-----------+----------+------------+-------------+
+|Violation Mode|Forwards Traffic| Syslog msg| Error msg|up violation|Shutdown port|
++--------------+----------------+-----------+----------+------------+-------------+
+| Protect      |  NO            | NO        | NO       | NO         | NO          |
++--------------+----------------+-----------+----------+------------+-------------+
+| Restrict     |  NO            | YES       | NO       | YES        | NO          |
++--------------+----------------+-----------+----------+------------+-------------+
+| Shutdown     |  NO            | NO        | NO       | YES        | YES         |
++--------------+----------------+-----------+----------+------------+-------------+
+
+Security violations occur in these situations:
+
+* A pc with MAC address not in address table attempts to access the interface when the table is full
+* An address is being used on two secure interfaces in the same VLAN
+
+Protect:
+ When # of secure MACs reaches limit allowed on port, packets with unknown source addresses are dropped until enough secure MACs are removed  or the # of maximum allowable addresses is increased. There is no notification
+
+Restrict:
+ same as protect but there is a notification that a security violation has occurred.Syslog msg + violation count up
+
+Shutdown (default):
+ a violation causes IF to become error-disabled and turns off port LED. violation count up + shutdown port
+
+.. note:: All 3 no longer forward traffic and don't display an error message. Restrict is only one with syslog msg, up violation = restrict & shutdown
+
+.. code::
+   
+   static mac address
+   switchport port-security mac-address mac-address
+   dynamic adds only to table n removed at shutdown
+   switchport port-security mac-address dynamic
+   switchport port-security mac-address {sticky
+   switchport port-security violation {protect | restrict | shutdown}
+
+Configuring port security on IF
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   S1(config)# interface fastethernet 0/18
+   S1(config-if)# switchport mode access
+   S1(config-if)# switchport switchport port-security 
+   S1(config-if)# switchport switchport port-security maximum 10
+   S1(config-if)# switchport switchport port-security mac-address sticky 
+
+   S1# show port-security interface fastethernet 0/18
+   S1# show run | begin FastEthernet 0/18
+   S1# show port-security address
+
+This example shows how to enable port security on Fast Ethernet port 12 and how to set the maximum number of secure addresses to 5. The violation mode is the default, and no secure MAC addresses are configured.
+
+.. code::
+
+   Switch# configure terminal
+   Enter configuration commands, one per line.  End with CNTL/Z.
+   Switch(config)# interface fastethernet 3/12
+   Switch(config-if)# switchport mode access
+   Switch(config-if)# switchport port-security
+   Switch(config-if)# switchport port-security maximum 5
+   Switch(config-if)# switchport port-security mac-address sticky
+   Switch(config-if)# end
+   Switch# show port-security interface fastethernet 3/12
+   Port Security              :Enabled
+   Port Status                :Secure-up
+   Violation Mode             :Shutdown
+   Aging Time                 :0
+   Aging Type                 :Absolute
+   SecureStatic Address Aging :Enabled
+   Maximum MAC Addresses      :5
+   Total MAC Addresses        :0
+   Configured MAC Addresses   :0
+   Sticky MAC Addresses       :11
+   Last Source Address        :0000.0000.0401
+   Security Violation Count   :0
+
+• To return the interface **to the default condition** as not a secure port, use the ``no switchport port-security`` interface configuration command.
+
+• To return the interface **to the default number of secure MAC addresses**, use the ``no switchport port-security maximum value``.
+
+• To **delete a MAC** address from the address table, use the ``no switchport port-security mac-address mac_address`` command.
+
+• To return the **violation mode to the default condition (shutdown mode)**, use the ``no switchport port-security violation {restrict | shutdown}`` command.
+
+• To **disable sticky learning** on an interface, use the ``no switchport port-security mac-address sticky`` command. The interface converts the sticky secure MAC addresses to dynamic secure addresses.
+
+• To **delete a sticky secure MAC addresses** from the address table, use the ``no switchport port-security sticky mac-address mac_address`` command. To **delete all the sticky addresses on an interface or a VLAN**, use the ``no switchport port-security sticky interface interface-id`` command.
+
+• To **clear dynamically learned** port security MAC in the CAM table, use the ``clear port-security dynamic`` command. The address keyword enables you to clear a secure MAC addresses. The interface keyword enables you to clear all secure addresses on an interface. 
+
+
+This example shows how to configure a secure MAC address on Fast Ethernet port 5/1 and verify the configuration:
+
+.. code::
+
+   Switch# configure terminal
+   Enter configuration commands, one per line.  End with CNTL/Z.
+   Switch(config)# interface fastethernet 5/1
+   Switch(config-if)# switchport mode access
+   Switch(config-if)# switchport port-security
+   Switch(config-if)# switchport port-security maximum 10
+   Switch(config-if)# switchport port-security mac-address 0000.0000.0003 (Static secure MAC)
+   Switch(config-if)# switchport port-security mac-address sticky
+   Switch(config-if)#  
+   switchport port-security mac-address sticky 0000.0000.0001 (Sticky static MAC)
+   Switch(config-if)# switchport port-security mac-address sticky 0000.0000.0002
+   Switch(config-if)# end
+   Switch#show port address
+   Secure Mac Address Table
+   ------------------------------------------------------------------------
+   Vlan  Mac Address       Type                   Ports   Remaining Age
+   
+                                                                 (mins)
+   ----  -----------       ----                    -----   -------------
+   1    0000.0000.0001    SecureSticky             Fa5/1        -
+   1    0000.0000.0002    SecureSticky             Fa5/1        -
+   1    0000.0000.0003    SecureConfigured         Fa5/1        -
+   
+   
+   ------------------------------------------------------------------------
+   Total Addresses in System (excluding one mac per port)     : 2
+   Max Addresses limit in System (excluding one mac per port) : 10
+
+
+Port security aging
+^^^^^^^^^^^^^^^^^^^
+
+To set the aging time & aging type for all secure addresses on a port
+
+Use this to remove n add PCs on a secure port without deleting other secure MACs
+
+To configure port security aging
+
+.. code::
+
+   Switch(config)# interface interface_id 
+   Switch(config-if)# switchport port-security [ aging {static | time aging_time | type {absolute | inactivity} ]
+
+   Switch(config)# interface fastethernet 5/1 
+   Switch(config-if)# switchport port-security aging time 120
+
+
+The **static** keyword enables aging for statically configured secure addresses on this port.
+
+The **time aging_time** keyword specifies the aging time for this port. Valid range for aging_time is from 0 to 1440 minutes. If the time is equal to 0, aging is disabled for this port.
+
+The **type** keyword sets the aging type as **absolute or inactive**. For absolute aging, all the secure addresses on this port ago out exactly after the time (minutes) specified and are removed from the secure address list. For inactive aging, the secure addresses on this port ago out only if there is no data traffic from the secure source address for the specified time period.
+
+
+Verify
+
+.. code::
+
+   Switch# show port security [interface interface_id] [address]
+  
+   To disable port security aging for all secure addresses on a port:
+   Switch# no switchport port-security aging time
+
+.. code::
+
+   This example displays output from the show port-security command when you do not enter an interface:
+   
+   Switch# show port-security
+   
+   Secure Port  MaxSecureAddr  CurrentAddr  SecurityViolation  Security Action
+                   (Count)       (Count)          (Count)
+   ---------------------------------------------------------------------------
+         Fa3/1              2            2                  0         Restrict
+         Fa3/2              2            2                  0         Restrict
+         Fa3/3              2            2                  0         Shutdown
+         Fa3/4              2            2                  0         Shutdown
+         Fa3/5              2            2                  0         Shutdown
+         Fa3/6              2            2                  0         Shutdown
+         Fa3/7              2            2                  0         Shutdown
+         Fa3/8              2            2                  0         Shutdown
+        Fa3/10              1            0                  0         Shutdown
+        Fa3/11              1            0                  0         Shutdown
+        Fa3/12              1            0                  0         Restrict
+        Fa3/13              1            0                  0         Shutdown
+        Fa3/14              1            0                  0         Shutdown
+        Fa3/15              1            0                  0         Shutdown
+        Fa3/16              1            0                  0         Shutdown
+   ---------------------------------------------------------------------------
+   Total Addresses in System (excluding one mac per port)     :8
+   Max Addresses limit in System (excluding one mac per port) :1024
+   Global SNMP trap control for port-security                 :20 (traps per second)
+   
+   
+This example displays output from the show port-security command for a specified interface:
+   
+.. code::
+
+   Switch# show port-security interface fastethernet 5/1
+   Port Security              : Enabled
+   Port Status                : Secure-up
+   Violation Mode             : Shutdown
+   Aging Time                 : 0 mins
+   Aging Type                 : Absolute
+   SecureStatic Address Aging : Disabled
+   Maximum MAC Addresses      : 1
+   Total MAC Addresses        : 1
+   Configured MAC Addresses   : 0
+   Sticky MAC Addresses       : 1
+   Last Source Address        : 0000.0001.001a
+   Security Violation Count   : 0
+   
+   
+This example displays output from the show port-security address command:
+   
+.. code::
+
+   Switch#sh port-security address
+   
+             Secure Mac Address Table
+   -------------------------------------------------------------------
+   Vlan    Mac Address       Type                Ports   Remaining Age
+                                                            (mins)
+   ----    -----------       ----                -----   -------------
+      1    0000.0001.0000    SecureConfigured    Fa3/1       15 (I)
+      1    0000.0001.0001    SecureConfigured    Fa3/1       14 (I)
+      1    0000.0001.0100    SecureConfigured    Fa3/2        -
+      1    0000.0001.0101    SecureConfigured    Fa3/2        -
+      1    0000.0001.0200    SecureConfigured    Fa3/3        -
+      1    0000.0001.0201    SecureConfigured    Fa3/3        -
+      1    0000.0001.0300    SecureConfigured    Fa3/4        -
+      1    0000.0001.0301    SecureConfigured    Fa3/4        -
+      1    0000.0001.1000    SecureDynamic    Fa3/5        -
+      1    0000.0001.1001    SecureDynamic    Fa3/5        -
+      1    0000.0001.1100    SecureDynamic    Fa3/6        -
+      1    0000.0001.1101    SecureDynamic    Fa3/6        -
+      1    0000.0001.1200    SecureSticky    Fa3/7        -
+      1    0000.0001.1201    SecureSticky    Fa3/7        -
+      1    0000.0001.1300    SecureSticky    Fa3/8        -
+      1    0000.0001.1301    SecureSticky    Fa3/8        -
+   -------------------------------------------------------------------
+   Total Addresses in System (excluding one mac per port)     :8
+   Max Addresses limit in System (excluding one mac per port) :1024
+
+Check if ports in Error disabled state
+
+``S1# show interface fa0/18 status``
+``S1# show port-security interface fastethernet 0/18``
+
+
 
