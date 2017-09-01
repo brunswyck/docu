@@ -2236,13 +2236,14 @@ This scenario reflects poor network design for several reasons: it uses a hub, i
 Untagged Frames on the Native VLAN
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When a Cisco switch trunk port receives untagged frames (which are unusual in a well-designed network), it forwards those frames to the native VLAN. If there are no devices associated with the native VLAN (which is not unusual) and there are no other trunk ports (which is not unusual), then the frame is dropped. The default native VLAN is VLAN 1. When configuring an 802.1Q trunk port, a default Port VLAN ID (PVID) is assigned the value of the native VLAN ID. All untagged traffic coming in or out of the 802.1Q port is forwarded based on the PVID value. For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all untagged traffic is forwarded to VLAN 99. If the native VLAN has not been reconfigured, the PVID value is set to VLAN 1. 
+When a Cisco switch trunk port receives untagged frames (which are unusual in a well-designed network), it forwards those frames to the native VLAN. If there are no devices associated with the native VLAN (which is not unusual) and there are no other trunk ports (which is not unusual), then the frame is dropped. The default native VLAN is VLAN 1.
+When configuring an 802.1Q trunk port, a default Port VLAN ID (PVID) is assigned the value of the native VLAN ID. All untagged traffic coming in or out of the 802.1Q port is forwarded based on the PVID value.
+For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all untagged traffic is forwarded to VLAN 99. If the native VLAN has not been reconfigured, the PVID value is set to VLAN 1. 
 
 Voice VLAN Tagging
 ------------------
 
 .. image:: _static/voice_vlan_tagging.png
-
 
 * Port 1 connects to the switch or other VoIP device.
 * Port 2 is an internal 10/100 interface that carries the IP phone traffic.
@@ -2254,9 +2255,9 @@ Voice VLAN Tagging
 On the switch, the access is configured to send Cisco Discovery Protocol (CDP) packets that instruct an attached IP phone to send voice traffic to the switch in one of three ways, depending on the type of traffic:
 
 
-* In a voice VLAN tagged with a Layer 2 class of service (CoS) priority value
-* In an access VLAN tagged with a Layer 2 CoS priority value
-* In an access VLAN, untagged (no Layer 2 CoS priority value)
+* voice VLAN tagged with a Layer 2 class of service (CoS) priority value
+* access VLAN tagged with a Layer 2 CoS priority value
+* access VLAN, untagged (no Layer 2 CoS priority value)
 
 802.1Q tagging
 --------------
@@ -2274,18 +2275,24 @@ On the switch, the access is configured to send Cisco Discovery Protocol (CDP) p
 * Tag protocol identifier (TPID): a 16-bit field set to a value of 0x8100 in order to identify the frame as an IEEE 802.1Q-tagged frame. This field is located at the same position as the EtherType/length field in untagged frames, and is thus used to distinguish the frame from untagged frames.
 
 * Tag control information (TCI)
-   * Priority code point (PCP): a 3-bit field which refers to the `IEEE 802.1p <https://en.wikipedia.org/wiki/IEEE_802.1p>`_ `class of service <https://en.wikipedia.org/wiki/Class_of_service>`_ and maps to the frame priority level. PCP values in order of priority are
-     * 1 (background)
-     * 0 (best effort, default)
-     * 2 (excellent effort)
-     * 3 (critical application)
-     * 4 (video)
-     * 5 (voice)
-     * 6 (internetwork control)
-     * 7 (network control)
-   These values can be used to prioritize different classes of traffic.
-   * Drop eligible indicator (DEI): a 1-bit field. (formerly CFI[b]) May be used separately or in conjunction with PCP to indicate frames eligible to be dropped in the presence of congestion.
-   * VLAN identifier (VID): a 12-bit field specifying the VLAN to which the frame belongs. The hexadecimal values of 0x000 and 0xFFF are reserved. All other values may be used as VLAN identifiers, allowing up to 4,094 VLANs. The reserved value 0x000 indicates that the frame does not carry a VLAN ID; in this case, the 802.1Q tag specifies only a priority and is referred to as a priority tag. On bridges, VID 0x001 (the default VLAN ID) is often reserved for a management VLAN; this is vendor-specific. The VID value 0xFFF is reserved for implementation use; it must not be configured or transmitted. 0xFFF can be used to indicate a wildcard match in management operations or filtering database entries.
+  * Priority code point (PCP): a 3-bit field which refers to the `IEEE 802.1p <https://en.wikipedia.org/wiki/IEEE_802.1p>`_ `class of service <https://en.wikipedia.org/wiki/Class_of_service>`_ and maps to the frame priority level.
+
+  * PCP values in order of priority are:
+    
+    * 1 (background)
+    * 0 (best effort, default)
+    * 2 (excellent effort)
+    * 3 (critical application)
+    * 4 (video)
+    * 5 (voice)
+    * 6 (internetwork control)
+    * 7 (network control)
+   
+      These values can be used to prioritize different classes of traffic.
+
+  * Drop eligible indicator (DEI): a 1-bit field. (formerly CFI[b]) May be used separately or in conjunction with PCP to indicate frames eligible to be dropped in the presence of congestion.
+
+  * VLAN identifier (VID): a 12-bit field specifying the VLAN to which the frame belongs. The hexadecimal values of 0x000 and 0xFFF are reserved. All other values may be used as VLAN identifiers, allowing up to 4,094 VLANs. The reserved value 0x000 indicates that the frame does not carry a VLAN ID; in this case, the 802.1Q tag specifies only a priority and is referred to as a priority tag. On bridges, VID 0x001 (the default VLAN ID) is often reserved for a management VLAN; this is vendor-specific. The VID value 0xFFF is reserved for implementation use; it must not be configured or transmitted. 0xFFF can be used to indicate a wildcard match in management operations or filtering database entries.
 
 For frames using `IEEE 802.2 <https://en.wikipedia.org/wiki/IEEE_802.2>`_/`SNAP <https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol>`_ encapsulation with an organizationally unique identifier (OUI) field of 00-00-00 (so that the protocol ID field in the SNAP header is an EtherType), as would be the case on LANs other than Ethernet, the EtherType value in the SNAP header is set to 0x8100 and the aforementioned extra 4 bytes are appended after the SNAP header.[citation needed]
 
@@ -2294,3 +2301,1039 @@ Because inserting the VLAN tag changes the frame, 802.1Q encapsulation forces a 
 The IEEE 802.3ac standard increased the maximum Ethernet frame size from 1518 bytes to 1522 bytes to accommodate the four-byte VLAN tag. Some network devices that do not support the larger frame size will process these frames successfully, but may report them as "baby giant" anomalies.
 
 802.1ad_aka_QinQ `https://en.wikipedia.org/wiki/IEEE_802.1ad`_
+
+``show interfaces fa0/18 switchport``
+
+``show vlan brief``
+
+VLAN Ranges
+-----------
+
+normal range
+^^^^^^^^^^^^
+1, 1002 - 1005:
+ Default Vlan, reserved for token ring & fiber distributed data interface (FDDI) Vlans
+Configuration:
+ Stored in VLAN database file called vlan.dat located in flash memory of switch
+VTP:
+ can only store normal range VLANs
+
+extended range
+^^^^^^^^^^^^^^
+* big corporations need extended VLAN Ids
+* are identified as between **1006 - 4094**
+* cfgs **note written to vlan.dat**
+* support fewer features than normal range
+* saved by default in running config
+* **VTP doesn't learn extended range VLANs**
+
+.. warning:: If you need to use extended range VLANs and you switch does not support VTPv3, then you would need to set the mode to transparent for VTP, which technically means that you are still using VTP, but you are not learning any VTP information from other VTP enabled devices.
+   With VTPv3 you can use the extended range VLANs by setting the mode to server, client, transparent or off, because VTPv3 does support the extended range VLANs.
+   
+Configuring VLANS
+-----------------
+
+.. code::
+
+   S1# configure terminal
+   S1(config)# interface F0/18 
+   S1(config-if)# switchport mode access
+   S1(config-if)# switchport access vlan 20
+   S1(config-if)# end
+
+.. note:: Use the **switchport voice vlan 150** command
+
+Voice traffic must be labeled as trusted as soon as it enters the network. Use the ** mls qos trust[cos | device cisco-phone | dscp | ip-precedence] ** interface configuration command
+
+.. code::
+
+   S3(config)# vlan 20
+   S3(config-vlan)# name student
+   S3(config-vlan)# vlan 150
+   S3(config-vlan)# name VOICE 
+   S3(config-vlan)# exit 
+   S3(config)# 
+   S3(config)# interface fa0/18
+   S3(config-if)# switchport mode access 
+   S3(config-if)# switchport access vlan 20
+   S3(config-if)# 
+   S3(config-if)# mls qos trust cos 
+   S3(config-if)# switchport voice vlan 150
+   S3(config-if)# end
+   S3#
+
+configure optional parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   switch# configure terminal
+   switch(config)# vlan 5
+   switch(config-vlan)# name accounting
+   switch(config-vlan)# state active
+   switch(config-vlan)# no shutdown 
+
+adding ports to a VLAN
+^^^^^^^^^^^^^^^^^^^^^^
+
+This example shows how to configure an Ethernet interface to join VLAN 5
+
+.. code::
+
+   switch# configure terminal
+   switch(config)# interface ethernet 1/13
+   switch(config-if)# switchport access vlan 5
+
+Verifying VLAN configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+show all VLANs defined in the range of 1-21
+
+.. code::
+
+   switch# show running-config vlan 1-21
+   version 4.0(0)
+   vlan 1
+   vlan 5 
+
+
+show the VLANs created on switch and their status
+
+.. code::
+
+   switch# show vlan
+    
+   VLAN Name Status Ports
+   ---- -------------------------------- --------- -------------------------------
+   1 default active Eth1/1, Eth1/2, Eth1/3, Eth1/4
+   Eth1/5, Eth1/6, Eth1/7, Eth1/8
+   Eth1/9, Eth1/10, Eth1/11
+   Eth1/12, Eth1/15, Eth1/16
+   Eth1/17, Eth1/18, Eth1/19
+   Eth1/20, Eth1/21, Eth1/22
+   Eth1/23, Eth1/24, Eth1/25
+   Eth1/26, Eth1/27, Eth1/28
+   Eth1/29, Eth1/30, Eth1/31
+   Eth1/32, Eth1/33, Eth1/34
+   Eth1/35, Eth1/36, Eth1/37
+   Eth1/38, Eth1/39, Eth1/40
+   Eth3/1, Eth3/2, Eth3/3, Eth3/4
+   veth1/1
+   13 VLAN0005 active Eth1/13, Eth1/14 
+
+shows the details of VLAN 13 including its member ports
+
+.. code::
+
+   switch# show vlan id 13
+    
+   VLAN Name Status Ports
+   ---- -------------------------------- --------- -------------------------------
+   13 VLAN0005 active Eth1/13, Eth1/14
+    
+    
+   VLAN Type MTU
+   ---- ----- -----
+   13 enet 576
+    
+   Remote SPAN VLAN
+   ----------------
+   Disabled
+    
+   Primary Secondary Type Ports
+   ------ --------- --------------- ------------------------------------------- 
+
+show the VLAN settings summary
+
+.. code::
+
+   switch# show vlan summary
+ 
+   Number of existing VLANs : 2
+   Number of existing VTP VLANs : 2
+   Number of existing extended VLANs : 0 
+
+remove VLAN Assignment
+^^^^^^^^^^^^^^^^^^^^^^
+
+Interface F0/18 was previously assigned to VLAN 20. The no switchport access vlan command is entered for interface F0/18
+
+.. code::
+
+   S1# configure terminal
+   S1(config)# interface F0/18
+   S1(config-if)# no switchport access vlan
+   S1(config-if)# end
+
+.. note:: VLAN 20 is still active even if no ports are assigned to it
+
+``S1# show interfaces F0/18 switchport`` -> verifies that access VLAN for F0/18 has been reset to VLAN 1
+
+.. note:: It is not necessary to first remove a port from a VLAN to change its VLAN membership. When an access port has its VLAN membership reassigned to another existing VLAN, the new VLAN membership simply replaces the previous VLAN membership. In Figure 4, port F0/11 is assigned to VLAN 20.
+
+deleting VLANs
+--------------
+
+.. code::
+
+   S1# conf t
+   S1(config)# no vlan 20
+   S1(config)# end
+   S1# show vlan brief
+
+.. warning:: Before deleting a VLAN, reassign all member ports to a different VLAN first. Any ports that are not moved to an active VLAN are unable to communicate with other hosts after the VLAN is deleted and until they are assigned to an active VLAN
+
+Alternatively, the entire vlan.dat file can be deleted using the ``S1# delete flash:vlan.dat`` command or ``delete vlan.dat`` if on other location.
+
+verifying VLAN info
+-------------------
+
+**show vlan summary**
+**show vlan name student**
+**show interfaces vlan 20**
+**show interfaces F0/18 switchport**
+
+TRUNK Configuration
+-------------------
+
+.. code::
+
+   interface FastEthernet0/1
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   end
+
+Resetting Trunk to Default state 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   configure terminal
+   interface FastEthernet0/1
+   no switchport trunk allowed vlan
+   no switchport trunk native vlan
+   end
+   
+   Verify the trunk configuration with
+   
+   show interfaces f0/1 switchport command.
+
+excercise
+^^^^^^^^^
+
+.. code::
+
+   S3#conf t
+   S3(config)#do show vlan brief
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17, Fa0/19
+                                                   Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                   Fa0/24, Gig0/1, Gig0/2
+   10   Faculty/Staff                    active    Fa0/11
+   20   Students                         active    Fa0/18
+   30   Guest(Default)                   active    Fa0/6
+   88   Management                       active    
+   99   Native                           active    
+   1002 fddi-default                     active    
+   1003 token-ring-default               active    
+   1004 fddinet-default                  active    
+   1005 trnet-default                    active    
+   S3(config)#
+   S3(config)#interface Gig0/2
+   S3(config-if)#switchport mode trunk 
+   S3(config-if)#switchport trunk native vlan 99
+   S3(config-if)#s%SPANTREE-2-UNBLOCK_CONSIST_PORT: Unblocking GigabitEthernet0/2 on VLAN0099. Port consistency restored.
+   
+   %SPANTREE-2-UNBLOCK_CONSIST_PORT: Unblocking GigabitEthernet0/2 on VLAN0001. Port consistency restored.
+   switc
+   S3(config-if)#switchport nat
+   S3(config-if)#switchport native vl
+   S3(config-if)#switchport native vlan 99
+   S3(config-if)#show inter
+   S3(config-if)#exit
+   S3(config)#exit
+   S3#
+   show interface trunk
+   Port        Mode         Encapsulation  Status        Native vlan
+   Gig0/2      on           802.1q         trunking      99
+   
+   Port        Vlans allowed on trunk
+   Gig0/2      1-1005
+   
+   Port        Vlans allowed and active in management domain
+   Gig0/2      1,10,20,30,88,99
+   
+   Port        Vlans in spanning tree forwarding state and not pruned
+   Gig0/2      1,10,20,30,88,99
+   
+   S3#show vlan brief 
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17, Fa0/19
+                                                   Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                   Fa0/24, Gig0/1
+   10   Faculty/Staff                    active    Fa0/11
+   20   Students                         active    Fa0/18
+   30   Guest(Default)                   active    Fa0/6
+   88   Management                       active    
+   99   Native                           active    
+   1002 fddi-default                     active    
+   1003 token-ring-default               active    
+   1004 fddinet-default                  active    
+   1005 trnet-default                    active    
+   S3#show interfaces GigabitEthernet 0/1
+   GigabitEthernet0/1 is down, line protocol is down (disabled)
+     Hardware is Lance, address is 00d0.9766.3301 (bia 00d0.9766.3301)
+    BW 1000000 Kbit, DLY 1000 usec,
+        reliability 255/255, txload 1/255, rxload 1/255
+     Encapsulation ARPA, loopback not set
+     Keepalive set (10 sec)
+     Full-duplex, 1000Mb/s
+     input flow-control is off, output flow-control is off
+     ARP type: ARPA, ARP Timeout 04:00:00
+     Last input 00:00:08, output 00:00:05, output hang never
+     Last clearing of "show interface" counters never
+     Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
+     Queueing strategy: fifo
+     Output queue :0/40 (size/max)
+     5 minute input rate 0 bits/sec, 0 packets/sec
+     5 minute output rate 0 bits/sec, 0 packets/sec
+        956 packets input, 193351 bytes, 0 no buffer
+        Received 956 broadcasts, 0 runts, 0 giants, 0 throttles
+        0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+        0 watchdog, 0 multicast, 0 pause input
+        0 input packets with dribble condition detected
+        2357 packets output, 263570 bytes, 0 underruns
+   
+   S3#show interfaces GigabitEthernet 0/1 switchport 
+   Name: Gig0/1
+   Switchport: Enabled
+   Administrative Mode: dynamic auto
+   Operational Mode: down
+   Administrative Trunking Encapsulation: dot1q
+   Operational Trunking Encapsulation: native
+   Negotiation of Trunking: On
+   Access Mode VLAN: 1 (default)
+   Trunking Native Mode VLAN: 1 (default)
+   Voice VLAN: none
+   Administrative private-vlan host-association: none
+   Administrative private-vlan mapping: none
+   Administrative private-vlan trunk native VLAN: none
+   Administrative private-vlan trunk encapsulation: dot1q
+   Administrative private-vlan trunk normal VLANs: none
+   Administrative private-vlan trunk private VLANs: none
+   Operational private-vlan: none
+   Trunking VLANs Enabled: ALL
+   Pruning VLANs Enabled: 2-1001
+   Capture Mode Disabled
+   Capture VLANs Allowed: ALL
+   Protected: false
+   Appliance trust: none
+
+   on switch 1 running config
+   --------------------------
+   interface GigabitEthernet0/1
+    switchport trunk native vlan 99
+    switchport trunk allowed vlan 10,20,30,99
+    switchport mode trunk
+   !
+   interface GigabitEthernet0/2
+    switchport trunk native vlan 99
+    switchport trunk allowed vlan 10,20,30,99
+    switchport mode trunk
+
+Verify commands
+^^^^^^^^^^^^^^^
+
+.. code::
+
+   S1#show vlan brief
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                   Fa0/9, Fa0/10, Fa0/11, Fa0/12
+                                                   Fa0/13, Fa0/14, Fa0/15, Fa0/16
+                                                   Fa0/17, Fa0/18, Fa0/19, Fa0/20
+                                                   Fa0/21, Fa0/22, Fa0/23, Fa0/24
+   10   Faculty/Staff                    active    
+   20   Students                         active    
+   30   Guest(Default)                   active    
+   88   Management                       active    
+   99   Native                           active    
+   1002 fddi-default                     active    
+   1003 token-ring-default               active    
+   1004 fddinet-default                  active    
+   1005 trnet-default                    active    
+   S1#show vt
+   S1#show vtp ?
+     counters  VTP statistics
+     password  VTP password
+     status    VTP domain status
+   
+   S1#show vtp status
+
+   VTP Version                     : 2
+   Configuration Revision          : 12
+   Maximum VLANs supported locally : 255
+   Number of existing VLANs        : 10
+   VTP Operating Mode              : Server
+   VTP Domain Name                 : 
+   VTP Pruning Mode                : Disabled
+   VTP V2 Mode                     : Disabled
+   VTP Traps Generation            : Disabled
+   MD5 digest                      : 0xD9 0x37 0x14 0xE2 0xAF 0x1D 0x1E 0x38 
+   Configuration last modified by 0.0.0.0 at 3-1-93 00:01:36
+   Local updater ID is 0.0.0.0 (no valid interface found)
+   
+   S1#show interfaces trunk
+
+   Port        Mode         Encapsulation  Status        Native vlan
+   Gig0/1      on           802.1q         trunking      99
+   Gig0/2      on           802.1q         trunking      99
+   
+   Port        Vlans allowed on trunk
+   Gig0/1      10,20,30,99
+   Gig0/2      10,20,30,99
+   
+   Port        Vlans allowed and active in management domain
+   Gig0/1      10,20,30,99
+   Gig0/2      10,20,30,99
+   
+   Port        Vlans in spanning tree forwarding state and not pruned
+   Gig0/1      10,20,30,99
+   Gig0/2      10,20,30,99
+   
+   S1#show interface Gig0/1 switchport
+   Name: Gig0/1
+   Switchport: Enabled
+   Administrative Mode: trunk
+   Operational Mode: trunk
+   Administrative Trunking Encapsulation: dot1q
+   Operational Trunking Encapsulation: dot1q
+   Negotiation of Trunking: On
+   Access Mode VLAN: 1 (default)
+   Trunking Native Mode VLAN: 99 (Native)
+   Voice VLAN: none
+   Administrative private-vlan host-association: none
+   Administrative private-vlan mapping: none
+   Administrative private-vlan trunk native VLAN: none
+   Administrative private-vlan trunk encapsulation: dot1q
+   Administrative private-vlan trunk normal VLANs: none
+   Administrative private-vlan trunk private VLANs: none
+   Operational private-vlan: none
+   Trunking VLANs Enabled: ALL
+   Pruning VLANs Enabled: 2-1001
+   Capture Mode Disabled
+   Capture VLANs Allowed: ALL
+   Protected: false
+   Appliance trust: none
+   
+   S1#show vlan
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                   Fa0/9, Fa0/10, Fa0/11, Fa0/12
+                                                   Fa0/13, Fa0/14, Fa0/15, Fa0/16
+                                                   Fa0/17, Fa0/18, Fa0/19, Fa0/20
+                                                   Fa0/21, Fa0/22, Fa0/23, Fa0/24
+   10   Faculty/Staff                    active    
+   20   Students                         active    
+   30   Guest(Default)                   active    
+   88   Management                       active    
+   99   Native                           active    
+   1002 fddi-default                     act/unsup 
+   1003 token-ring-default               act/unsup 
+   1004 fddinet-default                  act/unsup 
+   1005 trnet-default                    act/unsup 
+   
+   VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+   ---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+   1    enet  100001     1500  -      -      -        -    -        0      0
+   10   enet  100010     1500  -      -      -        -    -        0      0
+   20   enet  100020     1500  -      -      -        -    -        0      0
+   30   enet  100030     1500  -      -      -        -    -        0      0
+   88   enet  100088     1500  -      -      -        -    -        0      0
+   99   enet  100099     1500  -      -      -        -    -        0      0
+   1002 fddi  101002     1500  -      -      -        -    -        0      0   
+   1003 tr    101003     1500  -      -      -        -    -        0      0   
+   1004 fdnet 101004     1500  -      -      -        ieee -        0      0   
+   1005 trnet 101005     1500  -      -      -        ibm  -        0      0   
+   
+   VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+   ---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+   
+   Remote SPAN VLANs
+   ------------------------------------------------------------------------------
+   
+   Primary Secondary Type              Ports
+   ------- --------- ----------------- ------------------------------------------
+   S1#
+
+combination exercise
+--------------------
+
+.. image:: _static/vlan_and_vtps_exercise.png
+
++--------+-----------+--------------+---------------+-----------------+
+| Device | Interface | IP Address   | Subnet Mask   | Default Gateway |
++========+===========+==============+===============+=================+
+| S1     | VLAN 1    | 192.168.1.11 | 255.255.255.0 | N/A             |
++--------+-----------+--------------+---------------+-----------------+
+| S2     | VLAN 1    | 192.168.1.12 | 255.255.255.0 | N/A             |
++--------+-----------+--------------+---------------+-----------------+
+| PC-A   | NIC       | 192.168.10.3 | 255.255.255.0 | 192.168.10.1    |
++--------+-----------+--------------+---------------+-----------------+
+| PC-B   | NIC       | 192.168.10.4 | 255.255.255.0 | 192.168.10.1    |
++--------+-----------+--------------+---------------+-----------------+
+| PC-C   | NIC       | 192.168.20.3 | 255.255.255.0 | 192.168.20.1    |
++--------+-----------+--------------+---------------+-----------------+
+
+basic configuration for switch
+
+.. code::
+
+   no ip domain-lookup 
+   service password-encryption 
+   enable secret class 
+   banner motd # 
+   Unauthorized access is strictly prohibited. # 
+   line con 0 
+   password cisco 
+   login 
+   logging synchronous 
+   line vty 0 15 
+   password cisco 
+   logging synchronous 
+   login 
+   exit 
+
+create VLANs on switches
+
+.. code::
+
+   S1(config)# vlan 10
+   S1(config-vlan)# name Student
+   S1(config-vlan)# vlan 20
+   S1(config-vlan)# name Faculty
+   S1(config-vlan)# vlan 99
+   S1(config-vlan)# name Management
+   S1(config-vlan)# end 
+
+Assign VLANs to the interfaces
+
+.. code::
+
+   S1(config)# interface f0/6 
+   S1(config-if)# switchport mode access 
+   S1(config-if)# switchport access vlan 10 
+   
+   Move the switch IP address VLAN 99.
+   
+   S1(config)# interface vlan 1
+   S1(config-if)# no ip address
+   S1(config-if)# interface vlan 99
+   S1(config-if)# ip address 192.168.1.11 255.255.255.0 
+   S1(config-if)# end 
+
+
+Assign a VLAN to multiple interfaces
+
+.. code::
+
+   S1(config)# interface range f0/11-24 
+   S1(config-if-range)# switchport mode access
+   S1(config-if-range)# switchport access vlan 10 
+   S1(config-if-range)# end
+   
+   Use the no switchport access vlan command to remove the VLAN 10 assignment to F0/24
+   
+   S1(config)# interface f0/24
+   S1(config-if)# no switchport access vlan 
+   S1(config-if)# end
+   
+   Add VLAN 30 to interface F0/24 without issuing the VLAN command.
+   
+   S1(config)# interface f0/24 
+   S1(config-if)# switchport access vlan 30
+   % Access VLAN does not exist. Creating vlan 30
+   
+   Use the no vlan 30 command to remove VLAN 30 from the VLAN database.
+   
+   S1(config)# no vlan 30
+   S1(config)# end
+   
+   S1(config)# interface Fa0/24
+   S1(config-if)# no switchport access vlan
+
+
+.. note:: Current switch technology no longer requires that the vlan command be issued to add a VLAN to the database. By assigning an unknown VLAN to a port, the VLAN adds to the VLAN database.
+
+.. note:: Before removing a VLAN from the database, it is recommended that you reassign all the ports assigned to that VLAN
+
+Configuring Trunks
+
+use the Dynamic Trunking Protocol (DTP) to allow it to negotiate the trunk mode. After this has been accomplished and verified, you will disable DTP on interface F0/1 and manually configure it as a trunk. 
+
+.. code::
+
+   Set F0/1 on S1 to negotiate trunk mode
+   
+   S1(config)# interface f0/1
+   S1(config-if)# switchport mode dynamic desirable
+  
+   Mar  1 05:07:28.746: %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed 
+   state to down 
+   Mar  1 05:07:29.744: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, 
+   changed state to down 
+   S1(config-if)# 
+   Mar  1 05:07:32.772: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, 
+   changed state to up 
+   S1(config-if)# 
+   **Mar  1 05:08:01.789: %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed 
+   state to up**
+   Mar  1 05:08:01.797: %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed 
+   state to up 
+   You should also receive link status messages on S2.
+   S2# 
+   Mar  1 05:07:29.794: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, 
+   changed state to down 
+   S2# 
+   Mar  1 05:07:32.823: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, 
+   changed state to up 
+   S2# 
+   Mar  1 05:08:01.839: %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed 
+   state to up 
+   Mar  1 05:08:01.850: %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed 
+   state to up 
+   
+   on S1 and S2. Interface F0/1 is no longer assigned to VLAN 1. 
+   Trunked interfaces are not listed in the VLAN table
+    
+   S1# show vlan brief
+   VLAN Name                             Status    Ports 
+   ---- -------------------------------- --------- ------------------------------- 
+   1    default                          active    Fa0/2, Fa0/3, Fa0/4, Fa0/5 
+
+
+   S1# show interfaces trunk
+   Port        Mode             Encapsulation  Status        Native vlan 
+   Fa0/1       desirable        802.1q         trunking      1 
+   
+   Port        Vlans allowed on trunk 
+   Fa0/1       1-4094 
+   
+   Port        Vlans allowed and active in management domain 
+   Fa0/1       1,10,20,99
+   
+   Port        Vlans in spanning tree forwarding state and not pruned 
+   Fa0/1       1,10,20,99
+   
+   S2# show interfaces trunk
+   Port        Mode             Encapsulation  Status        Native vlan 
+   Fa0/1       auto             802.1q         trunking      1 
+   Port        Vlans allowed on trunk 
+   Fa0/1       1-4094 
+   Port        Vlans allowed and active in management domain 
+   Fa0/1       1,10,20,99 
+   Port        Vlans in spanning tree forwarding state and not pruned 
+   Fa0/1       1,10,20,99 
+
+.. code::
+
+   Change the switchport mode on interface F0/1 to force trunking.Make sure to do this on both switches.
+   
+   S1(config)# interface f0/1
+   S1(config-if)# switchport mode trunk 
+   
+   Issue the show interfaces trunk command to view the trunk mode. Notice that the mode changed from desirable to on. 
+   
+   S2# show interfaces trunk 
+   Port        Mode             Encapsulation  Status        Native vlan 
+   Fa0/1       on               802.1q         trunking      99 
+   Port        Vlans allowed on trunk 
+   Fa0/1       1-4094 
+   Port        Vlans allowed and active in management domain 
+   Fa0/1       1,10,20,99 
+   Port        Vlans in spanning tree forwarding state and not pruned 
+   Fa0/1       1,10,20,99 
+
+.. note:: By default, all VLANs are allowed on a trunk. The switchport trunk command allows you to control what VLANs have access to the trunk
+
+Deleting the vlan
+
+.. code::
+
+   S1# show flash
+   S1# delete vlan.dat
+
+
+Troubleshooting VLANS
+---------------------
+
+IP Address issue VLAN
+^^^^^^^^^^^^^^^^^^^^^
+
+Each VLAN must correspond to a unique IP subnet. If two devices in the same VLAN have different subnet addresses, they cannot communicate.
+
+Missing VLAN
+^^^^^^^^^^^^
+
+.. image:: _static/missing_vlan.png
+
+Use the show vlan command to check whether the port belongs to the expected VLAN. If the port is assigned to the wrong VLAN, use the switchport access vlan command to correct the VLAN membership. Use the show mac address-table command to check which addresses were learned on a particular port of the switch, and to which VLAN that port is assigned, as show in Figure 2.
+
+.. image:: _static/missing_vlan.png
+
+If the VLAN to which the port is assigned is deleted, the port becomes inactive. The ports of a deleted VLAN will not be listed in the output of the show vlan command. Use the show interfaces switchport command to verify the inactive VLAN is assigned to the port
+
+* show vlan
+* switchport access vlan
+* show mac address-table
+* show interfaces switchport
+* switchport access vlan
+* show interface f0/1 switchport
+* no switchport access vlan vlan-id
+
+Troubleshooting Trunks
+----------------------
+
+most important command ``show interfaces trunk``
+
+.. image:: _static/troubleshooting_trunks1.png
+
+.. image:: _static/troubleshooting_trunks2.png
+
+
+* Native VLAN mismatches - Trunk ports are configured with different native VLANs. This configuration error generates console notifications, and can cause inter-VLAN routing issues, among other problems. This poses a security risk.
+
+* Trunk mode mismatches - One trunk port is configured in a mode that is not compatible for trunking on the corresponding peer port. This configuration error causes the trunk link to stop working. Be sure both sides of the trunk are configured with the switchport mode trunk command. Other trunk configuration commands are beyond the scope of this course.
+
+* Allowed VLANs on trunks - The list of allowed VLANs on a trunk has not been updated with the current VLAN trunking requirements. In this situation, unexpected traffic (or no traffic) is being sent over the trunk.
+
+.. image:: _static/common_problems_trunks.png
+
+.. note:: start troubleshooting by examining the trunks for a **native VLAN mismatch**. If that is not the cause, check for **trunk mode mismatches**, and finally check for the **allowed VLAN list on the trunk**.
+
+Mismatched Port Modes
+
+.. image:: _static/mismatched_port_modes.png
+
+fixed:
+
+.. image:: _static/mismatched_port_modes_fixed.png
+
+fix incorrect vlan list with
+
+e.g. ``switchport trunk allowed vlan 10,20,99``
+
+
+.. warning:: make sure trunk port is in trunk mode not in access mode!
+
+.. code::
+
+   S2(config-if)#switchport mode trunk
+
+   S2(config-if)#
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+
+
+
+Troubleshooting Vlans 2
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Packet Tracer – Troubleshooting a VLAN Implementation Scenario 2
+6.2.3.8
+Addressing Table
+
++--------+-----------+---------------+---------------+-----------------+
+| Device | Interface | IPv4 Address  | Subnet Mask   | Default Gateway |
++========+===========+===============+===============+=================+
+| S1     | VLAN 56   | 192.168.56.11 | 255.255.255.0 | N/A             |
++--------+-----------+---------------+---------------+-----------------+
+| S2     | VLAN 56   | 192.168.56.12 | 255.255.255.0 | N/A             |
++--------+-----------+---------------+---------------+-----------------+
+| S3     | VLAN 56   | 192.168.56.13 | 255.255.255.0 | N/A             |
++--------+-----------+---------------+---------------+-----------------+
+| PC1    | NIC       | 192.168.10.21 | 255.255.255.0 | 192.168.10.1    |
++--------+-----------+---------------+---------------+-----------------+
+| PC2    | NIC       | 192.168.20.22 | 255.255.255.0 | 192.168.20.1    |
++--------+-----------+---------------+---------------+-----------------+
+| PC3    | NIC       | 192.168.30.23 | 255.255.255.0 | 192.168.30.1    |
++--------+-----------+---------------+---------------+-----------------+
+| PC4    | NIC       | 192.168.10.24 | 255.255.255.0 | 192.168.10.1    |
++--------+-----------+---------------+---------------+-----------------+
+| PC5    | NIC       | 192.168.20.25 | 255.255.255.0 | 192.168.20.1    |
++--------+-----------+---------------+---------------+-----------------+
+| PC6    | NIC       | 192.168.30.26 | 255.255.255.0 | 192.168.30.1    |
++--------+-----------+---------------+---------------+-----------------+
+
+VLAN and Port Assignments
+
++---------------+-----------------------------+-----------------+
+| Ports         | VLAN Number - Name          | Network         |
++===============+=============================+=================+
+| F0/1 – F0/5   | VLAN 56 – Management&Native | 192.168.56.0/24 |
++---------------+-----------------------------+-----------------+
+| F0/6 – F0/10  | VLAN 30 – Guest(Default)    | 192.168.30.0/24 |
++---------------+-----------------------------+-----------------+
+| F0/11 – F0/17 | VLAN 10 – Faculty/Staff     | 192.168.10.0/24 |
++---------------+-----------------------------+-----------------+
+| F0/18 – F0/24 | VLAN 20 – Students          | 192.168.20.0/24 |
++---------------+-----------------------------+-----------------+
+
+.. image:: _static/troubleshooting_vlans2.png
+
+
+Switch 1
+
+.. code::
+
+   interface GigabitEthernet0/1
+    switchport trunk native vlan 56
+    switchport trunk allowed vlan 10,20,30,56
+    switchport mode trunk
+   !
+   interface GigabitEthernet0/2
+    switchport trunk native vlan 56
+    switchport trunk allowed vlan 10,20,30,56
+    switchport mode trunk
+   !
+   interface Vlan1
+    no ip address
+    shutdown
+   !
+   interface Vlan56
+    mac-address 00d0.bc45.1b01
+    ip address 192.168.56.11 255.255.255.0
+   
+   S1#show vlan brief
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                   Fa0/9, Fa0/10, Fa0/11, Fa0/12
+                                                   Fa0/13, Fa0/14, Fa0/15, Fa0/16
+                                                   Fa0/17, Fa0/18, Fa0/19, Fa0/20
+                                                   Fa0/21, Fa0/22, Fa0/23, Fa0/24
+   10   Faculty/Staff                    active    
+   20   Students                         active    
+   30   Guest(Default)                   active    
+   56   Management&Native                active    
+   1002 fddi-default                     active    
+   1003 token-ring-default               active    
+   1004 fddinet-default                  active    
+   1005 trnet-default                    active    
+   S1#show interfac
+   S1#show interfaces trunk
+   Port        Mode         Encapsulation  Status        Native vlan
+   Gig0/1      on           802.1q         trunking      56
+   Gig0/2      on           802.1q         trunking      56
+   
+   Port        Vlans allowed on trunk
+   Gig0/1      10,20,30,56
+   Gig0/2      10,20,30,56
+   
+   Port        Vlans allowed and active in management domain
+   Gig0/1      10,20,30,56
+   Gig0/2      10,20,30,56
+   
+   Port        Vlans in spanning tree forwarding state and not pruned
+   Gig0/1      10,20,30,56
+   Gig0/2      10,20,30,56
+
+
+
+Switch 2 & 3
+
+.. code::
+
+   spanning-tree mode pvst
+   spanning-tree extend system-id
+   !
+   interface FastEthernet0/1
+    switchport access vlan 56
+    switchport mode access
+   !
+   interface FastEthernet0/2
+    switchport access vlan 56
+    switchport mode access
+   !
+   interface FastEthernet0/3
+    switchport access vlan 56
+    switchport mode access
+   !
+   interface FastEthernet0/4
+    switchport access vlan 56
+    switchport mode access
+   !
+   interface FastEthernet0/5
+    switchport access vlan 56
+    switchport mode access
+   !
+   interface FastEthernet0/6
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/7
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/8
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/9
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/10
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/11
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/12
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/13
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/14
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/15
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/16
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/17
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/18
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/19
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/20
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/21
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/22
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/23
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/24
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface GigabitEthernet0/1
+    switchport trunk native vlan 56
+    switchport trunk allowed vlan 10,20,30,56
+    switchport mode trunk
+   !
+   interface GigabitEthernet0/2
+    switchport trunk native vlan 56
+    switchport trunk allowed vlan 10,20,30,56
+    switchport mode trunk
+   !
+   interface Vlan1
+    no ip address
+    shutdown
+   !
+   interface Vlan56
+    mac-address 0002.1737.2201
+    ip address 192.168.56.12 255.255.255.0
+   
+   S2#show vlan
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Gig0/2
+   10   Faculty/Staff                    active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17
+   20   Students                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                   Fa0/22, Fa0/23, Fa0/24
+   30   Guest(Default)                   active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10
+   56   Management&Native                active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5
+   1002 fddi-default                     act/unsup 
+   1003 token-ring-default               act/unsup 
+   1004 fddinet-default                  act/unsup 
+   1005 trnet-default                    act/unsup 
+   
+   VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+   ---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+   1    enet  100001     1500  -      -      -        -    -        0      0
+   10   enet  100010     1500  -      -      -        -    -        0      0
+   20   enet  100020     1500  -      -      -        -    -        0      0
+   30   enet  100030     1500  -      -      -        -    -        0      0
+   56   enet  100056     1500  -      -      -        -    -        0      0
+   1002 fddi  101002     1500  -      -      -        -    -        0      0   
+   1003 tr    101003     1500  -      -      -        -    -        0      0   
+   1004 fdnet 101004     1500  -      -      -        ieee -        0      0   
+   1005 trnet 101005     1500  -      -      -        ibm  -        0      0   
+   
+   VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+   ---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+   
+   Remote SPAN VLANs
+   ------------------------------------------------------------------------------
+   
+   Primary Secondary Type              Ports
+   ------- --------- ----------------- ------------------------------------------
+
+S2#show interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Gig0/1      on           802.1q         trunking      56
+
+Port        Vlans allowed on trunk
+Gig0/1      10,20,30,56
+
+Port        Vlans allowed and active in management domain
+Gig0/1      10,20,30,56
+
+Port        Vlans in spannin
+.. code::
+
+
+
+
+
+
