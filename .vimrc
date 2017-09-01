@@ -62,6 +62,7 @@ Plugin 'w0rp/ale'
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 Plugin 'godlygeek/tabular'
 
+Plugin 'dhruvasagar/vim-table-mode'    
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -77,21 +78,30 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 " -----------------------------------------
+
 " set tabstops every 4 spaces and set the shiftwidth (the amount you indent)
 " to 2 spaces
 set ts=4 sw=2
+
 set number " show current line number
 set relativenumber " show relative line numbers
 syntax on
+
 colorscheme molokai-dark
 " for terminal which supports truecolor
 set termguicolors
 " else set t_Co=256
-"
+
+
 " configure keyboard mappings here
 " type Ojj or ojj to quickly insert newline
 inoremap jj <ESC> 
 set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
+ 
 " Quickly go to line number
 :nnoremap <CR> G
 set pastetoggle=<F2>
+
+" get ReST-compatible tables with vim-table-mode plugin
+let g:table_mode_corner_corner='+'
+let g:table_mode_header_fillchar='='

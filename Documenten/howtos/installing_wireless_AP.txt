@@ -131,6 +131,17 @@ guru@vdab10:~/github/create_ap$ sudo ip link show up
     link/ether 1e:a9:2d:3e:20:0f brd ff:ff:ff:ff:ff:ff
 
 
+CREATE AP
+---------
+guru@lab:~/github/create_ap[oblique:create_ap master]$ sudo apt-get install hostapd
+guru@lab:~/github[brunswyck:home.git master]$ git clone https://github.com/oblique/create_ap
+guru@lab:~/github/create_ap[oblique:create_ap master]$ sudo make install 
+
+after a while
+
+guru@lab:~/docu/sphinx[brunswyck:docu.git master]$ sudo dhclient -4 br0
+
+
 guru@vdab10:~/github/create_ap$ grep -r 'bridge' /usr/share/doc/create_ap/README.md
     create_ap -m bridge wlan0 eth0 MyAccessPoint MyPassPhrase
 ### Bridged Internet sharing (pre-configured bridge interface):
