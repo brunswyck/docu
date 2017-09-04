@@ -1,13 +1,12 @@
-####
-bash
-####
+#########
+Scripting
+#########
 
-
-*********
+****
+BASH
+****
 functions
-*********
-function syntax
-===============
+=========
 
 .. code:: bash
 
