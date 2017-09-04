@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; debian &amp; networking 20170824 documentation</title>
+  <title>bash &mdash; debian &amp; networking 20170824 documentation</title>
   
 
   
@@ -34,9 +33,11 @@
 
   
         <link rel="index" title="Index"
-              href="#"/>
+              href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/> 
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/>
+        <link rel="next" title="VIM" href="vim.html"/>
+        <link rel="prev" title="reStructuredText Primer" href="rest.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -90,12 +91,18 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scripting.html">bash</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bash</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions">functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#function-syntax">function syntax</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 </ul>
 
@@ -141,12 +148,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Index</li>
+      <li>bash</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/scripting.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -158,11 +167,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="bash">
+<h1>bash<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="functions">
+<h2>functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="function-syntax">
+<h3>function syntax<a class="headerlink" href="#function-syntax" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>funcky() { echo &quot;this is a funky function&quot;; echo; } # compacted needs semicolon
 
-<h1 id="index">Index</h1>
+a function call is the equivalent to a command
 
-<div class="genindex-jumpbox">
- 
+simple functions
+----------------
+
+#!/bin/bash
+JUST_A_SECOND=1 # uppercase for constant
+
+funcky()
+{
+  echo &quot;simple function.&quot;
+} # function call --&gt; after declaration!
+
+fun ()
+{
+  i=0
+  REPEATS=30
+
+  echo &quot;And now the fun really begins.&quot;
+
+  sleep $JUST_A_SECOND
+  while [ $i -lt $REPEATS ]
+  do
+    echo &quot;&lt;-------i is $i---------&gt;&quot;
+    echo &quot;&lt;-- $REPEATS-$i: left --&gt;&quot;
+    let &quot;i+=1&quot;
+  done
+}
+
+funky
+fun
+
+exit $?
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -172,6 +221,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vim.html" class="btn btn-neutral float-right" title="VIM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rest.html" class="btn btn-neutral" title="reStructuredText Primer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

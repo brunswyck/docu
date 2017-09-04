@@ -6,8 +6,12 @@ CCNA
 ***********************
 Networking Fundamentals
 ***********************
-
-Add fundamentals content here
+chapter on fundamentals
+=======================
+title
+-----
+subtitle
+^^^^^^^^
 
 **********************************
 Routing and Switching Fundamentals
