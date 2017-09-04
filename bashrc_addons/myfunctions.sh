@@ -25,3 +25,8 @@ pusshy() {
 show_repository() {
     echo $(git_repo) | cut -d. -f1
 }
+
+get_activeScreens() {
+  activeScreens=( $(xrandr -q | awk '$2=="connected" {print $1}') )
+  length=${#activeScreens[@]}
+}
