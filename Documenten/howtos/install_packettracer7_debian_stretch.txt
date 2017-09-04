@@ -3,9 +3,28 @@ http://blog.alexolivan.com/cisco-packettracer-7-on-debian-stretch/
 However don't just install one package with dpkg -i
 Better to put the backports repository in our system with -1 priority
 
-root@vdab10:/lib# vi /etc/apt/sources.list.d/jessie-backports.list
+patrick@debian:~/Downloads/firefox_dlds/pt71linux[brunswyck:home.git master]$ ll
+total 88K
+drwxr-xr-x 12 patrick patrick 4.0K Sep  4 12:11 .
+drwxr-xr-x  3 patrick patrick 4.0K Sep  4 11:47 ..
+drwxr-xr-x 24 patrick patrick 4.0K Jul 27 10:49 art
+drwxr-xr-x  6 patrick patrick 4.0K Jul 27 10:49 backgrounds
+drwxr-xr-x  7 patrick patrick 4.0K Jul 16 23:08 bin
+-rw-r--r--  1 patrick patrick  14K Jul  7  2016 eula.txt
+drwxr-xr-x 16 patrick patrick 4.0K Jul 27 10:49 extensions
+drwxr-xr-x  3 patrick patrick 4.0K Sep  4 12:10 help
+-rwxr-xr-x  1 patrick patrick 4.2K Jul 27 10:49 install
+drwxr-xr-x  2 patrick patrick 4.0K Jul 27 10:49 languages
+drwxr-xr-x  2 patrick patrick 4.0K Jul 21 20:58 lib
+dr-xr-xr-x 19 patrick patrick 4.0K Jul 27 10:49 saves
+-rw-r--r--  1 patrick patrick 1.3K Jul 27 10:49 set_ptenv.sh
+-rw-r--r--  1 patrick patrick 1.2K Jul 27 10:49 set_qtenv.sh
+drwxr-xr-x  2 patrick patrick 4.0K Jul 27 10:49 Sounds
+drwxr-xr-x  3 patrick patrick 4.0K Jul 27 10:49 templates
+-rw-r--r--  1 patrick patrick  159 Jul  7  2016 tpl.linguist
+-rw-r--r--  1 patrick patrick  175 Jul  7  2016 tpl.packettracer
 
-root@vdab10:/lib# vi /etc/apt/preferences.d/jessie-backports.pref
+
 
 root@vdab10:/lib# cat /etc/apt/sources.list.d/jessie-backports.list /etc/apt/preferences.d/jessie-backports.pref 
 deb http://ftp.be.debian.org/debian jessie-backports main
@@ -16,6 +35,16 @@ Pin-Priority: -1
 root@vdab10:/lib# 
 
 # after having configured the jessie-backports repository you can install the libssl1.0.0 package
+# check repositories: grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*
+sudo su
+echo "deb http://ftp.be.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
+echo "Package: *
+Pin: release a=jessie-backports
+Pin-Priority: -1
+" > /etc/apt/preferences.d/jessie-backports.pref
+
+apt-get update
+
 
 root@vdab10:/lib# apt-get update
 root@vdab10:/lib# apt-get install -t jessie-backports libssl1.0.0
@@ -45,3 +74,12 @@ cat ~/.xsessionrc
 PT7HOME="/opt/pt"
 export PT7HOME
 
+
+/opt/pt/bin/PacketTracer7 "$@" > /dev/null 2>&1
+in packettracer file
+
+Warning: QT_DEVICE_PIXEL_RATIO is deprecated. Instead use: 
+    QT_AUTO_SCREEN_SCALE_FACTOR to enable platform plugin controlled per-screen factors. 
+    QT_SCREEN_SCALE_FACTORS to set per-screen factors. 
+    QT_SCALE_FACTOR to set the application global scale factor.
+QFSFileEngine::open: No file name specified
