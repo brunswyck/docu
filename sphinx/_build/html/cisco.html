@@ -178,6 +178,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ssh-switch-setup">SSH Switch Setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#disable-unused-ports">Disable unused ports</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#port-security">Port Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">QnA</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#chapter-6-vlans">Chapter 6 VLANS</a><ul>
@@ -197,6 +198,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#combination-exercise">combination exercise</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-vlans">Troubleshooting VLANS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-trunks">Troubleshooting Trunks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting-vlan-trunk-bullet-points">Troubleshooting vlan/trunk bullet points</a></li>
 </ul>
 </li>
 </ul>
@@ -206,7 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scripting.html">bash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 </ul>
 
@@ -2477,6 +2479,82 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </ol>
 </div>
 </div>
+<div class="section" id="id1">
+<h4>QnA<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>3 causes of interface up - line protocol down
+* encapsulation mismatch
+* other end = error-disabled
+* hardware</p>
+<dl class="docutils">
+<dt>Type of Ethernet frame that is smaller than 64bytes:</dt>
+<dd>runt</dd>
+<dt>Indication of a media or cable error:</dt>
+<dd>CRC error</dd>
+</dl>
+<p>A condition that occurs if a collision happens after 512bit have been transmitted: late collision</p>
+<dl class="docutils">
+<dt>a cisco switch feature that limits # of MAC addresses allowed through a port:</dt>
+<dd>port security</dd>
+<dt>a method of port security configuration whereby learned MAC addresses are deleted if the switch is restarted:</dt>
+<dd>dynamic</dd>
+<dt>a method of port security that can be dynamically learned &amp; once learned saved to the configuration saved in NVRAM:</dt>
+<dd>sticky</dd>
+<dt>default security violation for port security:</dt>
+<dd>shutdown</dd>
+<dt>Which command displays information about the auto-MDIX setting for a specific interface?:</dt>
+<dd>show controllers</dd>
+<dt>steps needed to configure a switch for SSH:</dt>
+<dd><ul class="first last simple">
+<li>Create a local user.</li>
+<li>Generate RSA keys.</li>
+<li>Configure a domain name.</li>
+<li>Use the login local command.</li>
+<li>Use the transport input ssh command.</li>
+<li>Order does not matter within this group.</li>
+</ul>
+</dd>
+<dt>What is a possible cause of runt Ethernet frames when a switch is being used:</dt>
+<dd>malfunctioning NIC (not a late collision)</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A runt frame is a frame that is smaller than 64 bytes, the minimum allowed Ethernet frame. This type of frame is usually due to a malfunctioning NIC or excessive collisions. Duplex misconfiguration can cause connectivity issues. Excessive cable length can generate CRC errors and/or late collisions.</p>
+</div>
+<dl class="docutils">
+<dt>switch and gateways:</dt>
+<dd>If the switch was unable to find and load the IOS, the prompt would be switch:. A Layer 2 switch does not provide the default gateway for connected hosts. The default gateway is provided by a Layer 3 device. The switch cannot be managed remotely until a management VLAN and a default gateway have been configured.</dd>
+<dt>what configuration must be in place for the auto-MDIX feature to function on a switch interface?:</dt>
+<dd>The speed and duplex of the interface must be configured for auto detect.</dd>
+<dt>What would be the most common reason that a network technician would see the following Cisco switch prompt after the switch boots?:</dt>
+<dd>The switch operating system cannot be found.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The prompt of “switch:” is seen when the switch cannot find an operating system and is in the boot loader environment where only a few basic commands can be used to repair the switch to an operational state. When an administrator has used Telnet or SSH to gain access to a switch prompt, the prompt usually asks for a username and password or is in user EXEC mode (switch&gt;, for example).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Escalating CRC errors usually means that the data is being modified during transmission from the host to the switch. This is often caused by high levels of electromagnetic interference on the link.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Port security cannot be enabled globally. All active switch ports should be manually secured using the switchport port-security command, which allows the administrator to control the number of valid MAC addresses allowed to access the port. This command does not specify what action will be taken if a violation occurs, nor does it change the process of populating the MAC address table.</p>
+</div>
+<dl class="docutils">
+<dt>Where are dynamically learned MAC addresses stored when sticky learning is enabled with the switchport port-security mac-address sticky command?:</dt>
+<dd>RAM</dd>
+<dt>Match the link state to the interface and protocol status:</dt>
+<dd><ul class="first last simple">
+<li>disable -&gt; administratively down</li>
+<li>Layer 1 problem -&gt; down/down</li>
+<li>Layer 2 problem -&gt; up/down</li>
+<li>operational -&gt; up/up</li>
+</ul>
+</dd>
+<dt>If one end of an Ethernet connection is configured for full duplex and the other end of the connection is configured for half duplex, where would late collisions be observed?:</dt>
+<dd>on the half-duplex end of the connection</dd>
+</dl>
+</div>
 </div>
 <div class="section" id="chapter-6-vlans">
 <h3>Chapter 6 VLANS<a class="headerlink" href="#chapter-6-vlans" title="Permalink to this headline">¶</a></h3>
@@ -2679,7 +2757,7 @@ For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all
 <p>For frames using <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_802.2">IEEE 802.2</a>/<a class="reference external" href="https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol">SNAP</a> encapsulation with an organizationally unique identifier (OUI) field of 00-00-00 (so that the protocol ID field in the SNAP header is an EtherType), as would be the case on LANs other than Ethernet, the EtherType value in the SNAP header is set to 0x8100 and the aforementioned extra 4 bytes are appended after the SNAP header.[citation needed]</p>
 <p>Because inserting the VLAN tag changes the frame, 802.1Q encapsulation forces a recalculation of the original frame check sequence field in the Ethernet trailer.</p>
 <p>The IEEE 802.3ac standard increased the maximum Ethernet frame size from 1518 bytes to 1522 bytes to accommodate the four-byte VLAN tag. Some network devices that do not support the larger frame size will process these frames successfully, but may report them as “baby giant” anomalies.</p>
-<p>802.1ad_aka_QinQ <a href="#id1"><span class="problematic" id="id2">`https://en.wikipedia.org/wiki/IEEE_802.1ad`_</span></a></p>
+<p>802.1ad_aka_QinQ <a href="#id2"><span class="problematic" id="id3">`https://en.wikipedia.org/wiki/IEEE_802.1ad`_</span></a></p>
 <p><code class="docutils literal"><span class="pre">show</span> <span class="pre">interfaces</span> <span class="pre">fa0/18</span> <span class="pre">switchport</span></code></p>
 <p><code class="docutils literal"><span class="pre">show</span> <span class="pre">vlan</span> <span class="pre">brief</span></code></p>
 </div>
@@ -3757,9 +3835,93 @@ Gig0/1      on           802.1q         trunking      56</p>
 Gig0/1      10,20,30,56</p>
 <p>Port        Vlans allowed and active in management domain
 Gig0/1      10,20,30,56</p>
-<p>Port        Vlans in spannin
-.. code:</p>
+<p>Port        Vlans in spannin</p>
 </div>
+</div>
+<div class="section" id="troubleshooting-vlan-trunk-bullet-points">
+<h4>Troubleshooting vlan/trunk bullet points<a class="headerlink" href="#troubleshooting-vlan-trunk-bullet-points" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">make sure management vlan has an ip address</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface vlan 56</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip address 192.168.56.12 255.255.255.0</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no shutdown</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">check if trunks are configured correctly with</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="c1">#show interfaces trunk</span>
+<span class="o">------</span>      <span class="o">----</span>         <span class="o">------------</span>   <span class="o">------</span>        <span class="o">-----------</span>
+<span class="n">Port</span>        <span class="n">Mode</span>         <span class="n">Encapsulation</span>  <span class="n">Status</span>        <span class="n">Native</span> <span class="n">vlan</span>
+<span class="o">------</span>      <span class="o">----</span>         <span class="o">------------</span>   <span class="o">------</span>        <span class="o">-----------</span>
+<span class="n">Gig0</span><span class="o">/</span><span class="mi">1</span>      <span class="n">on</span>           <span class="mf">802.1</span><span class="n">q</span>         <span class="n">trunking</span>      <span class="mi">56</span>
+
+<span class="n">Port</span>        <span class="n">Vlans</span> <span class="n">allowed</span> <span class="n">on</span> <span class="n">trunk</span>
+<span class="n">Gig0</span><span class="o">/</span><span class="mi">1</span>      <span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">56</span>
+
+<span class="n">Port</span>        <span class="n">Vlans</span> <span class="n">allowed</span> <span class="ow">and</span> <span class="n">active</span> <span class="ow">in</span> <span class="n">management</span> <span class="n">domain</span>
+<span class="n">Gig0</span><span class="o">/</span><span class="mi">1</span>      <span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">56</span>
+
+<span class="n">Port</span>        <span class="n">Vlans</span> <span class="ow">in</span> <span class="n">spanning</span> <span class="n">tree</span> <span class="n">forwarding</span> <span class="n">state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">pruned</span>
+<span class="n">Gig0</span><span class="o">/</span><span class="mi">1</span>      <span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">56</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">set native vlan on trunk ports <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">trunk</span> <span class="pre">native</span> <span class="pre">vlan</span> <span class="pre">56</span></code></p>
+</li>
+<li><p class="first">set to access ports and set their native vlan</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#interface range fastEthernet 0/1-24</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport mode access</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport native vlan 56</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#no shutdown</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">set port as a trunk <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">mode</span> <span class="pre">trunk</span></code></p>
+</li>
+<li><p class="first">set allowed vlans, including native <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">trunk</span> <span class="pre">allowed</span> <span class="pre">vlan</span> <span class="pre">10,20,30,56</span></code></p>
+</li>
+<li><p class="first">configure access layer switch access ports with correct vlan</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface range fa0/6 - 10</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport access vlan 30</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#interface range fa0/11 - 17</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport access vlan 10</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#interface range fa0/18 - 24</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport access vlan 20</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">check if vlans are all assigned to the correct interface and vlan is active with <code class="docutils literal"><span class="pre">show</span> <span class="pre">vlan</span> <span class="pre">brief</span> <span class="pre">|</span> <span class="pre">id</span> <span class="pre">|</span> <span class="pre">name</span></code> command</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#do show vlan brief</span>
+
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>    <span class="n">Gig0</span><span class="o">/</span><span class="mi">2</span>
+<span class="mi">10</span>   <span class="n">Faculty</span><span class="o">/</span><span class="n">Staff</span>                    <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">13</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">14</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">17</span>
+<span class="mi">20</span>   <span class="n">Students</span>                         <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">19</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">21</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">22</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">24</span>
+<span class="mi">30</span>   <span class="n">Guest</span><span class="p">(</span><span class="n">Default</span><span class="p">)</span>                   <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">9</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">10</span>
+<span class="mi">56</span>   <span class="n">Management</span><span class="o">&amp;</span><span class="n">Native</span>                <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">4</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">5</span>
+<span class="c1"># or check per vlan id or vlan name</span>
+<span class="c1"># #################################</span>
+<span class="n">S2</span><span class="c1">#show vlan id 56</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">56</span>   <span class="n">Management</span><span class="o">&amp;</span><span class="n">Native</span>                <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">4</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">5</span>
+
+<span class="n">VLAN</span> <span class="n">Type</span>  <span class="n">SAID</span>       <span class="n">MTU</span>   <span class="n">Parent</span> <span class="n">RingNo</span> <span class="n">BridgeNo</span> <span class="n">Stp</span>  <span class="n">BrdgMode</span> <span class="n">Trans1</span> <span class="n">Trans2</span>
+<span class="o">----</span> <span class="o">-----</span> <span class="o">----------</span> <span class="o">-----</span> <span class="o">------</span> <span class="o">------</span> <span class="o">--------</span> <span class="o">----</span> <span class="o">--------</span> <span class="o">------</span> <span class="o">------</span>
+<span class="mi">56</span>   <span class="n">enet</span>  <span class="mi">100056</span>     <span class="mi">1500</span>  <span class="o">-</span>      <span class="o">-</span>      <span class="o">-</span>        <span class="o">-</span>    <span class="o">-</span>        <span class="mi">0</span>      <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">enable a vlan <code class="docutils literal"><span class="pre">interface</span> <span class="pre">vlan</span> <span class="pre">20</span></code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

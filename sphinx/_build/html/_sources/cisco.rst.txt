@@ -2128,6 +2128,78 @@ There are 10 best practices that represent the best insurance for a network:
 #. Implement security hardware and software, such as firewalls.
 #. Keep IOS software up-to-date by installing security patches weekly or daily, if possible.
 
+QnA
+---
+3 causes of interface up - line protocol down
+* encapsulation mismatch
+* other end = error-disabled
+* hardware
+
+Type of Ethernet frame that is smaller than 64bytes:
+ runt
+
+Indication of a media or cable error:
+ CRC error
+
+A condition that occurs if a collision happens after 512bit have been transmitted: late collision
+
+a cisco switch feature that limits # of MAC addresses allowed through a port:
+ port security
+
+a method of port security configuration whereby learned MAC addresses are deleted if the switch is restarted:
+ dynamic
+
+a method of port security that can be dynamically learned & once learned saved to the configuration saved in NVRAM:
+ sticky
+
+default security violation for port security:
+ shutdown
+
+Which command displays information about the auto-MDIX setting for a specific interface?:
+ show controllers
+
+steps needed to configure a switch for SSH:
+ + Create a local user.
+ + Generate RSA keys.
+ + Configure a domain name.
+ + Use the login local command.
+ + Use the transport input ssh command.
+ + Order does not matter within this group.
+
+What is a possible cause of runt Ethernet frames when a switch is being used:
+ malfunctioning NIC (not a late collision)
+
+.. note:: A runt frame is a frame that is smaller than 64 bytes, the minimum allowed Ethernet frame. This type of frame is usually due to a malfunctioning NIC or excessive collisions. Duplex misconfiguration can cause connectivity issues. Excessive cable length can generate CRC errors and/or late collisions.
+
+switch and gateways:
+ If the switch was unable to find and load the IOS, the prompt would be switch:. A Layer 2 switch does not provide the default gateway for connected hosts. The default gateway is provided by a Layer 3 device. The switch cannot be managed remotely until a management VLAN and a default gateway have been configured.
+
+what configuration must be in place for the auto-MDIX feature to function on a switch interface?:
+ The speed and duplex of the interface must be configured for auto detect.
+
+What would be the most common reason that a network technician would see the following Cisco switch prompt after the switch boots?:
+ The switch operating system cannot be found.
+
+.. note:: The prompt of "switch:" is seen when the switch cannot find an operating system and is in the boot loader environment where only a few basic commands can be used to repair the switch to an operational state. When an administrator has used Telnet or SSH to gain access to a switch prompt, the prompt usually asks for a username and password or is in user EXEC mode (switch>, for example).
+
+
+.. note:: Escalating CRC errors usually means that the data is being modified during transmission from the host to the switch. This is often caused by high levels of electromagnetic interference on the link.
+
+.. warning:: Port security cannot be enabled globally. All active switch ports should be manually secured using the switchport port-security command, which allows the administrator to control the number of valid MAC addresses allowed to access the port. This command does not specify what action will be taken if a violation occurs, nor does it change the process of populating the MAC address table.
+
+Where are dynamically learned MAC addresses stored when sticky learning is enabled with the switchport port-security mac-address sticky command?:
+ RAM
+
+Match the link state to the interface and protocol status:
+ * disable -> administratively down
+ * Layer 1 problem -> down/down
+ * Layer 2 problem -> up/down
+ * operational -> up/up
+
+If one end of an Ethernet connection is configured for full duplex and the other end of the connection is configured for half duplex, where would late collisions be observed?:
+ on the half-duplex end of the connection
+
+
 
 Chapter 6 VLANS
 ===============
@@ -3334,10 +3406,94 @@ Port        Vlans allowed and active in management domain
 Gig0/1      10,20,30,56
 
 Port        Vlans in spannin
+
 .. code::
 
 
+Troubleshooting vlan/trunk bullet points
+----------------------------------------
+
+* make sure management vlan has an ip address
+  
+  .. code::
+
+     S2(config)#interface vlan 56
+     S2(config-if)#ip address 192.168.56.12 255.255.255.0
+     S2(config-if)#no shutdown 
+
+* check if trunks are configured correctly with
+
+  .. code::
+
+     S2#show interfaces trunk
+     ------      ----         ------------   ------        -----------     
+     Port        Mode         Encapsulation  Status        Native vlan
+     ------      ----         ------------   ------        -----------     
+     Gig0/1      on           802.1q         trunking      56
+     
+     Port        Vlans allowed on trunk
+     Gig0/1      10,20,30,56
+     
+     Port        Vlans allowed and active in management domain
+     Gig0/1      10,20,30,56
+     
+     Port        Vlans in spanning tree forwarding state and not pruned
+     Gig0/1      10,20,30,56
+
+* set native vlan on trunk ports ``switchport trunk native vlan 56``
+* set to access ports and set their native vlan
+  
+  .. code:: 
+
+     S2(config-if)#interface range fastEthernet 0/1-24
+     S2(config-if-range)#switchport mode access
+     S2(config-if-range)#switchport native vlan 56
+     S2(config-if-range)#no shutdown
 
 
+* set port as a trunk ``switchport mode trunk``
+* set allowed vlans, including native ``switchport trunk allowed vlan 10,20,30,56``
+* configure access layer switch access ports with correct vlan
+
+  .. code::
+
+     S2(config)#interface range fa0/6 - 10
+     S2(config-if-range)#switchport access vlan 30
+     S2(config-if-range)#interface range fa0/11 - 17
+     S2(config-if-range)#switchport access vlan 10
+     S2(config-if-range)#interface range fa0/18 - 24
+     S2(config-if-range)#switchport access vlan 20
+
+* check if vlans are all assigned to the correct interface and vlan is active with ``show vlan brief | id | name`` command
+  
+  .. code::
+
+     S2(config-if-range)#do show vlan brief
+
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Gig0/2
+     10   Faculty/Staff                    active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                     Fa0/15, Fa0/16, Fa0/17
+     20   Students                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                     Fa0/22, Fa0/23, Fa0/24
+     30   Guest(Default)                   active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                     Fa0/10
+     56   Management&Native                active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Fa0/5
+     # or check per vlan id or vlan name
+     # #################################
+     S2#show vlan id 56
+     ---- -------------------------------- --------- -------------------------------
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     56   Management&Native                active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Fa0/5
+     
+     VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+     ---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+     56   enet  100056     1500  -      -      -        -    -        0      0 
+
+* enable a vlan ``interface vlan 20`` 
 
 

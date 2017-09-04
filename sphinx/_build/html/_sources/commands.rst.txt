@@ -205,9 +205,46 @@ stripping | removing
 
 remove duplicate lines
 ----------------------
+
 .. code::
 
    sudo awk '!seen[$0]++' /etc/apt/sources.list
 
+****
+find
+****
+
+removing files
+==============
+remove all but 1
+----------------
+
+.. code::
+
+   files
+   -----
+   find . ! -name 'PacketTracer71_64bit_linux.tar.gz' -type f -exec rm -f {} +
+
+   directories
+   -----------
+   find . ! -name 'PacketTracer71_64bit_linux.tar.gz' -type d -exec rm -rf {} +
+
+   nonposix alternative
+   --------------------
+   shopt -s extglob 
+   rm -- !(file.txt)
+
+****
+grep
+****
+
+finding stuff
+=============
+include files ending on x and containing y
+------------------------------------------
+
+.. code::
+
+   grep -r --include '*.list' '^deb ' /etc/apt/sources.list /etc/apt/sources.list.d/
 
 
