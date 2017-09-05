@@ -3072,6 +3072,23 @@ Missing VLAN
 
 Use the show vlan command to check whether the port belongs to the expected VLAN. If the port is assigned to the wrong VLAN, use the switchport access vlan command to correct the VLAN membership. Use the show mac address-table command to check which addresses were learned on a particular port of the switch, and to which VLAN that port is assigned, as show in Figure 2.
 
+.. code::
+
+   S1#show mac address-table
+             Mac Address Table
+   -------------------------------------------
+   
+   Vlan    Mac Address       Type        Ports
+   ----    -----------       --------    -----
+   
+      1    000a.f333.b702    DYNAMIC     Gig0/2
+      1    00d0.5828.2501    DYNAMIC     Gig0/1
+     10    00d0.5828.2501    DYNAMIC     Gig0/1
+     20    00d0.5828.2501    DYNAMIC     Gig0/1
+     30    00d0.5828.2501    DYNAMIC     Gig0/1
+     56    000a.f333.b702    DYNAMIC     Gig0/2
+     56    00d0.5828.2501    DYNAMIC     Gig0/1
+
 .. image:: _static/missing_vlan.png
 
 If the VLAN to which the port is assigned is deleted, the port becomes inactive. The ports of a deleted VLAN will not be listed in the output of the show vlan command. Use the show interfaces switchport command to verify the inactive VLAN is assigned to the port
@@ -3495,6 +3512,37 @@ Troubleshooting vlan/trunk bullet points
      56   enet  100056     1500  -      -      -        -    -        0      0 
 
 * enable a vlan ``interface vlan 20`` 
+
+.. warning:: You must hardcode ``switchport mode access`` on the ports that are not a trunk. This disables the Dynamic Trunking Protocol, so that's 1 chance less of accidently creating a trunk. doublecheck via ``show interfaces switchport`` you'll see negotiation is off.
+
+.. code::
+
+   S1(config-if-range)#do show interface switchport
+   Name: Fa0/1
+   Switchport: Enabled
+   Administrative Mode: static access
+   Operational Mode: down
+   Administrative Trunking Encapsulation: dot1q
+   Operational Trunking Encapsulation: native
+   **Negotiation of Trunking: Off**
+   Access Mode VLAN: 56 (VLAN0056)
+   Trunking Native Mode VLAN: 1 (default)
+   Voice VLAN: none
+   Administrative private-vlan host-association: none
+   Administrative private-vlan mapping: none
+   Administrative private-vlan trunk native VLAN: none
+   Administrative private-vlan trunk encapsulation: dot1q
+   Administrative private-vlan trunk normal VLANs: none
+   Administrative private-vlan trunk private VLANs: none
+   Operational private-vlan: none
+   Trunking VLANs Enabled: All
+   Pruning VLANs Enabled: 2-1001
+   Capture Mode Disabled
+   Capture VLANs Allowed: ALL
+   Protected: false
+   Unknown unicast blocked: disabled
+   Unknown multicast blocked: disabled
+   Appliance trust: none
 
 VLAN Command Summary Table
 --------------------------
