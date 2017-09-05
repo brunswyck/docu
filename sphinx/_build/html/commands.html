@@ -94,6 +94,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BASH</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tips-and-tricks">Tips and Tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#great-shortcuts">great shortcuts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ctrl-u-ctrl-y">ctrl-u &amp; ctrl-y</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#modify-kernel-settings">modify kernel settings</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sysctl">sysctl</a></li>
 </ul>
@@ -143,6 +150,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#include-files-ending-on-x-and-containing-y">include files ending on x and containing y</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#substitutions">substitutions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#proces-substitution">proces substitution</a></li>
 </ul>
 </li>
 </ul>
@@ -216,6 +227,22 @@
             
   <div class="section" id="bash">
 <h1>BASH<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tips-and-tricks">
+<h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="great-shortcuts">
+<h3>great shortcuts<a class="headerlink" href="#great-shortcuts" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ctrl-u-ctrl-y">
+<h4>ctrl-u &amp; ctrl-y<a class="headerlink" href="#ctrl-u-ctrl-y" title="Permalink to this headline">¶</a></h4>
+<p>when typing a long command you need to interrupt it bc you want to do something else first then:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ctrl</span><span class="o">+</span><span class="n">e</span> <span class="c1"># go to end of cmd if you&#39;re not allready</span>
+<span class="n">ctrl</span><span class="o">+</span><span class="n">u</span> <span class="c1"># get clean line</span>
+<span class="n">echo</span> <span class="s2">&quot;got to do this first&quot;</span> <span class="c1"># execute you&#39;re interrupting command</span>
+<span class="n">ctrl</span><span class="o">+</span><span class="n">y</span> <span class="c1"># now you are back at work on your last command :)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="modify-kernel-settings">
 <h2>modify kernel settings<a class="headerlink" href="#modify-kernel-settings" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sysctl">
@@ -434,6 +461,40 @@ rm -- !(file.txt)
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="substitutions">
+<h2>substitutions<a class="headerlink" href="#substitutions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="proces-substitution">
+<h3>proces substitution<a class="headerlink" href="#proces-substitution" title="Permalink to this headline">¶</a></h3>
+<p>Ever wanted to diff the outputs of two commands quickly? Of course, you could redirect the output to a temporary file for both of them, and diff those files, like this:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">local_etc_files</span>
+<span class="n">find</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">remote</span><span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">remote_etc_files</span>
+<span class="n">diff</span> <span class="n">local_etc_files</span> <span class="n">remote_etc_files</span>
+<span class="n">rm</span> <span class="n">local_etc_files</span> <span class="n">remote_etc_files</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This would tell you the differences between which files are in /etc on the local computer and a remote one. It takes four lines, however. Using process substitution, we can do this is just a single line:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">diff</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">find</span> <span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">find</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">remote</span><span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>What’s that &lt;(…) syntax? It means “run the command inside it, connect the output to a temporary pipe file and give that as an argument”. To understand this more thoroughly, try running this:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">echo</span> <span class="n">test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Instead of printing “test”, this will print something like “/dev/fd/63”. You see now that the &lt;(…) part is actually replaced by a file. This file is a stream from which the output of the command inside &lt;(…) can be read, like this:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">echo</span> <span class="n">test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Now this does print “test”! Bash redirects the output of “echo test” to /dev/fd/&lt;something&gt;, gives the path of that file to cat, and cat reads the output of echo from that file. The shortened diff command above does the same, only for two slightly more complicated commands. This technique can be applied in any place where a temporary file is needed, but it does have a limitation. The temporary file can only be read once before it disappears. There’s no use in saving the name of the temporary file. If you need multiple accesses to the output of a program, use an old-fashioned temporary file or see if you can use pipes instead.</p>
 </div>
 </div>
 </div>

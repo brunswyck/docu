@@ -2,6 +2,22 @@
 BASH
 ####
 
+***************
+Tips and Tricks
+***************
+great shortcuts
+===============
+ctrl-u & ctrl-y
+---------------
+when typing a long command you need to interrupt it bc you want to do something else first then:
+
+.. code::
+   
+   ctrl+e # go to end of cmd if you're not allready
+   ctrl+u # get clean line
+   echo "got to do this first" # execute you're interrupting command
+   ctrl+y # now you are back at work on your last command :)
+
 **********************
 modify kernel settings
 **********************
@@ -247,4 +263,36 @@ include files ending on x and containing y
 
    grep -r --include '*.list' '^deb ' /etc/apt/sources.list /etc/apt/sources.list.d/
 
+*************
+substitutions
+*************
+proces substitution
+===================
+Ever wanted to diff the outputs of two commands quickly? Of course, you could redirect the output to a temporary file for both of them, and diff those files, like this:
 
+ .. code::
+
+    find /etc | sort > local_etc_files
+    find /mnt/remote/etc | sort > remote_etc_files
+    diff local_etc_files remote_etc_files
+    rm local_etc_files remote_etc_files
+
+This would tell you the differences between which files are in /etc on the local computer and a remote one. It takes four lines, however. Using process substitution, we can do this is just a single line:
+
+ .. code::
+
+    diff <(find /etc | sort) <(find /mnt/remote/etc | sort)
+
+What’s that <(…) syntax? It means “run the command inside it, connect the output to a temporary pipe file and give that as an argument”. To understand this more thoroughly, try running this:
+
+ .. code::
+
+    echo <(echo test)
+
+Instead of printing “test”, this will print something like “/dev/fd/63”. You see now that the <(…) part is actually replaced by a file. This file is a stream from which the output of the command inside <(…) can be read, like this:
+
+ .. code::
+
+    cat <(echo test)
+
+Now this does print “test”! Bash redirects the output of “echo test” to /dev/fd/<something>, gives the path of that file to cat, and cat reads the output of echo from that file. The shortened diff command above does the same, only for two slightly more complicated commands. This technique can be applied in any place where a temporary file is needed, but it does have a limitation. The temporary file can only be read once before it disappears. There’s no use in saving the name of the temporary file. If you need multiple accesses to the output of a program, use an old-fashioned temporary file or see if you can use pipes instead.
