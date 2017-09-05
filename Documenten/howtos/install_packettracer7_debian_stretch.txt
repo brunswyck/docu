@@ -75,8 +75,12 @@ PT7HOME="/opt/pt"
 export PT7HOME
 
 
+patrick@debian:~[brunswyck:home.git master|!]$ cat /opt/pt/packettracer 
+#!/bin/bash
+
+echo Starting Packet Tracer 7.1
 /opt/pt/bin/PacketTracer7 "$@" > /dev/null 2>&1
-in packettracer file
+
 
 Warning: QT_DEVICE_PIXEL_RATIO is deprecated. Instead use: 
     QT_AUTO_SCREEN_SCALE_FACTOR to enable platform plugin controlled per-screen factors. 

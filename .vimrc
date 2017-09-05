@@ -19,6 +19,11 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" https://github.com/tpope/vim-sensible
+" sensible defaults
+"
+Plugin 'tpope/vim-sensible'
+
 " NERDTree file explorer + git plugin
 " https://github.com/scrooloose/nerdtree
 " https://github.com/Xuyuanp/nerdtree-git-plugin
@@ -38,7 +43,7 @@ Plugin 'scrooloose/nerdtree'
 " gT cycle though all tabs (moves to the left)
 "  
 "  Give a shortcut key to NERD Tree
-map <F2> :NERDTreeToggle<CR>
+map <F1> :NERDTreeToggle<CR>
 " autopen NERDTree and focus cursor in new document
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
@@ -81,6 +86,16 @@ filetype plugin indent on    " required
 
 " set tabstops every 4 spaces and set the shiftwidth (the amount you indent)
 " to 2 spaces
+"
+" keep swap files etc out of git directories
+" swap files (.swp) in a common location
+" // means use the file's full path
+set dir=~/.vim/_swap//
+set backup
+set backupdir=~/.vim/_backup/,~/tmp,.
+set undofile
+set undodir=~/.vim/_undo/
+
 set ts=4 sw=2
 
 set number " show current line number
