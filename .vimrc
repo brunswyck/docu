@@ -42,13 +42,6 @@ Plugin 'scrooloose/nerdtree'
 " gt cycle though all tabs
 " gT cycle though all tabs (moves to the left)
 "  
-"  Give a shortcut key to NERD Tree
-map <F1> :NERDTreeToggle<CR>
-" autopen NERDTree and focus cursor in new document
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-" for now I'm just toggling hidden files by pressing uppercase i
-" let NERDTreeShowHidden=1
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " NERD Commenter
 " for more info type :help nerdcommenter
@@ -84,24 +77,36 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 " -----------------------------------------
 
-" set tabstops every 4 spaces and set the shiftwidth (the amount you indent)
-" to 2 spaces
+
+
+"first of all, create these three folders:
+"
+" mkdir ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo
 "
 " keep swap files etc out of git directories
 " swap files (.swp) in a common location
 " // means use the file's full path
-set dir=~/.vim/_swap//
-set backup
-set backupdir=~/.vim/_backup/,~/tmp,.
-set undofile
-set undodir=~/.vim/_undo/
+set undodir=~/.vim/.undo//
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swp//
+"Alternatively you can turn them off, putting this in your vimrc file:
+"set nobackup
+"set noswapfile
 
+" set tabstops every 4 spaces and set the shiftwidth (the amount you indent)
+" to 2 spaces
+"
 set ts=4 sw=2
-
-set number " show current line number
-set relativenumber " show relative line numbers
 syntax on
 
+set number relativenumber " show relative line numbers
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
+" you need some color in your life :)
 colorscheme molokai-dark
 " for terminal which supports truecolor
 set termguicolors
@@ -116,6 +121,14 @@ set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
 " Quickly go to line number
 :nnoremap <CR> G
 set pastetoggle=<F2>
+
+"  Give a shortcut key to NERD Tree
+map <F1> :NERDTreeToggle<CR>
+" autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+" for now I'm just toggling hidden files by pressing uppercase i
+" let NERDTreeShowHidden=1
 
 " get ReST-compatible tables with vim-table-mode plugin
 let g:table_mode_corner_corner='+'
