@@ -3395,17 +3395,17 @@ Switch 2 & 3
    Primary Secondary Type              Ports
    ------- --------- ----------------- ------------------------------------------
 
-S2#show interfaces trunk 
-Port        Mode         Encapsulation  Status        Native vlan
-Gig0/1      on           802.1q         trunking      56
-
-Port        Vlans allowed on trunk
-Gig0/1      10,20,30,56
-
-Port        Vlans allowed and active in management domain
-Gig0/1      10,20,30,56
-
-Port        Vlans in spannin
+   S2#show interfaces trunk 
+   Port        Mode         Encapsulation  Status        Native vlan
+   Gig0/1      on           802.1q         trunking      56
+   
+   Port        Vlans allowed on trunk
+   Gig0/1      10,20,30,56
+   
+   Port        Vlans allowed and active in management domain
+   Gig0/1      10,20,30,56
+   
+   Port        Vlans in spannin
 
 .. code::
 
@@ -3496,4 +3496,54 @@ Troubleshooting vlan/trunk bullet points
 
 * enable a vlan ``interface vlan 20`` 
 
+VLAN Command Summary Table
+--------------------------
+
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| Command                                   | Description                                                                                            |
++===========================================+========================================================================================================+
+| vtp mode [server - client - transparent]  | In global configuration mode, this command sets the operational VTP mode for the switch.               |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | The default is server.                                                                                 |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| vtp domain name                           | In global configuration mode, this command assigns a VTP domain name,                                  |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | which allows the switch to send VTP advertisements out trunk links.                                    |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | The default is NULL, which would allow a switch to join the first domain it received an update from.   |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| show vtp status                           | Displays VTP status information including configuration revision number, domain name, and switch mode. |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| switchport mode [trunk-access-dynamic     | In interface configuration mode, this configures the behavior of the interface.                        |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| [desirable-auto-nonegotiate]]             | Trunk mode will force frame tagging. Dynamic mode can become a trunk if  it negotiates                 |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | with the other side of the link. Access mode is a nontrunk port.                                       |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| switchport trunk encapsulation dot1q      | Used in interface configuration mode to specify a trunking protocol. For some switches,                |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | before you can set an interface to trunk mode, you must first specify the encapsulation.               |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| show interface [type module/port] trunk   | Displays trunking information about the active or specified trunk links on the switch.                 |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| show interface [type mod/port] switchport | Displays Layer 2 configuration and operational parameters of the switch.                               |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | This includes VLAN membership and trunking status.                                                     |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| vlan number                               | In global configuration mode, this command defines a VLAN                                              |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | and puts the switch into VLAN configuration mode. In VLAN configuration mode,                          |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | commands such as name can be used to further define the VLAN.                                          |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| show vlan [id vlan#]                      | Displays VLAN information. The id option allows you to specify a particular VLAN.                      |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| switchport access vlan [1-4096 / dynamic] | In interface configuration mode, this command assigns an access port to a VLAN                         |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+|                                           | or makes it a dynamic port.                                                                            |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| show vlan brief                           | Displays a brief table of the VLANs, including the port membership for each VLAN.                      |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| show spanning-tree [vlan number]          | Displays Spanning Tree information for the switch or a VLAN if the vlan option is used.                |
++-------------------------------------------+--------------------------------------------------------------------------------------------------------+
 

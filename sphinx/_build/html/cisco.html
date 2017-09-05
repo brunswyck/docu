@@ -199,6 +199,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-vlans">Troubleshooting VLANS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-trunks">Troubleshooting Trunks</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-vlan-trunk-bullet-points">Troubleshooting vlan/trunk bullet points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vlan-command-summary-table">VLAN Command Summary Table</a></li>
 </ul>
 </li>
 </ul>
@@ -3826,16 +3827,20 @@ Remote SPAN VLANs
 
 Primary Secondary Type              Ports
 ------- --------- ----------------- ------------------------------------------
+
+S2#show interfaces trunk
+Port        Mode         Encapsulation  Status        Native vlan
+Gig0/1      on           802.1q         trunking      56
+
+Port        Vlans allowed on trunk
+Gig0/1      10,20,30,56
+
+Port        Vlans allowed and active in management domain
+Gig0/1      10,20,30,56
+
+Port        Vlans in spannin
 </pre></div>
 </div>
-<p>S2#show interfaces trunk
-Port        Mode         Encapsulation  Status        Native vlan
-Gig0/1      on           802.1q         trunking      56</p>
-<p>Port        Vlans allowed on trunk
-Gig0/1      10,20,30,56</p>
-<p>Port        Vlans allowed and active in management domain
-Gig0/1      10,20,30,56</p>
-<p>Port        Vlans in spannin</p>
 </div>
 </div>
 <div class="section" id="troubleshooting-vlan-trunk-bullet-points">
@@ -3922,6 +3927,88 @@ Gig0/1      10,20,30,56</p>
 <li><p class="first">enable a vlan <code class="docutils literal"><span class="pre">interface</span> <span class="pre">vlan</span> <span class="pre">20</span></code></p>
 </li>
 </ul>
+</div>
+<div class="section" id="vlan-command-summary-table">
+<h4>VLAN Command Summary Table<a class="headerlink" href="#vlan-command-summary-table" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Command</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>vtp mode [server - client - transparent]</td>
+<td>In global configuration mode, this command sets the operational VTP mode for the switch.</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>The default is server.</td>
+</tr>
+<tr class="row-even"><td>vtp domain name</td>
+<td>In global configuration mode, this command assigns a VTP domain name,</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>which allows the switch to send VTP advertisements out trunk links.</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>The default is NULL, which would allow a switch to join the first domain it received an update from.</td>
+</tr>
+<tr class="row-odd"><td>show vtp status</td>
+<td>Displays VTP status information including configuration revision number, domain name, and switch mode.</td>
+</tr>
+<tr class="row-even"><td>switchport mode [trunk-access-dynamic</td>
+<td>In interface configuration mode, this configures the behavior of the interface.</td>
+</tr>
+<tr class="row-odd"><td>[desirable-auto-nonegotiate]]</td>
+<td>Trunk mode will force frame tagging. Dynamic mode can become a trunk if  it negotiates</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>with the other side of the link. Access mode is a nontrunk port.</td>
+</tr>
+<tr class="row-odd"><td>switchport trunk encapsulation dot1q</td>
+<td>Used in interface configuration mode to specify a trunking protocol. For some switches,</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>before you can set an interface to trunk mode, you must first specify the encapsulation.</td>
+</tr>
+<tr class="row-odd"><td>show interface [type module/port] trunk</td>
+<td>Displays trunking information about the active or specified trunk links on the switch.</td>
+</tr>
+<tr class="row-even"><td>show interface [type mod/port] switchport</td>
+<td>Displays Layer 2 configuration and operational parameters of the switch.</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>This includes VLAN membership and trunking status.</td>
+</tr>
+<tr class="row-even"><td>vlan number</td>
+<td>In global configuration mode, this command defines a VLAN</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>and puts the switch into VLAN configuration mode. In VLAN configuration mode,</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>commands such as name can be used to further define the VLAN.</td>
+</tr>
+<tr class="row-odd"><td>show vlan [id vlan#]</td>
+<td>Displays VLAN information. The id option allows you to specify a particular VLAN.</td>
+</tr>
+<tr class="row-even"><td>switchport access vlan [1-4096 / dynamic]</td>
+<td>In interface configuration mode, this command assigns an access port to a VLAN</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>or makes it a dynamic port.</td>
+</tr>
+<tr class="row-even"><td>show vlan brief</td>
+<td>Displays a brief table of the VLANs, including the port membership for each VLAN.</td>
+</tr>
+<tr class="row-odd"><td>show spanning-tree [vlan number]</td>
+<td>Displays Spanning Tree information for the switch or a VLAN if the vlan option is used.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
