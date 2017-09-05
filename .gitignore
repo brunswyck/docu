@@ -23,6 +23,7 @@ docu
 Bureaublad
 .cache
 .config
+!/home/patrick/.config/xfce4/terminal/
 .dbus
 .dmrc
 Downloads
