@@ -3653,9 +3653,88 @@ Any device that supports Layer 3 routing, such as a router or a multilayer switc
 There are three options for inter-VLAN routing:
  * Legacy inter-VLAN routing:
     The switch ports connected to the router are placed in access mode and each physical interface is assigned to a different VLAN. Each router interface can then accept traffic from the VLAN associated with the switch interface that it is connected to, and traffic can be routed to the other VLANs connected to the other interfaces.
- * Router-on-a-Stick
+ * Router-on-a-Stick:
+    The router interface is configured to operate as a trunk link and is connected to a switch port that is configured in trunk mode. The router performs inter-VLAN routing by accepting VLAN-tagged traffic on the trunk interface coming from the adjacent switch, and then, internally routing between the VLANs using subinterfaces. The router then forwards the routed traffic, VLAN-tagged for the destination VLAN, out the same physical interface as it used to receive the traffic
  * Layer 3 switching using SVI's
 
+legacy intervlan routing
+^^^^^^^^^^^^^^^^^^^^^^^^
 .. image:: _static/legacy_intervlan_routing.png
+
+Router R1 has a separate interface configured for each of the VLANs.
+
+.. note:: This method of inter-VLAN routing is not efficient and is generally no longer implemented in switched networks. It is shown in this course for explanation purposes only.
+
+Devices use their default gateway as the Layer 2 destination for all traffic that must leave the local subnet. The default gateway is the route that the device uses when it has no other explicitly defined route to the destination network. The IPv4 address of the router interface on the local subnet acts as the default gateway for the sending device.
+
+When the source device has determined that the packet must travel through the local router interface on the connected VLAN, the source device sends out an ARP request to determine the MAC address of the local router interface. When the router sends its ARP reply back to the source device, the source device can use the MAC address to finish framing the packet before it sends it out on the network as unicast traffic.
+
+Because the Ethernet frame has the destination MAC address of the router interface, the switch knows exactly which switch port to forward the unicast traffic out of to reach the router interface for that VLAN. When the frame arrives at the router, the router removes the source and destination MAC address information to examine the destination IPv4 address of the packet. The router compares the destination address to entries in its routing table to determine where it needs to forward the data to reach its final destination. If the router determines that the destination network is a locally connected network, as is the case with inter-VLAN routing, the router sends an ARP request out the interface that is physically connected to the destination VLAN. The destination device responds back to the router with its MAC address, which the router then uses to frame the packet. The router then sends the unicast traffic to the switch, which forwards it out the port where the destination device is connected.
+
+configuration
+~~~~~~~~~~~~~
+
+.. image:: _static/configure_legacy_intervlanning.png
+
+** of the switch **
+.. code::
+
+   S1(config)# vlan 10
+   S1(config-vlan)# vlan 30
+   
+.. note:: Use the vlan vlan_id global configuration mode command to create VLANs. In this example, VLANs 10 and 30 were created on switch S1. 
+
+.. code::
+
+   S1(config)# interface f0/11
+   S1(config-if)# switchport access vlan 10
+   S1(config-if)# interface f0/4
+   S1(config-if)# switchport access vlan 10
+   S1(config-if)# interface f0/6
+   S1(config-if)# switchport access vlan 30
+   S1(config-if)# interface f0/5
+   S1(config-if)# switchport access vlan 30
+   S1(config-if)# end
+   S1# copy running-config startup-config
+
+** of the router **
+
+.. code::
+
+   R1(config)# interface g0/0
+   R1(config-if)# ip address 172.17.10.1 255.255.255.0
+   
+
+
+router-on-a-stick intervlan routing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: _static/router_on_a_stick_intervlanning.png
+
+Subinterfaces are configured for different subnets corresponding to their VLAN assignment to facilitate logical routing. After a routing decision is made based on the destination VLAN, the data frames are VLAN-tagged and sent back out the physical interface. 
+
+1. PC1 on VLAN 10 is communicating with PC3 on VLAN 30 through router R1 using a single, physical router interface.
+
+2. PC1 sends its unicast traffic to switch S2.
+
+3. Switch S2 then tags the unicast traffic as originating on VLAN 10 and forwards the unicast traffic out its trunk link to switch S1.
+
+4. Switch S1 forwards the tagged traffic out the other trunk interface on port F0/3 to the interface on router R1.
+
+5. Router R1 accepts the tagged unicast traffic on VLAN 10 and routes it to VLAN 30 using its configured subinterfaces.
+
+6. The unicast traffic is tagged with VLAN 30 as it is sent out the router interface to switch S1.
+
+7. Switch S1 forwards the tagged unicast traffic out the other trunk link to switch S2.
+
+8. Switch S2 removes the VLAN tag of the unicast frame and forwards the frame out to PC3 on port F0/23.
+
+.. Note:: The router-on-a-stick method of inter-VLAN routing does not scale beyond 50 VLANs.
+
+multilayer switch intervlanning
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/multilayer_switch_intervlanning.png
+
+.. note:: outside the scope of course for now..
 
 

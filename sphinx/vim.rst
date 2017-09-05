@@ -155,6 +155,37 @@ Escape or not?
 keyboard shortcuts
 ==================
 
+mnemonics
+---------
+
+* a: append or around
+* b: before
+* c: change
+* d: delete
+* e: edit
+* f: find
+* g: go
+* h: left
+* i: insert or in
+* j: down
+* k: up
+* l: right
+* m: mark
+* n: next
+* o: open a new line
+* p: put or paste
+* q: (quote/record keystrokes to the register indicated by the next character)
+* r: replace
+* s: substitute
+* t: toward
+* u: undo
+* v: enter visual mode
+* w: word (move right one word at a time)
+* x: (delete (or x-out) a single character)
+* y: yank
+* z: fold, it's visual, it looks like a folded sheet of paper
+
+
 repeat last command
 -------------------
 press `.` to repeat last change made in normal mode
@@ -166,6 +197,22 @@ exit from insert mode to normal mode
 Add to your .vimrc file::
 
     inoremap jj <ESC>
+
+up until next char/word
+-----------------------
+
+.. code::
+
+   dt[char] # delete until you encounter next space
+   t[char] # jump to just before char
+   df[char] # deletes upto and including char
+   dfT[char] # deletes back to previous space
+   d2t[char] # will delete upto 2 spaces
+   
+   dW # delete all nonblank chars until and incl space
+   dE # same but not the space
+   daW # delete from inside a word incl whitespace after word
+   diw # deletes word irrespective pos. cursor & go into insert mode
 
 file exploring
 ==============

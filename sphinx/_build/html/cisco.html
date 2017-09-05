@@ -4120,12 +4120,85 @@ Port        Vlans in spannin
 <dd>The switch ports connected to the router are placed in access mode and each physical interface is assigned to a different VLAN. Each router interface can then accept traffic from the VLAN associated with the switch interface that it is connected to, and traffic can be routed to the other VLANs connected to the other interfaces.</dd>
 </dl>
 </li>
-<li>Router-on-a-Stick</li>
+<li><dl class="first docutils">
+<dt>Router-on-a-Stick:</dt>
+<dd>The router interface is configured to operate as a trunk link and is connected to a switch port that is configured in trunk mode. The router performs inter-VLAN routing by accepting VLAN-tagged traffic on the trunk interface coming from the adjacent switch, and then, internally routing between the VLANs using subinterfaces. The router then forwards the routed traffic, VLAN-tagged for the destination VLAN, out the same physical interface as it used to receive the traffic</dd>
+</dl>
+</li>
 <li>Layer 3 switching using SVI’s</li>
 </ul>
 </dd>
 </dl>
+<div class="section" id="legacy-intervlan-routing">
+<h5>legacy intervlan routing<a class="headerlink" href="#legacy-intervlan-routing" title="Permalink to this headline">¶</a></h5>
 <img alt="_images/legacy_intervlan_routing.png" src="_images/legacy_intervlan_routing.png" />
+<p>Router R1 has a separate interface configured for each of the VLANs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method of inter-VLAN routing is not efficient and is generally no longer implemented in switched networks. It is shown in this course for explanation purposes only.</p>
+</div>
+<p>Devices use their default gateway as the Layer 2 destination for all traffic that must leave the local subnet. The default gateway is the route that the device uses when it has no other explicitly defined route to the destination network. The IPv4 address of the router interface on the local subnet acts as the default gateway for the sending device.</p>
+<p>When the source device has determined that the packet must travel through the local router interface on the connected VLAN, the source device sends out an ARP request to determine the MAC address of the local router interface. When the router sends its ARP reply back to the source device, the source device can use the MAC address to finish framing the packet before it sends it out on the network as unicast traffic.</p>
+<p>Because the Ethernet frame has the destination MAC address of the router interface, the switch knows exactly which switch port to forward the unicast traffic out of to reach the router interface for that VLAN. When the frame arrives at the router, the router removes the source and destination MAC address information to examine the destination IPv4 address of the packet. The router compares the destination address to entries in its routing table to determine where it needs to forward the data to reach its final destination. If the router determines that the destination network is a locally connected network, as is the case with inter-VLAN routing, the router sends an ARP request out the interface that is physically connected to the destination VLAN. The destination device responds back to the router with its MAC address, which the router then uses to frame the packet. The router then sends the unicast traffic to the switch, which forwards it out the port where the destination device is connected.</p>
+<div class="section" id="configuration">
+<h6>configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h6>
+<img alt="_images/configure_legacy_intervlanning.png" src="_images/configure_legacy_intervlanning.png" />
+<p>** of the switch **
+.. code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># vlan 30</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use the vlan vlan_id global configuration mode command to create VLANs. In this example, VLANs 10 and 30 were created on switch S1.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/11</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/4</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/6</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 30</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/5</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 30</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">S1</span><span class="c1"># copy running-config startup-config</span>
+</pre></div>
+</div>
+<p>** of the router **</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 172.17.10.1 255.255.255.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="router-on-a-stick-intervlan-routing">
+<h5>router-on-a-stick intervlan routing<a class="headerlink" href="#router-on-a-stick-intervlan-routing" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/router_on_a_stick_intervlanning.png" src="_images/router_on_a_stick_intervlanning.png" />
+<p>Subinterfaces are configured for different subnets corresponding to their VLAN assignment to facilitate logical routing. After a routing decision is made based on the destination VLAN, the data frames are VLAN-tagged and sent back out the physical interface.</p>
+<ol class="arabic simple">
+<li>PC1 on VLAN 10 is communicating with PC3 on VLAN 30 through router R1 using a single, physical router interface.</li>
+<li>PC1 sends its unicast traffic to switch S2.</li>
+<li>Switch S2 then tags the unicast traffic as originating on VLAN 10 and forwards the unicast traffic out its trunk link to switch S1.</li>
+<li>Switch S1 forwards the tagged traffic out the other trunk interface on port F0/3 to the interface on router R1.</li>
+<li>Router R1 accepts the tagged unicast traffic on VLAN 10 and routes it to VLAN 30 using its configured subinterfaces.</li>
+<li>The unicast traffic is tagged with VLAN 30 as it is sent out the router interface to switch S1.</li>
+<li>Switch S1 forwards the tagged unicast traffic out the other trunk link to switch S2.</li>
+<li>Switch S2 removes the VLAN tag of the unicast frame and forwards the frame out to PC3 on port F0/23.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The router-on-a-stick method of inter-VLAN routing does not scale beyond 50 VLANs.</p>
+</div>
+</div>
+<div class="section" id="multilayer-switch-intervlanning">
+<h5>multilayer switch intervlanning<a class="headerlink" href="#multilayer-switch-intervlanning" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/multilayer_switch_intervlanning.png" src="_images/multilayer_switch_intervlanning.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">outside the scope of course for now..</p>
+</div>
+</div>
 </div>
 </div>
 </div>
