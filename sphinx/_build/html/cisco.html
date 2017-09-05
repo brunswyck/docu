@@ -200,6 +200,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-trunks">Troubleshooting Trunks</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-vlan-trunk-bullet-points">Troubleshooting vlan/trunk bullet points</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#vlan-command-summary-table">VLAN Command Summary Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inter-vlan-routing">Inter-VLAN Routing</a></li>
 </ul>
 </li>
 </ul>
@@ -3975,6 +3976,54 @@ Port        Vlans in spannin
 <span class="n">Appliance</span> <span class="n">trust</span><span class="p">:</span> <span class="n">none</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Watch out for unnamed vlans! Easily overlooked :)</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show vlan</span>
+
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>
+<span class="mi">10</span>   <span class="n">VLAN0010</span>                         <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">13</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">14</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">17</span>
+<span class="mi">20</span>   <span class="n">VLAN0020</span>                         <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">19</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">21</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">22</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">24</span>
+<span class="mi">30</span>   <span class="n">VLAN0030</span>                         <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">9</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">10</span>
+<span class="mi">56</span>   <span class="n">VLAN0056</span>                         <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">4</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">5</span>
+<span class="mi">1002</span> <span class="n">fddi</span><span class="o">-</span><span class="n">default</span>                     <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1003</span> <span class="n">token</span><span class="o">-</span><span class="n">ring</span><span class="o">-</span><span class="n">default</span>               <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1004</span> <span class="n">fddinet</span><span class="o">-</span><span class="n">default</span>                  <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+<span class="mi">1005</span> <span class="n">trnet</span><span class="o">-</span><span class="n">default</span>                    <span class="n">act</span><span class="o">/</span><span class="n">unsup</span>
+
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#do show vlan</span>
+
+<span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
+<span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
+<span class="mi">1</span>    <span class="n">default</span>                          <span class="n">active</span>    <span class="n">Gig0</span><span class="o">/</span><span class="mi">2</span>
+<span class="mi">10</span>   <span class="n">Faculty</span><span class="o">/</span><span class="n">Staff</span>                    <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">13</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">14</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">17</span>
+<span class="mi">20</span>   <span class="n">Students</span>                         <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">18</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">19</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">21</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">22</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">23</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">24</span>
+<span class="mi">30</span>   <span class="n">Guest</span><span class="p">(</span><span class="n">Default</span><span class="p">)</span>                   <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">9</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">10</span>
+<span class="mi">56</span>   <span class="n">Management</span><span class="o">&amp;</span><span class="n">Native</span>                <span class="n">active</span>    <span class="n">Fa0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">Fa0</span><span class="o">/</span><span class="mi">4</span>
+                                                <span class="n">Fa0</span><span class="o">/</span><span class="mi">5</span>
+
+<span class="n">solution</span>
+<span class="c1">#########</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#name Faculty/Staff</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#vlan 20</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#name Students</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#vlan 30</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#name Guest(Default)</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#vlan 56</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1">#name Management&amp;Native</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="vlan-command-summary-table">
 <h4>VLAN Command Summary Table<a class="headerlink" href="#vlan-command-summary-table" title="Permalink to this headline">¶</a></h4>
@@ -4057,6 +4106,26 @@ Port        Vlans in spannin
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section" id="inter-vlan-routing">
+<h4>Inter-VLAN Routing<a class="headerlink" href="#inter-vlan-routing" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/what_is_intervlan_routing.png" src="_images/what_is_intervlan_routing.png" />
+<p>A VLAN is a broadcast domain, so computers on separate VLANs are unable to communicate without the intervention of a routing device. Layer 2 switches have very limited IPv4 and IPv6 functionality and cannot perform the dynamic routing function of routers. While Layer 2 switches are gaining more IP functionality, such as the ability to perform static routing, this is insufficient to handle these large number of VLANs.</p>
+<p>Any device that supports Layer 3 routing, such as a router or a multilayer switch, can be used to perform the necessary routing functionality. Regardless of the device used, the process of forwarding network traffic from one VLAN to another VLAN using routing is known as inter-VLAN routing.</p>
+<dl class="docutils">
+<dt>There are three options for inter-VLAN routing:</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>Legacy inter-VLAN routing:</dt>
+<dd>The switch ports connected to the router are placed in access mode and each physical interface is assigned to a different VLAN. Each router interface can then accept traffic from the VLAN associated with the switch interface that it is connected to, and traffic can be routed to the other VLANs connected to the other interfaces.</dd>
+</dl>
+</li>
+<li>Router-on-a-Stick</li>
+<li>Layer 3 switching using SVI’s</li>
+</ul>
+</dd>
+</dl>
+<img alt="_images/legacy_intervlan_routing.png" src="_images/legacy_intervlan_routing.png" />
 </div>
 </div>
 </div>

@@ -3656,6 +3656,4 @@ There are three options for inter-VLAN routing:
  * Router-on-a-Stick
  * Layer 3 switching using SVI's
 
-.. image:: _static/legacy_intervlan_routing.png
-
 

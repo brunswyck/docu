@@ -3544,6 +3544,53 @@ Troubleshooting vlan/trunk bullet points
    Unknown multicast blocked: disabled
    Appliance trust: none
 
+.. warning:: Watch out for unnamed vlans! Easily overlooked :)
+
+.. code::
+
+   S1(config)#do show vlan
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    
+   10   VLAN0010                         active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17
+   20   VLAN0020                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                   Fa0/22, Fa0/23, Fa0/24
+   30   VLAN0030                         active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10
+   56   VLAN0056                         active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5
+   1002 fddi-default                     act/unsup 
+   1003 token-ring-default               act/unsup 
+   1004 fddinet-default                  act/unsup 
+   1005 trnet-default                    act/unsup 
+   
+   S2(config-if)#do show vlan
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Gig0/2
+   10   Faculty/Staff                    active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17
+   20   Students                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                   Fa0/22, Fa0/23, Fa0/24
+   30   Guest(Default)                   active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10
+   56   Management&Native                active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5
+   
+   solution
+   #########
+   S1(config)#vlan 10
+   S1(config-vlan)#name Faculty/Staff
+   S1(config-vlan)#vlan 20
+   S1(config-vlan)#name Students
+   S1(config-vlan)#vlan 30
+   S1(config-vlan)#name Guest(Default)
+   S1(config-vlan)#vlan 56
+   S1(config-vlan)#name Management&Native
+
 VLAN Command Summary Table
 --------------------------
 
@@ -3594,4 +3641,21 @@ VLAN Command Summary Table
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------+
 | show spanning-tree [vlan number]          | Displays Spanning Tree information for the switch or a VLAN if the vlan option is used.                |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+
+Inter-VLAN Routing
+------------------
+.. image:: _static/what_is_intervlan_routing.png
+
+A VLAN is a broadcast domain, so computers on separate VLANs are unable to communicate without the intervention of a routing device. Layer 2 switches have very limited IPv4 and IPv6 functionality and cannot perform the dynamic routing function of routers. While Layer 2 switches are gaining more IP functionality, such as the ability to perform static routing, this is insufficient to handle these large number of VLANs.
+
+Any device that supports Layer 3 routing, such as a router or a multilayer switch, can be used to perform the necessary routing functionality. Regardless of the device used, the process of forwarding network traffic from one VLAN to another VLAN using routing is known as inter-VLAN routing.
+
+There are three options for inter-VLAN routing:
+ * Legacy inter-VLAN routing:
+    The switch ports connected to the router are placed in access mode and each physical interface is assigned to a different VLAN. Each router interface can then accept traffic from the VLAN associated with the switch interface that it is connected to, and traffic can be routed to the other VLANs connected to the other interfaces.
+ * Router-on-a-Stick
+ * Layer 3 switching using SVI's
+
+.. image:: _static/legacy_intervlan_routing.png
+
 
