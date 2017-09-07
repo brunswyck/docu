@@ -201,6 +201,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-vlan-trunk-bullet-points">Troubleshooting vlan/trunk bullet points</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#vlan-command-summary-table">VLAN Command Summary Table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#inter-vlan-routing">Inter-VLAN Routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-roast">configuration roast</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lab-roast">lab roast :)</a></li>
 </ul>
 </li>
 </ul>
@@ -4140,34 +4142,118 @@ Port        Vlans in spannin
 <p>Devices use their default gateway as the Layer 2 destination for all traffic that must leave the local subnet. The default gateway is the route that the device uses when it has no other explicitly defined route to the destination network. The IPv4 address of the router interface on the local subnet acts as the default gateway for the sending device.</p>
 <p>When the source device has determined that the packet must travel through the local router interface on the connected VLAN, the source device sends out an ARP request to determine the MAC address of the local router interface. When the router sends its ARP reply back to the source device, the source device can use the MAC address to finish framing the packet before it sends it out on the network as unicast traffic.</p>
 <p>Because the Ethernet frame has the destination MAC address of the router interface, the switch knows exactly which switch port to forward the unicast traffic out of to reach the router interface for that VLAN. When the frame arrives at the router, the router removes the source and destination MAC address information to examine the destination IPv4 address of the packet. The router compares the destination address to entries in its routing table to determine where it needs to forward the data to reach its final destination. If the router determines that the destination network is a locally connected network, as is the case with inter-VLAN routing, the router sends an ARP request out the interface that is physically connected to the destination VLAN. The destination device responds back to the router with its MAC address, which the router then uses to frame the packet. The router then sends the unicast traffic to the switch, which forwards it out the port where the destination device is connected.</p>
-<div class="section" id="configuration">
-<h6>configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h6>
+<div class="section" id="lab-configuration">
+<h6>Lab configuration<a class="headerlink" href="#lab-configuration" title="Permalink to this headline">¶</a></h6>
 <img alt="_images/configure_legacy_intervlanning.png" src="_images/configure_legacy_intervlanning.png" />
-<p>** of the switch **
-.. code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 10</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># vlan 30</span>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="17%" />
+<col width="23%" />
+<col width="23%" />
+<col width="26%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/0</td>
+<td>192.168.20.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/1</td>
+<td>192.168.10.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>S1</td>
+<td>VLAN 10</td>
+<td>192.168.10.11</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+<tr class="row-odd"><td>S2</td>
+<td>VLAN 10</td>
+<td>192.168.10.12</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+<tr class="row-even"><td>PC-A</td>
+<td>NIC</td>
+<td>192.168.10.3</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+<tr class="row-odd"><td>PC-B</td>
+<td>NIC</td>
+<td>192.168.20.3</td>
+<td>255.255.255.0</td>
+<td>192.168.20.1</td>
+</tr>
+</tbody>
+</table>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span> <span class="n">S1</span>
+<span class="o">=========</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Student</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 20</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Faculty-Admin</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode trunk</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface range f0/5 - 6</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># switchport access vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># interface vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 192.168.10.11 255.255.255.0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shut</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip default-gateway 192.168.10.1</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Use the vlan vlan_id global configuration mode command to create VLANs. In this example, VLANs 10 and 30 were created on switch S1.</p>
+<p class="last">Use the vlan vlan_id global configuration mode command to create VLANs.</p>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/11</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 10</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/4</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 10</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/6</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 30</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/5</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 30</span>
-<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
-<span class="n">S1</span><span class="c1"># copy running-config startup-config</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span> <span class="n">S2</span>
+<span class="o">=========</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 10</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Student</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 20</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Faculty-Admin</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/1</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode trunk</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/11</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 20</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/18</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 20</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># interface vlan 10</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 192.168.10.12 255.255.255.0</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shut</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip default-gateway 192.168.10.1</span>
 </pre></div>
 </div>
-<p>** of the router **</p>
+<ul class="simple">
+<li><strong>of the router</strong></li>
+</ul>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
-<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 172.17.10.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 192.168.20.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 192.168.10.1 255.255.255.0</span>
 </pre></div>
 </div>
 </div>
@@ -4191,6 +4277,235 @@ Port        Vlans in spannin
 <p class="last">The router-on-a-stick method of inter-VLAN routing does not scale beyond 50 VLANs.</p>
 </div>
 </div>
+</div>
+<div class="section" id="configuration-roast">
+<h4>configuration roast<a class="headerlink" href="#configuration-roast" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/configure_routing_on_a_stick.png" src="_images/configure_routing_on_a_stick.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before assigning an IP address to a subinterface, the subinterface must be configured to operate on a specific VLAN using the encapsulation dot1q vlan_id command. <code class="docutils literal"><span class="pre">encapsulation</span> <span class="pre">dot1q</span> <span class="pre">vlan-id</span> <span class="pre">{native}</span></code></p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0.10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># encapsulation dot1q 10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># ip address 172.17.10.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># interface g0/0.30</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># encapsulation dot1q 30</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># ip address 172.17.30.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">no</span> <span class="pre">shutdown</span></code> is entered in interface configuration mode for interface G0/0, which in turn, enables all of the configured subinterfaces</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Individual subinterfaces can be administratively shut down with <code class="docutils literal"><span class="pre">shutdown</span></code>. Individual subinterfaces can be enabled independently with <code class="docutils literal"><span class="pre">no</span> <span class="pre">shutdown</span></code> in the subinterface configuration mode</p>
+</div>
+<img alt="_images/iproute_roast.png" src="_images/iproute_roast.png" />
+<p>verify with ping and traceroute</p>
+</div>
+<div class="section" id="lab-roast">
+<h4>lab roast :)<a class="headerlink" href="#lab-roast" title="Permalink to this headline">¶</a></h4>
+<img alt="_static/lab_roast.png" src="_static/lab_roast.png" />
+<ul class="simple">
+<li>Addressing Table</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+<col width="24%" />
+<col width="24%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/1.1</td>
+<td>192.168.1.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/1.10</td>
+<td>192.168.10.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>G0/1.20</td>
+<td>192.168.20.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo0</td>
+<td>209.165.200.225</td>
+<td>255.255.255.224</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>S1</td>
+<td>VLAN 1</td>
+<td>192.168.1.11</td>
+<td>255.255.255.0</td>
+<td>192.168.1.1</td>
+</tr>
+<tr class="row-odd"><td>S2</td>
+<td>VLAN 1</td>
+<td>192.168.1.12</td>
+<td>255.255.255.0</td>
+<td>192.168.1.1</td>
+</tr>
+<tr class="row-even"><td>PC-A</td>
+<td>NIC</td>
+<td>192.168.10.3</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+<tr class="row-odd"><td>P-B</td>
+<td>NIC</td>
+<td>192.168.20.3</td>
+<td>255.255.255.0</td>
+<td>192.168.20.1</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Switch Port Assignment Specifications</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="43%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Ports</th>
+<th class="head">Assignment</th>
+<th class="head">Network</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>S1 F0/1</td>
+<td>802.1Q Trunk</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>S2 F0/1</td>
+<td>802.1Q Trunk</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>S1 F0/5</td>
+<td>802.1Q Trunk</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>S1 F0/6</td>
+<td>VLAN 10 – Students</td>
+<td>192.168.10.0/24</td>
+</tr>
+<tr class="row-even"><td>S2 F0/18</td>
+<td>VLAN 20 – Faculty</td>
+<td>192.168.20.0/24</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first">Objectives:
+#: Build the Network and Configure Basic Device Settings
+#: Configure Switches with VLANs and Trunking
+#: Configure Trunk-Based Inter-VLAN Routing</p>
+</li>
+<li><p class="first">basic config switch</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#Unauthorized access is strictly prohibited. #</span>
+<span class="n">line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">15</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">exit</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">basic config router</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">hostname</span> <span class="n">R1</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1"># Unauthorized access is strictly prohibited. #</span>
+<span class="n">Line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">4</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">configuration commands</p>
+</li>
+</ul>
+<p>Switch1:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Students</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># vlan 20</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Faculty</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode trunk</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/5</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode trunk</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/6</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 10</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Switch2:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 10</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Students</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># vlan 20</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name Faculty</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/1</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode trunk</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface f0/18</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 20</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Router1:</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1.1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># encapsulation dot1Q 1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># ip address 192.168.1.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># interface g0/1.10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># encapsulation dot1Q 10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># ip address 192.168.10.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># interface g0/1.20</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># encapsulation dot1Q 20</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># ip address 192.168.20.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">subif</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
+</pre></div>
+</div>
+</div></blockquote>
 <div class="section" id="multilayer-switch-intervlanning">
 <h5>multilayer switch intervlanning<a class="headerlink" href="#multilayer-switch-intervlanning" title="Permalink to this headline">¶</a></h5>
 <img alt="_images/multilayer_switch_intervlanning.png" src="_images/multilayer_switch_intervlanning.png" />

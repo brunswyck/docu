@@ -185,11 +185,38 @@ mnemonics
 * y: yank
 * z: fold, it's visual, it looks like a folded sheet of paper
 
+Movements
+=========
+jump to previous cursor locations
+---------------------------------
+
+* ``''`` go to previous cursor position
+* ``g; and g,`` to move back- and forward in the list of your previous edit location
+
+jump-list
+---------
+lets you navigate back and forth among a number of motions.  see ``:help jump-motions`` for more information.
+
+* ``Ctrl+I`` or ``Ctrl+O``
+
+DRY
+===
 
 repeat last command
 -------------------
 press `.` to repeat last change made in normal mode
 eg `dw` to delete a word and `.` to delete some more words$
+
+macro's
+-------
+
+start a macro with ``qa`` a is your first macro b your second
+do your motions and inserts like ``$a|,``
+now execute the macro with ``@a``
+now repeat this with ``@@`` or with count ``10@@``
+
+to view your macro's type ``:reg``
+or view macros a b c ``:reg abc``
 
 exit from insert mode to normal mode
 ------------------------------------
@@ -235,6 +262,17 @@ open new file from within vim
     :e newfile.rst
     or browse for it
     :Explore <directory> 
+
+
+There are several window commands that allow you to do this:
+
+  * Ctrl+W +/-: increase/decrease height (ex. 20<C-w>+)
+  * Ctrl+W >/<: increase/decrease width (ex. 30<C-w><)
+  * Ctrl+W _: set height (ex. 50<C-w>_)
+  * Ctrl+W |: set width (ex. 50<C-w>|)
+  * Ctrl+W =: equalize width and height of all windows
+
+See also: :help CTRL-W
 
 working with tabs
 -----------------

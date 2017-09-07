@@ -101,7 +101,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#escape-or-not">Escape or not?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#keyboard-shortcuts">keyboard shortcuts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mnemonics">mnemonics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#movements">Movements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#jump-to-previous-cursor-locations">jump to previous cursor locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jump-list">jump-list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dry">DRY</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#repeat-last-command">repeat last command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#macro-s">macro’s</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#exit-from-insert-mode-to-normal-mode">exit from insert mode to normal mode</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#up-until-next-char-word">up until next char/word</a></li>
 </ul>
@@ -387,10 +396,39 @@
 <li>z: fold, it’s visual, it looks like a folded sheet of paper</li>
 </ul>
 </div>
+</div>
+<div class="section" id="movements">
+<h3>Movements<a class="headerlink" href="#movements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="jump-to-previous-cursor-locations">
+<h4>jump to previous cursor locations<a class="headerlink" href="#jump-to-previous-cursor-locations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">''</span></code> go to previous cursor position</li>
+<li><code class="docutils literal"><span class="pre">g;</span> <span class="pre">and</span> <span class="pre">g,</span></code> to move back- and forward in the list of your previous edit location</li>
+</ul>
+</div>
+<div class="section" id="jump-list">
+<h4>jump-list<a class="headerlink" href="#jump-list" title="Permalink to this headline">¶</a></h4>
+<p>lets you navigate back and forth among a number of motions.  see <code class="docutils literal"><span class="pre">:help</span> <span class="pre">jump-motions</span></code> for more information.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Ctrl+I</span></code> or <code class="docutils literal"><span class="pre">Ctrl+O</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="dry">
+<h3>DRY<a class="headerlink" href="#dry" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="repeat-last-command">
 <h4>repeat last command<a class="headerlink" href="#repeat-last-command" title="Permalink to this headline">¶</a></h4>
 <p>press <cite>.</cite> to repeat last change made in normal mode
 eg <cite>dw</cite> to delete a word and <cite>.</cite> to delete some more words$</p>
+</div>
+<div class="section" id="macro-s">
+<h4>macro’s<a class="headerlink" href="#macro-s" title="Permalink to this headline">¶</a></h4>
+<p>start a macro with <code class="docutils literal"><span class="pre">qa</span></code> a is your first macro b your second
+do your motions and inserts like <code class="docutils literal"><span class="pre">$a|,</span></code>
+now execute the macro with <code class="docutils literal"><span class="pre">&#64;a</span></code>
+now repeat this with <code class="docutils literal"><span class="pre">&#64;&#64;</span></code> or with count <code class="docutils literal"><span class="pre">10&#64;&#64;</span></code></p>
+<p>to view your macro’s type <code class="docutils literal"><span class="pre">:reg</span></code>
+or view macros a b c <code class="docutils literal"><span class="pre">:reg</span> <span class="pre">abc</span></code></p>
 </div>
 <div class="section" id="exit-from-insert-mode-to-normal-mode">
 <h4>exit from insert mode to normal mode<a class="headerlink" href="#exit-from-insert-mode-to-normal-mode" title="Permalink to this headline">¶</a></h4>
@@ -433,6 +471,17 @@ Plugin ‘scrooloose/nerdcommenter’</dd>
 <span class="p">:</span><span class="n">Explore</span> <span class="o">&lt;</span><span class="n">directory</span><span class="o">&gt;</span>
 </pre></div>
 </div>
+<p>There are several window commands that allow you to do this:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Ctrl+W +/-: increase/decrease height (ex. 20&lt;C-w&gt;+)</li>
+<li>Ctrl+W &gt;/&lt;: increase/decrease width (ex. 30&lt;C-w&gt;&lt;)</li>
+<li>Ctrl+W _: set height (ex. 50&lt;C-w&gt;_)</li>
+<li>Ctrl+W <a href="#id1"><span class="problematic" id="id2">|: set width (ex. 50&lt;C-w&gt;|</span></a>)</li>
+<li>Ctrl+W =: equalize width and height of all windows</li>
+</ul>
+</div></blockquote>
+<p>See also: :help CTRL-W</p>
 </div>
 <div class="section" id="working-with-tabs">
 <h4>working with tabs<a class="headerlink" href="#working-with-tabs" title="Permalink to this headline">¶</a></h4>
