@@ -15,3 +15,4 @@ alias connect_pgsql_cloud='psql "sslmode=disable dbname=postgres user=postgres h
 alias logout="xfce4-session-logout"
 alias history="history | awk '{\$1=\"\";print substr(\$0,2)}'"
 alias installhistory="cat /var/log/apt/history.log | grep 'apt-get install'"
+alias cdpdf2txt="cd $HOME/Downloads/firefox_dlds/pdf2txt"
