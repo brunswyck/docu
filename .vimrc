@@ -120,7 +120,6 @@ set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
  
 " Quickly go to line number
 :nnoremap <CR> G
-set pastetoggle=<F2>
 
 "  Give a shortcut key to NERD Tree
 map <F1> :NERDTreeToggle<CR>
@@ -129,7 +128,8 @@ autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 " for now I'm just toggling hidden files by pressing uppercase i
 " let NERDTreeShowHidden=1
-
+set pastetoggle=<F2>
+map <F3> :TableModeToggle<CR>
 " get ReST-compatible tables with vim-table-mode plugin
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='

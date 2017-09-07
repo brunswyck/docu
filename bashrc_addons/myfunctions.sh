@@ -32,5 +32,10 @@ get_activeScreens() {
 }
 
 launchTerminal() {
- xfce4-terminal --title="HOME" --working-directory=~/ -e 'sh -ic "apt-get moo; exec bash"' --show-borders --tab -T DOCU --working-directory=$HOME/docu/sphinx/ -e 'sh -ic "vim cisco.rst; exec bash"' --tab -T AUTOBUILD -e 'sh -ic "cd $HOME/docu/sphinx && . $HOME/docu/sphinx/env/bin/activate && sphinx-autobuild -b html -H 127.0.0.1 -p 6666 ./ _build/html/; exec bash"' --tab -T VIM --working-directory=$HOME/docu/sphinx/ -e 'sh -ic "vim vim.rst; exec bash"' --tab -T CmdScripting --working-directory=$HOME/docu/sphinx/ -e 'sh -ic "vim -o commands.rst scripting.rst; exec bash"' --tab -T OTHER -e 'sh -ic "apt-get moo; exec bash"'
+ xfce4-terminal --title="HOME" --working-directory=~/ -e 'sh -ic "apt-get moo; exec bash"' --show-borders \
+   --tab -T DOCU --working-directory=$HOME/docu/sphinx/ -e 'sh -ic "vim cisco.rst; exec bash"' \
+   --tab -T AUTOBUILD -e 'sh -ic "cd $HOME/docu/sphinx && . $HOME/docu/sphinx/env/bin/activate && sphinx-autobuild -b html -H 127.0.0.1 -p 6666 ./ _build/html/; exec bash"' \
+   --tab -T VIM --working-directory=$HOME/docu/sphinx/ -e 'sh -ic "vim vim.rst; exec bash"' \
+   --tab -T CmdScripting --working-directory=$HOME/docu/sphinx/ -e 'sh -ic "vim -o commands.rst scripting.rst; exec bash"' \
+   --tab -T OTHER -e 'sh -ic "apt-get moo; exec bash"'
 }
