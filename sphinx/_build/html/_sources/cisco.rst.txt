@@ -3424,8 +3424,6 @@ Switch 2 & 3
    
    Port        Vlans in spannin
 
-.. code::
-
 
 Troubleshooting vlan/trunk bullet points
 ----------------------------------------
@@ -4118,5 +4116,241 @@ Requirements
   - Configure the backup route through the Serial 0/1/1 interface with a 10 AD.
 · Configure a directly attached default route on R1.
 · Verify connectivity by making sure all the PCs can ping Outside Host.
+
+* router solution:
+
+  .. code::
+
+     R1(config)#interface G0/0.10
+     R1(config-subif)#ip address 172.31.10.1 255.255.255.0
+     
+     % Configuring IP routing on a LAN subinterface is only allowed if that
+     subinterface is already configured as part of an IEEE 802.10, IEEE 802.1Q,
+     or ISL vLAN.
+     
+     R1(config-subif)#encapsulation dot1Q 10
+     R1(config-subif)#ip address 172.31.10.1 255.255.255.0
+     R1(config-subif)#interface G0/0.20
+     R1(config-subif)#encapsulation dot1Q 20
+     R1(config-subif)#ip address 172.31.20.1 255.255.255.0
+     R1(config-subif)#interface G0/0.30
+     R1(config-subif)#encapsulation dot1Q 30
+     R1(config-subif)#ip address 172.31.30.1 255.255.255.0
+     R1(config-subif)#interface G0/0.88
+     R1(config-subif)#encapsulation dot1Q 88
+     R1(config-subif)#ip address 172.31.88.1 255.255.255.0
+     R1(config-subif)#interface G0/0.99
+     R1(config-subif)#encapsulation dot1Q 99 native
+     R1(config-subif)#ip address 172.31.99.1 255.255.255.0
+     R1(config-subif)#do show ip int brief
+     Interface              IP-Address      OK? Method Status                Protocol 
+     GigabitEthernet0/0     unassigned      YES unset  administratively down down 
+     GigabitEthernet0/0.10  172.31.10.1     YES manual administratively down down 
+     GigabitEthernet0/0.20  172.31.20.1     YES manual administratively down down 
+     GigabitEthernet0/0.30  172.31.30.1     YES manual administratively down down 
+     GigabitEthernet0/0.88  172.31.88.1     YES manual administratively down down 
+     GigabitEthernet0/0.99  172.31.99.1     YES manual administratively down down 
+     GigabitEthernet0/1     unassigned      YES unset  administratively down down 
+     Serial0/0/0            172.31.1.2      YES manual up                    up 
+     Serial0/0/1            unassigned      YES unset  administratively down down 
+     Vlan1                  unassigned      YES unset  administratively down down
+     R1(config-subif)#exit
+     R1(config)#interface G0/0
+     R1(config-if)#no shutdown 
+     R1(config-if)#
+     %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+     
+     %LINK-5-CHANGED: Interface GigabitEthernet0/0.10, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.10, changed state to up
+     
+     %LINK-5-CHANGED: Interface GigabitEthernet0/0.20, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.20, changed state to up
+     
+     %LINK-5-CHANGED: Interface GigabitEthernet0/0.30, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.30, changed state to up
+     
+     %LINK-5-CHANGED: Interface GigabitEthernet0/0.88, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.88, changed state to up
+     
+     %LINK-5-CHANGED: Interface GigabitEthernet0/0.99, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.99, changed state to up
+    
+     R1(config-if)#do show ip route
+     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+            N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+            E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+            * - candidate default, U - per-user static route, o - ODR
+            P - periodic downloaded static route
+     
+     Gateway of last resort is not set
+     
+          172.31.0.0/16 is variably subnetted, 12 subnets, 2 masks
+     C       172.31.1.0/24 is directly connected, Serial0/0/0
+     L       172.31.1.2/32 is directly connected, Serial0/0/0
+     C       172.31.10.0/24 is directly connected, GigabitEthernet0/0.10
+     L       172.31.10.1/32 is directly connected, GigabitEthernet0/0.10
+     C       172.31.20.0/24 is directly connected, GigabitEthernet0/0.20
+     L       172.31.20.1/32 is directly connected, GigabitEthernet0/0.20
+     C       172.31.30.0/24 is directly connected, GigabitEthernet0/0.30
+     L       172.31.30.1/32 is directly connected, GigabitEthernet0/0.30
+     C       172.31.88.0/24 is directly connected, GigabitEthernet0/0.88
+     L       172.31.88.1/32 is directly connected, GigabitEthernet0/0.88
+     C       172.31.99.0/24 is directly connected, GigabitEthernet0/0.99
+     L       172.31.99.1/32 is directly connected, GigabitEthernet0/0.99
+
+     add directly attached default route
+     -----------------------------------
+     R1(config)#ip route 0.0.0.0 0.0.0.0 S0/0/0
+     %Default route without gateway, if not a point-to-point interface, may impact performance
+     R1(config)#copy run start
+
+
+* Switch Solution:
+
+  .. code::
+
+     S1>enable
+     S1#show vlan brief
+     
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Gig0/1, Gig0/2
+     10   Sales                            active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                     Fa0/15
+     20   Production                       active    Fa0/16, Fa0/17, Fa0/18, Fa0/19
+                                                     Fa0/20
+     30   Marketing                        active    Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                     Fa0/9, Fa0/10
+     88   Management                       active    Fa0/21, Fa0/22, Fa0/23, Fa0/24
+     99   Native                           active    
+     1002 fddi-default                     active    
+     1003 token-ring-default               active    
+     1004 fddinet-default                  active    
+     1005 trnet-default                    active    
+     S1#conf t
+     S1(config)#interface GigabitEthernet 0/1
+     S1(config-if)#switchport mode trunk
+     S1(config-if)#
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+     S1(config-if)#switchport trunk native vlan 99
+     S1(config-if)#switchport trunk allowed vlan 10,20,30,88,99
+     S1(config-if)#no shutdown
+     S1(config-if)#exit
+     S1(config)#interface vlan 88
+     S1(config-if)#ip address 172.31.88.33 255.255.255.0
+     S1(config-if)#do show ip int brief
+     Interface              IP-Address      OK? Method Status                Protocol 
+     FastEthernet0/1        unassigned      YES manual down                  down 
+     FastEthernet0/2        unassigned      YES manual down                  down 
+     FastEthernet0/3        unassigned      YES manual down                  down 
+     FastEthernet0/4        unassigned      YES manual down                  down 
+     FastEthernet0/5        unassigned      YES manual down                  down 
+     FastEthernet0/6        unassigned      YES manual down                  down 
+     FastEthernet0/7        unassigned      YES manual down                  down 
+     FastEthernet0/8        unassigned      YES manual up                    up 
+     FastEthernet0/9        unassigned      YES manual down                  down 
+     FastEthernet0/10       unassigned      YES manual down                  down 
+     FastEthernet0/11       unassigned      YES manual up                    up 
+     FastEthernet0/12       unassigned      YES manual down                  down 
+     FastEthernet0/13       unassigned      YES manual down                  down 
+     FastEthernet0/14       unassigned      YES manual down                  down 
+     FastEthernet0/15       unassigned      YES manual down                  down 
+     FastEthernet0/16       unassigned      YES manual up                    up 
+     FastEthernet0/17       unassigned      YES manual down                  down 
+     FastEthernet0/18       unassigned      YES manual down                  down 
+     FastEthernet0/19       unassigned      YES manual down                  down 
+     FastEthernet0/20       unassigned      YES manual down                  down 
+     FastEthernet0/21       unassigned      YES manual down                  down 
+     FastEthernet0/22       unassigned      YES manual down                  down 
+     FastEthernet0/23       unassigned      YES manual down                  down 
+     FastEthernet0/24       unassigned      YES manual up                    up 
+     GigabitEthernet0/1     unassigned      YES manual up                    up 
+     GigabitEthernet0/2     unassigned      YES manual down                  down 
+     Vlan1                  unassigned      YES manual administratively down down 
+     Vlan88                 172.31.88.33    YES manual up                    up
+     S1(config-if)#do show vlan brief
+     
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Gig0/2
+     10   Sales                            active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                     Fa0/15
+     20   Production                       active    Fa0/16, Fa0/17, Fa0/18, Fa0/19
+                                                     Fa0/20
+     30   Marketing                        active    Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                     Fa0/9, Fa0/10
+     88   Management                       active    Fa0/21, Fa0/22, Fa0/23, Fa0/24
+     99   Native                           active    
+     1002 fddi-default                     active    
+     1003 token-ring-default               active    
+     1004 fddinet-default                  active    
+     1005 trnet-default                    active    
+     S1(config-if)# exit
+     S1(config)#interface Gig0/1
+     S1(config-if)#switchport mode trunk
+     S1(config-if)#switchport trunk native vlan 99
+     S1(config-if)#switchport trunk allowed vlan 10,20,30,88,99
+     S1(config-if)#exit
+     S1(config)#do show vlan brief
+     
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Gig0/2
+     10   Sales                            active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                     Fa0/15
+     20   Production                       active    Fa0/16, Fa0/17, Fa0/18, Fa0/19
+                                                     Fa0/20
+     30   Marketing                        active    Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                     Fa0/9, Fa0/10
+     88   Management                       active    Fa0/21, Fa0/22, Fa0/23, Fa0/24
+     99   Native                           active    
+     S1(config)#do show interfaces trunk
+     Port        Mode         Encapsulation  Status        Native vlan
+     Gig0/1      on           802.1q         trunking      99
+     
+     Port        Vlans allowed on trunk
+     Gig0/1      10,20,30,88,99
+     
+     Port        Vlans allowed and active in management domain
+     Gig0/1      10,20,30,88,99
+     
+     Port        Vlans in spanning tree forwarding state and not pruned
+     Gig0/1      10,20,30,88,99
+
+* Router HQ Solution:
+
+   .. code::
+
+      directly attached static routes to each VLAN
+      --------------------------------------------
+      HQ(config)#ip route 172.31.10.0 255.255.255.0 Serial0/0/0
+      %Default route without gateway, if not a point-to-point interface, may impact performance
+      HQ(config)#ip route 172.31.20.0 255.255.255.0 Serial0/0/0
+      %Default route without gateway, if not a point-to-point interface, may impact performance
+      HQ(config)#ip route 172.31.30.0 255.255.255.0 Serial0/0/0
+      %Default route without gateway, if not a point-to-point interface, may impact performance
+      HQ(config)#ip route 172.31.88.0 255.255.255.0 Serial0/0/0
+      %Default route without gateway, if not a point-to-point interface, may impact performance
+
+      primary & backup static route to reach Outside Host
+      ---------------------------------------------------
+      HQ(config)#ip route 209.165.200.0 255.255.255.224 Serial0/1/0
+      %Default route without gateway, if not a point-to-point interface, may impact performance
+      HQ(config)#ip route 209.165.200.0 255.255.255.224 Serial0/1/1 10
+      HQ(config)#
+     
+
+.. note:: To place a switch into its factory default condition with 1 default VLAN, use the commands ``delete flash:vlan.dat`` and ``erase startup-config``.
+
+
+Chapter 7 ACLs
+==============
 
 
