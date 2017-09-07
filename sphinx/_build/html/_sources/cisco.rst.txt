@@ -1337,8 +1337,9 @@ Directly connected routes on R1 = show ipv6 route --> C and L
 
 .. warning:: RIP configuration on a router should contain network statements for connected networks only. Remote networks are learned from routing updates from other routers.
 
-QnA
----
+QnA Chapter 3
+-------------
+
 What is a purpose of the network command when configuring RIPv2 as the routing protocol?
   	
 V  It identifies the interfaces that belong to a specified network.
@@ -2128,8 +2129,9 @@ There are 10 best practices that represent the best insurance for a network:
 #. Implement security hardware and software, such as firewalls.
 #. Keep IOS software up-to-date by installing security patches weekly or daily, if possible.
 
-QnA
----
+QnA Chapter 5
+-------------
+
 3 causes of interface up - line protocol down
 * encapsulation mismatch
 * other end = error-disabled
@@ -2376,7 +2378,7 @@ Because inserting the VLAN tag changes the frame, 802.1Q encapsulation forces a 
 
 The IEEE 802.3ac standard increased the maximum Ethernet frame size from 1518 bytes to 1522 bytes to accommodate the four-byte VLAN tag. Some network devices that do not support the larger frame size will process these frames successfully, but may report them as "baby giant" anomalies.
 
-802.1ad_aka_QinQ `https://en.wikipedia.org/wiki/IEEE_802.1ad`_
+More information on bigger vlan range `802.1ad QinQ <https://en.wikipedia.org/wiki/IEEE_802.1ad>`_
 
 ``show interfaces fa0/18 switchport``
 
@@ -3805,7 +3807,8 @@ VLAN and Port Assignments Table
 • Assign IP addressing to R1 and S1 based on the Addressing Table.
 • Create, name and assign VLANs on S1 based on the VLAN and Port Assignments Table. Ports should be in access mode.
 • Configure S1 to trunk, allow only the VLANs in the VLAN and Port Assignments Table.
-• Configure the default gateway on S1.|•|All ports not assigned to a VLAN should be disabled.
+• Configure the default gateway on S1.
+• All ports not assigned to a VLAN should be disabled.
 • Configure inter-VLAN routing on R1 based on the Addressing Table.
 • Verify connectivity. R1, S1, and all PCs should be able to ping each other and the cisco.pka server.
 
@@ -4111,9 +4114,11 @@ Requirements
 · Configure inter-VLAN routing on R1 based on the Addressing Table.
 · Configure trunking on S1.
 · Configure four directly attached static route on HQ to each VLANs 10, 20, 30 and 88.
-· Configure directly attached static routes on HQ to reach Outside Host.
-  - Configure the primary path through the Serial 0/1/0 interface.
-  - Configure the backup route through the Serial 0/1/1 interface with a 10 AD.
+· Configure directly attached static routes on HQ to reach Outside Host:
+
+  · Configure the primary path through the Serial 0/1/0 interface.
+  · Configure the backup route through the Serial 0/1/1 interface with a 10 AD.
+
 · Configure a directly attached default route on R1.
 · Verify connectivity by making sure all the PCs can ping Outside Host.
 

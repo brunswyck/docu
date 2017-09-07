@@ -150,7 +150,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#routing-table-terms">Routing table terms</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#route-lookup-process">Route lookup process</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ipv6-routing-table-entries">IPv6 Routing Table Entries</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#qna">QnA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna-chapter-3">QnA Chapter 3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#chapter-4-switched-networks">Chapter 4 switched networks</a><ul>
@@ -178,7 +178,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ssh-switch-setup">SSH Switch Setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#disable-unused-ports">Disable unused ports</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#port-security">Port Security</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">QnA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna-chapter-5">QnA Chapter 5</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#chapter-6-vlans">Chapter 6 VLANS</a><ul>
@@ -1738,8 +1738,8 @@ EIGRP is cfgd on all of them</p>
 <p class="last">RIP configuration on a router should contain network statements for connected networks only. Remote networks are learned from routing updates from other routers.</p>
 </div>
 </div>
-<div class="section" id="qna">
-<h4>QnA<a class="headerlink" href="#qna" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="qna-chapter-3">
+<h4>QnA Chapter 3<a class="headerlink" href="#qna-chapter-3" title="Permalink to this headline">¶</a></h4>
 <p>What is a purpose of the network command when configuring RIPv2 as the routing protocol?</p>
 <p>V  It identifies the interfaces that belong to a specified network.</p>
 <p>X  It specifies the remote network that can now be reached.</p>
@@ -2484,8 +2484,8 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </ol>
 </div>
 </div>
-<div class="section" id="id1">
-<h4>QnA<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="qna-chapter-5">
+<h4>QnA Chapter 5<a class="headerlink" href="#qna-chapter-5" title="Permalink to this headline">¶</a></h4>
 <p>3 causes of interface up - line protocol down
 * encapsulation mismatch
 * other end = error-disabled
@@ -2762,7 +2762,7 @@ For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all
 <p>For frames using <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_802.2">IEEE 802.2</a>/<a class="reference external" href="https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol">SNAP</a> encapsulation with an organizationally unique identifier (OUI) field of 00-00-00 (so that the protocol ID field in the SNAP header is an EtherType), as would be the case on LANs other than Ethernet, the EtherType value in the SNAP header is set to 0x8100 and the aforementioned extra 4 bytes are appended after the SNAP header.[citation needed]</p>
 <p>Because inserting the VLAN tag changes the frame, 802.1Q encapsulation forces a recalculation of the original frame check sequence field in the Ethernet trailer.</p>
 <p>The IEEE 802.3ac standard increased the maximum Ethernet frame size from 1518 bytes to 1522 bytes to accommodate the four-byte VLAN tag. Some network devices that do not support the larger frame size will process these frames successfully, but may report them as “baby giant” anomalies.</p>
-<p>802.1ad_aka_QinQ <a href="#id4"><span class="problematic" id="id5">`https://en.wikipedia.org/wiki/IEEE_802.1ad`_</span></a></p>
+<p>More information on bigger vlan range <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_802.1ad">802.1ad QinQ</a></p>
 <p><code class="docutils literal"><span class="pre">show</span> <span class="pre">interfaces</span> <span class="pre">fa0/18</span> <span class="pre">switchport</span></code></p>
 <p><code class="docutils literal"><span class="pre">show</span> <span class="pre">vlan</span> <span class="pre">brief</span></code></p>
 </div>
@@ -4402,7 +4402,8 @@ Addressing Table</p>
 <li>Assign IP addressing to R1 and S1 based on the Addressing Table.</li>
 <li>Create, name and assign VLANs on S1 based on the VLAN and Port Assignments Table. Ports should be in access mode.</li>
 <li>Configure S1 to trunk, allow only the VLANs in the VLAN and Port Assignments Table.</li>
-<li>Configure the default gateway on S1.|•<a href="#id2"><span class="problematic" id="id3">|</span></a>All ports not assigned to a VLAN should be disabled.</li>
+<li>Configure the default gateway on S1.</li>
+<li>All ports not assigned to a VLAN should be disabled.</li>
 <li>Configure inter-VLAN routing on R1 based on the Addressing Table.</li>
 <li>Verify connectivity. R1, S1, and all PCs should be able to ping each other and the cisco.pka server.</li>
 </ul>
@@ -4795,13 +4796,10 @@ ip flow-export version 9
 <p>· Configure inter-VLAN routing on R1 based on the Addressing Table.
 · Configure trunking on S1.
 · Configure four directly attached static route on HQ to each VLANs 10, 20, 30 and 88.
-· Configure directly attached static routes on HQ to reach Outside Host.</p>
+· Configure directly attached static routes on HQ to reach Outside Host:</p>
 <blockquote>
-<div><ul class="simple">
-<li>Configure the primary path through the Serial 0/1/0 interface.</li>
-<li>Configure the backup route through the Serial 0/1/1 interface with a 10 AD.</li>
-</ul>
-</div></blockquote>
+<div>· Configure the primary path through the Serial 0/1/0 interface.
+· Configure the backup route through the Serial 0/1/1 interface with a 10 AD.</div></blockquote>
 <p>· Configure a directly attached default route on R1.
 · Verify connectivity by making sure all the PCs can ping Outside Host.</p>
 <ul>
