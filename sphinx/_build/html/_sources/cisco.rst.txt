@@ -3676,80 +3676,56 @@ Lab configuration
 
 .. image:: _static/configure_legacy_intervlanning.png
 
-+--------+-----------+---------------+---------------+-----------------+
-| Device | Interface | IP Address    | Subnet Mask   | Default Gateway |
-+========+===========+===============+===============+=================+
-| R1     | G0/0      | 192.168.20.1  | 255.255.255.0 | N/A             |
-+--------+-----------+---------------+---------------+-----------------+
-|        | G0/1      | 192.168.10.1  | 255.255.255.0 | N/A             |
-+--------+-----------+---------------+---------------+-----------------+
-| S1     | VLAN 10   | 192.168.10.11 | 255.255.255.0 | 192.168.10.1    |
-+--------+-----------+---------------+---------------+-----------------+
-| S2     | VLAN 10   | 192.168.10.12 | 255.255.255.0 | 192.168.10.1    |
-+--------+-----------+---------------+---------------+-----------------+
-| PC-A   | NIC       | 192.168.10.3  | 255.255.255.0 | 192.168.10.1    |
-+--------+-----------+---------------+---------------+-----------------+
-| PC-B   | NIC       | 192.168.20.3  | 255.255.255.0 | 192.168.20.1    |
-+--------+-----------+---------------+---------------+-----------------+
++--------+------------+---------------+---------------+------------------+
+| Device | Interface  | IP Address    | Subnet Mask   | Default Gateway, |
++========+============+===============+===============+==================+
+| R1     | G0/0       | 192.168.20.1  | 255.255.255.0 | N/A              |
++--------+------------+---------------+---------------+------------------+
+| G0/1   | 192.168.10 | .1            | 255.255.255.0 | N/A              |
++--------+------------+---------------+---------------+------------------+
+| S1     | VLAN 10    | 192.168.10.11 | 255.255.255.0 | 192.168.10.1     |
++--------+------------+---------------+---------------+------------------+
+| S2     | VLAN 10    | 192.168.10.12 | 255.255.255.0 | 192.168.10.1     |
++--------+------------+---------------+---------------+------------------+
+| PC-A   | NIC        | 192.168.10.3  | 255.255.255.0 | 192.168.10.1     |
++--------+------------+---------------+---------------+------------------+
+| PC-B   | NIC        | 192.168.20.3  | 255.255.255.0 | 192.168.20.1     |
++--------+------------+---------------+---------------+------------------+
 
+
+* **of the switch**
 
 .. code::
 
-   Switch S1
-   =========
    S1(config)# vlan 10
-   S1(config-vlan)# name Student 
-   S1(config-vlan)# exit
-   S1(config)# vlan 20 
-   S1(config-vlan)# name Faculty-Admin 
-   S1(config-vlan)# exit 
-   S1(config)# interface f0/1 
-   S1(config-if)# switchport mode trunk 
-   S1(config-if)# interface range f0/5 - 6 
-   S1(config-if-range)# switchport mode access 
-   S1(config-if-range)# switchport access vlan 10 
-   S1(config-if-range)# interface vlan 10
-   S1(config-if)# ip address 192.168.10.11 255.255.255.0 
-   S1(config-if)# no shut 
-   S1(config-if)# exit 
-   S1(config)# ip default-gateway 192.168.10.1  
-
-.. note:: Use the vlan vlan_id global configuration mode command to create VLANs.  
-
+   S1(config-vlan)# name students
+   S1(config-vlan)# vlan 30
+   S1(config-vlan)# name lolcats
+   
+.. note:: Use the vlan vlan_id global configuration mode command to create VLANs. In this example, VLANs 10 and 30 were created on switch S1. 
 
 .. code::
 
-   Switch S2
-   =========
-   S2(config)# vlan 10 
-   S2(config-vlan)# name Student 
-   S2(config-vlan)# exit 
-   S2(config)# vlan 20 
-   S2(config-vlan)# name Faculty-Admin 
-   S2(config-vlan)# exit 
-   S2(config)# interface f0/1 
-   S2(config-if)# switchport mode trunk 
-   S2(config-if)# interface f0/11 
-   S2(config-if)# switchport mode access 
-   S2(config-if)# switchport access vlan 20 
-   S2(config-if)# interface f0/18 
-   S2(config-if)# switchport mode access 
-   S2(config-if)# switchport access vlan 20 
-   S2(config-if-range)# interface vlan 10 
-   S2(config-if)# ip address 192.168.10.12 255.255.255.0 
-   S2(config-if)# no shut 
-   S2(config-if)# exit 
-   S2(config)# ip default-gateway 192.168.10.1
-   
+   S1(config)# interface f0/11
+   S1(config-if)# switchport access vlan 10
+   S1(config-if)# interface f0/4
+   S1(config-if)# switchport access vlan 10
+   S1(config-if)# interface f0/6
+   S1(config-if)# switchport access vlan 30
+   S1(config-if)# interface f0/5
+   S1(config-if)# switchport access vlan 30
+   S1(config-if)# exit
+   S1(config)# ip default-gateway 172.17.10.1
+   S1(config)# exit
+   S1# copy running-config startup-config
 
 * **of the router**
 
 .. code::
 
    R1(config)# interface g0/0
-   R1(config-if)# ip address 192.168.20.1 255.255.255.0
-   R1(config)# interface g0/1
-   R1(config-if)# ip address 192.168.10.1 255.255.255.0
+   R1(config-if)# ip address 172.17.10.1 255.255.255.0
+   
 
 router-on-a-stick intervlan routing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3775,171 +3751,372 @@ Subinterfaces are configured for different subnets corresponding to their VLAN a
 
 .. Note:: The router-on-a-stick method of inter-VLAN routing does not scale beyond 50 VLANs.
 
-configuration roast
--------------------
-
-.. image:: _static/configure_routing_on_a_stick.png
-
-.. note:: Before assigning an IP address to a subinterface, the subinterface must be configured to operate on a specific VLAN using the encapsulation dot1q vlan_id command. ``encapsulation dot1q vlan-id {native}`` 
-
-.. code::
-
-   R1(config)# interface g0/0.10
-   R1(config-subif)# encapsulation dot1q 10
-   R1(config-subif)# ip address 172.17.10.1 255.255.255.0
-   R1(config-subif)# interface g0/0.30
-   R1(config-subif)# encapsulation dot1q 30
-   R1(config-subif)# ip address 172.17.30.1 255.255.255.0
-   R1(config)# interface g0/0
-   R1(config-if)# no shutdown
-
-.. note:: ``no shutdown`` is entered in interface configuration mode for interface G0/0, which in turn, enables all of the configured subinterfaces
-
-.. note:: Individual subinterfaces can be administratively shut down with ``shutdown``. Individual subinterfaces can be enabled independently with ``no shutdown`` in the subinterface configuration mode
-
-.. image:: _static/iproute_roast.png
-
-verify with ping and traceroute
-
-lab roast :)
-------------
-
-.. image:: _static/lab_roast.png
-
-* Addressing Table
-
-+--------+-----------+-----------------+-----------------+-----------------+
-| Device | Interface | IP Address      | Subnet Mask     | Default Gateway |
-+========+===========+=================+=================+=================+
-| R1     | G0/1.1    | 192.168.1.1     | 255.255.255.0   | N/A             |
-+--------+-----------+-----------------+-----------------+-----------------+
-|        | G0/1.10   | 192.168.10.1    | 255.255.255.0   | N/A             |
-+--------+-----------+-----------------+-----------------+-----------------+
-|        | G0/1.20   | 192.168.20.1    | 255.255.255.0   | N/A             |
-+--------+-----------+-----------------+-----------------+-----------------+
-|        | Lo0       | 209.165.200.225 | 255.255.255.224 | N/A             |
-+--------+-----------+-----------------+-----------------+-----------------+
-| S1     | VLAN 1    | 192.168.1.11    | 255.255.255.0   | 192.168.1.1     |
-+--------+-----------+-----------------+-----------------+-----------------+
-| S2     | VLAN 1    | 192.168.1.12    | 255.255.255.0   | 192.168.1.1     |
-+--------+-----------+-----------------+-----------------+-----------------+
-| PC-A   | NIC       | 192.168.10.3    | 255.255.255.0   | 192.168.10.1    |
-+--------+-----------+-----------------+-----------------+-----------------+
-| P-B    | NIC       | 192.168.20.3    | 255.255.255.0   | 192.168.20.1    |
-+--------+-----------+-----------------+-----------------+-----------------+
-
-* Switch Port Assignment Specifications
-
-+----------+--------------------+-----------------+
-| Ports    | Assignment         | Network         |
-+==========+====================+=================+
-| S1 F0/1  | 802.1Q Trunk       | N/A             |
-+----------+--------------------+-----------------+
-| S2 F0/1  | 802.1Q Trunk       | N/A             |
-+----------+--------------------+-----------------+
-| S1 F0/5  | 802.1Q Trunk       | N/A             |
-+----------+--------------------+-----------------+
-| S1 F0/6  | VLAN 10 – Students | 192.168.10.0/24 |
-+----------+--------------------+-----------------+
-| S2 F0/18 | VLAN 20 – Faculty  | 192.168.20.0/24 |
-+----------+--------------------+-----------------+
-
-* Objectives:
-  #: Build the Network and Configure Basic Device Settings
-  #: Configure Switches with VLANs and Trunking
-  #: Configure Trunk-Based Inter-VLAN Routing
-
-* basic config switch
-
-  .. code::
-
-     no ip domain-lookup 
-     service password-encryption 
-     enable secret class
-     banner motd #Unauthorized access is strictly prohibited. #
-     line con 0
-     password cisco 
-     login 
-     logging synchronous 
-     line vty 0 15 
-     password cisco 
-     login 
-     exit 
-
-
-* basic config router
-
-  .. code::
-
-     no ip domain-lookup 
-     hostname R1 
-     service password-encryption 
-     enable secret class 
-     banner motd # Unauthorized access is strictly prohibited. # 
-     Line con 0 
-     password cisco 
-     login 
-     logging synchronous 
-     line vty 0 4 
-     password cisco 
-     login 
-
-* configuration commands
-  
-Switch1:
-
- .. code::
-
-    S1(config)# vlan 10
-    S1(config-vlan)# name Students
-    S1(config-vlan)# vlan 20
-    S1(config-vlan)# name Faculty
-    S1(config-vlan)# exit
-    S1(config)# interface f0/1
-    S1(config-if)# switchport mode trunk
-    S1(config-if)# interface f0/5
-    S1(config-if)# switchport mode trunk
-    S1(config-if)# interface f0/6
-    S1(config-if)# switchport mode access
-    S1(config-if)# switchport access vlan 10
-
-Switch2:
-
- .. code::
-
-    S2(config)# vlan 10
-    S2(config-vlan)# name Students
-    S2(config-vlan)# vlan 20
-    S2(config-vlan)# name Faculty
-    S2(config)# interface f0/1
-    S2(config-if)# switchport mode trunk
-    S2(config-if)# interface f0/18
-    S2(config-if)# switchport mode access
-    S2(config-if)# switchport access vlan 20
-
-Router1:
-
- .. code::
-
-    R1(config)# interface g0/1.1
-    R1(config-subif)# encapsulation dot1Q 1
-    R1(config-subif)# ip address 192.168.1.1 255.255.255.0
-    R1(config-subif)# interface g0/1.10
-    R1(config-subif)# encapsulation dot1Q 10
-    R1(config-subif)# ip address 192.168.10.1 255.255.255.0
-    R1(config-subif)# interface g0/1.20
-    R1(config-subif)# encapsulation dot1Q 20
-    R1(config-subif)# ip address 192.168.20.1 255.255.255.0
-    R1(config-subif)# exit
-    R1(config)# interface g0/1
-    R1(config-if)# no shutdown
-
-
 multilayer switch intervlanning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. image:: _static/multilayer_switch_intervlanning.png
 
 .. note:: outside the scope of course for now..
+
+Inter-VLAN Routing Challenge
+----------------------------
+
+Packet Tracer – Inter-VLAN Routing Challenge|Topology|
+Addressing Table
+
++--------+-----------+--------------+-----------------+-----------------+
+| Device | Interface | IP Address   | Subnet Mask     | Default Gateway |
++========+===========+==============+=================+=================+
+|        | G0/0      | 172.17.25.2  | 255.255.255.252 | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.10   | 172.17.10.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.20   | 172.17.20.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+| R1     | G0/1.30   | 172.17.30.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.88   | 172.17.88.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.99   | 172.17.99.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+| S1     | VLAN 99   | 172.17.99.10 | 255.255.255.0   | 172.17.99.1     |
++--------+-----------+--------------+-----------------+-----------------+
+| PC1    | NIC       | 172.17.10.21 | 255.255.255.0   | 172.17.10.1     |
++--------+-----------+--------------+-----------------+-----------------+
+| PC2    | NIC       | 172.17.20.22 | 255.255.255.0   | 172.17.20.1     |
++--------+-----------+--------------+-----------------+-----------------+
+| PC3    | NIC       | 172.17.30.23 | 255.255.255.0   | 172.17.30.1     |
++--------+-----------+--------------+-----------------+-----------------+
+
+VLAN and Port Assignments Table
+
++------+--+----------------+--+-----------+
+| VLAN |  | Name           |  | Interface |
++======+==+================+==+===========+
+| 10   |  | Faculty/Staff  |  | Fa0/11-17 |
++------+--+----------------+--+-----------+
+| 20   |  | Students       |  | Fa0/18-24 |
++------+--+----------------+--+-----------+
+| 30   |  | Guest(Default) |  | Fa0/6-10  |
++------+--+----------------+--+-----------+
+| 88   |  | Native         |  | G0/1      |
++------+--+----------------+--+-----------+
+| 99   |  | Management     |  | VLAN 99   |
++------+--+----------------+--+-----------+
+
+• Assign IP addressing to R1 and S1 based on the Addressing Table.
+• Create, name and assign VLANs on S1 based on the VLAN and Port Assignments Table. Ports should be in access mode.
+• Configure S1 to trunk, allow only the VLANs in the VLAN and Port Assignments Table.
+• Configure the default gateway on S1.|•|All ports not assigned to a VLAN should be disabled.
+• Configure inter-VLAN routing on R1 based on the Addressing Table.
+• Verify connectivity. R1, S1, and all PCs should be able to ping each other and the cisco.pka server.
+
+* configuration for the switch:
+
+  .. code::
+
+     hostname S1
+     !
+     !
+     spanning-tree mode pvst
+     spanning-tree extend system-id
+     !
+     interface FastEthernet0/1
+      switchport mode access
+     !
+     interface FastEthernet0/2
+      switchport mode access
+     !
+     interface FastEthernet0/3
+      switchport mode access
+     !
+     interface FastEthernet0/4
+      switchport mode access
+     !
+     interface FastEthernet0/5
+      switchport mode access
+     !
+     interface FastEthernet0/6
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/7
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/8
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/9
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/10
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/11
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/12
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/13
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/14
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/15
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/16
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/17
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/18
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/19
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/20
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/21
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/22
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/23
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/24
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface GigabitEthernet0/1
+      switchport trunk native vlan 88
+      switchport trunk allowed vlan 10,20,30,88,99
+      switchport mode trunk
+     !
+     interface GigabitEthernet0/2
+     !
+     interface Vlan1
+      no ip address
+      shutdown
+     !
+     interface Vlan99
+      mac-address 0030.f236.9801
+      ip address 172.17.99.10 255.255.255.0
+     !
+     ip default-gateway 172.17.99.1
+
+
+* show vlan & trunks:
+
+  .. code::
+
+     S1#show vlan brief
+     
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Fa0/5, Gig0/2
+     10   Faculty/Staff                    active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                     Fa0/15, Fa0/16, Fa0/17
+     20   Students                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                     Fa0/22, Fa0/23, Fa0/24
+     30   Guest(Default)                   active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                     Fa0/10
+     88   Native                           active    
+     99   Management                       active    
+     1002 fddi-default                     active    
+     1003 token-ring-default               active    
+     1004 fddinet-default                  active    
+     1005 trnet-default                    active    
+     S1#
+     S1#
+     S1#
+     S1#
+     S1#show interfaces trunk
+     Port        Mode         Encapsulation  Status        Native vlan
+     Gig0/1      on           802.1q         trunking      88
+     
+     Port        Vlans allowed on trunk
+     Gig0/1      10,20,30,88,99
+     
+     Port        Vlans allowed and active in management domain
+     Gig0/1      10,20,30,88,99
+     
+     Port        Vlans in spanning tree forwarding state and not pruned
+     Gig0/1      10,20,30,88,99
+
+* configuration for the router:
+  
+  .. code::
+
+     hostname R1
+     !
+     !
+     ip cef
+     no ipv6 cef
+     !
+     !
+     spanning-tree mode pvst
+     !
+     interface GigabitEthernet0/0
+      ip address 172.17.25.2 255.255.255.252
+      duplex auto
+      speed auto
+     !
+     interface GigabitEthernet0/1
+      no ip address
+      duplex auto
+      speed auto
+     !
+     interface GigabitEthernet0/1.10
+      encapsulation dot1Q 10
+      ip address 172.17.10.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.20
+      encapsulation dot1Q 20
+      ip address 172.17.20.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.30
+      encapsulation dot1Q 30
+      ip address 172.17.30.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.88
+      encapsulation dot1Q 88 native
+      ip address 172.17.88.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.99
+      encapsulation dot1Q 99
+      ip address 172.17.99.1 255.255.255.0
+     !
+     interface Vlan1
+      no ip address
+      shutdown
+     !
+     ip classless
+     ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/0 
+     !
+     ip flow-export version 9
+     !
+     
+
+* show ip route:
+
+  .. code::
+
+     R1#show ip route
+     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+            N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+            E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+            * - candidate default, U - per-user static route, o - ODR
+            P - periodic downloaded static route
+     
+     Gateway of last resort is 0.0.0.0 to network 0.0.0.0
+     
+          172.17.0.0/16 is variably subnetted, 12 subnets, 3 masks
+     C       172.17.10.0/24 is directly connected, GigabitEthernet0/1.10
+     L       172.17.10.1/32 is directly connected, GigabitEthernet0/1.10
+     C       172.17.20.0/24 is directly connected, GigabitEthernet0/1.20
+     L       172.17.20.1/32 is directly connected, GigabitEthernet0/1.20
+     C       172.17.25.0/30 is directly connected, GigabitEthernet0/0
+     L       172.17.25.2/32 is directly connected, GigabitEthernet0/0
+     C       172.17.30.0/24 is directly connected, GigabitEthernet0/1.30
+     L       172.17.30.1/32 is directly connected, GigabitEthernet0/1.30
+     C       172.17.88.0/24 is directly connected, GigabitEthernet0/1.88
+     L       172.17.88.1/32 is directly connected, GigabitEthernet0/1.88
+     C       172.17.99.0/24 is directly connected, GigabitEthernet0/1.99
+     L       172.17.99.1/32 is directly connected, GigabitEthernet0/1.99
+     S*   0.0.0.0/0 is directly connected, GigabitEthernet0/0
+
+Skills integration challenge
+----------------------------
+
+* Addressing Table
+
+.. image:: _static/ch6_skills_integration_challenge.png
+
++--------+-----------+--------------+---------------+-----------------+------+
+| Device | Interface | IP Address   | Subnet Mask   | Default Gateway | VLAN |
++========+===========+==============+===============+=================+======+
+|        | S0/0/0    | 172.31.1.2   | 255.255.255.0 | N/A             | N/A  |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.10   | 172.31.10.1  | 255.255.255.0 | N/A             | 10   |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.20   | 172.31.20.1  | 255.255.255.0 | N/A             | 20   |
++--------+-----------+--------------+---------------+-----------------+------+
+| R1     | G0/0.30   | 172.31.30.1  | 255.255.255.0 | N/A             | 30   |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.88   | 172.31.88.1  | 255.255.255.0 | N/A             | 88   |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.99   | 172.31.99.1  | 255.255.255.0 | N/A             | 99   |
++--------+-----------+--------------+---------------+-----------------+------+
+| S1     | VLAN 88   | 172.31.88.33 | 255.255.255.0 | 172.31.88.1     | 88   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-A   | NIC       | 172.31.10.21 | 255.255.255.0 | 172.31.10.1     | 10   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-B   | NIC       | 172.31.20.22 | 255.255.255.0 | 172.31.20.1     | 20   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-C   | NIC       | 172.31.30.23 | 255.255.255.0 | 172.31.30.1     | 30   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-D   | NIC       | 172.31.88.24 | 255.255.255.0 | 172.31.88.1     | 88   |
++--------+-----------+--------------+---------------+-----------------+------+
+
+
+* VLAN Table
+
++------+------------+------------+
+| VLAN | Name       | Interfaces |
++======+============+============+
+| 10   | Sales      | F0/11-15   |
++------+------------+------------+
+| 20   | Production | F0/16-20   |
++------+------------+------------+
+| 0    | Marketing  | F0/5-10    |
++------+------------+------------+
+| 88   | Management | F0/21-24   |
++------+------------+------------+
+| 99   | Native     | G0/1       |
++------+------------+------------+
+
+
+* Scenario
+
+In this activity, you will demonstrate and reinforce your ability to configure routers for inter-VLAN communication and configure static routes to reach destinations outside of your network. Among the skills you will demonstrate are configuring inter-VLAN routing, static and default routes.
+
+Requirements
+
+· Configure inter-VLAN routing on R1 based on the Addressing Table.
+· Configure trunking on S1.
+· Configure four directly attached static route on HQ to each VLANs 10, 20, 30 and 88.
+· Configure directly attached static routes on HQ to reach Outside Host.
+  - Configure the primary path through the Serial 0/1/0 interface.
+  - Configure the backup route through the Serial 0/1/1 interface with a 10 AD.
+· Configure a directly attached default route on R1.
+· Verify connectivity by making sure all the PCs can ping Outside Host.
 
 

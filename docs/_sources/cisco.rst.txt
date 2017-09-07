@@ -3072,6 +3072,23 @@ Missing VLAN
 
 Use the show vlan command to check whether the port belongs to the expected VLAN. If the port is assigned to the wrong VLAN, use the switchport access vlan command to correct the VLAN membership. Use the show mac address-table command to check which addresses were learned on a particular port of the switch, and to which VLAN that port is assigned, as show in Figure 2.
 
+.. code::
+
+   S1#show mac address-table
+             Mac Address Table
+   -------------------------------------------
+   
+   Vlan    Mac Address       Type        Ports
+   ----    -----------       --------    -----
+   
+      1    000a.f333.b702    DYNAMIC     Gig0/2
+      1    00d0.5828.2501    DYNAMIC     Gig0/1
+     10    00d0.5828.2501    DYNAMIC     Gig0/1
+     20    00d0.5828.2501    DYNAMIC     Gig0/1
+     30    00d0.5828.2501    DYNAMIC     Gig0/1
+     56    000a.f333.b702    DYNAMIC     Gig0/2
+     56    00d0.5828.2501    DYNAMIC     Gig0/1
+
 .. image:: _static/missing_vlan.png
 
 If the VLAN to which the port is assigned is deleted, the port becomes inactive. The ports of a deleted VLAN will not be listed in the output of the show vlan command. Use the show interfaces switchport command to verify the inactive VLAN is assigned to the port
@@ -3496,6 +3513,84 @@ Troubleshooting vlan/trunk bullet points
 
 * enable a vlan ``interface vlan 20`` 
 
+.. warning:: You must hardcode ``switchport mode access`` on the ports that are not a trunk. This disables the Dynamic Trunking Protocol, so that's 1 chance less of accidently creating a trunk. doublecheck via ``show interfaces switchport`` you'll see negotiation is off.
+
+.. code::
+
+   S1(config-if-range)#do show interface switchport
+   Name: Fa0/1
+   Switchport: Enabled
+   Administrative Mode: static access
+   Operational Mode: down
+   Administrative Trunking Encapsulation: dot1q
+   Operational Trunking Encapsulation: native
+   **Negotiation of Trunking: Off**
+   Access Mode VLAN: 56 (VLAN0056)
+   Trunking Native Mode VLAN: 1 (default)
+   Voice VLAN: none
+   Administrative private-vlan host-association: none
+   Administrative private-vlan mapping: none
+   Administrative private-vlan trunk native VLAN: none
+   Administrative private-vlan trunk encapsulation: dot1q
+   Administrative private-vlan trunk normal VLANs: none
+   Administrative private-vlan trunk private VLANs: none
+   Operational private-vlan: none
+   Trunking VLANs Enabled: All
+   Pruning VLANs Enabled: 2-1001
+   Capture Mode Disabled
+   Capture VLANs Allowed: ALL
+   Protected: false
+   Unknown unicast blocked: disabled
+   Unknown multicast blocked: disabled
+   Appliance trust: none
+
+.. warning:: Watch out for unnamed vlans! Easily overlooked :)
+
+.. code::
+
+   S1(config)#do show vlan
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    
+   10   VLAN0010                         active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17
+   20   VLAN0020                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                   Fa0/22, Fa0/23, Fa0/24
+   30   VLAN0030                         active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10
+   56   VLAN0056                         active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5
+   1002 fddi-default                     act/unsup 
+   1003 token-ring-default               act/unsup 
+   1004 fddinet-default                  act/unsup 
+   1005 trnet-default                    act/unsup 
+   
+   S2(config-if)#do show vlan
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Gig0/2
+   10   Faculty/Staff                    active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                   Fa0/15, Fa0/16, Fa0/17
+   20   Students                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                   Fa0/22, Fa0/23, Fa0/24
+   30   Guest(Default)                   active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                   Fa0/10
+   56   Management&Native                active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                   Fa0/5
+   
+   solution
+   #########
+   S1(config)#vlan 10
+   S1(config-vlan)#name Faculty/Staff
+   S1(config-vlan)#vlan 20
+   S1(config-vlan)#name Students
+   S1(config-vlan)#vlan 30
+   S1(config-vlan)#name Guest(Default)
+   S1(config-vlan)#vlan 56
+   S1(config-vlan)#name Management&Native
+
 VLAN Command Summary Table
 --------------------------
 
@@ -3546,4 +3641,482 @@ VLAN Command Summary Table
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------+
 | show spanning-tree [vlan number]          | Displays Spanning Tree information for the switch or a VLAN if the vlan option is used.                |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------+
+
+Inter-VLAN Routing
+------------------
+.. image:: _static/what_is_intervlan_routing.png
+
+A VLAN is a broadcast domain, so computers on separate VLANs are unable to communicate without the intervention of a routing device. Layer 2 switches have very limited IPv4 and IPv6 functionality and cannot perform the dynamic routing function of routers. While Layer 2 switches are gaining more IP functionality, such as the ability to perform static routing, this is insufficient to handle these large number of VLANs.
+
+Any device that supports Layer 3 routing, such as a router or a multilayer switch, can be used to perform the necessary routing functionality. Regardless of the device used, the process of forwarding network traffic from one VLAN to another VLAN using routing is known as inter-VLAN routing.
+
+There are three options for inter-VLAN routing:
+ * Legacy inter-VLAN routing:
+    The switch ports connected to the router are placed in access mode and each physical interface is assigned to a different VLAN. Each router interface can then accept traffic from the VLAN associated with the switch interface that it is connected to, and traffic can be routed to the other VLANs connected to the other interfaces.
+ * Router-on-a-Stick:
+    The router interface is configured to operate as a trunk link and is connected to a switch port that is configured in trunk mode. The router performs inter-VLAN routing by accepting VLAN-tagged traffic on the trunk interface coming from the adjacent switch, and then, internally routing between the VLANs using subinterfaces. The router then forwards the routed traffic, VLAN-tagged for the destination VLAN, out the same physical interface as it used to receive the traffic
+ * Layer 3 switching using SVI's
+
+legacy intervlan routing
+^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: _static/legacy_intervlan_routing.png
+
+Router R1 has a separate interface configured for each of the VLANs.
+
+.. note:: This method of inter-VLAN routing is not efficient and is generally no longer implemented in switched networks. It is shown in this course for explanation purposes only.
+
+Devices use their default gateway as the Layer 2 destination for all traffic that must leave the local subnet. The default gateway is the route that the device uses when it has no other explicitly defined route to the destination network. The IPv4 address of the router interface on the local subnet acts as the default gateway for the sending device.
+
+When the source device has determined that the packet must travel through the local router interface on the connected VLAN, the source device sends out an ARP request to determine the MAC address of the local router interface. When the router sends its ARP reply back to the source device, the source device can use the MAC address to finish framing the packet before it sends it out on the network as unicast traffic.
+
+Because the Ethernet frame has the destination MAC address of the router interface, the switch knows exactly which switch port to forward the unicast traffic out of to reach the router interface for that VLAN. When the frame arrives at the router, the router removes the source and destination MAC address information to examine the destination IPv4 address of the packet. The router compares the destination address to entries in its routing table to determine where it needs to forward the data to reach its final destination. If the router determines that the destination network is a locally connected network, as is the case with inter-VLAN routing, the router sends an ARP request out the interface that is physically connected to the destination VLAN. The destination device responds back to the router with its MAC address, which the router then uses to frame the packet. The router then sends the unicast traffic to the switch, which forwards it out the port where the destination device is connected.
+
+Lab configuration
+~~~~~~~~~~~~~~~~~
+
+.. image:: _static/configure_legacy_intervlanning.png
+
++--------+------------+---------------+---------------+------------------+
+| Device | Interface  | IP Address    | Subnet Mask   | Default Gateway, |
++========+============+===============+===============+==================+
+| R1     | G0/0       | 192.168.20.1  | 255.255.255.0 | N/A              |
++--------+------------+---------------+---------------+------------------+
+| G0/1   | 192.168.10 | .1            | 255.255.255.0 | N/A              |
++--------+------------+---------------+---------------+------------------+
+| S1     | VLAN 10    | 192.168.10.11 | 255.255.255.0 | 192.168.10.1     |
++--------+------------+---------------+---------------+------------------+
+| S2     | VLAN 10    | 192.168.10.12 | 255.255.255.0 | 192.168.10.1     |
++--------+------------+---------------+---------------+------------------+
+| PC-A   | NIC        | 192.168.10.3  | 255.255.255.0 | 192.168.10.1     |
++--------+------------+---------------+---------------+------------------+
+| PC-B   | NIC        | 192.168.20.3  | 255.255.255.0 | 192.168.20.1     |
++--------+------------+---------------+---------------+------------------+
+
+
+* **of the switch**
+
+.. code::
+
+   S1(config)# vlan 10
+   S1(config-vlan)# name students
+   S1(config-vlan)# vlan 30
+   S1(config-vlan)# name lolcats
+   
+.. note:: Use the vlan vlan_id global configuration mode command to create VLANs. In this example, VLANs 10 and 30 were created on switch S1. 
+
+.. code::
+
+   S1(config)# interface f0/11
+   S1(config-if)# switchport access vlan 10
+   S1(config-if)# interface f0/4
+   S1(config-if)# switchport access vlan 10
+   S1(config-if)# interface f0/6
+   S1(config-if)# switchport access vlan 30
+   S1(config-if)# interface f0/5
+   S1(config-if)# switchport access vlan 30
+   S1(config-if)# exit
+   S1(config)# ip default-gateway 172.17.10.1
+   S1(config)# exit
+   S1# copy running-config startup-config
+
+* **of the router**
+
+.. code::
+
+   R1(config)# interface g0/0
+   R1(config-if)# ip address 172.17.10.1 255.255.255.0
+   
+
+router-on-a-stick intervlan routing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: _static/router_on_a_stick_intervlanning.png
+
+Subinterfaces are configured for different subnets corresponding to their VLAN assignment to facilitate logical routing. After a routing decision is made based on the destination VLAN, the data frames are VLAN-tagged and sent back out the physical interface. 
+
+1. PC1 on VLAN 10 is communicating with PC3 on VLAN 30 through router R1 using a single, physical router interface.
+
+2. PC1 sends its unicast traffic to switch S2.
+
+3. Switch S2 then tags the unicast traffic as originating on VLAN 10 and forwards the unicast traffic out its trunk link to switch S1.
+
+4. Switch S1 forwards the tagged traffic out the other trunk interface on port F0/3 to the interface on router R1.
+
+5. Router R1 accepts the tagged unicast traffic on VLAN 10 and routes it to VLAN 30 using its configured subinterfaces.
+
+6. The unicast traffic is tagged with VLAN 30 as it is sent out the router interface to switch S1.
+
+7. Switch S1 forwards the tagged unicast traffic out the other trunk link to switch S2.
+
+8. Switch S2 removes the VLAN tag of the unicast frame and forwards the frame out to PC3 on port F0/23.
+
+.. Note:: The router-on-a-stick method of inter-VLAN routing does not scale beyond 50 VLANs.
+
+multilayer switch intervlanning
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/multilayer_switch_intervlanning.png
+
+.. note:: outside the scope of course for now..
+
+Inter-VLAN Routing Challenge
+----------------------------
+
+Packet Tracer – Inter-VLAN Routing Challenge|Topology|
+Addressing Table
+
++--------+-----------+--------------+-----------------+-----------------+
+| Device | Interface | IP Address   | Subnet Mask     | Default Gateway |
++========+===========+==============+=================+=================+
+|        | G0/0      | 172.17.25.2  | 255.255.255.252 | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.10   | 172.17.10.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.20   | 172.17.20.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+| R1     | G0/1.30   | 172.17.30.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.88   | 172.17.88.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+|        | G0/1.99   | 172.17.99.1  | 255.255.255.0   | N/A             |
++--------+-----------+--------------+-----------------+-----------------+
+| S1     | VLAN 99   | 172.17.99.10 | 255.255.255.0   | 172.17.99.1     |
++--------+-----------+--------------+-----------------+-----------------+
+| PC1    | NIC       | 172.17.10.21 | 255.255.255.0   | 172.17.10.1     |
++--------+-----------+--------------+-----------------+-----------------+
+| PC2    | NIC       | 172.17.20.22 | 255.255.255.0   | 172.17.20.1     |
++--------+-----------+--------------+-----------------+-----------------+
+| PC3    | NIC       | 172.17.30.23 | 255.255.255.0   | 172.17.30.1     |
++--------+-----------+--------------+-----------------+-----------------+
+
+VLAN and Port Assignments Table
+
++------+--+----------------+--+-----------+
+| VLAN |  | Name           |  | Interface |
++======+==+================+==+===========+
+| 10   |  | Faculty/Staff  |  | Fa0/11-17 |
++------+--+----------------+--+-----------+
+| 20   |  | Students       |  | Fa0/18-24 |
++------+--+----------------+--+-----------+
+| 30   |  | Guest(Default) |  | Fa0/6-10  |
++------+--+----------------+--+-----------+
+| 88   |  | Native         |  | G0/1      |
++------+--+----------------+--+-----------+
+| 99   |  | Management     |  | VLAN 99   |
++------+--+----------------+--+-----------+
+
+• Assign IP addressing to R1 and S1 based on the Addressing Table.
+• Create, name and assign VLANs on S1 based on the VLAN and Port Assignments Table. Ports should be in access mode.
+• Configure S1 to trunk, allow only the VLANs in the VLAN and Port Assignments Table.
+• Configure the default gateway on S1.|•|All ports not assigned to a VLAN should be disabled.
+• Configure inter-VLAN routing on R1 based on the Addressing Table.
+• Verify connectivity. R1, S1, and all PCs should be able to ping each other and the cisco.pka server.
+
+* configuration for the switch:
+
+  .. code::
+
+     hostname S1
+     !
+     !
+     spanning-tree mode pvst
+     spanning-tree extend system-id
+     !
+     interface FastEthernet0/1
+      switchport mode access
+     !
+     interface FastEthernet0/2
+      switchport mode access
+     !
+     interface FastEthernet0/3
+      switchport mode access
+     !
+     interface FastEthernet0/4
+      switchport mode access
+     !
+     interface FastEthernet0/5
+      switchport mode access
+     !
+     interface FastEthernet0/6
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/7
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/8
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/9
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/10
+      switchport access vlan 30
+      switchport mode access
+     !
+     interface FastEthernet0/11
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/12
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/13
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/14
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/15
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/16
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/17
+      switchport access vlan 10
+      switchport mode access
+     !
+     interface FastEthernet0/18
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/19
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/20
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/21
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/22
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/23
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface FastEthernet0/24
+      switchport access vlan 20
+      switchport mode access
+     !
+     interface GigabitEthernet0/1
+      switchport trunk native vlan 88
+      switchport trunk allowed vlan 10,20,30,88,99
+      switchport mode trunk
+     !
+     interface GigabitEthernet0/2
+     !
+     interface Vlan1
+      no ip address
+      shutdown
+     !
+     interface Vlan99
+      mac-address 0030.f236.9801
+      ip address 172.17.99.10 255.255.255.0
+     !
+     ip default-gateway 172.17.99.1
+
+
+* show vlan & trunks:
+
+  .. code::
+
+     S1#show vlan brief
+     
+     VLAN Name                             Status    Ports
+     ---- -------------------------------- --------- -------------------------------
+     1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                     Fa0/5, Gig0/2
+     10   Faculty/Staff                    active    Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                     Fa0/15, Fa0/16, Fa0/17
+     20   Students                         active    Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                     Fa0/22, Fa0/23, Fa0/24
+     30   Guest(Default)                   active    Fa0/6, Fa0/7, Fa0/8, Fa0/9
+                                                     Fa0/10
+     88   Native                           active    
+     99   Management                       active    
+     1002 fddi-default                     active    
+     1003 token-ring-default               active    
+     1004 fddinet-default                  active    
+     1005 trnet-default                    active    
+     S1#
+     S1#
+     S1#
+     S1#
+     S1#show interfaces trunk
+     Port        Mode         Encapsulation  Status        Native vlan
+     Gig0/1      on           802.1q         trunking      88
+     
+     Port        Vlans allowed on trunk
+     Gig0/1      10,20,30,88,99
+     
+     Port        Vlans allowed and active in management domain
+     Gig0/1      10,20,30,88,99
+     
+     Port        Vlans in spanning tree forwarding state and not pruned
+     Gig0/1      10,20,30,88,99
+
+* configuration for the router:
+  
+  .. code::
+
+     hostname R1
+     !
+     !
+     ip cef
+     no ipv6 cef
+     !
+     !
+     spanning-tree mode pvst
+     !
+     interface GigabitEthernet0/0
+      ip address 172.17.25.2 255.255.255.252
+      duplex auto
+      speed auto
+     !
+     interface GigabitEthernet0/1
+      no ip address
+      duplex auto
+      speed auto
+     !
+     interface GigabitEthernet0/1.10
+      encapsulation dot1Q 10
+      ip address 172.17.10.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.20
+      encapsulation dot1Q 20
+      ip address 172.17.20.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.30
+      encapsulation dot1Q 30
+      ip address 172.17.30.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.88
+      encapsulation dot1Q 88 native
+      ip address 172.17.88.1 255.255.255.0
+     !
+     interface GigabitEthernet0/1.99
+      encapsulation dot1Q 99
+      ip address 172.17.99.1 255.255.255.0
+     !
+     interface Vlan1
+      no ip address
+      shutdown
+     !
+     ip classless
+     ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/0 
+     !
+     ip flow-export version 9
+     !
+     
+
+* show ip route:
+
+  .. code::
+
+     R1#show ip route
+     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+            N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+            E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+            * - candidate default, U - per-user static route, o - ODR
+            P - periodic downloaded static route
+     
+     Gateway of last resort is 0.0.0.0 to network 0.0.0.0
+     
+          172.17.0.0/16 is variably subnetted, 12 subnets, 3 masks
+     C       172.17.10.0/24 is directly connected, GigabitEthernet0/1.10
+     L       172.17.10.1/32 is directly connected, GigabitEthernet0/1.10
+     C       172.17.20.0/24 is directly connected, GigabitEthernet0/1.20
+     L       172.17.20.1/32 is directly connected, GigabitEthernet0/1.20
+     C       172.17.25.0/30 is directly connected, GigabitEthernet0/0
+     L       172.17.25.2/32 is directly connected, GigabitEthernet0/0
+     C       172.17.30.0/24 is directly connected, GigabitEthernet0/1.30
+     L       172.17.30.1/32 is directly connected, GigabitEthernet0/1.30
+     C       172.17.88.0/24 is directly connected, GigabitEthernet0/1.88
+     L       172.17.88.1/32 is directly connected, GigabitEthernet0/1.88
+     C       172.17.99.0/24 is directly connected, GigabitEthernet0/1.99
+     L       172.17.99.1/32 is directly connected, GigabitEthernet0/1.99
+     S*   0.0.0.0/0 is directly connected, GigabitEthernet0/0
+
+Skills integration challenge
+----------------------------
+
+* Addressing Table
+
+.. image:: _static/ch6_skills_integration_challenge.png
+
++--------+-----------+--------------+---------------+-----------------+------+
+| Device | Interface | IP Address   | Subnet Mask   | Default Gateway | VLAN |
++========+===========+==============+===============+=================+======+
+|        | S0/0/0    | 172.31.1.2   | 255.255.255.0 | N/A             | N/A  |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.10   | 172.31.10.1  | 255.255.255.0 | N/A             | 10   |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.20   | 172.31.20.1  | 255.255.255.0 | N/A             | 20   |
++--------+-----------+--------------+---------------+-----------------+------+
+| R1     | G0/0.30   | 172.31.30.1  | 255.255.255.0 | N/A             | 30   |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.88   | 172.31.88.1  | 255.255.255.0 | N/A             | 88   |
++--------+-----------+--------------+---------------+-----------------+------+
+|        | G0/0.99   | 172.31.99.1  | 255.255.255.0 | N/A             | 99   |
++--------+-----------+--------------+---------------+-----------------+------+
+| S1     | VLAN 88   | 172.31.88.33 | 255.255.255.0 | 172.31.88.1     | 88   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-A   | NIC       | 172.31.10.21 | 255.255.255.0 | 172.31.10.1     | 10   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-B   | NIC       | 172.31.20.22 | 255.255.255.0 | 172.31.20.1     | 20   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-C   | NIC       | 172.31.30.23 | 255.255.255.0 | 172.31.30.1     | 30   |
++--------+-----------+--------------+---------------+-----------------+------+
+| PC-D   | NIC       | 172.31.88.24 | 255.255.255.0 | 172.31.88.1     | 88   |
++--------+-----------+--------------+---------------+-----------------+------+
+
+
+* VLAN Table
+
++------+------------+------------+
+| VLAN | Name       | Interfaces |
++======+============+============+
+| 10   | Sales      | F0/11-15   |
++------+------------+------------+
+| 20   | Production | F0/16-20   |
++------+------------+------------+
+| 0    | Marketing  | F0/5-10    |
++------+------------+------------+
+| 88   | Management | F0/21-24   |
++------+------------+------------+
+| 99   | Native     | G0/1       |
++------+------------+------------+
+
+
+* Scenario
+
+In this activity, you will demonstrate and reinforce your ability to configure routers for inter-VLAN communication and configure static routes to reach destinations outside of your network. Among the skills you will demonstrate are configuring inter-VLAN routing, static and default routes.
+
+Requirements
+
+· Configure inter-VLAN routing on R1 based on the Addressing Table.
+· Configure trunking on S1.
+· Configure four directly attached static route on HQ to each VLANs 10, 20, 30 and 88.
+· Configure directly attached static routes on HQ to reach Outside Host.
+  - Configure the primary path through the Serial 0/1/0 interface.
+  - Configure the backup route through the Serial 0/1/1 interface with a 10 AD.
+· Configure a directly attached default route on R1.
+· Verify connectivity by making sure all the PCs can ping Outside Host.
+
 
