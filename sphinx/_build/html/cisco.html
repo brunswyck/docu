@@ -203,9 +203,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#inter-vlan-routing">Inter-VLAN Routing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#inter-vlan-routing-challenge">Inter-VLAN Routing Challenge</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#skills-integration-challenge">Skills integration challenge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna-chapter-6">QnA Chapter 6</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#chapter-7-acls">Chapter 7 ACLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-7-acls">Chapter 7 ACLs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#acl-operation">ACL operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#acl-wildcard-masking">ACL Wildcard Masking</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2762,7 +2767,9 @@ For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all
 <p>For frames using <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_802.2">IEEE 802.2</a>/<a class="reference external" href="https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol">SNAP</a> encapsulation with an organizationally unique identifier (OUI) field of 00-00-00 (so that the protocol ID field in the SNAP header is an EtherType), as would be the case on LANs other than Ethernet, the EtherType value in the SNAP header is set to 0x8100 and the aforementioned extra 4 bytes are appended after the SNAP header.[citation needed]</p>
 <p>Because inserting the VLAN tag changes the frame, 802.1Q encapsulation forces a recalculation of the original frame check sequence field in the Ethernet trailer.</p>
 <p>The IEEE 802.3ac standard increased the maximum Ethernet frame size from 1518 bytes to 1522 bytes to accommodate the four-byte VLAN tag. Some network devices that do not support the larger frame size will process these frames successfully, but may report them as “baby giant” anomalies.</p>
-<p>More information on bigger vlan range <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_802.1ad">802.1ad QinQ</a></p>
+<p>QinQ allows multiple VLAN tags in an Ethernet frame; together these tags constitute a tag stack. When used in the context of an Ethernet frame, a QinQ frame is a frame that has 2 VLAN 802.1Q headers (double-tagged).
+<a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_802.1ad">802.1ad QinQ</a>
+The idea is to provide, for example, the possibility for customers to run their own VLANs inside service provider’s provided VLAN. This way the service provider can just configure one VLAN for the customer and customer can then treat that VLAN as if it were a trunk.</p>
 <p><code class="docutils literal"><span class="pre">show</span> <span class="pre">interfaces</span> <span class="pre">fa0/18</span> <span class="pre">switchport</span></code></p>
 <p><code class="docutils literal"><span class="pre">show</span> <span class="pre">vlan</span> <span class="pre">brief</span></code></p>
 </div>
@@ -5036,9 +5043,112 @@ Gig0/1      10,20,30,88,99
 <p class="last">To place a switch into its factory default condition with 1 default VLAN, use the commands <code class="docutils literal"><span class="pre">delete</span> <span class="pre">flash:vlan.dat</span></code> and <code class="docutils literal"><span class="pre">erase</span> <span class="pre">startup-config</span></code>.</p>
 </div>
 </div>
+<div class="section" id="qna-chapter-6">
+<h4>QnA Chapter 6<a class="headerlink" href="#qna-chapter-6" title="Permalink to this headline">¶</a></h4>
+<p>1 to 1005 = normal range vlans
+1006 to 4094 = extended range vlans
+.. note:: a VLAN containing user generated traffic is a <strong>data vlan</strong>
+.. note:: a VLAN that contains all the unused switch ports on a device is a <strong>black hole VLAN</strong></p>
+<p>to prohibit vlan on the trunk interface:<code class="docutils literal"><span class="pre">switchport</span> <span class="pre">trunk</span> <span class="pre">allowed</span> <span class="pre">vlan</span> <span class="pre">remove</span> <span class="pre">10</span></code></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the VLAN that is associated with a port is deleted, the port becomes inactive and cannot communicate with the network any more. To verify that a port is in an inactive state, use the show interfaces switchport command.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">in a router-on-a-stick configuration, the router isn’t making any decision on what vlan’s are allowed to communicatewith eachother, it just forwards it to the subinterface looking at the destination address. Its then the switch that will decide if the vlan is allowed to pass on the trunk.</p>
+</div>
+</div>
 </div>
 <div class="section" id="chapter-7-acls">
 <h3>Chapter 7 ACLs<a class="headerlink" href="#chapter-7-acls" title="Permalink to this headline">¶</a></h3>
+<p>When configured, ACLs perform the following tasks:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Limit network traffic to increase network performance. For example, if corporate policy does not allow video traffic on the network, ACLs that block video traffic could be configured and applied. This would greatly reduce the network load and increase network performance.</li>
+<li>Provide traffic flow control. ACLs can restrict the delivery of routing updates to ensure that the updates are from a known source.</li>
+<li>Provide a basic level of security for network access. ACLs can allow one host to access a part of the network and prevent another host from accessing the same area. For example, access to the Human Resources network can be restricted to authorized users.</li>
+<li>Filter traffic based on traffic type. For example, an ACL can permit email traffic, but block all Telnet traffic.</li>
+<li>Screen hosts to permit or deny access to network services. ACLs can permit or deny a user to access file types, such as FTP or HTTP.</li>
+</ul>
+</div></blockquote>
+<p>By default, a router does not have ACLs configured; therefore, by default a router does not filter traffic. Traffic that enters the router is routed solely based on information within the routing table. However, when an ACL is applied to an interface, the router performs the additional task of evaluating all network packets as they pass through the interface to determine if the packet can be forwarded.</p>
+<p>In addition to either permitting or denying traffic, ACLs can be used for selecting types of traffic to be analyzed, forwarded, or processed in other ways. For example, ACLs can be used to classify traffic to enable priority processing.</p>
+<p><strong>An ACL is a sequential list of permit or deny statements, known as access control entries (ACEs)</strong>. ACEs are also commonly called ACL statements. When network traffic passes through an interface configured with an ACL, the router compares the information within the packet against each ACE, in sequential order, to determine if the packet matches one of the ACEs. This process is called packet filtering.</p>
+<p>Packet filtering controls access to a network by analyzing the incoming and outgoing packets and forwarding them or discarding them based on given criteria. Packet filtering can occur at Layer 3 or Layer 4.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Standard ACLs only filter at Layer 3. Extended ACLs filter at Layer 3 and Layer 4.</p>
+</div>
+<p>Note: Extended ACLs are beyond the scope of this course.</p>
+<div class="section" id="acl-operation">
+<h4>ACL operation<a class="headerlink" href="#acl-operation" title="Permalink to this headline">¶</a></h4>
+<p>The source IPv4 address is the filtering criteria set in each ACE of a standard IPv4 ACL. A router configured with a standard IPv4 ACL <strong>extracts the source IPv4 address from the packet header</strong>. The router <em>starts at the top of the ACL and compares the address to each ACE sequentially. When a match is made, the router carries out the instruction, either permitting or denying the packet. After a match is made, the remaining ACEs in the ACL, if any</em> <strong>are not analyzed</strong>.</p>
+<p>If the source IPv4 address does not match any ACEs in the ACL, the packet is discarded.The last statement of an ACL is always an implicit deny. This statement is automatically inserted at the end of each ACL even though it is not physically present. The implicit deny blocks all traffic. <strong>Because of this implicit deny, an ACL that does not have at least one permit statement will block all traffic</strong></p>
+<p>ACLs define the set of rules that give added control for packets that enter inbound interfaces, packets that relay through the router, and packets that exit outbound interfaces of the router. ACLs do not act on packets that originate from the router itself.</p>
+<p>ACLs can be configured to apply to inbound traffic and outbound traffic as shown in the figure.</p>
+<img alt="_images/inbound_outbound_acl.png" src="_images/inbound_outbound_acl.png" />
+<p><strong>Inbound ACLs</strong>
+Incoming packets are processed before they are routed to the outbound interface. An inbound ACL is efficient because it saves the overhead of routing lookups if the packet is discarded. If the packet is permitted by the ACL, it is then processed for routing. Inbound ACLs are best used to filter packets when the network attached to an inbound interface is the only source of packets that need to be examined.
+<strong>Outbound ACLs</strong>
+Incoming packets are routed to the outbound interface, and then they are processed through the outbound ACL. Outbound ACLs are best used when the same filter will be applied to packets coming from multiple inbound interfaces before exiting the same outbound interface.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show access- lists</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="mi">11</span>
+    <span class="mi">10</span> <span class="n">deny</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.0</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span>
+    <span class="mi">20</span> <span class="n">permit</span> <span class="nb">any</span>
+</pre></div>
+</div>
+<p>The first line of the ACL prevent s any packets originating in the 192.168.10.0/24 network, which includes Internet Control Message Protocol (ICMP) echoe s (ping requests). The second line of the ACL allows all other ip traffic from any source to transverse the router.</p>
+<p>Remove access list 11 from the configuration</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">no</span> <span class="pre">access-list</span></code> command deletes all ACLs configured on the router . The <code class="docutils literal"><span class="pre">no</span> <span class="pre">access-list</span> <span class="pre">#</span></code> command removes only a specific ACL.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int se0/0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no ip access-group 11 out</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no access-list 11</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="acl-wildcard-masking">
+<h4>ACL Wildcard Masking<a class="headerlink" href="#acl-wildcard-masking" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">0 means to match the value - 1 means to ignore the value of corresponding address bit</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="25%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Decimal Address</th>
+<th class="head">Binary Address</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>IP to process</td>
+<td>192.168.10.0</td>
+<td>11000000.10101000.00001010.00000000</td>
+</tr>
+<tr class="row-odd"><td>Wildcard Mask</td>
+<td>0.0.255.255</td>
+<td>00000000.00000000.11111111.11111111</td>
+</tr>
+<tr class="row-even"><td>Resulting IP</td>
+<td>192.168.0.0</td>
+<td>11000000.10101000.00000000.00000000</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unlike IPv4 ACLs, IPv6 ACLs do not use wildcard masks. Instead, the prefix-length is used to indicate how much of an IPv6 source or destination address should be matched</p>
+</div>
+</div>
 </div>
 </div>
 </div>

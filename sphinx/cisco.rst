@@ -2378,7 +2378,9 @@ Because inserting the VLAN tag changes the frame, 802.1Q encapsulation forces a 
 
 The IEEE 802.3ac standard increased the maximum Ethernet frame size from 1518 bytes to 1522 bytes to accommodate the four-byte VLAN tag. Some network devices that do not support the larger frame size will process these frames successfully, but may report them as "baby giant" anomalies.
 
-More information on bigger vlan range `802.1ad QinQ <https://en.wikipedia.org/wiki/IEEE_802.1ad>`_
+QinQ allows multiple VLAN tags in an Ethernet frame; together these tags constitute a tag stack. When used in the context of an Ethernet frame, a QinQ frame is a frame that has 2 VLAN 802.1Q headers (double-tagged). 
+`802.1ad QinQ <https://en.wikipedia.org/wiki/IEEE_802.1ad>`_
+The idea is to provide, for example, the possibility for customers to run their own VLANs inside service provider's provided VLAN. This way the service provider can just configure one VLAN for the customer and customer can then treat that VLAN as if it were a trunk.
 
 ``show interfaces fa0/18 switchport``
 
@@ -4355,7 +4357,101 @@ Requirements
 .. note:: To place a switch into its factory default condition with 1 default VLAN, use the commands ``delete flash:vlan.dat`` and ``erase startup-config``.
 
 
+QnA Chapter 6
+-------------
+
+1 to 1005 = normal range vlans
+1006 to 4094 = extended range vlans
+.. note:: a VLAN containing user generated traffic is a **data vlan**
+.. note:: a VLAN that contains all the unused switch ports on a device is a **black hole VLAN**
+
+to prohibit vlan on the trunk interface:``switchport trunk allowed vlan remove 10``
+
+.. warning:: If the VLAN that is associated with a port is deleted, the port becomes inactive and cannot communicate with the network any more. To verify that a port is in an inactive state, use the show interfaces switchport command.
+
+.. note:: in a router-on-a-stick configuration, the router isn't making any decision on what vlan's are allowed to communicatewith eachother, it just forwards it to the subinterface looking at the destination address. Its then the switch that will decide if the vlan is allowed to pass on the trunk.
+
 Chapter 7 ACLs
 ==============
+
+When configured, ACLs perform the following tasks:
+
+ * Limit network traffic to increase network performance. For example, if corporate policy does not allow video traffic on the network, ACLs that block video traffic could be configured and applied. This would greatly reduce the network load and increase network performance.
+ 
+ * Provide traffic flow control. ACLs can restrict the delivery of routing updates to ensure that the updates are from a known source.
+ 
+ * Provide a basic level of security for network access. ACLs can allow one host to access a part of the network and prevent another host from accessing the same area. For example, access to the Human Resources network can be restricted to authorized users.
+ 
+ * Filter traffic based on traffic type. For example, an ACL can permit email traffic, but block all Telnet traffic.
+ 
+ * Screen hosts to permit or deny access to network services. ACLs can permit or deny a user to access file types, such as FTP or HTTP.
+
+By default, a router does not have ACLs configured; therefore, by default a router does not filter traffic. Traffic that enters the router is routed solely based on information within the routing table. However, when an ACL is applied to an interface, the router performs the additional task of evaluating all network packets as they pass through the interface to determine if the packet can be forwarded.
+
+In addition to either permitting or denying traffic, ACLs can be used for selecting types of traffic to be analyzed, forwarded, or processed in other ways. For example, ACLs can be used to classify traffic to enable priority processing.
+
+**An ACL is a sequential list of permit or deny statements, known as access control entries (ACEs)**. ACEs are also commonly called ACL statements. When network traffic passes through an interface configured with an ACL, the router compares the information within the packet against each ACE, in sequential order, to determine if the packet matches one of the ACEs. This process is called packet filtering.
+
+Packet filtering controls access to a network by analyzing the incoming and outgoing packets and forwarding them or discarding them based on given criteria. Packet filtering can occur at Layer 3 or Layer 4.
+
+.. note:: Standard ACLs only filter at Layer 3. Extended ACLs filter at Layer 3 and Layer 4.
+
+Note: Extended ACLs are beyond the scope of this course.
+
+
+ACL operation
+-------------
+
+The source IPv4 address is the filtering criteria set in each ACE of a standard IPv4 ACL. A router configured with a standard IPv4 ACL **extracts the source IPv4 address from the packet header**. The router *starts at the top of the ACL and compares the address to each ACE sequentially. When a match is made, the router carries out the instruction, either permitting or denying the packet. After a match is made, the remaining ACEs in the ACL, if any* **are not analyzed**.
+
+If the source IPv4 address does not match any ACEs in the ACL, the packet is discarded.The last statement of an ACL is always an implicit deny. This statement is automatically inserted at the end of each ACL even though it is not physically present. The implicit deny blocks all traffic. **Because of this implicit deny, an ACL that does not have at least one permit statement will block all traffic**
+
+ACLs define the set of rules that give added control for packets that enter inbound interfaces, packets that relay through the router, and packets that exit outbound interfaces of the router. ACLs do not act on packets that originate from the router itself.
+
+ACLs can be configured to apply to inbound traffic and outbound traffic as shown in the figure.
+
+.. image:: _static/inbound_outbound_acl.png
+
+**Inbound ACLs**
+Incoming packets are processed before they are routed to the outbound interface. An inbound ACL is efficient because it saves the overhead of routing lookups if the packet is discarded. If the packet is permitted by the ACL, it is then processed for routing. Inbound ACLs are best used to filter packets when the network attached to an inbound interface is the only source of packets that need to be examined.
+**Outbound ACLs**
+Incoming packets are routed to the outbound interface, and then they are processed through the outbound ACL. Outbound ACLs are best used when the same filter will be applied to packets coming from multiple inbound interfaces before exiting the same outbound interface.
+
+.. code::
+
+   R1# show access- lists
+   Standard IP access list 11 
+       10 deny 192.168.10.0 0.0.0.255 
+       20 permit any
+
+The first line of the ACL prevent s any packets originating in the 192.168.10.0/24 network, which includes Internet Control Message Protocol (ICMP) echoe s (ping requests). The second line of the ACL allows all other ip traffic from any source to transverse the router.
+
+Remove access list 11 from the configuration
+
+.. note:: The ``no access-list`` command deletes all ACLs configured on the router . The ``no access-list #`` command removes only a specific ACL.
+
+.. code:: 
+
+   R1(config)# int se0/0/0
+   R1(config-if)# no ip access-group 11 out 
+
+   R1(config)# no access-list 11
+
+ACL Wildcard Masking
+--------------------
+
+.. note:: 0 means to match the value - 1 means to ignore the value of corresponding address bit
+
++---------------+-----------------+-------------------------------------+
+|               | Decimal Address | Binary Address                      |
++===============+=================+=====================================+
+| IP to process | 192.168.10.0    | 11000000.10101000.00001010.00000000 |
++---------------+-----------------+-------------------------------------+
+| Wildcard Mask | 0.0.255.255     | 00000000.00000000.11111111.11111111 |
++---------------+-----------------+-------------------------------------+
+| Resulting IP  | 192.168.0.0     | 11000000.10101000.00000000.00000000 |
++---------------+-----------------+-------------------------------------+
+
+.. note:: Unlike IPv4 ACLs, IPv6 ACLs do not use wildcard masks. Instead, the prefix-length is used to indicate how much of an IPv6 source or destination address should be matched
 
 
