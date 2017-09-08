@@ -424,7 +424,8 @@ Delete `{motion}` text [into register x] and start insert
 
    :help c
    
-
+use ``d0`` instead of ``d^`` to delete to the real beginning of the line
+``d-HOME`` works too
 
 
 formatting

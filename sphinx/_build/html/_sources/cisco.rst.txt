@@ -4440,7 +4440,11 @@ Remove access list 11 from the configuration
 ACL Wildcard Masking
 --------------------
 
-.. note:: 0 means to match the value - 1 means to ignore the value of corresponding address bit
+.. note:: 0 means to match ip address bit - 1 means ignore address bit and zerofy
+
+#. write out ip in binary
+#. write WM in binary
+#. 0 match the address bit, 1 ignore address bit and put on 0
 
 +---------------+-----------------+-------------------------------------+
 |               | Decimal Address | Binary Address                      |
@@ -4454,4 +4458,324 @@ ACL Wildcard Masking
 
 .. note:: Unlike IPv4 ACLs, IPv6 ACLs do not use wildcard masks. Instead, the prefix-length is used to indicate how much of an IPv6 source or destination address should be matched
 
++---------------+----------------+-------------------------------------+
+|               | Decimal        | Binary                              |
++===============+================+=====================================+
+| IP Address    | 192.168.16.0   | 11000000.10101000.00010000.00000000 |
++---------------+----------------+-------------------------------------+
+| Wildcard Mask | 0.0.15.255     | 00000000.00000000.00001111.11111111 |
++---------------+----------------+-------------------------------------+
+| Result Range  | 192.168.16.0   | 11000000.10101000.00010000.00000000 |
++---------------+----------------+-------------------------------------+
+|               | to             | to                                  |
++---------------+----------------+-------------------------------------+
+|               | 192.168.31.255 | 11000000.10101000.00011111.11111111 |
++---------------+----------------+-------------------------------------+
 
+The first two octets and first four bits of the third octet must match exactly.
+The last four bits in the third octet and the last octet can be any valid number.
+This results in a mask that checks for the range of networks 192.168.16.0 to 192.168.31.0.
+
+
++---------------+-------------+-------------------------------------+
+|               | Decimal     | Binary                              |
++===============+=============+=====================================+
+| IP Address    | 192.168.1.0 | 11000000.10101000.00000001.00000000 |
++---------------+-------------+-------------------------------------+
+| Wildcard Mask | 0.0.254.255 | 00000000.00000000.11111110.11111111 |
++---------------+-------------+-------------------------------------+
+| Result        | 192.168.1.0 | 11000000.10101000.00000001.00000000 |
++---------------+-------------+-------------------------------------+
+|               |             | all odd numbered subnets            |
++---------------+-------------+-------------------------------------+
+
+a wildcard mask that matches the first two octets, and the least significant bit in the third octet.
+The last octet and the first seven bits in the third octet can be any valid number.
+The result is a mask that would permit or deny all hosts from odd subnets from the 192.168.0.0 major network.
+
+calculate WM for 192.168.3.32/28 Permit nw access for the 14 users in the nw
+
++-----+-----------------+
+|     | 255.255.255.255 |
++=====+=================+
+| (-) | 255.255.255.240 |
++-----+-----------------+
+|     | 0.0.0.15        |
++-----+-----------------+
+
+match only networks 192.168.10.0 and 192.168.11.0
+
++-----+-----------------+
+|     | 255.255.255.255 |
++=====+=================+
+| (-) | 255.255.254.0   |
++-----+-----------------+
+|     | 0.0.1.255       |
++-----+-----------------+
+
+You could accomplish the same result with statements like the two shown below:
+
+.. code::
+
+   R1(config)# access-list 10 permit 192.168.10.0
+   R1(config)# access-list 10 permit 192.168.11.0
+   
+   It is far more efficient to configure the wildcard mask in the following way
+         -------------------------------------------------
+
+   R1(config)# access-list 10 permit 192.168.10.0 0.0.1.255
+
+Wildcard Mask Abbreviations
+---------------------------
+
+.. image:: _static/wildcard_abbreviations.png
+
+.. code::
+
+   R1(config)# access-list 1 permit 0.0.0.0 255.255.255.255
+   !OR
+   R1(config)# access-list 1 permit any
+
+   R1(config)# access-list 1 permit 192.168.10.10 0.0.0.0
+   R1(config)# access-list 1 permit host 192.168.10.10
+
+.. image:: _static/permit_or_deny.png
+
+Rules for applying ACLs
+-----------------------
+
+.. image:: _static/acl_rules1.png
+
+.. note:: If we needed ACLs for both protocols, on both interfaces and in both directions, this would require eight separate ACLs. Each interface would have four ACLs; two ACLs for IPv4 and two ACLs for IPv6. For each protocol, one ACL is for inbound traffic and one for outbound traffic.
+
+
+* Use ACLs in firewall routers positioned between your internal network and an external network such as the Internet.
+ 
+* Use ACLs on a router positioned between two parts of your network to control traffic entering or exiting a specific part of your internal network.
+ 
+* Configure ACLs on border routers, that is, routers situated at the edges of your networks. This provides a very basic buffer from the outside network, or between a less controlled area of your own network and a more sensitive area of your network.
+ 
+* **Configure ACLs for each network protocol configured on the border router** interfaces.
+
+One ACL per protocol:
+ To controll traffic flow on an interface an ACL must be defined for EACH Protocol enabled on the interface
+
+One ACL per direction:
+ ACLs control traffic in one direction at a time on an interface. Two seperate ACLs must be created to control inbound & outbound traffic
+
+One ACL per interface:
+ ACLs control traffic for an interface, eg. GigabitEthernet 0/0
+
+
+.. note:: Test your ACLs on a development network before implementing them.
+
+.. note:: Inbound ACLs, packets are processed before routing, Outbound ACLs after routing has performed
+
+ACL Placement
+-------------
+
+.. warning:: Locate extended ACLs as close as possible to the source of the traffic to be filtered. This way, undesirable traffic is denied close to the source network without crossing the network infrastructure.
+
+.. warning:: Because standard ACLs do not specify destination addresses, place them as close to the destination as possible. Placing a standard ACL at the source of the traffic will effectively prevent that traffic from reaching any other networks through the interface where the ACL is applied.
+
+**extended ACLs are placed as close as possible to the source and standard ACLs are placed as close as possible to the destination**
+
+* Placement of the ACL and therefore, the type of ACL used may also depend on
+
+The extent of the network administrator’s control:
+ Placement of the ACL can depend on whether or not the network administrator has control of both the source and destination networks.
+
+Bandwidth of the networks involved:
+ Filtering unwanted traffic at the source prevents transmission of the traffic before it consumes bandwidth on the path to a destination. This is especially important in low bandwidth networks.
+
+Ease of configuration:
+ If a network administrator wants to deny traffic coming from several networks, one option is to use a single standard ACL on the router closest to the destination. The disadvantage is that traffic from these networks will use bandwidth unnecessarily. An extended ACL could be used on each router where the traffic originated. This will save bandwidth by filtering the traffic at the source but requires creating extended ACLs on multiple routers.
+
+Standard ACL placement
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/standard_acl_placement.png
+
+
+R3 S0/0/1 interface:
+ Applying a standard ACL to prevent traffic from 192.168.10.0/24 from entering the S0/0/1 interface will prevent this traffic from reaching 192.168.30.0/24 and all other networks reachable by R3. This includes the 192.168.31.0/24 network. Because the intent of the ACL is to filter traffic destined only for 192.168.30.0/24, a standard ACL should not be applied to this interface.
+
+R3 G0/0 interface:
+ Applying the standard ACL to traffic exiting the G0/0 interface will filter packets from 192.168.10.0/24 to 192.168.30.0/24. This will not affect other networks reachable by R3. Packets from 192.168.10.0/24 will still be able to reach 192.168.31.0/24.
+
+Access-list: defines a standard ACL with a number in the range of 1 through 99
+
+Router(config)# **access-list** 10 {**deny | permit | remark**} source [source-wildcard] [**log**]
+
+.. code::
+
+   R1(config)# access-list 10 permit 192.168.10.0 0.0.0.255
+   R1(config)# exit
+   R1# show access-lists
+   Standard IP access list 10
+       10 permit 192.168.10.0, wildcard bits 0.0.0.255
+   R1# conf t
+   R1(config)# no access-list 10
+   R1(config)# exit
+   R1(config)# show access-lists
+   R1# 
+
+   use the ability to use remark
+   -----------------------------
+
+   R1(config)# access-list 10 remark Permit hosts from the 192.168.10.0 LAN
+   R1(config)# access-list 10 permit 192.168.10.0 0.0.0.255
+   R1(config)# exit
+   R1# show running-config | include access-list 10
+   access-list 10 remark Permit hosts from the 192.168.10.0 LAN
+   access-list 10 permit 192.168.10.0 0.0.0.255
+   R1#
+
+Applying standard ipv4 ACLs to interface
+----------------------------------------
+
+* Router(config-if)# **ip access-group** { access-list-number | access-list-name } { **in | out** }
+
+to remove ACL from interface:
+ ``no ip access-group 10`` and then ``no access-list 10``
+
+#. create the entry:
+   R1(config)# access-**list** 1 permit 192.168.10.0 0.0.0.255
+#. select the interface:
+   R1(config)# interface serial 0/0/0
+#. activate on interface:
+   R1(config-if)# ip access-**group** 1 **out**
+
+.. code::
+
+   R1(config)# no access-list 1
+   R1(config)# access-list 1 deny host 192.168.10.10
+   R1(config)# access-list 1 permit 192.168.10.0 0.0.0.255
+   R1(config)# interface **S0/0/0**
+   R1(config-if)# ip access-group 1 **out**
+
+This is not very efficient, better to apply it to the inbound interface so the router doesn't have to examine packets
+
+.. image:: _static/efficiency_standard_acl_deny_host.png
+
+.. code::
+
+   R1(config)# no access-list 1
+   R1(config)# access-list 1 deny host 192.168.10.10
+   R1(config)# access-list 1 permit any
+   R1(config)# interface **g0/0**
+   R1(config-if)# ip access-group 1 **in**
+
+Named Standard ACLs
+-------------------
+
+#. Router(config)# **ip** access-list [**standard | extended**] name
+
+   .. note::
+      name must be unique and cannot begin with number
+
+#. Router(config-std-nacl)# [**permit | deny | remark**] {source [source-wildcard]} [**log**]
+#. Router(config-if)# **ip access-group** name [**in | out**]
+   
+   * Activates the named IP ACL on an interface
+
+
+.. image:: _static/named_acl_example.png
+
+.. code::
+   
+   R1(config)# ip access-list standard NO_ACCESS
+   R1(config-std-nacl)# deny host 192.168.11.10
+   R1(config-std-nacl)# permit any 
+   R1(config-std-nacl)# exit
+   R1(config)# interface g0/0
+   R1(config-if)# ip access-group NO_ACCESS out
+
+
+.. note:: mnemonics -> X to the source, X'ersource :) standard to destination = STD
+
+exercises
+---------
+PT Configuring Numbered Standard IPv4 ACLs
+
+Addressing Table
+
++-----------+-----------+----------------+-----------------+-----------------+
+| Device    | Interface | IP Address     | Subnet Mask     | Default Gateway |
++===========+===========+================+=================+=================+
+| R1        | G0/0      | 192.168.10.1   | 255.255.255.0   | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | G0/1      | 192.168.11.1   | 255.255.255.0   | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | S0/0/0    | 10.1.1.1       | 255.255.255.252 | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | S0/0/1    | 10.3.3.1       | 255.255.255.252 | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+| R2        | G0/0      | 192.168.20.1   | 255.255.255.0   | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | S0/0/0    | 10.1.1.2       | 255.255.255.252 | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | S0/0/1    | 10.2.2.1       | 255.255.255.252 | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+| R3        | G0/0      | 192.168.30.1   | 255.255.255.0   | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | S0/0/0    | 10.3.3.2       | 255.255.255.252 | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+|           | S0/0/1    | 10.2.2.2       | 255.255.255.252 | N/A             |
++-----------+-----------+----------------+-----------------+-----------------+
+| PC1       | NIC       | 192.168.10.10  | 255.255.255.0   | 192.168.10.1    |
++-----------+-----------+----------------+-----------------+-----------------+
+| PC2       | NIC       | 192.168.11.10  | 255.255.255.0   | 192.168.11.1    |
++-----------+-----------+----------------+-----------------+-----------------+
+| PC3       | NIC       | 192.168.30.10  | 255.255.255.0   | 192.168.30.1    |
++-----------+-----------+----------------+-----------------+-----------------+
+| WebServer | NIC       | 192.168.20.254 | 255.255.255.0   | 192.168.20.1    |
++-----------+-----------+----------------+-----------------+-----------------+
+
+.. image::
+
+Objectives
+* Part 1: Plan an ACL Implementation
+* Part 2: Configure, Apply, and verify a STanDard ACL
+
+Scenario
+defining filtering criteria, configuring standard ACLs, applying ACLs to router interfaces, and verifying and testing the ACL implementation. The routers are already configured, including IP addresses and Enhanced Interior Gateway Routing Protocol (EIGRP) routing.
+
+#. Verify full connectivity before applying ACLs
+#. apply following policies on R2
+
+   a. The 192.168.11.0/24 network is not allowed access to the WebServer on the 192.168.20.0/24 network.
+   b. All other access is permitted
+
+   .. code::
+   
+      R2(config)# access-list 1 deny 192.168.11.0 0.0.0.255
+      R2(config)# access-list 1 permit any
+      R2(config)# interface G0/0
+      R2(config-if)# ip access-group 1 out
+
+#. apply following policies on R3
+
+   a. The 192.168.10.0/24 network is not allowed to communicate with the 192.168.30.0/24 network
+   b. All other access is permitted
+
+   .. code::
+   
+      R3(config)#do show access-list
+      R3(config)#access-list 1 deny 192.168.10.0 0.0.0.255
+      R3(config)#access-list 1 permit any
+      R3(config)#interface g0/0
+      R3(config-if)#ip access-group 1 out
+
+#. Use the ``show access-list`` & ``show run`` or ``show ip interface gigabitethernet 0/0`` command to verify ACL placements
+#. time to ping around to see what succeeds and fails
+
+   #. A ping from 192.168.10.10 to 192.168.11.10 succeeds.
+   #. A ping from 192.168.10.10 to 192.168.20.254 succeeds.
+   #. A ping from 192.168.11.10 to 192.168.20.254 fails.
+   #. A ping from 192.168.10.10 to 192.168.30.10 fails.
+   #. A ping from 192.168.11.10 to 192.168.30.10 succeeds.
+   #. A ping from 192.168.30.10 to 192.168.20.254 succeeds.
+
+
+   
