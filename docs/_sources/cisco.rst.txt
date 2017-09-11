@@ -4805,8 +4805,6 @@ PT Configuring Named Standard IPv4 ACLs
 | PC2         | NIC       | 192.168.10.3    | 255.255.255.0 | 192.168.10.1    |
 +-------------+-----------+-----------------+---------------+-----------------+
 
-.. image:: _static/ch7_named_acl_ipv4_pt.png
-
 solution:
 
 .. code::
