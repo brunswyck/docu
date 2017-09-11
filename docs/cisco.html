@@ -215,6 +215,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#applying-standard-ipv4-acls-to-interface">Applying standard ipv4 ACLs to interface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#named-standard-acls">Named Standard ACLs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#exercises">exercises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#editing-numbered-acls">Editing Numbered ACLs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-a-line-to-nacl">adding a line to NACL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verifying-standard-acl-interfaces">verifying standard ACL interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#acl-vs-ip-acl">ACL VS IP ACL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clearing-acl-statistics">Clearing ACL Statistics</a></li>
 </ul>
 </li>
 </ul>
@@ -5450,7 +5455,8 @@ R1(config-if)# ip access-<strong>group</strong> 1 <strong>out</strong></li>
 </div>
 <div class="section" id="exercises">
 <h4>exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h4>
-<p>PT Configuring Numbered Standard IPv4 ACLs</p>
+<div class="section" id="pt-configuring-numbered-standard-ipv4-acls">
+<h5>PT Configuring Numbered Standard IPv4 ACLs<a class="headerlink" href="#pt-configuring-numbered-standard-ipv4-acls" title="Permalink to this headline">¶</a></h5>
 <p>Addressing Table</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -5555,6 +5561,7 @@ R1(config-if)# ip access-<strong>group</strong> 1 <strong>out</strong></li>
 </tr>
 </tbody>
 </table>
+<img alt="_images/ex1_std_acls.png" src="_images/ex1_std_acls.png" />
 <p>Objectives
 * Part 1: Plan an ACL Implementation
 * Part 2: Configure, Apply, and verify a STanDard ACL</p>
@@ -5601,6 +5608,268 @@ defining filtering criteria, configuring standard ACLs, applying ACLs to router 
 </ol>
 </li>
 </ol>
+</div>
+<div class="section" id="pt-configuring-named-standard-ipv4-acls">
+<h5>PT Configuring Named Standard IPv4 ACLs<a class="headerlink" href="#pt-configuring-named-standard-ipv4-acls" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="15%" />
+<col width="23%" />
+<col width="21%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>F0/0</td>
+<td>192.168.10.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>R1</td>
+<td>F0/1</td>
+<td>192.168.20.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>R1</td>
+<td>E0/0/0</td>
+<td>192.168.100.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>R1</td>
+<td>E0/1/0</td>
+<td>192.168.200.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>File Server</td>
+<td>NIC</td>
+<td>192.168.200.100</td>
+<td>255.255.255.0</td>
+<td>192.168.200.1</td>
+</tr>
+<tr class="row-odd"><td>WebServer</td>
+<td>NIC</td>
+<td>192.168.100.100</td>
+<td>255.255.255.0</td>
+<td>192.168.100.1</td>
+</tr>
+<tr class="row-even"><td>PC0</td>
+<td>NIC</td>
+<td>192.168.20.3</td>
+<td>255.255.255.0</td>
+<td>192.168.20.1</td>
+</tr>
+<tr class="row-odd"><td>PC1</td>
+<td>NIC</td>
+<td>192.168.20.4</td>
+<td>255.255.255.0</td>
+<td>192.168.20.1</td>
+</tr>
+<tr class="row-even"><td>PC2</td>
+<td>NIC</td>
+<td>192.168.10.3</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+</tbody>
+</table>
+<img alt="_static/ch7_named_acl_ipv4_pt.png" src="_static/ch7_named_acl_ipv4_pt.png" />
+<p>solution:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show access-list</span>
+<span class="n">R1</span><span class="c1">#show ip access-lists</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip access-list standard File_Server_Restrictions</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#permit host 192.168.20.4</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#deny any</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#?</span>
+  <span class="o">&lt;</span><span class="mi">1</span><span class="o">-</span><span class="mi">2147483647</span><span class="o">&gt;</span>  <span class="n">Sequence</span> <span class="n">Number</span>
+  <span class="n">default</span>         <span class="n">Set</span> <span class="n">a</span> <span class="n">command</span> <span class="n">to</span> <span class="n">its</span> <span class="n">defaults</span>
+  <span class="n">deny</span>            <span class="n">Specify</span> <span class="n">packets</span> <span class="n">to</span> <span class="n">reject</span>
+  <span class="n">exit</span>            <span class="n">Exit</span> <span class="kn">from</span> <span class="nn">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">configuration</span> <span class="n">mode</span>
+  <span class="n">no</span>              <span class="n">Negate</span> <span class="n">a</span> <span class="n">command</span> <span class="ow">or</span> <span class="nb">set</span> <span class="n">its</span> <span class="n">defaults</span>
+  <span class="n">permit</span>          <span class="n">Specify</span> <span class="n">packets</span> <span class="n">to</span> <span class="n">forward</span>
+  <span class="n">remark</span>          <span class="n">Access</span> <span class="nb">list</span> <span class="n">entry</span> <span class="n">comment</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#do show access-list</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">File_Server_Restrictions</span>
+    <span class="mi">10</span> <span class="n">permit</span> <span class="n">host</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">20.4</span>
+    <span class="mi">20</span> <span class="n">deny</span> <span class="nb">any</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#do show ip access-list</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">File_Server_Restrictions</span>
+    <span class="mi">10</span> <span class="n">permit</span> <span class="n">host</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">20.4</span>
+    <span class="mi">20</span> <span class="n">deny</span> <span class="nb">any</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">&#64; this point no difference is noticable between show or show ip access-list</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the answer: There may be more than just IPv4 access-lists on the router. If so, the command show access-lists would show them all, including IPX or other types that may exist. On that same router, the command show ip access-lists would only show the IP access-lists, and not the IPX or other types.</p>
+</div>
+</div>
+</div>
+<div class="section" id="editing-numbered-acls">
+<h4>Editing Numbered ACLs<a class="headerlink" href="#editing-numbered-acls" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="method-1-use-a-text-editor">
+<h5>Method 1 - Use a Text Editor<a class="headerlink" href="#method-1-use-a-text-editor" title="Permalink to this headline">¶</a></h5>
+<p>After someone is familiar with creating and editing ACLs, it may be easier to construct the ACL using a text editor such as Microsoft Notepad. This allows you to create or edit the ACL and then paste it into the router interface. For an existing ACL, you can use the show running-config command to display the ACL, copy and paste it into the text editor, make the necessary changes, and paste it back in to the router interface.</p>
+<p>Configuration: For example, assume that the host IPv4 address in the figure was incorrectly entered. Instead of the 192.168.10.99 host, it should have been the 192.168.10.10 host. Here are the steps to edit and correct ACL 1:</p>
+<ol class="arabic simple">
+<li>Display the ACL using the show running-config command. The example in the figure uses the include keyword to display only the ACEs.</li>
+<li>Highlight the ACL, copy it, and then paste it into a Notepad. Edit the list as required. After the ACL is correctly displayed in Notepad, highlight it and copy it.</li>
+</ol>
+<p>Step 3. In global configuration mode, remove the access list using the no access-list 1 command. Otherwise, the new statements would be appended to the existing ACL. Then paste the new ACL into the configuration of the router.</p>
+<p>Step 4. Using the show running-config command, verify the changes</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">when using the no access-list command, different IOS software releases act differently. If the ACL that has been deleted is still applied to an interface, some IOS versions act as if <strong>no ACL is protecting your network while others deny all traffic</strong></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For this reason it is <strong>good practice to remove the reference to the access list from the interface</strong> before modifying the access list. If there is an error in the new list, disable it and troubleshoot the problem. In that instance, the network has no ACL during the correction process.</p>
+</div>
+</div>
+<div class="section" id="method-2-use-sequence-numbers">
+<h5>Method 2 - Use Sequence Numbers<a class="headerlink" href="#method-2-use-sequence-numbers" title="Permalink to this headline">¶</a></h5>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">goto</span> <span class="n">acl</span>
+<span class="o">--------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">standard</span> <span class="mi">1</span>
+
+<span class="n">fix</span> <span class="n">line</span>
+<span class="o">--------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># no 10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># 10 deny host 192.168.10.10</span>
+
+<span class="n">verify</span>
+<span class="o">------</span>
+<span class="n">R1</span><span class="c1"># show access-lists</span>
+<span class="n">R1</span><span class="c1"># show running-config | include access-list 1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Cisco IOS implements an internal logic to standard access lists. The order in which standard ACEs are entered may not be the order in which they are stored, displayed or processed by the router. The show access-lists command displays the ACEs with their sequence numbers.</p>
+</div>
+</div>
+</div>
+<div class="section" id="adding-a-line-to-nacl">
+<h4>adding a line to NACL<a class="headerlink" href="#adding-a-line-to-nacl" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show access-lists</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">standard</span> <span class="n">NAME_OF_ACCESS_LIST</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># 15 deny host 192.168.11.11</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="verifying-standard-acl-interfaces">
+<h4>verifying standard ACL interfaces<a class="headerlink" href="#verifying-standard-acl-interfaces" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ip</span> <span class="pre">interface</span> <span class="pre">s0/0/0</span></code></p>
+<p>Outgoing access list is 1
+Inbound  access list is not set</p>
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ip</span> <span class="pre">interface</span> <span class="pre">g0/0</span></code></p>
+<p>Outgoing access list is NO_ACCESS
+Inbound  access list is not set</p>
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">access-lists</span></code></p>
+</div>
+<div class="section" id="acl-vs-ip-acl">
+<h4>ACL VS IP ACL<a class="headerlink" href="#acl-vs-ip-acl" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">access-list</span></code> command is used to define a numbered ACL, meaning that the ACL will be identified in the configuration by its number. This number also designates the type of this ACL, i.e. standard IP, extended IP, MAC, etc. See here:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#access-list ?</span>
+ <span class="o">&lt;</span><span class="mi">1</span><span class="o">-</span><span class="mi">99</span><span class="o">&gt;</span>            <span class="n">IP</span> <span class="n">standard</span> <span class="n">access</span> <span class="nb">list</span>
+ <span class="o">&lt;</span><span class="mi">100</span><span class="o">-</span><span class="mi">199</span><span class="o">&gt;</span>         <span class="n">IP</span> <span class="n">extended</span> <span class="n">access</span> <span class="nb">list</span>
+ <span class="o">&lt;</span><span class="mi">1100</span><span class="o">-</span><span class="mi">1199</span><span class="o">&gt;</span>       <span class="n">Extended</span> <span class="mi">48</span><span class="o">-</span><span class="n">bit</span> <span class="n">MAC</span> <span class="n">address</span> <span class="n">access</span> <span class="nb">list</span>
+ <span class="o">&lt;</span><span class="mi">1300</span><span class="o">-</span><span class="mi">1999</span><span class="o">&gt;</span>       <span class="n">IP</span> <span class="n">standard</span> <span class="n">access</span> <span class="nb">list</span> <span class="p">(</span><span class="n">expanded</span> <span class="nb">range</span><span class="p">)</span>
+ <span class="o">&lt;</span><span class="mi">200</span><span class="o">-</span><span class="mi">299</span><span class="o">&gt;</span>         <span class="n">Protocol</span> <span class="nb">type</span><span class="o">-</span><span class="n">code</span> <span class="n">access</span> <span class="nb">list</span>
+ <span class="o">&lt;</span><span class="mi">2000</span><span class="o">-</span><span class="mi">2699</span><span class="o">&gt;</span>       <span class="n">IP</span> <span class="n">extended</span> <span class="n">access</span> <span class="nb">list</span> <span class="p">(</span><span class="n">expanded</span> <span class="nb">range</span><span class="p">)</span>
+ <span class="o">&lt;</span><span class="mi">700</span><span class="o">-</span><span class="mi">799</span><span class="o">&gt;</span>         <span class="mi">48</span><span class="o">-</span><span class="n">bit</span> <span class="n">MAC</span> <span class="n">address</span> <span class="n">access</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Following this help output, if you want to define a standard IP ACL, it has to be identified by a number in the range 1-99 or 1300-1999. Analogously, if you want to define an extended IP ACL, it must be numbered from the range 100-199 or 2000-2699. MAC ACLs would use the range 700-799 for standard ACL and 1100-1199 for extended ACL.</p>
+<p>The ip access-list command defines a named IPv4 ACL, either standard or extended. A named IP ACL is totally equivalent to a numbered IP ACL in its behavior - the only difference is in the way it is configured and referenced in the configuration. Also, using the ip access-list command, you can not define different types of ACLs like MAC ACLs. Otherwise, a named and a numbered ACLs behave identically.</p>
+<p>For example, these two ACLs would provide identical results:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">1</span> <span class="n">deny</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.4</span>
+<span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">1</span> <span class="n">deny</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.128</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.127</span>
+<span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">1</span> <span class="n">permit</span> <span class="nb">any</span>
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">standard</span> <span class="n">MyACL1</span>
+ <span class="n">deny</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.4</span>
+ <span class="n">deny</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.128</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.127</span>
+ <span class="n">permit</span> <span class="nb">any</span>
+</pre></div>
+</div>
+<p>Also, these two ACLs would provide identical results:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">100</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">80</span>
+<span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">100</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">443</span>
+<span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">100</span> <span class="n">permit</span> <span class="n">udp</span> <span class="nb">any</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="n">eq</span> <span class="mi">53</span>
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">extended</span> <span class="n">MyACL2</span>
+  <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">80</span>
+  <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">443</span>
+  <span class="n">permit</span> <span class="n">udp</span> <span class="nb">any</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="n">eq</span> <span class="mi">53</span>
+</pre></div>
+</div>
+<p>Apart from the obvious advantage of giving ACLs meaningful names instead of just numbers, the <strong>named ACLs have another advantage: they can actually be edited. Numbered ACLs cannot really be edited - you can only add new entries to their end but if you need to remove or replace an entry, you need to remove the entire ACL</strong> and enter it anew. With named ACLs, it is actually possible to perform in-place editing.</p>
+<p>Let’s take the last <strong>named ACL</strong> posted. If you perform <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">access-lists</span></code> you will get the following output:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="c1">#show ip access-lists</span>
+<span class="n">Extended</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">MyACL2</span>
+ <span class="mi">10</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">www</span>
+ <span class="mi">20</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">443</span>
+ <span class="mi">30</span> <span class="n">permit</span> <span class="n">udp</span> <span class="nb">any</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="n">eq</span> <span class="n">domain</span>
+</pre></div>
+</div>
+<p>Note the numbers 10,20,30 at the each line. They allow you to remove that particular line or insert a new line between them. For example, if I wanted to insert a new rule between the first and second entry, it would be done as follows:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">extended</span> <span class="n">MyACL2</span>
+ <span class="mi">15</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">110</span>
+</pre></div>
+</div>
+<p>Now the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">access-lists</span></code> would say:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Extended</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">MyACL2</span>
+ <span class="mi">10</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">www</span>
+ <span class="mi">15</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">pop3</span>
+ <span class="mi">20</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">443</span>
+ <span class="mi">30</span> <span class="n">permit</span> <span class="n">udp</span> <span class="nb">any</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="n">eq</span> <span class="n">domain</span>
+</pre></div>
+</div>
+<p>I could use any number between 11 and 19, inclusive.</p>
+<p>Now, if I wanted to remove the line 30 (the one permitting the DNS access), the command would be:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">extended</span> <span class="n">MyACL2</span>
+<span class="n">no</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">access-lists</span></code> would now produce:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Extended</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">MyACL2</span>
+ <span class="mi">10</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">www</span>
+ <span class="mi">15</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">pop3</span>
+ <span class="mi">20</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">443</span>
+</pre></div>
+</div>
+<p>These numbers are not really stored in the configuration - they are only runtime-remembered. If you restart the router, they will be reset again to 10,20,30,etc. In case you need to resequence the ACL without restarting the router, you can use the command <code class="docutils literal"><span class="pre">ip</span> <span class="pre">access-list</span> <span class="pre">resequence</span> <span class="pre">MyACL2</span> <span class="pre">10</span> <span class="pre">10</span></code> where the <strong>first “10” number specifies the starting number of the ACL entry, and the second “10” represents the increment</strong>. After entering this command in the global configuration mode, the show ip access-lists again shows:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Extended</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">MyACL2</span>
+ <span class="mi">10</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">www</span>
+ <span class="mi">20</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="n">pop3</span>
+ <span class="mi">30</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">443</span>
+</pre></div>
+</div>
+<p>So to wrap it up, <em>numbered ACLs and named ACLs defined using the ip access-list command have the same effect</em>. However, <strong>the named ACLs are more flexible</strong> in the way they are defined, managed and referenced.</p>
+</div>
+<div class="section" id="clearing-acl-statistics">
+<h4>Clearing ACL Statistics<a class="headerlink" href="#clearing-acl-statistics" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">counters</span> <span class="pre">1</span></code> or <code class="docutils literal"><span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">ACL_NAME</span></code></p>
+<img alt="_images/clear_matches_acl.png" src="_images/clear_matches_acl.png" />
 </div>
 </div>
 </div>

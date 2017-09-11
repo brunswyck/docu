@@ -4697,6 +4697,7 @@ Named Standard ACLs
 exercises
 ---------
 PT Configuring Numbered Standard IPv4 ACLs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Addressing Table
 
@@ -4732,7 +4733,7 @@ Addressing Table
 | WebServer | NIC       | 192.168.20.254 | 255.255.255.0   | 192.168.20.1    |
 +-----------+-----------+----------------+-----------------+-----------------+
 
-.. image::
+.. image:: _static/ex1_std_acls.png
 
 Objectives
 * Part 1: Plan an ACL Implementation
@@ -4778,4 +4779,250 @@ defining filtering criteria, configuring standard ACLs, applying ACLs to router 
    #. A ping from 192.168.30.10 to 192.168.20.254 succeeds.
 
 
+
+
+PT Configuring Named Standard IPv4 ACLs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++-------------+-----------+-----------------+---------------+-----------------+
+| Device      | Interface | IP Address      | Subnet Mask   | Default Gateway |
++=============+===========+=================+===============+=================+
+| R1          | F0/0      | 192.168.10.1    | 255.255.255.0 | N/A             |
++-------------+-----------+-----------------+---------------+-----------------+
+| R1          | F0/1      | 192.168.20.1    | 255.255.255.0 | N/A             |
++-------------+-----------+-----------------+---------------+-----------------+
+| R1          | E0/0/0    | 192.168.100.1   | 255.255.255.0 | N/A             |
++-------------+-----------+-----------------+---------------+-----------------+
+| R1          | E0/1/0    | 192.168.200.1   | 255.255.255.0 | N/A             |
++-------------+-----------+-----------------+---------------+-----------------+
+| File Server | NIC       | 192.168.200.100 | 255.255.255.0 | 192.168.200.1   |
++-------------+-----------+-----------------+---------------+-----------------+
+| WebServer   | NIC       | 192.168.100.100 | 255.255.255.0 | 192.168.100.1   |
++-------------+-----------+-----------------+---------------+-----------------+
+| PC0         | NIC       | 192.168.20.3    | 255.255.255.0 | 192.168.20.1    |
++-------------+-----------+-----------------+---------------+-----------------+
+| PC1         | NIC       | 192.168.20.4    | 255.255.255.0 | 192.168.20.1    |
++-------------+-----------+-----------------+---------------+-----------------+
+| PC2         | NIC       | 192.168.10.3    | 255.255.255.0 | 192.168.10.1    |
++-------------+-----------+-----------------+---------------+-----------------+
+
+.. image:: _static/ch7_named_acl_ipv4_pt.png
+
+solution:
+
+.. code::
+
+   R1#show access-list
+   R1#show ip access-lists 
+   R1(config)#ip access-list standard File_Server_Restrictions
+   R1(config-std-nacl)#permit host 192.168.20.4
+   R1(config-std-nacl)#deny any
+   R1(config-std-nacl)#?
+     <1-2147483647>  Sequence Number
+     default         Set a command to its defaults
+     deny            Specify packets to reject
+     exit            Exit from access-list configuration mode
+     no              Negate a command or set its defaults
+     permit          Specify packets to forward
+     remark          Access list entry comment
+   R1(config-std-nacl)#do show access-list
+   Standard IP access list File_Server_Restrictions
+       10 permit host 192.168.20.4
+       20 deny any
    
+   R1(config-std-nacl)#do show ip access-list
+   Standard IP access list File_Server_Restrictions
+       10 permit host 192.168.20.4
+       20 deny any
+
+.. note:: @ this point no difference is noticable between show or show ip access-list
+.. note:: the answer: There may be more than just IPv4 access-lists on the router. If so, the command show access-lists would show them all, including IPX or other types that may exist. On that same router, the command show ip access-lists would only show the IP access-lists, and not the IPX or other types.
+
+Editing Numbered ACLs
+---------------------
+
+
+Method 1 - Use a Text Editor
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+After someone is familiar with creating and editing ACLs, it may be easier to construct the ACL using a text editor such as Microsoft Notepad. This allows you to create or edit the ACL and then paste it into the router interface. For an existing ACL, you can use the show running-config command to display the ACL, copy and paste it into the text editor, make the necessary changes, and paste it back in to the router interface.
+
+Configuration: For example, assume that the host IPv4 address in the figure was incorrectly entered. Instead of the 192.168.10.99 host, it should have been the 192.168.10.10 host. Here are the steps to edit and correct ACL 1:
+
+#. Display the ACL using the show running-config command. The example in the figure uses the include keyword to display only the ACEs.
+
+#. Highlight the ACL, copy it, and then paste it into a Notepad. Edit the list as required. After the ACL is correctly displayed in Notepad, highlight it and copy it.
+
+Step 3. In global configuration mode, remove the access list using the no access-list 1 command. Otherwise, the new statements would be appended to the existing ACL. Then paste the new ACL into the configuration of the router.
+
+Step 4. Using the show running-config command, verify the changes
+
+.. warning:: when using the no access-list command, different IOS software releases act differently. If the ACL that has been deleted is still applied to an interface, some IOS versions act as if **no ACL is protecting your network while others deny all traffic**
+
+.. note:: For this reason it is **good practice to remove the reference to the access list from the interface** before modifying the access list. If there is an error in the new list, disable it and troubleshoot the problem. In that instance, the network has no ACL during the correction process.
+
+Method 2 - Use Sequence Numbers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   goto acl
+   --------
+   R1(config) ip access-list standard 1
+   
+   fix line
+   --------
+   R1(config-std-nacl)# no 10
+   R1(config-std-nacl)# 10 deny host 192.168.10.10
+   
+   verify
+   ------
+   R1# show access-lists
+   R1# show running-config | include access-list 1
+
+.. note:: Cisco IOS implements an internal logic to standard access lists. The order in which standard ACEs are entered may not be the order in which they are stored, displayed or processed by the router. The show access-lists command displays the ACEs with their sequence numbers.
+
+adding a line to NACL
+---------------------
+
+.. code:: 
+   
+   R1#show access-lists
+   R1(config) ip access-list standard NAME_OF_ACCESS_LIST
+   R1(config-if-nacl)# 15 deny host 192.168.11.11
+   R1(config-if-nacl)# end 
+   
+verifying standard ACL interfaces
+---------------------------------
+
+``R1# show ip interface s0/0/0``
+
+Outgoing access list is 1
+Inbound  access list is not set
+
+``R1# show ip interface g0/0``
+
+Outgoing access list is NO_ACCESS
+Inbound  access list is not set
+
+``R1# show access-lists``
+
+
+ACL VS IP ACL
+-------------
+
+The ``access-list`` command is used to define a numbered ACL, meaning that the ACL will be identified in the configuration by its number. This number also designates the type of this ACL, i.e. standard IP, extended IP, MAC, etc. See here:
+
+.. code::
+
+   Router(config)#access-list ?
+    <1-99>            IP standard access list
+    <100-199>         IP extended access list
+    <1100-1199>       Extended 48-bit MAC address access list
+    <1300-1999>       IP standard access list (expanded range)
+    <200-299>         Protocol type-code access list
+    <2000-2699>       IP extended access list (expanded range)
+    <700-799>         48-bit MAC address access list
+
+Following this help output, if you want to define a standard IP ACL, it has to be identified by a number in the range 1-99 or 1300-1999. Analogously, if you want to define an extended IP ACL, it must be numbered from the range 100-199 or 2000-2699. MAC ACLs would use the range 700-799 for standard ACL and 1100-1199 for extended ACL.
+
+The ip access-list command defines a named IPv4 ACL, either standard or extended. A named IP ACL is totally equivalent to a numbered IP ACL in its behavior - the only difference is in the way it is configured and referenced in the configuration. Also, using the ip access-list command, you can not define different types of ACLs like MAC ACLs. Otherwise, a named and a numbered ACLs behave identically.
+
+For example, these two ACLs would provide identical results:
+
+
+.. code::
+
+   access-list 1 deny host 192.0.2.4
+   access-list 1 deny 192.0.2.128 0.0.0.127
+   access-list 1 permit any
+
+.. code::
+
+   ip access-list standard MyACL1
+    deny host 192.0.2.4
+    deny 192.0.2.128 0.0.0.127
+    permit any
+
+Also, these two ACLs would provide identical results:
+
+
+.. code::
+
+   access-list 100 permit tcp any any eq 80
+   access-list 100 permit tcp any any eq 443
+   access-list 100 permit udp any host 192.0.2.1 eq 53
+   
+.. code::
+
+   ip access-list extended MyACL2
+     permit tcp any any eq 80
+     permit tcp any any eq 443
+     permit udp any host 192.0.2.1 eq 53
+
+Apart from the obvious advantage of giving ACLs meaningful names instead of just numbers, the **named ACLs have another advantage: they can actually be edited. Numbered ACLs cannot really be edited - you can only add new entries to their end but if you need to remove or replace an entry, you need to remove the entire ACL** and enter it anew. With named ACLs, it is actually possible to perform in-place editing.
+
+Let's take the last **named ACL** posted. If you perform ``show ip access-lists`` you will get the following output:
+
+.. code::
+
+   Router#show ip access-lists
+   Extended IP access list MyACL2
+    10 permit tcp any any eq www
+    20 permit tcp any any eq 443
+    30 permit udp any host 192.0.2.1 eq domain
+
+Note the numbers 10,20,30 at the each line. They allow you to remove that particular line or insert a new line between them. For example, if I wanted to insert a new rule between the first and second entry, it would be done as follows:
+
+.. code::
+
+   ip access-list extended MyACL2
+    15 permit tcp any any eq 110
+
+Now the ``show ip access-lists`` would say:
+
+.. code::
+
+   Extended IP access list MyACL2
+    10 permit tcp any any eq www
+    15 permit tcp any any eq pop3
+    20 permit tcp any any eq 443
+    30 permit udp any host 192.0.2.1 eq domain
+
+I could use any number between 11 and 19, inclusive.
+
+Now, if I wanted to remove the line 30 (the one permitting the DNS access), the command would be:
+
+.. code::
+
+   ip access-list extended MyACL2
+   no 30
+
+The ``show ip access-lists`` would now produce:
+
+
+.. code::
+
+   Extended IP access list MyACL2
+    10 permit tcp any any eq www
+    15 permit tcp any any eq pop3
+    20 permit tcp any any eq 443
+
+These numbers are not really stored in the configuration - they are only runtime-remembered. If you restart the router, they will be reset again to 10,20,30,etc. In case you need to resequence the ACL without restarting the router, you can use the command ``ip access-list resequence MyACL2 10 10`` where the **first "10" number specifies the starting number of the ACL entry, and the second "10" represents the increment**. After entering this command in the global configuration mode, the show ip access-lists again shows:
+
+
+.. code::
+
+   Extended IP access list MyACL2
+    10 permit tcp any any eq www
+    20 permit tcp any any eq pop3
+    30 permit tcp any any eq 443
+
+So to wrap it up, *numbered ACLs and named ACLs defined using the ip access-list command have the same effect*. However, **the named ACLs are more flexible** in the way they are defined, managed and referenced.
+
+Clearing ACL Statistics
+-----------------------
+
+``R1# clear access-list counters 1`` or ``clear access-list ACL_NAME``
+
+.. image:: _static/clear_matches_acl.png
+
+
