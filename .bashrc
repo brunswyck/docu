@@ -118,7 +118,7 @@ if [ -d ~/bashrc_addons/ ]; then
 fi
 
 eval $(/usr/bin/ssh-agent -s)
-/usr/bin/ssh-add -t 28800 ~/.ssh/github_id_rsa
+/usr/bin/ssh-add -t 57600 ~/.ssh/github_id_rsa
 if [ -d ~/bashrc_addons/ ]; then
   for f in ~/bashrc_addons/*.sh;do source "$f";done
 fi
