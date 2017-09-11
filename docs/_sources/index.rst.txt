@@ -3,11 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to REPLACE's documentation!
+Welcome to Patrick's documentation!
 ===================================
 
 .. toctree::
-    :maxdepth: 4 
+    :maxdepth: 5 
     :caption: Contents:
     :glob:
 

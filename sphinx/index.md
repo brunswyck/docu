@@ -7,7 +7,7 @@ Documentation on debian and networking
 ======================================
 
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 5 
 	:caption: Contents:
     :glob:
 

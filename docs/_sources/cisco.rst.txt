@@ -4835,6 +4835,325 @@ solution:
 .. note:: @ this point no difference is noticable between show or show ip access-list
 .. note:: the answer: There may be more than just IPv4 access-lists on the router. If so, the command show access-lists would show them all, including IPX or other types that may exist. On that same router, the command show ip access-lists would only show the IP access-lists, and not the IPX or other types.
 
+Lab Config/Mod Std IPv4 ACLs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/Lab_7.2.2.6.png
+
++--------+--------------+-----------------+-----------------+-----------------+
+| Device | Interface    | IP Address      | Subnet Mask     | Default Gateway |
++========+==============+=================+=================+=================+
+| R1     | G0/1         | 192.168.10.1    | 255.255.255.0   | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+|        | Lo0          | 192.168.20.1    | 255.255.255.0   | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+|        | S0/0/0 (DCE) | 10.1.1.1        | 255.255.255.252 | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+| ISP    | S0/0/0       | 10.1.1.2        | 255.255.255.252 | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+|        | S0/0/1 (DCE) | 10.2.2.2        | 255.255.255.252 | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+|        | Lo0          | 209.165.200.225 | 255.255.255.224 | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+| R3     | G0/1         | 192.168.30.1    | 255.255.255.0   | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+|        | Lo0          | 192.168.40.1    | 255.255.255.0   | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+|        | S0/0/1       | 10.2.2.1        | 255.255.255.252 | N/A             |
++--------+--------------+-----------------+-----------------+-----------------+
+| S1     | VLAN 1       | 192.168.10.11   | 255.255.255.0   | 192.168.10.1    |
++--------+--------------+-----------------+-----------------+-----------------+
+| S3     | VLAN 1       | 192.168.30.11   | 255.255.255.0   | 192.168.30.1    |
++--------+--------------+-----------------+-----------------+-----------------+
+| PC-A   | NIC          | 192.168.10.3    | 255.255.255.0   | 192.168.10.1    |
++--------+--------------+-----------------+-----------------+-----------------+
+| PC-C   | NIC          | 192.168.30.3    | 255.255.255.0   | 192.168.30.1    |
++--------+--------------+-----------------+-----------------+-----------------+
+
+
+#. Configure IP addresses on PC-A and PC-C
+#. configure basic settings for routers
+
+  - Console into router and enter global config
+  - copy following and paste it to the running config
+  
+    .. code::
+    
+       no ip domain-lookup 
+       hostname R1 
+       service password-encryption 
+       enable secret class 
+       banner motd # 
+       Unauthorized access is strictly prohibited. # 
+       Line con 0 
+       password cisco 
+       login 
+       logging synchronous 
+       line vty 0 4 
+       password cisco 
+       login 
+
+  - Configure the device name as shown in the topology.
+  - Create loopback interfaces on each router as shown in the Addressing Table.
+  - Configure interface IP addresses as shown in the Topology and Addressing Table.
+  - Assign a clock rate of **128000** to the DCE serial interfaces. 
+  - Enable Telnet access.
+  - Copy the running configuration to the startup configuration.
+
+#. (optional)Configure basics on the switches
+
+   - Console into switch and enter global config mode
+   - Copy the following and paste it into the running config
+
+     .. code::
+
+         no ip domain-lookup 
+         service password-encryption 
+         enable secret class 
+         banner motd # 
+         Unauthorized access is strictly prohibited. # 
+         Line con 0 
+         password cisco 
+         login 
+         logging synchronous 
+         line vty 0 15 
+         password cisco 
+         login 
+         exit 
+
+   - Configure the device name as shown in the topology.
+   - Configure the management interface IP address as shown in the Topology and Addressing Table.
+   - Configure a default gateway.
+   - Enable Telnet access.
+   - Copy the running configuration to the startup configuration.
+
+
+#. Configure RIP routing on R1, ISP and R3
+
+   - Configure RIP version 2 and advertise all networks on R1, ISP, and R3. The OSPF configuration for R1 and ISP is included for reference.
+
+     .. code::
+
+        R1(config)# router rip 
+        R1(config-router)# version 2
+        R1(config-router)# network 192.168.10.0
+        R1(config-router)# network 192.168.20.0
+        R1(config-router)# network 10.1.1.0 
+        ISP(config)# router rip
+        ISP(config-router)# version 2
+        ISP(config-router)# network 209.165.200.224 
+        ISP(config-router)# network 10.1.1.0 
+        ISP(config-router)# network 10.2.2.0 
+
+   - After configuring Rip on R1, ISP, and R3, verify that all routers have complete routing tables, listing all networks. Troubleshoot if this is not the case.
+
+
+#. Verify connectivity between devices.
+   
+   .. Note:: It is very important to test whether connectivity is working before you configure and apply access lists! 
+
+   - From PC-A, ping PC-C and the loopback interface on R3. Were your pings successful? 
+   - From R1, ping PC-C and the loopback interface on R3. Were your pings successful? 
+   - From PC-C, ping PC-A and the loopback interface on R1. Were your pings successful? 
+   - From R3, ping PC-A and the loopback interface on R1. Were your pings successful? 
+
+
+#. Configure numbered standard ACL
+   
+   - Standard ACLs filter traffic based on the source IP address only. A typical best practice for standard ACLs is to configure and apply it as close to the destination as possible. For the first access list, create a standard numbered ACL that allows traffic from all hosts on the 192.168.10.0/24 network and all hosts on the 192.168.20.0/24 network to access all hosts on the 192.168.30.0/24 network.
+   - The security policy also states that a deny any access control entry (ACE), also referred to as an ACL statement, should be present at the end of all ACLs. What wildcard mask would you use to allow all hosts on the 192.168.10.0/24 network to access the 192.168.30.0/24 network?
+   - Following Cisco’s recommended best practices, on which router would you place this ACL? On which interface would you place this ACL? In what direction would you apply it?
+   - Configure the ACL on R3. Use 1 for the access list number.
+
+     .. code::
+
+        R3(config)# access-list 1 remark Allow R1 LANs Access 
+        R3(config)# access-list 1 permit 192.168.10.0 0.0.0.255 
+        R3(config)# access-list 1 permit 192.168.20.0 0.0.0.255 
+        R3(config)# access-list 1 deny any 
+   
+   - Apply the ACL to the appropriate interface in the proper direction.
+
+     .. code::
+
+        R3(config)# interface g0/1
+        R3(config-if)# ip access-group 1 out
+
+   - Verify a numbered ACL.
+     The use of varios show commands can aid you in verifying both the syntax and placement of your ACLs in your router.
+     To see access list 1 in its entirety with all ACEs, which command would you use?
+
+
+#. On R3, issue the ``show access-lists 1`` command.
+
+   .. code::
+
+      R3# show access-list 1
+      Standard IP access list 1 
+          10 permit 192.168.10.0, wildcard bits 0.0.0.255 
+          20 permit 192.168.20.0, wildcard bits 0.0.0.255 
+          30 deny   any 
+
+
+#. On R3, issue the ``show ip interface g0/1`` command.
+
+   .. code::
+
+      R3# show ip interface g0/1 
+      GigabitEthernet0/1 is up, line protocol is up
+        Internet address is 192.168.30.1/24 
+        Broadcast address is 255.255.255.255 
+        Address determined by non-volatile memory 
+        MTU is 1500 bytes 
+        Helper address is not set 
+        Directed broadcast forwarding is disabled 
+        Multicast reserved groups joined: 224.0.0.10 
+        Outgoing access list is 1 
+        Inbound access list is not set 
+        Output omitted 
+
+#. Test the ACL to see if it allows traffic from the 192.168.10.0/24 network access to the 192.168.30.0/24 network. From the PC-A command prompt, ping the PC-C IP address. Were the pings successful?
+
+#. Test the ACL to see if it allows traffic from the 192.168.20.0/24 network access to the 192.168.30.0/24 network. You must do an extended ping and use the loopback 0 address on R1 as your source. Ping PC-C’s IP address. Were the pings successful?
+
+   .. code::
+      
+      R1# 
+      ping 
+      Protocol [ip]: 
+      Target IP address: 
+      192.168.30.3
+      Repeat count [5]: 
+      Datagram size [100]: 
+      Timeout in seconds [2]: 
+      Extended commands [n]: 
+      y
+      Source address or interface: 
+      192.168.20.1
+      Type of service [0]: 
+      Set DF bit in IP header? [no]: 
+      Validate reply data? [no]: 
+      Data pattern [0xABCD]: 
+      Loose, Strict, Record, Timestamp, Verbose[none]: 
+      Sweep range of sizes [n]: 
+      Type escape sequence to abort. 
+      Sending 5, 100-byte ICMP Echos to 192.168.30.3, timeout is 2 seconds: 
+      Packet sent with a source address of 192.168.20.1 
+      !!!!! 
+      Success rate is 100 percent (5/5), round-trip min/avg/max = 28/29/32 ms 
+
+   - From the R1 prompt, ping PC-C’s IP address again.
+     ``R1# ping 192.168.30.3`` Was the ping successful? Why or why not?
+
+
+#. Configure a named standard ACL. Create a named standard ACL that conforms to the following policy: allow traffic from all hosts on the 192.168.40.0/24 network access to all hosts on the 192.168.10.0/24 network. Also, only allow host PC-C access to the 192.168.10.0/24 network. The name of this access list should be called BRANCH-OFFICE-POLICY.
+   Following Cisco’s recommended best practices, on which router would you place this ACL? On which interface would you place this ACL? In what direction would you apply it?
+  
+   - Create the standard named ACL BRANCH-OFFICE-POLICY on R1.
+
+     .. code::
+
+        R1(config)# ip access-list standard BRANCH-OFFICE-POLICY 
+        R1(config-std-nacl)# permit host 192.168.30.3 
+        R1(config-std-nacl)# permit 192.168.40.0 0.0.0.255
+        R1(config-std-nacl)# end 
+        R1#
+        Feb 15 15:56:55.707: %SYS-5-CONFIG_I: Configured from console by console 
+        
+     Looking at the first permit ACE in the access list, what is another way to write this?
+   - Apply the ACL to the appropriate interface in the proper direction.
+
+     .. code::
+  
+        R1# config t 
+        R1(config)# interface g0/1 
+        R1(config-if)# ip access-group BRANCH-OFFICE-POLICY out
+
+   - Verify a named ACL.
+
+     #. On R1, issue the show access-lists command.
+        
+        .. code::
+
+           R1# show access-lists 
+           Standard IP access list BRANCH-OFFICE-POLICY 
+            10 permit 192.168.30.3 
+            20 permit 192.168.40.0, wildcard bits 0.0.0.255 
+
+        Is there any difference between this ACL on R1 with the ACL on R3? If so, what is it?
+
+     #. On R1, issue the ``show ip interface g0/1`` command.
+
+        .. code::
+
+           R1# 
+           show ip interface g0/1 
+           GigabitEthernet0/1 is up, line protocol is up
+             Internet address is 192.168.10.1/24 
+             Broadcast address is 255.255.255.255 
+             Address determined by non-volatile memory 
+             MTU is 1500 bytes 
+             Helper address is not set 
+             Directed broadcast forwarding is disabled 
+             Multicast reserved groups joined: 224.0.0.10 
+             Outgoing access list is BRANCH-OFFICE-POLICY 
+             Inbound access list is not set 
+           <Output omitted>
+           
+     #. Test the ACL. From the command prompt on PC-C, ping PC-A’s IP address. Were the pingssuccessful?
+     #. Test the ACL to ensure that only the PC-C host is allowed access to the 192.168.10.0/24 network. You must do an extended ping and use the G0/1 address on R3 as your source. Ping PC-A’s IP address. Were the pings successful?
+     #. Test the ACL to see if it allows traffic from the 192.168.40.0/24 network access to the 192.168.10.0/24 network. You must perform an extended ping and use the loopback 0 address on R3 as your source. Ping PC-A’s IP address. Were the pings successful?
+
+
+#. Management has decided that users from the 209.165.200.224/27 network should be allowed full access to the 192.168.10.0/24 network. Management also wants ACLs on all of their router s to follow consistent rules. A deny any ACE should be placed at the end of all ACLs. You must modify the BRANCH-OFFICE-POLICY ACL. You will add two additional lines to this ACL. There are two ways you could do this:
+
+   - OPTION 1: Issue a no ip access-list standard BRANCH-OFFICE-POLICY command in global configuration mode. This would effectively take the whole ACL out of the router. Depending upon the router IOS, one of the following scenarios would occur:
+
+     all filtering of packets would be cancelled and all packets would be allowed through the router; or, because you did not take off the ip access-group command on the G0/1 interface, filtering is still in place. Regardless, when the ACL is gone, you could retype the whole ACL, or cut and paste it in from a text editor.
+
+   - OPTION 2: You can modify ACLs in place by adding or deleting specific lines within the ACL itself. This can come in handy, especially with ACLs that have many lines of code. The retyping of the whole ACL or cutting and pasting can easily lead to errors. Modifying specific lines within the ACL is easily accomplished. For this lab, use Option 2.
+   - From R1 privileged EXEC mode, issue a show access-lists command.
+
+     .. code::
+
+        R1# show access-lists
+        Standard IP access list BRANCH-OFFICE-POLICY 
+            10 permit 192.168.30.3 (8 matches) 
+            20 permit 192.168.40.0, wildcard bits 0.0.0.255 (5 matches) 
+
+   - Add two additional lines at the end of the ACL. From global config mode, modify the ACL, BRANCH-OFFICE-POLICY.
+
+     .. code::
+
+        R1#(config)# ip access-list standard BRANCH-OFFICE-POLICY 
+        R1(config-std-nacl)# 30 permit 209.165.200.224 0.0.0.31 
+        R1(config-std-nacl)# 40 deny any 
+        R1(config-std-nacl)# end 
+
+   - Verify the ACL.
+     
+     #. On R1, issue the show access-lists command.
+
+        .. code::
+
+           R1# show access-lists
+           Standard IP access list BRANCH-OFFICE-POLICY 
+               10 permit 192.168.30.3 (8 matches) 
+               20 permit 192.168.40.0, wildcard bits 0.0.0.255 (5 matches) 
+               30 permit 209.165.200.224, wildcard bits 0.0.0.31 
+               40 deny   any
+ 
+        Do you have to apply the BRANCH-OFFICE-POLICY to the G0/1 interface on R1? 
+
+     #. From the ISP command prompt, issue an extended ping. Test the ACL to see if it allows traffic from the 209.165.200.224/27 network access to the 192.168.10.0/24 network. You must do an extended ping and use the loopback 0 address on ISP as your source. Ping PC-A’s IP address. Were the pings successful?
+
+Reflection
+1. As you can see, standard ACLs are very powerful and work quite well. Why would you ever have the need for 
+using extended ACLs? 
+2. Typically, more typing is required when using a named ACL as opposed to a numbered ACL. Why would you 
+choose named ACLs over numbered?
+
+
 Editing Numbered ACLs
 ---------------------
 
@@ -4969,7 +5288,7 @@ Let's take the last **named ACL** posted. If you perform ``show ip access-lists`
     30 permit udp any host 192.0.2.1 eq domain
 
 Note the numbers 10,20,30 at the each line. They allow you to remove that particular line or insert a new line between them. For example, if I wanted to insert a new rule between the first and second entry, it would be done as follows:
-
+ch7_named_acl_ipv4_pt.pn
 .. code::
 
    ip access-list extended MyACL2
@@ -4985,7 +5304,7 @@ Now the ``show ip access-lists`` would say:
     20 permit tcp any any eq 443
     30 permit udp any host 192.0.2.1 eq domain
 
-I could use any number between 11 and 19, inclusive.
+I could use any number bch7_named_acl_ipv4_pt.pnetween 11 and 19, inclusive.
 
 Now, if I wanted to remove the line 30 (the one permitting the DNS access), the command would be:
 
@@ -5019,8 +5338,161 @@ So to wrap it up, *numbered ACLs and named ACLs defined using the ip access-list
 Clearing ACL Statistics
 -----------------------
 
-``R1# clear access-list counters 1`` or ``clear access-list ACL_NAME``
+``R1# clear access-list counters 1`` or ``clear access-list counters ACL_NAME``
 
 .. image:: _static/clear_matches_acl.png
+
+Accesss-class command
+---------------------
+
+The ``access-class`` command configured in line configuration mode restricts incoming and outgoing connections between a particular VTY (into a Cisco device) and the addresses in an access list.
+
+The command syntax of the access-class command is:
+
+``Router(config-line)# access-class access-list-number { in [ vrf-also ] | out }``
+
+The parameter in restricts incoming connections between the addresses in the access list and the Cisco device, while the parameter out restricts outgoing connections between a particular Cisco device and the addresses in the access list.
+
+The following should be considered when configuring access lists on VTYs:
+
+    Both named and numbered access lists can be applied to VTYs.
+    Identical restrictions should be set on all the VTYs, because a user can attempt to connect to any of them.
+
+.. note:: Access lists apply to packets that travel through a router. They are not designed to block packets that originate within the router. By default, an outbound ACL does not prevent remote access connections initiated from the router.
+
+.. image:: _static/ch7_access_class_1.png
+
+.. code::
+
+   R1(config)# line vty 0 15 
+   R1(config-line)# login local
+   R1(config-line)# transport input ssh
+   R1(config-line)# access-class 21 in
+   R1(config-line)# exit
+   R1(config)# access-list 21 permit 192.168.10.0 0.0.0.255
+   R1(config)# access-list 21 deny any
+
+The implicit Deny Any
+---------------------
+
+A single-entry ACL with only one deny entry has the effect of denying all traffic. At least one permit ACE must be configured in an ACL or all traffic is blocked.
+
+For the network in the figure, applying either ACL 1 or ACL 2 to the S0/0/0 interface of R1 in the outbound direction will have the same effect. Network 192.168.10.0 will be permitted to access the networks reachable through S0/0/0, while 192.168.11.0 will not be allowed to access those networks. In ACL 1, if a packet does not match the permit statement, it is discarded.
+
+.. image:: _static/Ch7_implicit_deny_any.png
+
+ACL 1
+
+.. code::
+
+   R1(config)# access-list 1 permit 192.168.10.0 0.0.0.255
+
+ACL 2
+
+.. code::
+
+   R1(config)# access-list 2 permit 192.168.10.0 0.0.0.255
+   R1(config)# access-list 2 deny any
+
+
+The order of ACEs in an ACL
+---------------------------
+
+
+.. code::
+
+   R1(config)# access-list 3 deny 192.168.10.0 0.0.0.255
+   R1(config)# access-list 3 permit host 192.168.10.10
+   % Access rule can't be configured at higher sequence num as it is part of the existing rule at sequence num 10
+
+ACL 3 Host statement conflicts with previous range statement
+
+
+
+.. code::
+
+   R1(config)# access-list 4 permit host 192.168.10.10
+   R1(config)# access-list 4 deny 192.168.10.0 0.0.0.255
+
+ACL 4
+.. note:: Host statement can always be configured before range statements
+
+ACL 5
+
+.. code::
+
+   R1(config)# access-list 5 deny 192.168.10.0 0.0.0.255
+   R1(config)# access-list 5 permit host 192.168.11.10
+
+Host statement can be configured if there's no conflict
+
+Sequencing considerations during configuration
+----------------------------------------------
+
+.. image:: _static/Ch7_sequencing_config.png
+
+
+.. image:: _static/Ch7_sequencing_after_reload.png
+
+The order in which the standard ACEs are listed is the sequence used by the IOS to process the list. Notice that the statements are grouped into two sections, host statements followed by range statements. The sequence number indicates the order that the statement was entered, not the order the statement will be processed.
+
+**The host statements are listed first but not necessarily in the order that they were entered. The IOS puts host statements in an order using a special hashing function**. The resulting order optimizes the search for a host ACL entry. **The range statements are displayed after the host statements. These statements are listed in the order in which they were entered**.
+
+.. note:: The hashing function is only applied to host statements in an IPv4 standard access list.
+
+Recall that standard and numbered ACLs can be edited using sequence numbers. When inserting a new ACL statement, the sequence number will only affect the location of a range statement in the list. **Host statements will always be put in order using the hashing function.**
+
+ACL and Routing Processes
+-------------------------
+
+open in new tab to view properly
+
+.. image:: _static/Ch7_acl_router_processes.png
+   :width: 1874px
+   :height: 360px
+
+When a packet arrives at a router interface, the router process is the same, whether ACLs are used or not. As a frame enters an interface, the router checks to see whether the destination Layer 2 address matches its interface Layer 2 address, or whether the frame is a broadcast frame.
+
+If the frame address is accepted, the frame information is stripped off and the router checks for an ACL on the inbound interface. If an ACL exists, the packet is tested against the statements in the list.
+
+If the packet matches a statement, the packet is either permitted or denied. If the packet is accepted, it is then checked against routing table entries to determine the destination interface. If a routing table entry exists for the destination, the packet is then switched to the outgoing interface, otherwise the packet is dropped.
+
+Next, the router checks whether the outgoing interface has an ACL. If an ACL exists, the packet is tested against the statements in the list.
+
+If the packet matches a statement, it is either permitted or denied.
+
+If there is no ACL or the packet is permitted, the packet is encapsulated in the new Layer 2 protocol and forwarded out the interface to the next device.
+
+Troubleshooting StD IPv4 ACLs
+-----------------------------
+
+- ``show access-list``
+- ``R1# show run | section interface``
+- ``R1# show run | section line vty``
+- ``R1(config)# ip access-list standard PC1-SSH`` followed by ``R1(config-std-nacl)# no 10`` followed by correction ``R1(config-std-nacl)# 10 permit host 192.168.10.10``
+- ``R1# clear access-list counters`` to only show new matches
+
+#. check access-list
+#. check if access-list is applied to the correct interface
+
+   .. code::
+
+      R1# conf t
+      R1(config)# interface g0/1
+      R1(config-if)# no ip access-group 20 in
+      R1(config-if)# interface g0/0 
+      R1(config-if)# ip access-group 20 out
+
+#. check if access-list is applied via access-class on vty's
+
+Exercices
+---------
+
+
+Ch7 QnA
+-------
+
+Chapter 8 DHCP
+==============
 
 

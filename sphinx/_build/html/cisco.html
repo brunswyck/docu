@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/>
         <link rel="next" title="BASH" href="commands.html"/>
-        <link rel="prev" title="Welcome to REPLACE’s documentation!" href="index.html"/> 
+        <link rel="prev" title="Welcome to Patrick’s documentation!" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -220,8 +220,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#verifying-standard-acl-interfaces">verifying standard ACL interfaces</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#acl-vs-ip-acl">ACL VS IP ACL</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#clearing-acl-statistics">Clearing ACL Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accesss-class-command">Accesss-class command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-implicit-deny-any">The implicit Deny Any</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-order-of-aces-in-an-acl">The order of ACEs in an ACL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sequencing-considerations-during-configuration">Sequencing considerations during configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#acl-and-routing-processes">ACL and Routing Processes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting-std-ipv4-acls">Troubleshooting StD IPv4 ACLs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exercices">Exercices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ch7-qna">Ch7 QnA</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-8-dhcp">Chapter 8 DHCP</a></li>
 </ul>
 </li>
 </ul>
@@ -5718,6 +5727,405 @@ defining filtering criteria, configuring standard ACLs, applying ACLs to router 
 <p class="last">the answer: There may be more than just IPv4 access-lists on the router. If so, the command show access-lists would show them all, including IPX or other types that may exist. On that same router, the command show ip access-lists would only show the IP access-lists, and not the IPX or other types.</p>
 </div>
 </div>
+<div class="section" id="lab-config-mod-std-ipv4-acls">
+<h5>Lab Config/Mod Std IPv4 ACLs<a class="headerlink" href="#lab-config-mod-std-ipv4-acls" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/Lab_7.2.2.6.png" src="_images/Lab_7.2.2.6.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="19%" />
+<col width="23%" />
+<col width="23%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/1</td>
+<td>192.168.10.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo0</td>
+<td>192.168.20.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0 (DCE)</td>
+<td>10.1.1.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>ISP</td>
+<td>S0/0/0</td>
+<td>10.1.1.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/1 (DCE)</td>
+<td>10.2.2.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo0</td>
+<td>209.165.200.225</td>
+<td>255.255.255.224</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>R3</td>
+<td>G0/1</td>
+<td>192.168.30.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo0</td>
+<td>192.168.40.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>10.2.2.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>S1</td>
+<td>VLAN 1</td>
+<td>192.168.10.11</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+<tr class="row-even"><td>S3</td>
+<td>VLAN 1</td>
+<td>192.168.30.11</td>
+<td>255.255.255.0</td>
+<td>192.168.30.1</td>
+</tr>
+<tr class="row-odd"><td>PC-A</td>
+<td>NIC</td>
+<td>192.168.10.3</td>
+<td>255.255.255.0</td>
+<td>192.168.10.1</td>
+</tr>
+<tr class="row-even"><td>PC-C</td>
+<td>NIC</td>
+<td>192.168.30.3</td>
+<td>255.255.255.0</td>
+<td>192.168.30.1</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li>Configure IP addresses on PC-A and PC-C</li>
+<li>configure basic settings for routers</li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p class="first">Console into router and enter global config</p>
+</li>
+<li><p class="first">copy following and paste it to the running config</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">hostname</span> <span class="n">R1</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
+<span class="n">Unauthorized</span> <span class="n">access</span> <span class="ow">is</span> <span class="n">strictly</span> <span class="n">prohibited</span><span class="o">.</span> <span class="c1">#</span>
+<span class="n">Line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">4</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Configure the device name as shown in the topology.</p>
+</li>
+<li><p class="first">Create loopback interfaces on each router as shown in the Addressing Table.</p>
+</li>
+<li><p class="first">Configure interface IP addresses as shown in the Topology and Addressing Table.</p>
+</li>
+<li><p class="first">Assign a clock rate of <strong>128000</strong> to the DCE serial interfaces.</p>
+</li>
+<li><p class="first">Enable Telnet access.</p>
+</li>
+<li><p class="first">Copy the running configuration to the startup configuration.</p>
+</li>
+</ul>
+</div></blockquote>
+<ol class="arabic">
+<li><p class="first">(optional)Configure basics on the switches</p>
+<ul>
+<li><p class="first">Console into switch and enter global config mode</p>
+</li>
+<li><p class="first">Copy the following and paste it into the running config</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
+<span class="n">Unauthorized</span> <span class="n">access</span> <span class="ow">is</span> <span class="n">strictly</span> <span class="n">prohibited</span><span class="o">.</span> <span class="c1">#</span>
+<span class="n">Line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">15</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">exit</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Configure the device name as shown in the topology.</p>
+</li>
+<li><p class="first">Configure the management interface IP address as shown in the Topology and Addressing Table.</p>
+</li>
+<li><p class="first">Configure a default gateway.</p>
+</li>
+<li><p class="first">Enable Telnet access.</p>
+</li>
+<li><p class="first">Copy the running configuration to the startup configuration.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Configure RIP routing on R1, ISP and R3</p>
+<ul>
+<li><p class="first">Configure RIP version 2 and advertise all networks on R1, ISP, and R3. The OSPF configuration for R1 and ISP is included for reference.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.10.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.20.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 10.1.1.0</span>
+<span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
+<span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 209.165.200.224</span>
+<span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 10.1.1.0</span>
+<span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 10.2.2.0</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">After configuring Rip on R1, ISP, and R3, verify that all routers have complete routing tables, listing all networks. Troubleshoot if this is not the case.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Verify connectivity between devices.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is very important to test whether connectivity is working before you configure and apply access lists!</p>
+</div>
+<ul class="simple">
+<li>From PC-A, ping PC-C and the loopback interface on R3. Were your pings successful?</li>
+<li>From R1, ping PC-C and the loopback interface on R3. Were your pings successful?</li>
+<li>From PC-C, ping PC-A and the loopback interface on R1. Were your pings successful?</li>
+<li>From R3, ping PC-A and the loopback interface on R1. Were your pings successful?</li>
+</ul>
+</li>
+<li><p class="first">Configure numbered standard ACL</p>
+<ul>
+<li><p class="first">Standard ACLs filter traffic based on the source IP address only. A typical best practice for standard ACLs is to configure and apply it as close to the destination as possible. For the first access list, create a standard numbered ACL that allows traffic from all hosts on the 192.168.10.0/24 network and all hosts on the 192.168.20.0/24 network to access all hosts on the 192.168.30.0/24 network.</p>
+</li>
+<li><p class="first">The security policy also states that a deny any access control entry (ACE), also referred to as an ACL statement, should be present at the end of all ACLs. What wildcard mask would you use to allow all hosts on the 192.168.10.0/24 network to access the 192.168.30.0/24 network?</p>
+</li>
+<li><p class="first">Following Cisco’s recommended best practices, on which router would you place this ACL? On which interface would you place this ACL? In what direction would you apply it?</p>
+</li>
+<li><p class="first">Configure the ACL on R3. Use 1 for the access list number.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 remark Allow R1 LANs Access</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.10.0 0.0.0.255</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.20.0 0.0.0.255</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 deny any</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Apply the ACL to the appropriate interface in the proper direction.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip access-group 1 out</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify a numbered ACL.
+The use of varios show commands can aid you in verifying both the syntax and placement of your ACLs in your router.
+To see access list 1 in its entirety with all ACEs, which command would you use?</p>
+</li>
+</ul>
+</li>
+<li><p class="first">On R3, issue the <code class="docutils literal"><span class="pre">show</span> <span class="pre">access-lists</span> <span class="pre">1</span></code> command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show access-list 1</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="mi">1</span>
+    <span class="mi">10</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span>
+    <span class="mi">20</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span>
+    <span class="mi">30</span> <span class="n">deny</span>   <span class="nb">any</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">On R3, issue the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">interface</span> <span class="pre">g0/1</span></code> command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ip interface g0/1</span>
+<span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
+  <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.1</span><span class="o">/</span><span class="mi">24</span>
+  <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
+  <span class="n">Address</span> <span class="n">determined</span> <span class="n">by</span> <span class="n">non</span><span class="o">-</span><span class="n">volatile</span> <span class="n">memory</span>
+  <span class="n">MTU</span> <span class="ow">is</span> <span class="mi">1500</span> <span class="nb">bytes</span>
+  <span class="n">Helper</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Directed</span> <span class="n">broadcast</span> <span class="n">forwarding</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">Multicast</span> <span class="n">reserved</span> <span class="n">groups</span> <span class="n">joined</span><span class="p">:</span> <span class="mf">224.0</span><span class="o">.</span><span class="mf">0.10</span>
+  <span class="n">Outgoing</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="mi">1</span>
+  <span class="n">Inbound</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Output</span> <span class="n">omitted</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Test the ACL to see if it allows traffic from the 192.168.10.0/24 network access to the 192.168.30.0/24 network. From the PC-A command prompt, ping the PC-C IP address. Were the pings successful?</p>
+</li>
+<li><p class="first">Test the ACL to see if it allows traffic from the 192.168.20.0/24 network access to the 192.168.30.0/24 network. You must do an extended ping and use the loopback 0 address on R1 as your source. Ping PC-C’s IP address. Were the pings successful?</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1#
+ping
+Protocol [ip]:
+Target IP address:
+192.168.30.3
+Repeat count [5]:
+Datagram size [100]:
+Timeout in seconds [2]:
+Extended commands [n]:
+y
+Source address or interface:
+192.168.20.1
+Type of service [0]:
+Set DF bit in IP header? [no]:
+Validate reply data? [no]:
+Data pattern [0xABCD]:
+Loose, Strict, Record, Timestamp, Verbose[none]:
+Sweep range of sizes [n]:
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.30.3, timeout is 2 seconds:
+Packet sent with a source address of 192.168.20.1
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/29/32 ms
+</pre></div>
+</div>
+<ul class="simple">
+<li>From the R1 prompt, ping PC-C’s IP address again.
+<code class="docutils literal"><span class="pre">R1#</span> <span class="pre">ping</span> <span class="pre">192.168.30.3</span></code> Was the ping successful? Why or why not?</li>
+</ul>
+</li>
+<li><p class="first">Configure a named standard ACL. Create a named standard ACL that conforms to the following policy: allow traffic from all hosts on the 192.168.40.0/24 network access to all hosts on the 192.168.10.0/24 network. Also, only allow host PC-C access to the 192.168.10.0/24 network. The name of this access list should be called BRANCH-OFFICE-POLICY.
+Following Cisco’s recommended best practices, on which router would you place this ACL? On which interface would you place this ACL? In what direction would you apply it?</p>
+<ul>
+<li><p class="first">Create the standard named ACL BRANCH-OFFICE-POLICY on R1.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip access-list standard BRANCH-OFFICE-POLICY</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># permit host 192.168.30.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># permit 192.168.40.0 0.0.0.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">R1</span><span class="c1">#</span>
+<span class="n">Feb</span> <span class="mi">15</span> <span class="mi">15</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mf">55.707</span><span class="p">:</span> <span class="o">%</span><span class="n">SYS</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">CONFIG_I</span><span class="p">:</span> <span class="n">Configured</span> <span class="kn">from</span> <span class="nn">console</span> <span class="n">by</span> <span class="n">console</span>
+</pre></div>
+</div>
+<p>Looking at the first permit ACE in the access list, what is another way to write this?</p>
+</li>
+<li><p class="first">Apply the ACL to the appropriate interface in the proper direction.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># config t</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip access-group BRANCH-OFFICE-POLICY out</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify a named ACL.</p>
+<ol class="arabic">
+<li><p class="first">On R1, issue the show access-lists command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show access-lists</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">BRANCH</span><span class="o">-</span><span class="n">OFFICE</span><span class="o">-</span><span class="n">POLICY</span>
+ <span class="mi">10</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.3</span>
+ <span class="mi">20</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span>
+</pre></div>
+</div>
+<p>Is there any difference between this ACL on R1 with the ACL on R3? If so, what is it?</p>
+</li>
+<li><p class="first">On R1, issue the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">interface</span> <span class="pre">g0/1</span></code> command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#</span>
+<span class="n">show</span> <span class="n">ip</span> <span class="n">interface</span> <span class="n">g0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
+  <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">24</span>
+  <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
+  <span class="n">Address</span> <span class="n">determined</span> <span class="n">by</span> <span class="n">non</span><span class="o">-</span><span class="n">volatile</span> <span class="n">memory</span>
+  <span class="n">MTU</span> <span class="ow">is</span> <span class="mi">1500</span> <span class="nb">bytes</span>
+  <span class="n">Helper</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Directed</span> <span class="n">broadcast</span> <span class="n">forwarding</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">Multicast</span> <span class="n">reserved</span> <span class="n">groups</span> <span class="n">joined</span><span class="p">:</span> <span class="mf">224.0</span><span class="o">.</span><span class="mf">0.10</span>
+  <span class="n">Outgoing</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="n">BRANCH</span><span class="o">-</span><span class="n">OFFICE</span><span class="o">-</span><span class="n">POLICY</span>
+  <span class="n">Inbound</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+<span class="o">&lt;</span><span class="n">Output</span> <span class="n">omitted</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Test the ACL. From the command prompt on PC-C, ping PC-A’s IP address. Were the pingssuccessful?</p>
+</li>
+<li><p class="first">Test the ACL to ensure that only the PC-C host is allowed access to the 192.168.10.0/24 network. You must do an extended ping and use the G0/1 address on R3 as your source. Ping PC-A’s IP address. Were the pings successful?</p>
+</li>
+<li><p class="first">Test the ACL to see if it allows traffic from the 192.168.40.0/24 network access to the 192.168.10.0/24 network. You must perform an extended ping and use the loopback 0 address on R3 as your source. Ping PC-A’s IP address. Were the pings successful?</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p class="first">Management has decided that users from the 209.165.200.224/27 network should be allowed full access to the 192.168.10.0/24 network. Management also wants ACLs on all of their router s to follow consistent rules. A deny any ACE should be placed at the end of all ACLs. You must modify the BRANCH-OFFICE-POLICY ACL. You will add two additional lines to this ACL. There are two ways you could do this:</p>
+<ul>
+<li><p class="first">OPTION 1: Issue a no ip access-list standard BRANCH-OFFICE-POLICY command in global configuration mode. This would effectively take the whole ACL out of the router. Depending upon the router IOS, one of the following scenarios would occur:</p>
+<p>all filtering of packets would be cancelled and all packets would be allowed through the router; or, because you did not take off the ip access-group command on the G0/1 interface, filtering is still in place. Regardless, when the ACL is gone, you could retype the whole ACL, or cut and paste it in from a text editor.</p>
+</li>
+<li><p class="first">OPTION 2: You can modify ACLs in place by adding or deleting specific lines within the ACL itself. This can come in handy, especially with ACLs that have many lines of code. The retyping of the whole ACL or cutting and pasting can easily lead to errors. Modifying specific lines within the ACL is easily accomplished. For this lab, use Option 2.</p>
+</li>
+<li><p class="first">From R1 privileged EXEC mode, issue a show access-lists command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show access-lists</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">BRANCH</span><span class="o">-</span><span class="n">OFFICE</span><span class="o">-</span><span class="n">POLICY</span>
+    <span class="mi">10</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.3</span> <span class="p">(</span><span class="mi">8</span> <span class="n">matches</span><span class="p">)</span>
+    <span class="mi">20</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span> <span class="p">(</span><span class="mi">5</span> <span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add two additional lines at the end of the ACL. From global config mode, modify the ACL, BRANCH-OFFICE-POLICY.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#(config)# ip access-list standard BRANCH-OFFICE-POLICY</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># 30 permit 209.165.200.224 0.0.0.31</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># 40 deny any</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1"># end</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify the ACL.</p>
+<ol class="arabic">
+<li><p class="first">On R1, issue the show access-lists command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show access-lists</span>
+<span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="n">BRANCH</span><span class="o">-</span><span class="n">OFFICE</span><span class="o">-</span><span class="n">POLICY</span>
+    <span class="mi">10</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.3</span> <span class="p">(</span><span class="mi">8</span> <span class="n">matches</span><span class="p">)</span>
+    <span class="mi">20</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span> <span class="p">(</span><span class="mi">5</span> <span class="n">matches</span><span class="p">)</span>
+    <span class="mi">30</span> <span class="n">permit</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.224</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.31</span>
+    <span class="mi">40</span> <span class="n">deny</span>   <span class="nb">any</span>
+</pre></div>
+</div>
+<p>Do you have to apply the BRANCH-OFFICE-POLICY to the G0/1 interface on R1?</p>
+</li>
+<li><p class="first">From the ISP command prompt, issue an extended ping. Test the ACL to see if it allows traffic from the 209.165.200.224/27 network access to the 192.168.10.0/24 network. You must do an extended ping and use the loopback 0 address on ISP as your source. Ping PC-A’s IP address. Were the pings successful?</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<p>Reflection
+1. As you can see, standard ACLs are very powerful and work quite well. Why would you ever have the need for
+using extended ACLs?
+2. Typically, more typing is required when using a named ACL as opposed to a numbered ACL. Why would you
+choose named ACLs over numbered?</p>
+</div>
 </div>
 <div class="section" id="editing-numbered-acls">
 <h4>Editing Numbered ACLs<a class="headerlink" href="#editing-numbered-acls" title="Permalink to this headline">¶</a></h4>
@@ -5830,8 +6238,10 @@ Inbound  access list is not set</p>
  <span class="mi">30</span> <span class="n">permit</span> <span class="n">udp</span> <span class="nb">any</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="n">eq</span> <span class="n">domain</span>
 </pre></div>
 </div>
-<p>Note the numbers 10,20,30 at the each line. They allow you to remove that particular line or insert a new line between them. For example, if I wanted to insert a new rule between the first and second entry, it would be done as follows:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">extended</span> <span class="n">MyACL2</span>
+<p>Note the numbers 10,20,30 at the each line. They allow you to remove that particular line or insert a new line between them. For example, if I wanted to insert a new rule between the first and second entry, it would be done as follows:
+ch7_named_acl_ipv4_pt.pn
+.. code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">extended</span> <span class="n">MyACL2</span>
  <span class="mi">15</span> <span class="n">permit</span> <span class="n">tcp</span> <span class="nb">any</span> <span class="nb">any</span> <span class="n">eq</span> <span class="mi">110</span>
 </pre></div>
 </div>
@@ -5843,7 +6253,7 @@ Inbound  access list is not set</p>
  <span class="mi">30</span> <span class="n">permit</span> <span class="n">udp</span> <span class="nb">any</span> <span class="n">host</span> <span class="mf">192.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="n">eq</span> <span class="n">domain</span>
 </pre></div>
 </div>
-<p>I could use any number between 11 and 19, inclusive.</p>
+<p>I could use any number bch7_named_acl_ipv4_pt.pnetween 11 and 19, inclusive.</p>
 <p>Now, if I wanted to remove the line 30 (the one permitting the DNS access), the command would be:</p>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="n">extended</span> <span class="n">MyACL2</span>
 <span class="n">no</span> <span class="mi">30</span>
@@ -5867,9 +6277,127 @@ Inbound  access list is not set</p>
 </div>
 <div class="section" id="clearing-acl-statistics">
 <h4>Clearing ACL Statistics<a class="headerlink" href="#clearing-acl-statistics" title="Permalink to this headline">¶</a></h4>
-<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">counters</span> <span class="pre">1</span></code> or <code class="docutils literal"><span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">ACL_NAME</span></code></p>
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">counters</span> <span class="pre">1</span></code> or <code class="docutils literal"><span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">counters</span> <span class="pre">ACL_NAME</span></code></p>
 <img alt="_images/clear_matches_acl.png" src="_images/clear_matches_acl.png" />
 </div>
+<div class="section" id="accesss-class-command">
+<h4>Accesss-class command<a class="headerlink" href="#accesss-class-command" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">access-class</span></code> command configured in line configuration mode restricts incoming and outgoing connections between a particular VTY (into a Cisco device) and the addresses in an access list.</p>
+<p>The command syntax of the access-class command is:</p>
+<p><code class="docutils literal"><span class="pre">Router(config-line)#</span> <span class="pre">access-class</span> <span class="pre">access-list-number</span> <span class="pre">{</span> <span class="pre">in</span> <span class="pre">[</span> <span class="pre">vrf-also</span> <span class="pre">]</span> <span class="pre">|</span> <span class="pre">out</span> <span class="pre">}</span></code></p>
+<p>The parameter in restricts incoming connections between the addresses in the access list and the Cisco device, while the parameter out restricts outgoing connections between a particular Cisco device and the addresses in the access list.</p>
+<p>The following should be considered when configuring access lists on VTYs:</p>
+<blockquote>
+<div>Both named and numbered access lists can be applied to VTYs.
+Identical restrictions should be set on all the VTYs, because a user can attempt to connect to any of them.</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Access lists apply to packets that travel through a router. They are not designed to block packets that originate within the router. By default, an outbound ACL does not prevent remote access connections initiated from the router.</p>
+</div>
+<img alt="_images/ch7_access_class_1.png" src="_images/ch7_access_class_1.png" />
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># line vty 0 15</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># login local</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># transport input ssh</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># access-class 21 in</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 21 permit 192.168.10.0 0.0.0.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 21 deny any</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-implicit-deny-any">
+<h4>The implicit Deny Any<a class="headerlink" href="#the-implicit-deny-any" title="Permalink to this headline">¶</a></h4>
+<p>A single-entry ACL with only one deny entry has the effect of denying all traffic. At least one permit ACE must be configured in an ACL or all traffic is blocked.</p>
+<p>For the network in the figure, applying either ACL 1 or ACL 2 to the S0/0/0 interface of R1 in the outbound direction will have the same effect. Network 192.168.10.0 will be permitted to access the networks reachable through S0/0/0, while 192.168.11.0 will not be allowed to access those networks. In ACL 1, if a packet does not match the permit statement, it is discarded.</p>
+<img alt="_images/Ch7_implicit_deny_any.png" src="_images/Ch7_implicit_deny_any.png" />
+<p>ACL 1</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.10.0 0.0.0.255</span>
+</pre></div>
+</div>
+<p>ACL 2</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 2 permit 192.168.10.0 0.0.0.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 2 deny any</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-order-of-aces-in-an-acl">
+<h4>The order of ACEs in an ACL<a class="headerlink" href="#the-order-of-aces-in-an-acl" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 3 deny 192.168.10.0 0.0.0.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 3 permit host 192.168.10.10</span>
+<span class="o">%</span> <span class="n">Access</span> <span class="n">rule</span> <span class="n">can</span><span class="s1">&#39;t be configured at higher sequence num as it is part of the existing rule at sequence num 10</span>
+</pre></div>
+</div>
+<p>ACL 3 Host statement conflicts with previous range statement</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 4 permit host 192.168.10.10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 4 deny 192.168.10.0 0.0.0.255</span>
+</pre></div>
+</div>
+<p>ACL 4
+.. note:: Host statement can always be configured before range statements</p>
+<p>ACL 5</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 5 deny 192.168.10.0 0.0.0.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 5 permit host 192.168.11.10</span>
+</pre></div>
+</div>
+<p>Host statement can be configured if there’s no conflict</p>
+</div>
+<div class="section" id="sequencing-considerations-during-configuration">
+<h4>Sequencing considerations during configuration<a class="headerlink" href="#sequencing-considerations-during-configuration" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/Ch7_sequencing_config.png" src="_images/Ch7_sequencing_config.png" />
+<img alt="_images/Ch7_sequencing_after_reload.png" src="_images/Ch7_sequencing_after_reload.png" />
+<p>The order in which the standard ACEs are listed is the sequence used by the IOS to process the list. Notice that the statements are grouped into two sections, host statements followed by range statements. The sequence number indicates the order that the statement was entered, not the order the statement will be processed.</p>
+<p><strong>The host statements are listed first but not necessarily in the order that they were entered. The IOS puts host statements in an order using a special hashing function</strong>. The resulting order optimizes the search for a host ACL entry. <strong>The range statements are displayed after the host statements. These statements are listed in the order in which they were entered</strong>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The hashing function is only applied to host statements in an IPv4 standard access list.</p>
+</div>
+<p>Recall that standard and numbered ACLs can be edited using sequence numbers. When inserting a new ACL statement, the sequence number will only affect the location of a range statement in the list. <strong>Host statements will always be put in order using the hashing function.</strong></p>
+</div>
+<div class="section" id="acl-and-routing-processes">
+<h4>ACL and Routing Processes<a class="headerlink" href="#acl-and-routing-processes" title="Permalink to this headline">¶</a></h4>
+<p>open in new tab to view properly</p>
+<a class="reference internal image-reference" href="_images/Ch7_acl_router_processes.png"><img alt="_images/Ch7_acl_router_processes.png" src="_images/Ch7_acl_router_processes.png" style="width: 1874px; height: 360px;" /></a>
+<p>When a packet arrives at a router interface, the router process is the same, whether ACLs are used or not. As a frame enters an interface, the router checks to see whether the destination Layer 2 address matches its interface Layer 2 address, or whether the frame is a broadcast frame.</p>
+<p>If the frame address is accepted, the frame information is stripped off and the router checks for an ACL on the inbound interface. If an ACL exists, the packet is tested against the statements in the list.</p>
+<p>If the packet matches a statement, the packet is either permitted or denied. If the packet is accepted, it is then checked against routing table entries to determine the destination interface. If a routing table entry exists for the destination, the packet is then switched to the outgoing interface, otherwise the packet is dropped.</p>
+<p>Next, the router checks whether the outgoing interface has an ACL. If an ACL exists, the packet is tested against the statements in the list.</p>
+<p>If the packet matches a statement, it is either permitted or denied.</p>
+<p>If there is no ACL or the packet is permitted, the packet is encapsulated in the new Layer 2 protocol and forwarded out the interface to the next device.</p>
+</div>
+<div class="section" id="troubleshooting-std-ipv4-acls">
+<h4>Troubleshooting StD IPv4 ACLs<a class="headerlink" href="#troubleshooting-std-ipv4-acls" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">show</span> <span class="pre">access-list</span></code></li>
+<li><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">run</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">interface</span></code></li>
+<li><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">run</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">line</span> <span class="pre">vty</span></code></li>
+<li><code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">ip</span> <span class="pre">access-list</span> <span class="pre">standard</span> <span class="pre">PC1-SSH</span></code> followed by <code class="docutils literal"><span class="pre">R1(config-std-nacl)#</span> <span class="pre">no</span> <span class="pre">10</span></code> followed by correction <code class="docutils literal"><span class="pre">R1(config-std-nacl)#</span> <span class="pre">10</span> <span class="pre">permit</span> <span class="pre">host</span> <span class="pre">192.168.10.10</span></code></li>
+<li><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">access-list</span> <span class="pre">counters</span></code> to only show new matches</li>
+</ul>
+<ol class="arabic">
+<li><p class="first">check access-list</p>
+</li>
+<li><p class="first">check if access-list is applied to the correct interface</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># conf t</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no ip access-group 20 in</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip access-group 20 out</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">check if access-list is applied via access-class on vty’s</p>
+</li>
+</ol>
+</div>
+<div class="section" id="exercices">
+<h4>Exercices<a class="headerlink" href="#exercices" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="ch7-qna">
+<h4>Ch7 QnA<a class="headerlink" href="#ch7-qna" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="chapter-8-dhcp">
+<h3>Chapter 8 DHCP<a class="headerlink" href="#chapter-8-dhcp" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -5887,7 +6415,7 @@ Inbound  access list is not set</p>
         <a href="commands.html" class="btn btn-neutral float-right" title="BASH" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to REPLACE’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Welcome to Patrick’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
