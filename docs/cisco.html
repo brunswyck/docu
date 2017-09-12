@@ -385,22 +385,30 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <p>Used after the pipe are:</p>
 <dl class="docutils">
 <dt>section</dt>
-<dd>Shows entire section that starts with the filtering expression
-.. highlight::
-R1# show running-config | section line vty</dd>
+<dd><p class="first">Shows entire section that starts with the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show running-config | section line vty</span>
+</pre></div>
+</div>
+</dd>
 <dt>include</dt>
-<dd>Includes all output lines that match the filtering expression
-.. highlight::
-R1# show ip interface brief | include up</dd>
+<dd><p class="first">Includes all output lines that match the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | include up</span>
+</pre></div>
+</div>
+</dd>
 <dt>exclude</dt>
-<dd>Excludes all output lines that match the filtering expression
-.. highlight::
-R1# show ip interface brief | exclude unassigned</dd>
+<dd><p class="first">Excludes all output lines that match the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | exclude unassigned</span>
+</pre></div>
+</div>
+</dd>
 <dt>begin</dt>
-<dd>hows all the output lines from a certain point, starting with the line that matches the filtering expression
-.. highlight::
-R1# show ip route | begin Gateway
-R1# show running-config | begin line</dd>
+<dd><p class="first">hows all the output lines from a certain point, starting with the line that matches the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip route | begin Gateway</span>
+<span class="go">R1# show running-config | begin line</span>
+</pre></div>
+</div>
+</dd>
 </dl>
 </div>
 <div class="section" id="history-commands">

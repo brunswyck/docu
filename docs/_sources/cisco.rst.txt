@@ -86,25 +86,33 @@ Used after the pipe are:
 
 section
  Shows entire section that starts with the filtering expression
- .. highlight::
- R1# show running-config | section line vty
+
+ .. code-block:: console
+ 
+    R1# show running-config | section line vty
 
 include
  Includes all output lines that match the filtering expression
- .. highlight::
- R1# show ip interface brief | include up
+ 
+ .. code-block:: console
+ 
+    R1# show ip interface brief | include up
 
 
 exclude
  Excludes all output lines that match the filtering expression
- .. highlight::
- R1# show ip interface brief | exclude unassigned
+ 
+ .. code-block:: console
+ 
+    R1# show ip interface brief | exclude unassigned
 
 begin
  hows all the output lines from a certain point, starting with the line that matches the filtering expression
- .. highlight::
- R1# show ip route | begin Gateway
- R1# show running-config | begin line
+ 
+ .. code-block:: console
+    
+    R1# show ip route | begin Gateway
+    R1# show running-config | begin line
 
  
 History commands
