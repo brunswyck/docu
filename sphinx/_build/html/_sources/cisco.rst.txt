@@ -5814,7 +5814,7 @@ Ch7 QnA
 -------
 
  ACL:
-  a method of controlling packet flow: ACL
+  a method of controlling packet flow
  ACE:
   one line in an ACL
  Standard ACL:
