@@ -5487,10 +5487,381 @@ Troubleshooting StD IPv4 ACLs
 
 Exercices
 ---------
+PT Troubleshooting StD IPv4 ACLs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Policy:
+ + Hosts from the 192.168.0.0/24 network are unable to access network 10.0.0.0/8.
+ + L3 can’t access any devices in network 192.168.0.0/24.
+ + L3 can’t access Server1 or Server2. L3 should only access Server3.
+ + Hosts from the 172.16.0.0/16 network have full access to Server1, Server2 and Server3.
+
+.. list-table:: 7.3.2.4 Packet Tracer
+
+  
+   * - given:
+     
+       .. code::
+      
+          interface GigabitEthernet0/0
+           ip address 10.0.0.1 255.0.0.0
+           ip access-group FROM_10 in
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/1
+           ip address 172.16.0.1 255.255.0.0
+           ip access-group FROM_172 in
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/2
+           ip address 192.168.0.1 255.255.255.0
+           duplex auto
+           speed auto
+          !
+          interface Vlan1
+           no ip address
+           shutdown
+          !
+          ip classless
+          !
+          ip flow-export version 9
+          !
+          !
+          ip access-list standard FROM_192
+           deny 192.168.0.0 0.0.0.255
+           permit any
+          ip access-list standard FROM_10
+           deny host 10.0.0.22
+           permit any
+          ip access-list standard FROM_172
+           deny host 172.16.0.2
+           permit any
+          !
+     
+     - solution:
+     
+       .. code::
+          
+          interface GigabitEthernet0/0
+           ip address 10.0.0.1 255.0.0.0
+           ip access-group FROM_10 in
+           ip access-group FROM_192 out
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/1
+           ip address 172.16.0.1 255.255.0.0
+           ip access-group FROM_172 in
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/2
+           ip address 192.168.0.1 255.255.255.0
+           duplex auto
+           speed auto
+          !
+          interface Vlan1
+           no ip address
+           shutdown
+          !
+          ip classless
+          !
+          ip flow-export version 9
+          !
+          !
+          ip access-list standard FROM_192
+           deny 192.168.0.0 0.0.0.255
+           permit any
+          ip access-list standard FROM_10
+           deny host 10.0.0.2
+           permit any
+          ip access-list standard FROM_172
+          !
+  
+
+PT Ch7 Skills Integration Challenge 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++------------------+-----------+----------------+-----------------+-----------------+
+| Device           | Interface | IP Address     | Subnet Mask     | Default Gateway |
++==================+===========+================+=================+=================+
+|             HQ1  | G0/0      | 172.16.127.254 | 255.255.192.0   | N/A             |
++                  +-----------+----------------+-----------------+-----------------+
+|    HQServer HQ2  | G0/1      | 172.16.63.254  | 255.255.192.0   | N/A             |
++                  +-----------+----------------+-----------------+-----------------+
+|           Branch | S0/0/0    | 192.168.0.1    | 255.255.255.252 | N/A             |
++                  +-----------+----------------+-----------------+-----------------+
+|             ISP  | S0/0/1    | 64.104.34.2    | 255.255.255.252 | 64.104.34.1     |
++------------------+-----------+----------------+-----------------+-----------------+
+| BranchServer,B2  | G0/0      | 172.16.159.254 | 255.255.240.0   | N/A             |
++                  +-----------+----------------+-----------------+-----------------+
+|              B1  | G0/1      | 172.16.143.254 | 255.255.240.0   | N/A             |
++                  +-----------+----------------+-----------------+-----------------+
+|              HQ  | S0/0/0    | 192.168.0.2    | 255.255.255.252 | N/A             |
++------------------+-----------+----------------+-----------------+-----------------+
+| HQ1              | NIC       | 172.16.64.1    | 255.255.192.0   | 172.16.127.254  |
++------------------+-----------+----------------+-----------------+-----------------+
+| HQ2              | NIC       | 172.16.0.2     | 255.255.192.0   | 172.16.63.254   |
++------------------+-----------+----------------+-----------------+-----------------+
+| HQServer.pka     | NIC       | 172.16.0.1     | 255.255.192.0   | 172.16.63.254   |
++------------------+-----------+----------------+-----------------+-----------------+
+| B1               | NIC       | 172.16.144.1   | 255.255.240.0   | 172.16.159.254  |
++------------------+-----------+----------------+-----------------+-----------------+
+| B2               | NIC       | 172.16.128.2   | 255.255.240.0   | 172.16.143.254  |
++------------------+-----------+----------------+-----------------+-----------------+
+| BranchServer.pka | NIC       | 172.16.128.1   | 255.255.240.0   | 172.16.143.254  |
++------------------+-----------+----------------+-----------------+-----------------+
+
+.. image:: _static/Ch7_Skills_Integration.png
+
+
+#. Configure HQ & Branch with RIPv2 routing:
+
+   - Advertise all three attached networks. Do not advertise the link to the internet.
+   - Configure appropriate interfaces as passive
+
+     .. code::
+
+        HQ(config)#router rip
+        HQ(config-router)#version 2
+        HQ(config-router)#network 172.16.0.0
+        HQ(config-router)#network 192.168.0.0
+        HQ(config-router)#passive-interface GigabitEthernet 0/1
+        HQ(config-router)#passive-interface GigabitEthernet 0/0
+        HQ(config-router)#passive-interface Serial 0/0/1
+
+        
+        Branch>enable
+        Branch#conf t
+        Branch(config)#router rip
+        Branch(config-router)#version 2
+        Branch(config-router)#passive-interface GigabitEthernet 0/0
+        Branch(config-router)#passive-interface GigabitEthernet 0/1
+        Branch(config-router)#no auto-summary
+
+.. note:: By default routing protocol like RIP and EIGRP summarize subnets into major classful network at classful boundary. In other word, these protocols perform an auto-summarization each time they crosses a border between two different major networks. To disable this behavior and advertise subnets, 'no auto-summary' command is used. Let's say router has two subnets 172.16.8.0/24 and 172.16.4.0/24 of Class B network and one subnet 10.2.0.0/16 of Class A. When auto-summary is enabled, router will advertise only summarized major classful network 172.16.0.0/16.
+
+#. Set a default route on HQ that directs traffic to S0/0/1 interface. Redistribute the route to Branch.
+
+   .. code::
+    
+      HQ(config)#ip route 0.0.0.0 0.0.0.0 Serial 0/0/1
+      %Default route without gateway, if not a point-to-point interface, may impact performance
+      HQ(config)#router rip
+      HQ(config-router)#default-information originate
+
+
+
+#. design NACL HQServer to prevent any pc's attached to Branch G0/1 from accessing HQServer.pka. All other traffic is permitted. Configure on appropriate router, apply it to the appropriate interface and in the appropriate direction.
+
+   .. code::
+     
+      HQ(config)#ip access-list standard HQServer
+      HQ(config-std-nacl)#deny 172.16.128.0 0.0.15.255
+      HQ(config-std-nacl)#permit any
+      HQ(config-std-nacl)#exit
+      HQ(config)#interface GigabitEthernet 0/1
+      HQ(config-if)#ip access-group HQServer out
+
+#. design NACL BranchServer to prevent any pc's attached to HQ G0/0 from accessing the Branch server. All other traffic is permitted. Configure access list on appropriate router,interface,direction.
+
+   .. code::
+
+      HQ(config)#ip access-list standard BranchServer 
+      HQ(config-std-nacl)#deny 172.16.64.0 0.0.63.255
+      HQ(config-std-nacl)#permit any
+      HQ(config-std-nacl)#exit
+      HQ(config)#interface GigabitEthernet 0/1
+      HQ(config-if)#ip access-group BranchServer
+      
+
+
+.. list-table:: 7.4.2.1 Packet Tracer
+  
+   * - HQ:
+     
+       .. code::
+      
+          interface GigabitEthernet0/0
+          ip address 172.16.127.254 255.255.192.0
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/1
+           ip address 172.16.63.254 255.255.192.0
+           ip access-group HQServer out
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/2
+           no ip address
+           duplex auto
+           speed auto
+           shutdown
+          !
+          interface Serial0/0/0
+           ip address 192.168.0.1 255.255.255.252
+           clock rate 2000000
+          !
+          interface Serial0/0/1
+           description link_ISP
+           ip address 64.104.34.2 255.255.255.252
+          !
+          interface Vlan1
+           no ip address
+           shutdown
+          !
+          router rip
+           version 2
+           passive-interface GigabitEthernet0/0
+           passive-interface GigabitEthernet0/1
+           passive-interface Serial0/0/1
+           network 172.16.0.0
+           network 192.168.0.0
+           default-information originate
+           no auto-summary
+          !
+          ip classless
+          ip route 0.0.0.0 0.0.0.0 Serial0/0/1 
+          !
+          ip flow-export version 9
+          !
+          !
+          ip access-list standard BranchServer
+           deny 172.16.64.0 0.0.63.255
+           permit any
+          ip access-list standard HQServer
+           deny 172.16.144.0 0.0.15.255
+           permit any
+          !
+
+     - Branch:
+     
+       .. code::
+      
+          interface GigabitEthernet0/0
+           ip address 172.16.159.254 255.255.240.0
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/1
+           ip address 172.16.143.254 255.255.240.0
+           ip access-group BranchServer out
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/2
+           no ip address
+           duplex auto
+           speed auto
+           shutdown
+          !
+          interface Serial0/0/0
+           ip address 192.168.0.2 255.255.255.252
+          !
+          interface Serial0/0/1
+           no ip address
+           clock rate 2000000
+          !
+          interface Vlan1
+           no ip address
+           shutdown
+          !
+          router rip
+           version 2
+           passive-interface GigabitEthernet0/0
+           passive-interface GigabitEthernet0/1
+           no auto-summary
+          !
+          ip classless
+          !
+          ip flow-export version 9
+          !
+          !
+          ip access-list standard BranchServer
+           deny 172.16.64.0 0.0.63.255
+           permit any
+
+using debugging to see update entries: ``router#debug ip rip``
+
+.. code::
+
+   HQ#debug ip ?
+     eigrp    IP-EIGRP information
+     icmp     ICMP transactions
+     nat      NAT events
+     ospf     OSPF information
+     packet   Packet information
+     rip      RIP protocol transactions
+     routing  Routing table events
+   HQ#debug ipv6 ?
+     dhcp     IPv6 DHCP debugging
+     inspect  Stateful inspection events
+     nd       IPv6 Neighbor Discovery debugging
+     ospf     OSPF information
+   ---------------
+   HQ#debug ip rip
+   ---------------
+      RIP: sending  v2 update to 224.0.0.9 via Serial0/0/0 (192.168.0.1)
+      RIP: build update entries
+            0.0.0.0/0 via 0.0.0.0, metric 1, tag 0
+            172.16.0.0/18 via 0.0.0.0, metric 1, tag 0
+            172.16.64.0/18 via 0.0.0.0, metric 1, tag 0
 
 
 Ch7 QnA
 -------
+
+ ACL:
+  a method of controlling packet flow: ACL
+ ACE:
+  one line in an ACL
+ Standard ACL:
+  IP-based ACLs that can be numbered 1 to 99
+ ip access-group:
+  a command that is used to apply a standard ACL to an interface
+ access-class:
+  a command that is used to apply a standard ACL to one or more VTY ports
+ goes to next ACE:
+  the action taken when the criteria specified in an ACE does not match
+ 0.0.0.31:
+  wildcard mask for a /27 network
+ match the address bit value:
+  the purpose of a zero in a wildcard mask
+ closest to destination:
+  the common placement location for a standard ACL
+ one:
+  the number of IP-based ACLs that can be applied to one router interface in the inbound direction
+ easy to modify:
+  an advantage of using a named ACL
+ host:
+  the common keyword that is used when only one IP address is to be matched
+ any:
+  the keyword that is the same as using an address of 0.0.0.0 255.255.255.255
+ permit or deny:
+  the actions that can be taken when a router matches an address in an ACE
+
+Which scenario would cause an ACL misconfiguration and deny all traffic?
+  Apply an ACL that has all deny ACE statements
+
+Which type of standard ACL is easiest to modify on a production router?
+  A named ACL that has not been applied yet
+
+Two common reasons for having a named ACL are
+ its function is easier to identify
+ the ACL is easier to modify
+
+- ACLs can be used for the following:
+
+  + Limit network traffic in order to provide adequate network performance
+  + Restrict the delivery of routing updates
+  + Provide a basic level of security
+  + Filter traffic based on the type of traffic being sent
+  + Filter traffic based on IP addressing
+
+
+
 
 Chapter 8 DHCP
 ==============

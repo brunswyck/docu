@@ -6391,9 +6391,469 @@ Identical restrictions should be set on all the VTYs, because a user can attempt
 </div>
 <div class="section" id="exercices">
 <h4>Exercices<a class="headerlink" href="#exercices" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="pt-troubleshooting-std-ipv4-acls">
+<h5>PT Troubleshooting StD IPv4 ACLs<a class="headerlink" href="#pt-troubleshooting-std-ipv4-acls" title="Permalink to this headline">¶</a></h5>
+<dl class="docutils">
+<dt>Policy:</dt>
+<dd><ul class="first last simple">
+<li>Hosts from the 192.168.0.0/24 network are unable to access network 10.0.0.0/8.</li>
+<li>L3 can’t access any devices in network 192.168.0.0/24.</li>
+<li>L3 can’t access Server1 or Server2. L3 should only access Server3.</li>
+<li>Hosts from the 172.16.0.0/16 network have full access to Server1, Server2 and Server3.</li>
+</ul>
+</dd>
+</dl>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">7.3.2.4 Packet Tracer</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first">given:</p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span>interface GigabitEthernet0/0
+ ip address 10.0.0.1 255.0.0.0
+ ip access-group FROM_10 in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 172.16.0.1 255.255.0.0
+ ip access-group FROM_172 in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ ip address 192.168.0.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard FROM_192
+ deny 192.168.0.0 0.0.0.255
+ permit any
+ip access-list standard FROM_10
+ deny host 10.0.0.22
+ permit any
+ip access-list standard FROM_172
+ deny host 172.16.0.2
+ permit any
+!
+</pre></div>
+</div>
+</td>
+<td><p class="first">solution:</p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span>interface GigabitEthernet0/0
+ ip address 10.0.0.1 255.0.0.0
+ ip access-group FROM_10 in
+ ip access-group FROM_192 out
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 172.16.0.1 255.255.0.0
+ ip access-group FROM_172 in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ ip address 192.168.0.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard FROM_192
+ deny 192.168.0.0 0.0.0.255
+ permit any
+ip access-list standard FROM_10
+ deny host 10.0.0.2
+ permit any
+ip access-list standard FROM_172
+!
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pt-ch7-skills-integration-challenge">
+<h5>PT Ch7 Skills Integration Challenge<a class="headerlink" href="#pt-ch7-skills-integration-challenge" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="14%" />
+<col width="20%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="4"><blockquote class="first">
+<div>HQ1</div></blockquote>
+<p>HQServer HQ2</p>
+<blockquote class="last">
+<div><p>Branch</p>
+<blockquote>
+<div>ISP</div></blockquote>
+</div></blockquote>
+</td>
+<td>G0/0</td>
+<td>172.16.127.254</td>
+<td>255.255.192.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>G0/1</td>
+<td>172.16.63.254</td>
+<td>255.255.192.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>S0/0/0</td>
+<td>192.168.0.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>S0/0/1</td>
+<td>64.104.34.2</td>
+<td>255.255.255.252</td>
+<td>64.104.34.1</td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p class="first">BranchServer,B2</p>
+<blockquote class="last">
+<div><p>B1</p>
+<p>HQ</p>
+</div></blockquote>
+</td>
+<td>G0/0</td>
+<td>172.16.159.254</td>
+<td>255.255.240.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>G0/1</td>
+<td>172.16.143.254</td>
+<td>255.255.240.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>S0/0/0</td>
+<td>192.168.0.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>HQ1</td>
+<td>NIC</td>
+<td>172.16.64.1</td>
+<td>255.255.192.0</td>
+<td>172.16.127.254</td>
+</tr>
+<tr class="row-even"><td>HQ2</td>
+<td>NIC</td>
+<td>172.16.0.2</td>
+<td>255.255.192.0</td>
+<td>172.16.63.254</td>
+</tr>
+<tr class="row-odd"><td>HQServer.pka</td>
+<td>NIC</td>
+<td>172.16.0.1</td>
+<td>255.255.192.0</td>
+<td>172.16.63.254</td>
+</tr>
+<tr class="row-even"><td>B1</td>
+<td>NIC</td>
+<td>172.16.144.1</td>
+<td>255.255.240.0</td>
+<td>172.16.159.254</td>
+</tr>
+<tr class="row-odd"><td>B2</td>
+<td>NIC</td>
+<td>172.16.128.2</td>
+<td>255.255.240.0</td>
+<td>172.16.143.254</td>
+</tr>
+<tr class="row-even"><td>BranchServer.pka</td>
+<td>NIC</td>
+<td>172.16.128.1</td>
+<td>255.255.240.0</td>
+<td>172.16.143.254</td>
+</tr>
+</tbody>
+</table>
+<img alt="_images/Ch7_Skills_Integration.png" src="_images/Ch7_Skills_Integration.png" />
+<ol class="arabic">
+<li><p class="first">Configure HQ &amp; Branch with RIPv2 routing:</p>
+<ul>
+<li><p class="first">Advertise all three attached networks. Do not advertise the link to the internet.</p>
+</li>
+<li><p class="first">Configure appropriate interfaces as passive</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router rip</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#version 2</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#network 172.16.0.0</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#network 192.168.0.0</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#passive-interface GigabitEthernet 0/1</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#passive-interface GigabitEthernet 0/0</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#passive-interface Serial 0/0/1</span>
+
+
+<span class="n">Branch</span><span class="o">&gt;</span><span class="n">enable</span>
+<span class="n">Branch</span><span class="c1">#conf t</span>
+<span class="n">Branch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router rip</span>
+<span class="n">Branch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#version 2</span>
+<span class="n">Branch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#passive-interface GigabitEthernet 0/0</span>
+<span class="n">Branch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#passive-interface GigabitEthernet 0/1</span>
+<span class="n">Branch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#no auto-summary</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default routing protocol like RIP and EIGRP summarize subnets into major classful network at classful boundary. In other word, these protocols perform an auto-summarization each time they crosses a border between two different major networks. To disable this behavior and advertise subnets, ‘no auto-summary’ command is used. Let’s say router has two subnets 172.16.8.0/24 and 172.16.4.0/24 of Class B network and one subnet 10.2.0.0/16 of Class A. When auto-summary is enabled, router will advertise only summarized major classful network 172.16.0.0/16.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Set a default route on HQ that directs traffic to S0/0/1 interface. Redistribute the route to Branch.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip route 0.0.0.0 0.0.0.0 Serial 0/0/1</span>
+<span class="o">%</span><span class="n">Default</span> <span class="n">route</span> <span class="n">without</span> <span class="n">gateway</span><span class="p">,</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">point</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">point</span> <span class="n">interface</span><span class="p">,</span> <span class="n">may</span> <span class="n">impact</span> <span class="n">performance</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router rip</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#default-information originate</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">design NACL HQServer to prevent any pc’s attached to Branch G0/1 from accessing HQServer.pka. All other traffic is permitted. Configure on appropriate router, apply it to the appropriate interface and in the appropriate direction.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip access-list standard HQServer</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#deny 172.16.128.0 0.0.15.255</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#permit any</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#exit</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface GigabitEthernet 0/1</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip access-group HQServer out</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">design NACL BranchServer to prevent any pc’s attached to HQ G0/0 from accessing the Branch server. All other traffic is permitted. Configure access list on appropriate router,interface,direction.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip access-list standard BranchServer</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#deny 172.16.64.0 0.0.63.255</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#permit any</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#exit</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface GigabitEthernet 0/1</span>
+<span class="n">HQ</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip access-group BranchServer</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">7.4.2.1 Packet Tracer</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first">HQ:</p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span>interface GigabitEthernet0/0
+ip address 172.16.127.254 255.255.192.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 172.16.63.254 255.255.192.0
+ ip access-group HQServer out
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 192.168.0.1 255.255.255.252
+ clock rate 2000000
+!
+interface Serial0/0/1
+ description link_ISP
+ ip address 64.104.34.2 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ passive-interface GigabitEthernet0/0
+ passive-interface GigabitEthernet0/1
+ passive-interface Serial0/0/1
+ network 172.16.0.0
+ network 192.168.0.0
+ default-information originate
+ no auto-summary
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/1
+!
+ip flow-export version 9
+!
+!
+ip access-list standard BranchServer
+ deny 172.16.64.0 0.0.63.255
+ permit any
+ip access-list standard HQServer
+ deny 172.16.144.0 0.0.15.255
+ permit any
+!
+</pre></div>
+</div>
+</td>
+<td><p class="first">Branch:</p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span>interface GigabitEthernet0/0
+ ip address 172.16.159.254 255.255.240.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 172.16.143.254 255.255.240.0
+ ip access-group BranchServer out
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 192.168.0.2 255.255.255.252
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ passive-interface GigabitEthernet0/0
+ passive-interface GigabitEthernet0/1
+ no auto-summary
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard BranchServer
+ deny 172.16.64.0 0.0.63.255
+ permit any
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>using debugging to see update entries: <code class="docutils literal"><span class="pre">router#debug</span> <span class="pre">ip</span> <span class="pre">rip</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">HQ</span><span class="c1">#debug ip ?</span>
+  <span class="n">eigrp</span>    <span class="n">IP</span><span class="o">-</span><span class="n">EIGRP</span> <span class="n">information</span>
+  <span class="n">icmp</span>     <span class="n">ICMP</span> <span class="n">transactions</span>
+  <span class="n">nat</span>      <span class="n">NAT</span> <span class="n">events</span>
+  <span class="n">ospf</span>     <span class="n">OSPF</span> <span class="n">information</span>
+  <span class="n">packet</span>   <span class="n">Packet</span> <span class="n">information</span>
+  <span class="n">rip</span>      <span class="n">RIP</span> <span class="n">protocol</span> <span class="n">transactions</span>
+  <span class="n">routing</span>  <span class="n">Routing</span> <span class="n">table</span> <span class="n">events</span>
+<span class="n">HQ</span><span class="c1">#debug ipv6 ?</span>
+  <span class="n">dhcp</span>     <span class="n">IPv6</span> <span class="n">DHCP</span> <span class="n">debugging</span>
+  <span class="n">inspect</span>  <span class="n">Stateful</span> <span class="n">inspection</span> <span class="n">events</span>
+  <span class="n">nd</span>       <span class="n">IPv6</span> <span class="n">Neighbor</span> <span class="n">Discovery</span> <span class="n">debugging</span>
+  <span class="n">ospf</span>     <span class="n">OSPF</span> <span class="n">information</span>
+<span class="o">---------------</span>
+<span class="n">HQ</span><span class="c1">#debug ip rip</span>
+<span class="o">---------------</span>
+   <span class="n">RIP</span><span class="p">:</span> <span class="n">sending</span>  <span class="n">v2</span> <span class="n">update</span> <span class="n">to</span> <span class="mf">224.0</span><span class="o">.</span><span class="mf">0.9</span> <span class="n">via</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> <span class="p">(</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.1</span><span class="p">)</span>
+   <span class="n">RIP</span><span class="p">:</span> <span class="n">build</span> <span class="n">update</span> <span class="n">entries</span>
+         <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="n">via</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">metric</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tag</span> <span class="mi">0</span>
+         <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">18</span> <span class="n">via</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">metric</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tag</span> <span class="mi">0</span>
+         <span class="mf">172.16</span><span class="o">.</span><span class="mf">64.0</span><span class="o">/</span><span class="mi">18</span> <span class="n">via</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">metric</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tag</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="ch7-qna">
 <h4>Ch7 QnA<a class="headerlink" href="#ch7-qna" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>ACL:</dt>
+<dd>a method of controlling packet flow: ACL</dd>
+<dt>ACE:</dt>
+<dd>one line in an ACL</dd>
+<dt>Standard ACL:</dt>
+<dd>IP-based ACLs that can be numbered 1 to 99</dd>
+<dt>ip access-group:</dt>
+<dd>a command that is used to apply a standard ACL to an interface</dd>
+<dt>access-class:</dt>
+<dd>a command that is used to apply a standard ACL to one or more VTY ports</dd>
+<dt>goes to next ACE:</dt>
+<dd>the action taken when the criteria specified in an ACE does not match</dd>
+<dt>0.0.0.31:</dt>
+<dd>wildcard mask for a /27 network</dd>
+<dt>match the address bit value:</dt>
+<dd>the purpose of a zero in a wildcard mask</dd>
+<dt>closest to destination:</dt>
+<dd>the common placement location for a standard ACL</dd>
+<dt>one:</dt>
+<dd>the number of IP-based ACLs that can be applied to one router interface in the inbound direction</dd>
+<dt>easy to modify:</dt>
+<dd>an advantage of using a named ACL</dd>
+<dt>host:</dt>
+<dd>the common keyword that is used when only one IP address is to be matched</dd>
+<dt>any:</dt>
+<dd>the keyword that is the same as using an address of 0.0.0.0 255.255.255.255</dd>
+<dt>permit or deny:</dt>
+<dd>the actions that can be taken when a router matches an address in an ACE</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>Which scenario would cause an ACL misconfiguration and deny all traffic?</dt>
+<dd>Apply an ACL that has all deny ACE statements</dd>
+<dt>Which type of standard ACL is easiest to modify on a production router?</dt>
+<dd>A named ACL that has not been applied yet</dd>
+<dt>Two common reasons for having a named ACL are</dt>
+<dd>its function is easier to identify
+the ACL is easier to modify</dd>
+</dl>
+<ul class="simple">
+<li>ACLs can be used for the following:<ul>
+<li>Limit network traffic in order to provide adequate network performance</li>
+<li>Restrict the delivery of routing updates</li>
+<li>Provide a basic level of security</li>
+<li>Filter traffic based on the type of traffic being sent</li>
+<li>Filter traffic based on IP addressing</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="chapter-8-dhcp">
