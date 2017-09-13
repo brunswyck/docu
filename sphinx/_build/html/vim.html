@@ -113,6 +113,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#macro-s">macro’s</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#exit-from-insert-mode-to-normal-mode">exit from insert mode to normal mode</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#up-until-next-char-word">up until next char/word</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#replace-all-chars-up-to-some-character">replace all chars up to some character</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-till-come-char">change till come char</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#file-exploring">file exploring</a><ul>
@@ -439,6 +441,12 @@ or view macros a b c <code class="docutils literal"><span class="pre">:reg</span
 </div>
 <div class="section" id="up-until-next-char-word">
 <h4>up until next char/word<a class="headerlink" href="#up-until-next-char-word" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>f: moves forward to char</li>
+<li>F: moves backward to char</li>
+<li>T: moves backward just right of char</li>
+<li>t: moves forward just left of char</li>
+</ul>
 <div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># delete until you encounter next space</span>
 <span class="n">t</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># jump to just before char</span>
 <span class="n">df</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># deletes upto and including char</span>
@@ -451,6 +459,22 @@ or view macros a b c <code class="docutils literal"><span class="pre">:reg</span
 <span class="n">diw</span> <span class="c1"># deletes word irrespective pos. cursor &amp; go into insert mode</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="replace-all-chars-up-to-some-character">
+<h4>replace all chars up to some character<a class="headerlink" href="#replace-all-chars-up-to-some-character" title="Permalink to this headline">¶</a></h4>
+<p>Visual mode is probably the shortest way here:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">vt</span><span class="p">:</span><span class="n">r</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>v enter visual mode</li>
+<li>t: select till :</li>
+<li>r (note space after r) replace selected region with spaces.</li>
+</ul>
+</div>
+<div class="section" id="change-till-come-char">
+<h4>change till come char<a class="headerlink" href="#change-till-come-char" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">cf_</span></code> or <code class="docutils literal"><span class="pre">ct_</span></code></p>
 </div>
 </div>
 <div class="section" id="file-exploring">

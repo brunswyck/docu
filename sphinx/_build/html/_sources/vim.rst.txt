@@ -227,6 +227,10 @@ Add to your .vimrc file::
 
 up until next char/word
 -----------------------
++ f: moves forward to char
++ F: moves backward to char
++ T: moves backward just right of char
++ t: moves forward just left of char
 
 .. code::
 
@@ -240,6 +244,23 @@ up until next char/word
    dE # same but not the space
    daW # delete from inside a word incl whitespace after word
    diw # deletes word irrespective pos. cursor & go into insert mode
+
+replace all chars up to some character
+--------------------------------------
+
+Visual mode is probably the shortest way here:
+
+.. code::
+
+   vt:r 
+
++ v enter visual mode
++ t: select till :
++ r (note space after r) replace selected region with spaces.
+
+change till come char
+---------------------
+``cf_`` or ``ct_``
 
 file exploring
 ==============

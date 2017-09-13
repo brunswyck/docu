@@ -5875,3 +5875,319 @@ Chapter 8 DHCP
 ==============
 
 
+
+The DHCPv4 server dynamically assigns, or leases, an IPv4 address from a pool of addresses for a limited period of time chosen by the server, or until the client no longer needs the address.
+
+Clients lease the information from the server for an administratively defined period. Administrators configure DHCPv4 servers to set the leases to time out at different intervals. The lease is typically anywhere from 24 hours to a week or more. When the lease expires, the client must ask for another address, although the client is typically reassigned the same address.
+
+Lease Origination
+
+.. image:: _static/Ch8_dhcp4_lease_origination.png
+
+When the client boots (or otherwise wants to join a network), it begins a four step process to obtain a lease. As shown in Figure 2, a client starts the process with a broadcast DHCPDISCOVER message with its own MAC address to discover available DHCPv4 servers.
+
+DHCP Discover (DHCPDISCOVER)
+
+The DHCPDISCOVER message finds DHCPv4 servers on the network. Because the client has no valid IPv4 information at bootup, it uses Layer 2 and Layer 3 broadcast addresses to communicate with the server.
+
+DHCP Offer (DHCPOFFER)
+
+When the DHCPv4 server receives a DHCPDISCOVER message, it reserves an available IPv4 address to lease to the client. The server also creates an ARP entry consisting of the MAC address of the requesting client and the leased IPv4 address of the client. As shown in Figure 3, the DHCPv4 server sends the binding DHCPOFFER message to the requesting client. The DHCPOFFER message is sent as a unicast, using the Layer 2 MAC address of the server as the source address and the Layer 2 MAC address of the client as the destination.
+
+DHCP Request (DHCPREQUEST)
+
+When the client receives the DHCPOFFER from the server, it sends back a DHCPREQUEST message as shown in Figure 4. This message is used for both lease origination and lease renewal. When used for lease origination, the DHCPREQUEST serves as a binding acceptance notice to the selected server for the parameters it has offered and an implicit decline to any other servers that may have provided the client a binding offer.
+
+Many enterprise networks use multiple DHCPv4 servers. The DHCPREQUEST message is sent in the form of a broadcast to inform this DHCPv4 server and any other DHCPv4 servers about the accepted offer.
+
+DHCP Acknowledgment (DHCPACK)
+
+On receiving the DHCPREQUEST message, the server verifies the lease information with an ICMP ping to that address to ensure it is not being used already, creates a new ARP entry for the client lease, and replies with a unicast DHCPACK message as shown in Figure 5. The DHCPACK message is a duplicate of the DHCPOFFER, except for a change in the message type field. When the client receives the DHCPACK message, it logs the configuration information and performs an ARP lookup for the assigned address. If there is no reply to the ARP, the client knows that the IPv4 address is valid and starts using it as its own.
+
+
+.. image:: _static/Ch8_dhcp4_lease_renewal.png
+
+Lease Renewal
+
+DHCP Request (DHCPREQUEST)
+
+As shown in Figure 6, before the lease expires, the client sends a DHCPREQUEST message directly to the DHCPv4 server that originally offered the IPv4 address. If a DHCPACK is not received within a specified amount of time, the client broadcasts another DHCPREQUEST so that one of the other DHCPv4 servers can extend the lease.
+
+DHCP Acknowledgment (DHCPACK)
+
+On receiving the DHCPREQUEST message, the server verifies the lease information by returning a DHCPACK, as shown in Figure.
+
+DHCPv4 Message Format
+---------------------
+
+.. image:: _static/Ch8_dhcp4_message_format.png
+
++ Operation (OP) Code - Specifies the general type of message. A value of 1 indicates a request message; a value of 2 is a reply message.
++ Hardware Type - Identifies the type of hardware used in the network. For example, 1 is Ethernet, 15 is Frame Relay, and 20 is a serial line. These are the same codes used in ARP messages.
++ Hardware Address Length - Specifies the length of the address.
++ Hops - Controls the forwarding of messages. Set to 0 by a client before transmitting a request.
++ Transaction Identifier - Used by the client to match the request with replies received from DHCPv4 servers.
++ Seconds - Identifies the number of seconds elapsed since a client began attempting to acquire or renew a lease. Used by DHCPv4 servers to prioritize replies when multiple client requests are outstanding.
++ Flags - Used by a client that does not know its IPv4 address when it sends a request. Only one of the 16 bits is used, which is the broadcast flag. A value of 1 in this field tells the DHCPv4 server or relay agent receiving the request that the reply should be sent as a broadcast.
++ Client IP Address - Used by a client during lease renewal when the address of the client is valid and usable, not during the process of acquiring an address. The client puts its own IPv4 address in this field if and only if it has a valid IPv4 address while in the bound state; otherwise, it sets the field to 0.
++ Your IP Address - Used by the server to assign an IPv4 address to the client.
++ Server IP Address - Used by the server to identify the address of the server that the client should use for the next step in the bootstrap process, which may or may not be the server sending this reply. The sending server always includes its own IPv4 address in a special field called the Server Identifier DHCPv4 option.
++ Gateway IP Address - Routes DHCPv4 messages when DHCPv4 relay agents are involved. The gateway address facilitates communications of DHCPv4 requests and replies between the client and a server that are on different subnets or networks.
++ Client Hardware Address - Specifies the physical layer of the client.
++ Server Name - Used by the server sending a DHCPOFFER or DHCPACK message. The server may optionally put its name in this field. This can be a simple text nickname or a DNS domain name, such as dhcpserver.netacad.net.
++ Boot Filename - Optionally used by a client to request a particular type of boot file in a DHCPDISCOVER message. Used by a server in a DHCPOFFER to fully specify a boot file directory and filename.
++ DHCP Options - Holds DHCP options, including several parameters required for basic DHCP operation. This field is variable in length. Both client and server may use this field.
+
+DHCPv4 Discover Message
+-----------------------
+
+.. image:: _static/Ch8_dhcp4_discover_message.png
+
+As shown in Figure 1, the client IPv4 address (CIADDR), default gateway address (GIADDR), and subnet mask are all marked to indicate that the address 0.0.0.0 is used.
+
+Note: Unknown information is sent as 0.0.0.0.
+
+When the DHCPv4 server receives the DHCPDISCOVER message, it responds with a DHCPOFFER message. This message contains initial configuration information for the client, including the IPv4 address that the server offers, the subnet mask, the lease duration, and the IPv4 address of the DHCPv4 server making the offer.
+
+The DHCPOFFER message can be configured to include other information, such as the lease renewal time and DNS address.
+
+.. image:: _static/Ch8_dhcp4_offer_message.png
+
+As shown now, the DHCP server responds to the DHCPDISCOVER by assigning values to the CIADDR and subnet mask. The frame is constructed using the client hardware address (CHADDR) and sent to the requesting client.
+
+The client and server send acknowledgment messages, and the process is complete.
+
+DHCPv4 basic server configuration
+---------------------------------
+
+.. code::
+   
+   step 1 excluding addresses
+   --------------------------
+   R1(config)#ip dhcp excluded-address 192.168.10.1 192.168.10.9
+   R1(config)#ip dhcp excluded-address 192.168.10.254
+   
+   step 2 configuring a pool
+   -------------------------
+   R1(config)#ip dhcp pool LAN-POOL-1
+   R1(dhcp-config)#
+
+   step 3 configuring specific tasks
+   ---------------------------------
+   R1(dhcp-config)# network network-number [mask | /prefix-length]
+   R1(dhcp-config)# network 192.168.10.0 255.255.255.0
+
+   R1(dhcp-config)# default-router address address2...address8
+   R1(dhcp-config)# default-router 192.168.10.1
+
+   R1(dhcp-config)# dns-server address address2...address8
+   R1(dhcp-config)# dns-server 192.168.11.5
+
+   R1(dhcp-config)# domain-name example.com
+   
+   R1(dhcp-config)# lease {days [hours] [minutes] | infinite}
+   R1(dhcp-config)# 
+
+   optional
+   --------
+   R1(dhcp-config)# netbios-name-server 192.168.x.x addr2..addr8
+
+disable DHCPv4 with the ``no service dhcp`` global config mode command
+
+Verifying DHCPv4
+----------------
+
+``show running-config | section dhcp``
+
+.. code::
+
+   Router> show ip dhcp server statistics
+   --------------------------------------
+   Memory usage          40392
+   Address pools         3
+   Database agents       1
+   Automatic bindings    190
+   Manual bindings       1
+   Expired bindings      3
+   Malformed messages    0
+   
+   Message               Received
+   BOOTREQUEST           12
+   DHCPDISCOVER          200
+   DHCPREQUEST           178
+   DHCPDECLINE           0
+   DHCPRELEASE           0
+   DHCPINFORM            0
+   
+   Message               Sent
+   BOOTREPLY             12
+   DHCPOFFER             190
+   DHCPACK               172
+   DHCPNAK               6
+   Release
+
+   Router#show ip dhcp binding
+   ---------------------------
+   Bindings from all pools not associated with VRF:
+   IP address   Client-ID/    Lease expiration     Type
+                Hardware address/
+                User name
+   10.0.2.1 0100.1e68.ffd3.5f Oct 12 2016 10:08 PM Automatic
+
+   Router#show ip dhcp pool
+   ------------------------
+   Pool dmz :
+   Utilization mark (high/low) : 100 / 0
+   Subnet size (first/next) : 0 / 0
+   Total addresses : 254
+   Leased addresses : 1
+   Pending event : none
+   1 subnet is currently in the pool :
+   Current index IP address range Leased addresses
+   10.0.2.2 10.0.2.1 - 10.0.2.254 1
+
+   
+show dhcp lease information on debian
+
+.. code::
+
+   patrick@debian:~[brunswyck:docu.git master|!?]$ cat /var/lib/dhcp/dhclient.leases
+   lease {
+     interface "eno2";
+     fixed-address 192.168.111.116;
+     option subnet-mask 255.255.255.0;
+     option routers 192.168.110.1;
+     option dhcp-lease-time 7200;
+     option dhcp-message-type 5;
+     option domain-name-servers 208.67.222.222,208.67.220.220,8.8.8.8;
+     option dhcp-server-identifier 192.168.111.1;
+     option domain-name "home";
+     renew 3 2017/09/13 08:33:03;
+     rebind 3 2017/09/13 09:23:03;
+     expire 3 2017/09/13 09:38:03;
+   }
+
+Configure DHCPv4 relay
+----------------------
+
+.. code::
+
+   R1(config)# interface g0/0
+   R1(config-if)# ip helper-address 192.168.11.6
+   confirm with
+   R1# show ip interface g0/0
+   ...Helper address is 192.168.11.6...
+
+DHCPv4 Exercises
+----------------
+
+8.1.2.3 lab - configuring basic dhcpv4
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/Ch8_lab_8.1.2.3_cfg_dhcpv4.png
+
+R1 = relay agent
+
+R2 = DHCPv4 server
+
+you will configure a DHCP address pool for each of the R1 LANs. Use the pool name R1G0for the G0/0 LAN and R1G1for the G0/1 LAN.
+
+You will also configure the addresses to be excluded from the address pools. Best practice dictates that excluded addresses be configured first, to guarantee that they are not accidentally leased to other devices.
+
+Exclude the first 9 addresses in each R1 LAN starting with .1. All other addresses should be available in the DHCP address pool. Make sure that each DHCP address pool includes a default gateway, the domain ccna-lab.com, a DNS server (209.165.200.225), and a lease time of 2 days.
+
+On the lines below, write the commands necessary for configuring DHCP services on router R2, including the DHCP-excluded addresses and the DHCP address pools.
+
+
+ +--------+--------------+-----------------+-----------------+-----------------+
+ | Device | Interface    | IP Address      | Subnet Mask     | Default Gateway |
+ +========+==============+=================+=================+=================+
+ | R1     | G0/0         | 192.168.0.1     | 255.255.255.0   | N/A             |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ |        | G0/1         | 192.168.1.1     | 255.255.255.0   | N/A             |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ |        | S0/0/0 (DCE) | 192.168.2.253   | 255.255.255.252 | N/A             |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ | R2     | S0/0/0       | 192.168.2.254   | 255.255.255.252 | N/A             |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ |        | S0/0/1 (DCE) | 209.165.200.226 | 255.255.255.224 | N/A             |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ | ISP    | S0/0/1       | 209.165.200.225 | 255.255.255.224 | N/A             |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ | PC-A   | NIC          | DHCP            | DHCP            | DHCP            |
+ +--------+--------------+-----------------+-----------------+-----------------+
+ | PC-B   | NIC          | DHCP            | DHCP            | DHCP            |
+ +--------+--------------+-----------------+-----------------+-----------------+
+
+.. code::
+   
+   basic config
+   ------------
+   no ip domain-lookup 
+   service password-encryption 
+   enable secret class 
+   banner motd # 
+   Unauthorized access is strictly prohibited. # 
+   line con 0 
+   password cisco 
+   login 
+   logging synchronous 
+   line vty 0 4 
+   password cisco 
+   login
+ 
+.. code::
+
+   Configure RIPv2 for R1
+   ----------------------
+   R1(config)# router rip
+   R1(config-router)# version 2
+   R1(config-router)# network 192.168.0.0
+   R1(config-router)# network 192.168.1.0
+   R1(config-router)# network 192.168.2.252
+   R1(config-router)# no auto-summary
+   
+   Configure RIPv2 and a default route to the ISP on R2
+   ----------------------------------------------------
+   R2(config)# router rip
+   R2(config-router)# version 2
+   R2(config-router)# network 192.168.2.252
+   R2(config-router)# default-information originate
+   R2(config-router)# exit 
+   R2(config)# ip route 0.0.0.0 0.0.0.0 209.165.200.225
+
+   Configure  a summary static route on ISP to reach the networks on the R1 and R2 routers
+   ---------------------------------------------------------------------------------------
+   ISP(config)# ip route 192.168.0.0 255.255.252.0 209.165.200.226    
+
+   Router R1 as a DHCP relay agent
+   -------------------------------
+   R1(config)# interface g0/0
+   R1(config-if)# ip helper-address 192.168.2.254 
+   R1(config-if)# exit 
+   R1(config-if)# interface g0/1
+   R1(config-if)# ip helper-address 192.168.2.254
+   
+   Router R2
+   ---------
+   R2(config)# ip dhcp excluded-address 192.168.0.1 192.168.0.9
+   R2(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.9
+   R2(config)# ip dhcp pool R1G1
+   R2(dhcp-config)# network 192.168.1.0 255.255.255.0
+   R2(dhcp-config)# default-router 192.168.1.1
+   R2(dhcp-config)# dns-server 209.165.200.225
+   R2(dhcp-config)# domain-name ccna-lab.com
+   R2(dhcp-config)# lease 2
+   R2(dhcp-config)# exit 
+   R2(config)# ip dhcp pool R1G0
+   R2(dhcp-config)# network 192.168.0.0 255.255.255.0
+   R2(dhcp-config)# default-router 192.168.0.1
+   R2(dhcp-config)# dns-server 209.165.200.225
+   R2(dhcp-config)# domain-name ccna-lab.com
+   R2(dhcp-config)# lease 2
+
+verify with ``show ip dhcp binding`` & ``show ip dhcp server statistics`` & ``show run | section dhcp``
+
+
+
+

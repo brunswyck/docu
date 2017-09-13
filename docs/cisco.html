@@ -230,7 +230,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#ch7-qna">Ch7 QnA</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#chapter-8-dhcp">Chapter 8 DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chapter-8-dhcp">Chapter 8 DHCP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dhcpv4-message-format">DHCPv4 Message Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dhcpv4-discover-message">DHCPv4 Discover Message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dhcpv4-basic-server-configuration">DHCPv4 basic server configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verifying-dhcpv4">Verifying DHCPv4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-dhcpv4-relay">Configure DHCPv4 relay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dhcpv4-exercises">DHCPv4 Exercises</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -6866,6 +6874,319 @@ the ACL is easier to modify</dd>
 </div>
 <div class="section" id="chapter-8-dhcp">
 <h3>Chapter 8 DHCP<a class="headerlink" href="#chapter-8-dhcp" title="Permalink to this headline">¶</a></h3>
+<p>The DHCPv4 server dynamically assigns, or leases, an IPv4 address from a pool of addresses for a limited period of time chosen by the server, or until the client no longer needs the address.</p>
+<p>Clients lease the information from the server for an administratively defined period. Administrators configure DHCPv4 servers to set the leases to time out at different intervals. The lease is typically anywhere from 24 hours to a week or more. When the lease expires, the client must ask for another address, although the client is typically reassigned the same address.</p>
+<p>Lease Origination</p>
+<img alt="_images/Ch8_dhcp4_lease_origination.png" src="_images/Ch8_dhcp4_lease_origination.png" />
+<p>When the client boots (or otherwise wants to join a network), it begins a four step process to obtain a lease. As shown in Figure 2, a client starts the process with a broadcast DHCPDISCOVER message with its own MAC address to discover available DHCPv4 servers.</p>
+<p>DHCP Discover (DHCPDISCOVER)</p>
+<p>The DHCPDISCOVER message finds DHCPv4 servers on the network. Because the client has no valid IPv4 information at bootup, it uses Layer 2 and Layer 3 broadcast addresses to communicate with the server.</p>
+<p>DHCP Offer (DHCPOFFER)</p>
+<p>When the DHCPv4 server receives a DHCPDISCOVER message, it reserves an available IPv4 address to lease to the client. The server also creates an ARP entry consisting of the MAC address of the requesting client and the leased IPv4 address of the client. As shown in Figure 3, the DHCPv4 server sends the binding DHCPOFFER message to the requesting client. The DHCPOFFER message is sent as a unicast, using the Layer 2 MAC address of the server as the source address and the Layer 2 MAC address of the client as the destination.</p>
+<p>DHCP Request (DHCPREQUEST)</p>
+<p>When the client receives the DHCPOFFER from the server, it sends back a DHCPREQUEST message as shown in Figure 4. This message is used for both lease origination and lease renewal. When used for lease origination, the DHCPREQUEST serves as a binding acceptance notice to the selected server for the parameters it has offered and an implicit decline to any other servers that may have provided the client a binding offer.</p>
+<p>Many enterprise networks use multiple DHCPv4 servers. The DHCPREQUEST message is sent in the form of a broadcast to inform this DHCPv4 server and any other DHCPv4 servers about the accepted offer.</p>
+<p>DHCP Acknowledgment (DHCPACK)</p>
+<p>On receiving the DHCPREQUEST message, the server verifies the lease information with an ICMP ping to that address to ensure it is not being used already, creates a new ARP entry for the client lease, and replies with a unicast DHCPACK message as shown in Figure 5. The DHCPACK message is a duplicate of the DHCPOFFER, except for a change in the message type field. When the client receives the DHCPACK message, it logs the configuration information and performs an ARP lookup for the assigned address. If there is no reply to the ARP, the client knows that the IPv4 address is valid and starts using it as its own.</p>
+<img alt="_images/Ch8_dhcp4_lease_renewal.png" src="_images/Ch8_dhcp4_lease_renewal.png" />
+<p>Lease Renewal</p>
+<p>DHCP Request (DHCPREQUEST)</p>
+<p>As shown in Figure 6, before the lease expires, the client sends a DHCPREQUEST message directly to the DHCPv4 server that originally offered the IPv4 address. If a DHCPACK is not received within a specified amount of time, the client broadcasts another DHCPREQUEST so that one of the other DHCPv4 servers can extend the lease.</p>
+<p>DHCP Acknowledgment (DHCPACK)</p>
+<p>On receiving the DHCPREQUEST message, the server verifies the lease information by returning a DHCPACK, as shown in Figure.</p>
+<div class="section" id="dhcpv4-message-format">
+<h4>DHCPv4 Message Format<a class="headerlink" href="#dhcpv4-message-format" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/Ch8_dhcp4_message_format.png" src="_images/Ch8_dhcp4_message_format.png" />
+<ul class="simple">
+<li>Operation (OP) Code - Specifies the general type of message. A value of 1 indicates a request message; a value of 2 is a reply message.</li>
+<li>Hardware Type - Identifies the type of hardware used in the network. For example, 1 is Ethernet, 15 is Frame Relay, and 20 is a serial line. These are the same codes used in ARP messages.</li>
+<li>Hardware Address Length - Specifies the length of the address.</li>
+<li>Hops - Controls the forwarding of messages. Set to 0 by a client before transmitting a request.</li>
+<li>Transaction Identifier - Used by the client to match the request with replies received from DHCPv4 servers.</li>
+<li>Seconds - Identifies the number of seconds elapsed since a client began attempting to acquire or renew a lease. Used by DHCPv4 servers to prioritize replies when multiple client requests are outstanding.</li>
+<li>Flags - Used by a client that does not know its IPv4 address when it sends a request. Only one of the 16 bits is used, which is the broadcast flag. A value of 1 in this field tells the DHCPv4 server or relay agent receiving the request that the reply should be sent as a broadcast.</li>
+<li>Client IP Address - Used by a client during lease renewal when the address of the client is valid and usable, not during the process of acquiring an address. The client puts its own IPv4 address in this field if and only if it has a valid IPv4 address while in the bound state; otherwise, it sets the field to 0.</li>
+<li>Your IP Address - Used by the server to assign an IPv4 address to the client.</li>
+<li>Server IP Address - Used by the server to identify the address of the server that the client should use for the next step in the bootstrap process, which may or may not be the server sending this reply. The sending server always includes its own IPv4 address in a special field called the Server Identifier DHCPv4 option.</li>
+<li>Gateway IP Address - Routes DHCPv4 messages when DHCPv4 relay agents are involved. The gateway address facilitates communications of DHCPv4 requests and replies between the client and a server that are on different subnets or networks.</li>
+<li>Client Hardware Address - Specifies the physical layer of the client.</li>
+<li>Server Name - Used by the server sending a DHCPOFFER or DHCPACK message. The server may optionally put its name in this field. This can be a simple text nickname or a DNS domain name, such as dhcpserver.netacad.net.</li>
+<li>Boot Filename - Optionally used by a client to request a particular type of boot file in a DHCPDISCOVER message. Used by a server in a DHCPOFFER to fully specify a boot file directory and filename.</li>
+<li>DHCP Options - Holds DHCP options, including several parameters required for basic DHCP operation. This field is variable in length. Both client and server may use this field.</li>
+</ul>
+</div>
+<div class="section" id="dhcpv4-discover-message">
+<h4>DHCPv4 Discover Message<a class="headerlink" href="#dhcpv4-discover-message" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/Ch8_dhcp4_discover_message.png" src="_images/Ch8_dhcp4_discover_message.png" />
+<p>As shown in Figure 1, the client IPv4 address (CIADDR), default gateway address (GIADDR), and subnet mask are all marked to indicate that the address 0.0.0.0 is used.</p>
+<p>Note: Unknown information is sent as 0.0.0.0.</p>
+<p>When the DHCPv4 server receives the DHCPDISCOVER message, it responds with a DHCPOFFER message. This message contains initial configuration information for the client, including the IPv4 address that the server offers, the subnet mask, the lease duration, and the IPv4 address of the DHCPv4 server making the offer.</p>
+<p>The DHCPOFFER message can be configured to include other information, such as the lease renewal time and DNS address.</p>
+<img alt="_images/Ch8_dhcp4_offer_message.png" src="_images/Ch8_dhcp4_offer_message.png" />
+<p>As shown now, the DHCP server responds to the DHCPDISCOVER by assigning values to the CIADDR and subnet mask. The frame is constructed using the client hardware address (CHADDR) and sent to the requesting client.</p>
+<p>The client and server send acknowledgment messages, and the process is complete.</p>
+</div>
+<div class="section" id="dhcpv4-basic-server-configuration">
+<h4>DHCPv4 basic server configuration<a class="headerlink" href="#dhcpv4-basic-server-configuration" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">step</span> <span class="mi">1</span> <span class="n">excluding</span> <span class="n">addresses</span>
+<span class="o">--------------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 192.168.10.1 192.168.10.9</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 192.168.10.254</span>
+
+<span class="n">step</span> <span class="mi">2</span> <span class="n">configuring</span> <span class="n">a</span> <span class="n">pool</span>
+<span class="o">-------------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp pool LAN-POOL-1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
+
+<span class="n">step</span> <span class="mi">3</span> <span class="n">configuring</span> <span class="n">specific</span> <span class="n">tasks</span>
+<span class="o">---------------------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network network-number [mask | /prefix-length]</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network 192.168.10.0 255.255.255.0</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router address address2...address8</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router 192.168.10.1</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># dns-server address address2...address8</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># dns-server 192.168.11.5</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># domain-name example.com</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># lease {days [hours] [minutes] | infinite}</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
+
+<span class="n">optional</span>
+<span class="o">--------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># netbios-name-server 192.168.x.x addr2..addr8</span>
+</pre></div>
+</div>
+<p>disable DHCPv4 with the <code class="docutils literal"><span class="pre">no</span> <span class="pre">service</span> <span class="pre">dhcp</span></code> global config mode command</p>
+</div>
+<div class="section" id="verifying-dhcpv4">
+<h4>Verifying DHCPv4<a class="headerlink" href="#verifying-dhcpv4" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">show</span> <span class="pre">running-config</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="o">&gt;</span> <span class="n">show</span> <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">server</span> <span class="n">statistics</span>
+<span class="o">--------------------------------------</span>
+<span class="n">Memory</span> <span class="n">usage</span>          <span class="mi">40392</span>
+<span class="n">Address</span> <span class="n">pools</span>         <span class="mi">3</span>
+<span class="n">Database</span> <span class="n">agents</span>       <span class="mi">1</span>
+<span class="n">Automatic</span> <span class="n">bindings</span>    <span class="mi">190</span>
+<span class="n">Manual</span> <span class="n">bindings</span>       <span class="mi">1</span>
+<span class="n">Expired</span> <span class="n">bindings</span>      <span class="mi">3</span>
+<span class="n">Malformed</span> <span class="n">messages</span>    <span class="mi">0</span>
+
+<span class="n">Message</span>               <span class="n">Received</span>
+<span class="n">BOOTREQUEST</span>           <span class="mi">12</span>
+<span class="n">DHCPDISCOVER</span>          <span class="mi">200</span>
+<span class="n">DHCPREQUEST</span>           <span class="mi">178</span>
+<span class="n">DHCPDECLINE</span>           <span class="mi">0</span>
+<span class="n">DHCPRELEASE</span>           <span class="mi">0</span>
+<span class="n">DHCPINFORM</span>            <span class="mi">0</span>
+
+<span class="n">Message</span>               <span class="n">Sent</span>
+<span class="n">BOOTREPLY</span>             <span class="mi">12</span>
+<span class="n">DHCPOFFER</span>             <span class="mi">190</span>
+<span class="n">DHCPACK</span>               <span class="mi">172</span>
+<span class="n">DHCPNAK</span>               <span class="mi">6</span>
+<span class="n">Release</span>
+
+<span class="n">Router</span><span class="c1">#show ip dhcp binding</span>
+<span class="o">---------------------------</span>
+<span class="n">Bindings</span> <span class="kn">from</span> <span class="nn">all</span> <span class="n">pools</span> <span class="ow">not</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">VRF</span><span class="p">:</span>
+<span class="n">IP</span> <span class="n">address</span>   <span class="n">Client</span><span class="o">-</span><span class="n">ID</span><span class="o">/</span>    <span class="n">Lease</span> <span class="n">expiration</span>     <span class="n">Type</span>
+             <span class="n">Hardware</span> <span class="n">address</span><span class="o">/</span>
+             <span class="n">User</span> <span class="n">name</span>
+<span class="mf">10.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="mf">0100.1e68</span><span class="o">.</span><span class="n">ffd3</span><span class="o">.</span><span class="mi">5</span><span class="n">f</span> <span class="n">Oct</span> <span class="mi">12</span> <span class="mi">2016</span> <span class="mi">10</span><span class="p">:</span><span class="mi">08</span> <span class="n">PM</span> <span class="n">Automatic</span>
+
+<span class="n">Router</span><span class="c1">#show ip dhcp pool</span>
+<span class="o">------------------------</span>
+<span class="n">Pool</span> <span class="n">dmz</span> <span class="p">:</span>
+<span class="n">Utilization</span> <span class="n">mark</span> <span class="p">(</span><span class="n">high</span><span class="o">/</span><span class="n">low</span><span class="p">)</span> <span class="p">:</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="n">Subnet</span> <span class="n">size</span> <span class="p">(</span><span class="n">first</span><span class="o">/</span><span class="nb">next</span><span class="p">)</span> <span class="p">:</span> <span class="mi">0</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="n">Total</span> <span class="n">addresses</span> <span class="p">:</span> <span class="mi">254</span>
+<span class="n">Leased</span> <span class="n">addresses</span> <span class="p">:</span> <span class="mi">1</span>
+<span class="n">Pending</span> <span class="n">event</span> <span class="p">:</span> <span class="n">none</span>
+<span class="mi">1</span> <span class="n">subnet</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">pool</span> <span class="p">:</span>
+<span class="n">Current</span> <span class="n">index</span> <span class="n">IP</span> <span class="n">address</span> <span class="nb">range</span> <span class="n">Leased</span> <span class="n">addresses</span>
+<span class="mf">10.0</span><span class="o">.</span><span class="mf">2.2</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.1</span> <span class="o">-</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.254</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>show dhcp lease information on debian</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@debian:~[brunswyck:docu.git master|!?]$ cat /var/lib/dhcp/dhclient.leases
+lease {
+  interface &quot;eno2&quot;;
+  fixed-address 192.168.111.116;
+  option subnet-mask 255.255.255.0;
+  option routers 192.168.110.1;
+  option dhcp-lease-time 7200;
+  option dhcp-message-type 5;
+  option domain-name-servers 208.67.222.222,208.67.220.220,8.8.8.8;
+  option dhcp-server-identifier 192.168.111.1;
+  option domain-name &quot;home&quot;;
+  renew 3 2017/09/13 08:33:03;
+  rebind 3 2017/09/13 09:23:03;
+  expire 3 2017/09/13 09:38:03;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-dhcpv4-relay">
+<h4>Configure DHCPv4 relay<a class="headerlink" href="#configure-dhcpv4-relay" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip helper-address 192.168.11.6</span>
+<span class="n">confirm</span> <span class="k">with</span>
+<span class="n">R1</span><span class="c1"># show ip interface g0/0</span>
+<span class="o">...</span><span class="n">Helper</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">11.6</span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dhcpv4-exercises">
+<h4>DHCPv4 Exercises<a class="headerlink" href="#dhcpv4-exercises" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="lab-configuring-basic-dhcpv4">
+<h5>8.1.2.3 lab - configuring basic dhcpv4<a class="headerlink" href="#lab-configuring-basic-dhcpv4" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/Ch8_lab_8.1.2.3_cfg_dhcpv4.png" src="_images/Ch8_lab_8.1.2.3_cfg_dhcpv4.png" />
+<p>R1 = relay agent</p>
+<p>R2 = DHCPv4 server</p>
+<p>you will configure a DHCP address pool for each of the R1 LANs. Use the pool name R1G0for the G0/0 LAN and R1G1for the G0/1 LAN.</p>
+<p>You will also configure the addresses to be excluded from the address pools. Best practice dictates that excluded addresses be configured first, to guarantee that they are not accidentally leased to other devices.</p>
+<p>Exclude the first 9 addresses in each R1 LAN starting with .1. All other addresses should be available in the DHCP address pool. Make sure that each DHCP address pool includes a default gateway, the domain ccna-lab.com, a DNS server (209.165.200.225), and a lease time of 2 days.</p>
+<p>On the lines below, write the commands necessary for configuring DHCP services on router R2, including the DHCP-excluded addresses and the DHCP address pools.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="19%" />
+<col width="23%" />
+<col width="23%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/0</td>
+<td>192.168.0.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/1</td>
+<td>192.168.1.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0 (DCE)</td>
+<td>192.168.2.253</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>R2</td>
+<td>S0/0/0</td>
+<td>192.168.2.254</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/1 (DCE)</td>
+<td>209.165.200.226</td>
+<td>255.255.255.224</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>ISP</td>
+<td>S0/0/1</td>
+<td>209.165.200.225</td>
+<td>255.255.255.224</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>PC-A</td>
+<td>NIC</td>
+<td>DHCP</td>
+<td>DHCP</td>
+<td>DHCP</td>
+</tr>
+<tr class="row-odd"><td>PC-B</td>
+<td>NIC</td>
+<td>DHCP</td>
+<td>DHCP</td>
+<td>DHCP</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">basic</span> <span class="n">config</span>
+<span class="o">------------</span>
+<span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
+<span class="n">Unauthorized</span> <span class="n">access</span> <span class="ow">is</span> <span class="n">strictly</span> <span class="n">prohibited</span><span class="o">.</span> <span class="c1">#</span>
+<span class="n">line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">4</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">RIPv2</span> <span class="k">for</span> <span class="n">R1</span>
+<span class="o">----------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.0.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.1.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.2.252</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
+
+<span class="n">Configure</span> <span class="n">RIPv2</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">default</span> <span class="n">route</span> <span class="n">to</span> <span class="n">the</span> <span class="n">ISP</span> <span class="n">on</span> <span class="n">R2</span>
+<span class="o">----------------------------------------------------</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.2.252</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># default-information originate</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.200.225</span>
+
+<span class="n">Configure</span>  <span class="n">a</span> <span class="n">summary</span> <span class="n">static</span> <span class="n">route</span> <span class="n">on</span> <span class="n">ISP</span> <span class="n">to</span> <span class="n">reach</span> <span class="n">the</span> <span class="n">networks</span> <span class="n">on</span> <span class="n">the</span> <span class="n">R1</span> <span class="ow">and</span> <span class="n">R2</span> <span class="n">routers</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
+<span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 192.168.0.0 255.255.252.0 209.165.200.226</span>
+
+<span class="n">Router</span> <span class="n">R1</span> <span class="k">as</span> <span class="n">a</span> <span class="n">DHCP</span> <span class="n">relay</span> <span class="n">agent</span>
+<span class="o">-------------------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip helper-address 192.168.2.254</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip helper-address 192.168.2.254</span>
+
+<span class="n">Router</span> <span class="n">R2</span>
+<span class="o">---------</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.0.1 192.168.0.9</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.1.1 192.168.1.9</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp pool R1G1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network 192.168.1.0 255.255.255.0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router 192.168.1.1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># dns-server 209.165.200.225</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># domain-name ccna-lab.com</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># lease 2</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp pool R1G0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network 192.168.0.0 255.255.255.0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router 192.168.0.1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># dns-server 209.165.200.225</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># domain-name ccna-lab.com</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># lease 2</span>
+</pre></div>
+</div>
+<p>verify with <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">binding</span></code> &amp; <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">statistics</span></code> &amp; <code class="docutils literal"><span class="pre">show</span> <span class="pre">run</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
+</div>
+</div>
 </div>
 </div>
 </div>
