@@ -237,6 +237,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#verifying-dhcpv4">Verifying DHCPv4</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configure-dhcpv4-relay">Configure DHCPv4 relay</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#dhcpv4-exercises">DHCPv4 Exercises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-a-router-as-dhcp-client">Configuring a Router as DHCP Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting-dhcp">Troubleshooting DHCP</a></li>
 </ul>
 </li>
 </ul>
@@ -7044,6 +7046,9 @@ lease {
 <div class="section" id="lab-configuring-basic-dhcpv4">
 <h5>8.1.2.3 lab - configuring basic dhcpv4<a class="headerlink" href="#lab-configuring-basic-dhcpv4" title="Permalink to this headline">¶</a></h5>
 <img alt="_images/Ch8_lab_8.1.2.3_cfg_dhcpv4.png" src="_images/Ch8_lab_8.1.2.3_cfg_dhcpv4.png" />
+<p>Required Resources
++ 3 Routers (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
++ 2 Switches (Cisco 2960 with Cisco IOS Release 15.0(2) lanbasek9 image or comparable)</p>
 <p>R1 = relay agent</p>
 <p>R2 = DHCPv4 server</p>
 <p>you will configure a DHCP address pool for each of the R1 LANs. Use the pool name R1G0for the G0/0 LAN and R1G1for the G0/1 LAN.</p>
@@ -7185,6 +7190,481 @@ lease {
 </pre></div>
 </div>
 <p>verify with <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">binding</span></code> &amp; <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">statistics</span></code> &amp; <code class="docutils literal"><span class="pre">show</span> <span class="pre">run</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
+</div>
+<div class="section" id="lab-basic-dhcpv4-on-a-switch">
+<h5>8.1.2.5 lab - basic dhcpv4 on a switch<a class="headerlink" href="#lab-basic-dhcpv4-on-a-switch" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/Ch8_lab_8.1.2.5_cfg_dhcpv4_on_switch.png" src="_images/Ch8_lab_8.1.2.5_cfg_dhcpv4_on_switch.png" />
+<p>Required Resources
++ Router (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
++ 2 Switches (Cisco 2960 with Cisco IOS Release 15.0(2) lanbasek9 image or comparable)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="21%" />
+<col width="32%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/1</td>
+<td>192.168.1.10</td>
+<td>255.255.255.0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo0</td>
+<td>209.165.200.225</td>
+<td>255.255.255.224</td>
+</tr>
+<tr class="row-even"><td>S1</td>
+<td>VLAN 1</td>
+<td>192.168.1.1</td>
+<td>255.255.255.0</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>VLAN 2</td>
+<td>192.168.2.1</td>
+<td>255.255.255.0</td>
+</tr>
+</tbody>
+</table>
+<p>display SDM preference on S1</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1">#show sdm prefer</span>
+<span class="n">The</span> <span class="n">current</span> <span class="n">template</span> <span class="ow">is</span> <span class="s2">&quot;default&quot;</span> <span class="n">template</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">selected</span> <span class="n">template</span> <span class="n">optimizes</span> <span class="n">the</span> <span class="n">resources</span> <span class="ow">in</span>
+<span class="n">the</span> <span class="n">switch</span> <span class="n">to</span> <span class="n">support</span> <span class="n">this</span> <span class="n">level</span> <span class="n">of</span> <span class="n">features</span> <span class="k">for</span>
+<span class="mi">0</span> <span class="n">routed</span> <span class="n">interfaces</span> <span class="ow">and</span> <span class="mi">255</span> <span class="n">VLANs</span><span class="o">.</span>
+  <span class="n">number</span> <span class="n">of</span> <span class="n">unicast</span> <span class="n">mac</span> <span class="n">addresses</span><span class="p">:</span>                  <span class="mi">8</span><span class="n">K</span>
+  <span class="n">number</span> <span class="n">of</span> <span class="n">IPv4</span> <span class="n">IGMP</span> <span class="n">groups</span><span class="p">:</span>                       <span class="mf">0.25</span><span class="n">K</span>
+  <span class="n">number</span> <span class="n">of</span> <span class="n">IPv4</span><span class="o">/</span><span class="n">MAC</span> <span class="n">qos</span> <span class="n">aces</span><span class="p">:</span>                      <span class="mf">0.125</span><span class="n">k</span>
+  <span class="n">number</span> <span class="n">of</span> <span class="n">IPv4</span><span class="o">/</span><span class="n">MAC</span> <span class="n">security</span> <span class="n">aces</span><span class="p">:</span>                 <span class="mf">0.375</span><span class="n">k</span>
+</pre></div>
+</div>
+<p>change SDM preference to lanbase-routing</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># sdm prefer lanbase-routing</span>
+<span class="n">Changes</span> <span class="n">to</span> <span class="n">the</span> <span class="n">running</span> <span class="n">SDM</span> <span class="n">preferences</span> <span class="n">have</span> <span class="n">been</span> <span class="n">stored</span><span class="p">,</span> <span class="n">but</span> <span class="n">cannot</span> <span class="n">take</span> <span class="n">effect</span>
+<span class="n">until</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">reload</span><span class="o">.</span>
+<span class="n">Use</span> <span class="s1">&#39;show sdm prefer&#39;</span> <span class="n">to</span> <span class="n">see</span> <span class="n">what</span> <span class="n">SDM</span> <span class="n">preference</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">active</span><span class="o">.</span>
+
+<span class="n">S1</span><span class="c1"># reload</span>
+<span class="n">S1</span><span class="c1"># show sdm prefer</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The new template will be used after reboot even if the running configuration has not been saved. To save the running configuration, answer yes after reload command.</p>
+</div>
+<div class="section" id="configure-dhcp-for-vlan-1">
+<h6>Configure DHCP for VLAN 1<a class="headerlink" href="#configure-dhcp-for-vlan-1" title="Permalink to this headline">¶</a></h6>
+<ol class="loweralpha simple">
+<li>Exclude the first 10 valid host addresses from network 192.168.1.0/24</li>
+<li>Create a DHCP pool named DHCP1</li>
+<li>Assign the network 192.168.1.0/24 for available addresses</li>
+<li>Assign the default gateway as 192.168.1.1</li>
+<li>Assign the DNS server as 192.168.1.9</li>
+<li>Assign a lease time of 3 day</li>
+<li>Save the running configuration to the startup configuration file</li>
+</ol>
+</div>
+<div class="section" id="configure-dhcpv4-for-multiple-vlans">
+<h6>Configure DHCPv4 for Multiple VLANs<a class="headerlink" href="#configure-dhcpv4-for-multiple-vlans" title="Permalink to this headline">¶</a></h6>
+<p>assign PC-A to a port accessing VLAN 2, configure DHCPv4 for VLAN 2, renew the IP configuration of PC-A to validate DHCPv4, and verify connectivity within the VLAN.</p>
+<p>Assign a port to VLAN 2. Place port F0/6 into VLAN 2</p>
+<ol class="loweralpha simple">
+<li>Exclude the first 10 valid host addresses from network 192.168.2.0</li>
+<li>Create a DHCP pool named DHCP2</li>
+<li>Assign the network 192.168.2.0/24 for available addresses</li>
+<li>Assign the default gateway as 192.168.2.1</li>
+<li>Assign the DNS server as 192.168.2.9</li>
+<li>Assign a lease time of 3 days</li>
+<li>Save the running configuration to the startup configuration file</li>
+</ol>
+<p>Enable IP routing on S1 <code class="docutils literal"><span class="pre">S1(config)#</span> <span class="pre">ip</span> <span class="pre">routing</span></code>
+Verify inter-VLAN connectivity</p>
+</div>
+<div class="section" id="assign-static-routes">
+<h6>Assign static routes<a class="headerlink" href="#assign-static-routes" title="Permalink to this headline">¶</a></h6>
+<ol class="loweralpha simple">
+<li>On S1, create a default static route to R1</li>
+<li>On R1, create a static route to VLAN 2</li>
+<li>View the routing table information for S1.How is the default static route represented?</li>
+<li>View the routing table information for R1.How is the default static route represented?</li>
+<li>From PC-A, is it possible to ping R1? From PC-A, is it possible to ping Lo0?</li>
+</ol>
+<p>Configure DHCPv4</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.1.1 192.168.1.10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp pool DHCP1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network 192.168.1.0 255.255.255.0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router 192.168.1.1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># dns-server 192.168.1.9</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># lease 3</span>
+</pre></div>
+</div>
+<p>Configure DHCPv4 for Multiple VLANs</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/6</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 2</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.2.1 192.168.2.10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp pool DHCP2</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network 192.168.2.0 255.255.255.0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router 192.168.2.1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># dns-server 192.168.2.9</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># lease 3</span>
+</pre></div>
+</div>
+<p>Enable IP Routing</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip routing</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 192.168.1.10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 192.168.2.0 255.255.255.0 g0/1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="lab-configuring-dhcp-ios-pt">
+<h5>8.1.3.3 lab - configuring dhcp ios pt<a class="headerlink" href="#lab-configuring-dhcp-ios-pt" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/Ch8_lab_8.1.3.3_cfg_dhcpv4_ios.png" src="_images/Ch8_lab_8.1.3.3_cfg_dhcpv4_ios.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="15%" />
+<col width="22%" />
+<col width="23%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IPv4 Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/0</td>
+<td>192.168.10.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>10.1.1.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>R2</td>
+<td>G0/0</td>
+<td>192.168.20.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/1</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>10.1.1.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>10.2.2.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>R3</td>
+<td>G0/0</td>
+<td>192.168.30.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>10.2.2.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>PC1</td>
+<td>NIC</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+</tr>
+<tr class="row-odd"><td>PC2</td>
+<td>NIC</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+</tr>
+<tr class="row-even"><td>DNS Server</td>
+<td>NIC</td>
+<td>192.168.20.254</td>
+<td>255.255.255.0</td>
+<td>192.168.20.1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first">Configure R2 to exclude first 10 addresses from R1 and R3 LANs. All others should be available in the DHCP address pool</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="o">&gt;</span><span class="n">enable</span>
+<span class="n">R2</span><span class="c1">#conf t</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp ?</span>
+ <span class="n">excluded</span><span class="o">-</span><span class="n">address</span>  <span class="n">Prevent</span> <span class="n">DHCP</span> <span class="kn">from</span> <span class="nn">assigning</span> <span class="n">certain</span> <span class="n">addresses</span>
+ <span class="n">pool</span>              <span class="n">Configure</span> <span class="n">DHCP</span> <span class="n">address</span> <span class="n">pools</span>
+ <span class="n">relay</span>             <span class="n">DHCP</span> <span class="n">relay</span> <span class="n">agent</span> <span class="n">parameters</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 192.168.10.1 192.168.10.10</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 192.168.30.1 192.168.30.10</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp pool R1-LAN</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#network 192.168.10.0 255.255.255.0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#?</span>
+ <span class="n">default</span><span class="o">-</span><span class="n">router</span>  <span class="n">Default</span> <span class="n">routers</span>
+ <span class="n">dns</span><span class="o">-</span><span class="n">server</span>      <span class="n">Set</span> <span class="n">name</span> <span class="n">server</span>
+ <span class="n">exit</span>            <span class="n">Exit</span> <span class="kn">from</span> <span class="nn">DHCP</span> <span class="n">pool</span> <span class="n">configuration</span> <span class="n">mode</span>
+ <span class="n">network</span>         <span class="n">Network</span> <span class="n">number</span> <span class="ow">and</span> <span class="n">mask</span>
+ <span class="n">no</span>              <span class="n">Negate</span> <span class="n">a</span> <span class="n">command</span> <span class="ow">or</span> <span class="nb">set</span> <span class="n">its</span> <span class="n">defaults</span>
+ <span class="n">option</span>          <span class="n">Raw</span> <span class="n">DHCP</span> <span class="n">options</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#default-router 192.168.10.1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#dns-server 192.168.20.254</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp pool R3-LAN</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#network 192.168.30.0 255.255.255.0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#defautl</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#default-router 192.168.30.1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#dns-server 192.168.20.254</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Set PC1 and PC2 to receive IP addressing information from DHCP.</p>
+</li>
+<li><p class="first">Configure R1 and R3 as a DHCP relay agent.
+Okay so lets check if R2 can reach these LANs first:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>check interfaces
+----------------
+R2#show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     192.168.20.1    YES manual up                    up
+GigabitEthernet0/1     unassigned      YES unset  administratively down down
+Serial0/0/0            10.1.1.2        YES manual up                    up
+Serial0/0/1            10.2.2.2        YES manual up                    up
+Serial0/1/0            unassigned      YES unset  down                  down
+Serial0/1/1            unassigned      YES unset  down                  down
+Vlan1                  unassigned      YES unset  administratively down down
+
+G0/1 is down, lets give it a dhcp address from ISP
+--------------------------------------------------
+R2#conf t
+R2(config)#interface gigabitEthernet 0/1
+R2(config-if)#ip address dhcp
+R2(config-if)#no shutdown
+R2(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+R2#
+%DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/1 assigned DHCP address 209.165.200.231, mask 255.255.255.224, hostname R2
+%DUAL-5-NBRCHANGE: IP-EIGRP 1: Neighbor 209.165.200.225 (GigabitEthernet0/1) is up: new adjacency
+
+Now lets check R1 and R2 routes to LAN are known to R2
+------------------------------------------------------
+R2#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+C       10.1.1.0/30 is directly connected, Serial0/0/0
+L       10.1.1.2/32 is directly connected, Serial0/0/0
+C       10.2.2.0/30 is directly connected, Serial0/0/1
+L       10.2.2.2/32 is directly connected, Serial0/0/1
+D    192.168.10.0/24 [90/2170112] via 10.1.1.1, 00:59:31, Serial0/0/0
+     192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.20.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.20.1/32 is directly connected, GigabitEthernet0/0
+D    192.168.30.0/24 [90/2170112] via 10.2.2.1, 00:59:32, Serial0/0/1
+     209.165.200.0/24 is variably subnetted, 2 subnets, 2 masks
+C       209.165.200.224/27 is directly connected, GigabitEthernet0/1
+L       209.165.200.231/32 is directly connected, GigabitEthernet0/1
+     209.165.202.0/27 is subnetted, 1 subnets
+D       209.165.202.128/27 [90/3072] via 209.165.200.225, 00:01:10, GigabitEthernet0/1
+
+Looking good, configure R1 and R3 as dhcpv4 relay agents
+--------------------------------------------------------
+R1(config)#interface gigabitEthernet 0/0
+R1(config-if)#ip helper-address 10.1.1.2
+
+R3(config)#do show ip int brief | include 192.168.30
+GigabitEthernet0/0     192.168.30.1    YES manual up                    up
+R3(config)#interface GigabitEthernet0/0
+R3(config-if)#ip helper-address 10.2.2.2
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify DHCP</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip dhcp binding</span>
+<span class="o">-----------------------</span>
+<span class="n">IP</span> <span class="n">address</span>       <span class="n">Client</span><span class="o">-</span><span class="n">ID</span><span class="o">/</span>              <span class="n">Lease</span> <span class="n">expiration</span>        <span class="n">Type</span>
+                 <span class="n">Hardware</span> <span class="n">address</span>
+<span class="mf">192.168</span><span class="o">.</span><span class="mf">10.11</span>    <span class="mf">0002.4</span><span class="n">AA5</span><span class="o">.</span><span class="mi">1470</span>           <span class="o">--</span>                     <span class="n">Automatic</span>
+<span class="mf">192.168</span><span class="o">.</span><span class="mf">30.11</span>    <span class="mf">0004.9</span><span class="n">A97</span><span class="o">.</span><span class="mi">2535</span>           <span class="o">--</span>                     <span class="n">Automatic</span>
+<span class="n">R2</span><span class="c1">#</span>
+
+<span class="n">R2</span><span class="c1">#show ip dhcp pool</span>
+<span class="o">--------------------</span>
+<span class="n">Pool</span> <span class="n">R1</span><span class="o">-</span><span class="n">LAN</span> <span class="p">:</span>
+ <span class="n">Utilization</span> <span class="n">mark</span> <span class="p">(</span><span class="n">high</span><span class="o">/</span><span class="n">low</span><span class="p">)</span>    <span class="p">:</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">0</span>
+ <span class="n">Subnet</span> <span class="n">size</span> <span class="p">(</span><span class="n">first</span><span class="o">/</span><span class="nb">next</span><span class="p">)</span>       <span class="p">:</span> <span class="mi">0</span> <span class="o">/</span> <span class="mi">0</span>
+ <span class="n">Total</span> <span class="n">addresses</span>                <span class="p">:</span> <span class="mi">254</span>
+ <span class="n">Leased</span> <span class="n">addresses</span>               <span class="p">:</span> <span class="mi">1</span>
+ <span class="n">Excluded</span> <span class="n">addresses</span>             <span class="p">:</span> <span class="mi">2</span>
+ <span class="n">Pending</span> <span class="n">event</span>                  <span class="p">:</span> <span class="n">none</span>
+
+ <span class="mi">1</span> <span class="n">subnet</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">pool</span>
+ <span class="n">Current</span> <span class="n">index</span>        <span class="n">IP</span> <span class="n">address</span> <span class="nb">range</span>                    <span class="n">Leased</span><span class="o">/</span><span class="n">Excluded</span><span class="o">/</span><span class="n">Total</span>
+ <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.1</span>         <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.1</span>     <span class="o">-</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.254</span>    <span class="mi">1</span>    <span class="o">/</span> <span class="mi">2</span>     <span class="o">/</span> <span class="mi">254</span>
+
+<span class="n">Pool</span> <span class="n">R3</span><span class="o">-</span><span class="n">LAN</span> <span class="p">:</span>
+ <span class="n">Utilization</span> <span class="n">mark</span> <span class="p">(</span><span class="n">high</span><span class="o">/</span><span class="n">low</span><span class="p">)</span>    <span class="p">:</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">0</span>
+ <span class="n">Subnet</span> <span class="n">size</span> <span class="p">(</span><span class="n">first</span><span class="o">/</span><span class="nb">next</span><span class="p">)</span>       <span class="p">:</span> <span class="mi">0</span> <span class="o">/</span> <span class="mi">0</span>
+ <span class="n">Total</span> <span class="n">addresses</span>                <span class="p">:</span> <span class="mi">254</span>
+ <span class="n">Leased</span> <span class="n">addresses</span>               <span class="p">:</span> <span class="mi">1</span>
+ <span class="n">Excluded</span> <span class="n">addresses</span>             <span class="p">:</span> <span class="mi">2</span>
+ <span class="n">Pending</span> <span class="n">event</span>                  <span class="p">:</span> <span class="n">none</span>
+
+ <span class="mi">1</span> <span class="n">subnet</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">pool</span>
+ <span class="n">Current</span> <span class="n">index</span>        <span class="n">IP</span> <span class="n">address</span> <span class="nb">range</span>                    <span class="n">Leased</span><span class="o">/</span><span class="n">Excluded</span><span class="o">/</span><span class="n">Total</span>
+ <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.1</span>         <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.1</span>     <span class="o">-</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">30.254</span>    <span class="mi">1</span>    <span class="o">/</span> <span class="mi">2</span>     <span class="o">/</span> <span class="mi">254</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="configuring-a-router-as-dhcp-client">
+<h4>Configuring a Router as DHCP Client<a class="headerlink" href="#configuring-a-router-as-dhcp-client" title="Permalink to this headline">¶</a></h4>
+<p>To configure an Ethernet interface as a DHCP client, use the <code class="docutils literal"><span class="pre">ip</span> <span class="pre">address</span> <span class="pre">dhcp</span></code> interface configuration mode command.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address dhcp</span>
+<span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
+<span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+ <span class="o">%</span><span class="n">DHCP</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="n">ADDRESS_ASSIGN</span><span class="p">:</span> <span class="n">Interface</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="n">assigned</span> <span class="n">DHCP</span> <span class="n">address</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.12</span><span class="p">,</span> <span class="n">mask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.224</span><span class="p">,</span> <span class="n">hostname</span> <span class="n">SOHO</span>
+<span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">SOHO</span><span class="c1"># show ip interface g0/1</span>
+<span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
+  <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.12</span><span class="o">/</span><span class="mi">27</span>
+  <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
+  <span class="n">Address</span> <span class="n">determined</span> <span class="n">by</span> <span class="n">DHCP</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting-dhcp">
+<h4>Troubleshooting DHCP<a class="headerlink" href="#troubleshooting-dhcp" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="dhcp-service">
+<h5>DHCP Service<a class="headerlink" href="#dhcp-service" title="Permalink to this headline">¶</a></h5>
+<img alt="_images/dhcp-client-server-cisco-routers.png" src="_images/dhcp-client-server-cisco-routers.png" />
+<p>Let’s verify by checking if the interfaces are up and running:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>DHCPClient#show ip interface brief
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            unassigned      YES DHCP   up                   up
+</pre></div>
+</div>
+<p>First I’ll verify if the interface on the DHCP client is up/up and that it has been configured for DHCP, this is indeed the case. Let’s check the DHCP server:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>DHCPServer#show ip interface brief
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            192.168.12.2    YES manual up                   up
+</pre></div>
+</div>
+<p>I also want to make sure the interface on the DHCP server is up/up and that it has an IP address. This looks fine to me. Let’s start by looking at the DHCP client:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1">#debug dhcp detail</span>
+<span class="n">DHCP</span> <span class="n">client</span> <span class="n">activity</span> <span class="n">debugging</span> <span class="ow">is</span> <span class="n">on</span> <span class="p">(</span><span class="n">detailed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I want to be absolutely sure that the client is not the issue I can enable debug dhcp detail to see if the DHCP client is sending DHCP discover messages. Here’s what we see:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1"># Hostname: DHCPClient</span>
+<span class="n">DHCP</span><span class="p">:</span> <span class="n">new</span> <span class="n">entry</span><span class="o">.</span> <span class="n">add</span> <span class="n">to</span> <span class="n">queue</span><span class="p">,</span> <span class="n">interface</span> <span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="s1">&#39;DHCP: SDiscover attempt # 1 for entry:&#39;</span>
+<span class="n">Temp</span> <span class="n">IP</span> <span class="n">addr</span><span class="p">:</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>  <span class="k">for</span> <span class="n">peer</span> <span class="n">on</span> <span class="n">Interface</span><span class="p">:</span> <span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">Temp</span>  <span class="n">sub</span> <span class="n">net</span> <span class="n">mask</span><span class="p">:</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>
+<span class="n">DHCP</span> <span class="n">Lease</span> <span class="n">server</span><span class="p">:</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="mi">1</span> <span class="n">Selecting</span>
+<span class="n">DHCP</span> <span class="n">transaction</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">289</span>
+<span class="n">Lease</span><span class="p">:</span> <span class="mi">0</span> <span class="n">secs</span><span class="p">,</span>  <span class="n">Renewal</span><span class="p">:</span> <span class="mi">0</span> <span class="n">secs</span><span class="p">,</span>  <span class="n">Rebind</span><span class="p">:</span> <span class="mi">0</span> <span class="n">secs</span>
+<span class="n">Next</span> <span class="n">timer</span> <span class="n">fires</span> <span class="n">after</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">04</span>
+<span class="n">Retry</span> <span class="n">count</span><span class="p">:</span> <span class="mi">1</span>   <span class="n">Client</span><span class="o">-</span><span class="n">ID</span><span class="p">:</span> <span class="n">cisco</span><span class="o">-</span><span class="n">cc00</span><span class="o">.</span><span class="mi">1</span><span class="n">ab0</span><span class="o">.</span><span class="mi">0000</span><span class="o">-</span><span class="n">Fa0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">Client</span><span class="o">-</span><span class="n">ID</span> <span class="nb">hex</span> <span class="n">dump</span><span class="p">:</span> <span class="mi">636973636</span><span class="n">F2D636330302E316162302E</span>
+                    <span class="mi">303030302</span><span class="n">D4661302F30</span>
+</pre></div>
+</div>
+<p>You’ll see some debug output like above. This proves that my DHCP client is sending DHCP Discover messages; the client doesn’t seem to be the problem here. Let’s check the DHCP server:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip dhcp pool</span>
+
+<span class="n">Pool</span> <span class="n">MYPOOL</span> <span class="p">:</span>
+ <span class="n">Utilization</span> <span class="n">mark</span> <span class="p">(</span><span class="n">high</span><span class="o">/</span><span class="n">low</span><span class="p">)</span>    <span class="p">:</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">0</span>
+ <span class="n">Subnet</span> <span class="n">size</span> <span class="p">(</span><span class="n">first</span><span class="o">/</span><span class="nb">next</span><span class="p">)</span>       <span class="p">:</span> <span class="mi">0</span> <span class="o">/</span> <span class="mi">0</span>
+ <span class="n">Total</span> <span class="n">addresses</span>                <span class="p">:</span> <span class="mi">254</span>
+ <span class="n">Leased</span> <span class="n">addresses</span>               <span class="p">:</span> <span class="mi">0</span>
+ <span class="n">Pending</span> <span class="n">event</span>                  <span class="p">:</span> <span class="n">none</span>
+ <span class="mi">1</span> <span class="n">subnet</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">pool</span> <span class="p">:</span>
+ <span class="n">Current</span> <span class="n">index</span>        <span class="n">IP</span> <span class="n">address</span> <span class="nb">range</span>                    <span class="n">Leased</span> <span class="n">addresses</span>
+ <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.1</span>         <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.1</span>     <span class="o">-</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.254</span>    <span class="mi">0</span>
+</pre></div>
+</div>
+<p>We’ll use the show ip dhcp pool command to check if there is a DHCP pool. You can see that we do have a DHCP pool called “MYPOOL” and it’s configured for the 192.168.12.0 /24 subnet. This is looking fine to me. Let’s find out if the DHCP server is doing anything:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip dhcp server statistics</span>
+<span class="n">Memory</span> <span class="n">usage</span>         <span class="mi">8754</span>
+<span class="n">Address</span> <span class="n">pools</span>        <span class="mi">1</span>
+<span class="n">Database</span> <span class="n">agents</span>      <span class="mi">0</span>
+<span class="n">Automatic</span> <span class="n">bindings</span>   <span class="mi">0</span>
+<span class="n">Manual</span> <span class="n">bindings</span>      <span class="mi">0</span>
+<span class="n">Expired</span> <span class="n">bindings</span>     <span class="mi">0</span>
+<span class="n">Malformed</span> <span class="n">messages</span>   <span class="mi">0</span>
+<span class="n">Secure</span> <span class="n">arp</span> <span class="n">entries</span>   <span class="mi">0</span>
+
+<span class="n">Message</span>              <span class="n">Received</span>
+<span class="n">BOOTREQUEST</span>          <span class="mi">0</span>
+<span class="n">DHCPDISCOVER</span>         <span class="mi">0</span>
+<span class="n">DHCPREQUEST</span>          <span class="mi">0</span>
+<span class="n">DHCPDECLINE</span>          <span class="mi">0</span>
+<span class="n">DHCPRELEASE</span>          <span class="mi">0</span>
+<span class="n">DHCPINFORM</span>           <span class="mi">0</span>
+
+<span class="n">Message</span>              <span class="n">Sent</span>
+<span class="n">BOOTREPLY</span>            <span class="mi">0</span>
+<span class="n">DHCPOFFER</span>            <span class="mi">0</span>
+<span class="n">DHCPACK</span>              <span class="mi">0</span>
+<span class="n">DHCPNAK</span>              <span class="mi">0</span>
+</pre></div>
+</div>
+<p>We can use show ip dhcp server statistics to see if the DHCP server is doing anything. You can see that it’s not doing anything…what could this mean? Take a look below:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip sockets</span>
+<span class="n">Proto</span>    <span class="n">Remote</span>      <span class="n">Port</span>      <span class="n">Local</span>       <span class="n">Port</span>  <span class="n">In</span> <span class="n">Out</span> <span class="n">Stat</span> <span class="n">TTY</span> <span class="n">OutputIF</span>
+</pre></div>
+</div>
+<p>This is a command you probably don’t see every day. Show ip sockets shows us on which ports the router is listening. As you can see it’s not listening on any ports…if I don’t see port 67 here (DHCP) it means that the DHCP service has been disabled. Let’s enable it:</p>
+<p><code class="docutils literal"><span class="pre">DHCPServer(config)#service</span> <span class="pre">dhcp</span></code></p>
+<p>Let’s enable the service. Take a look at the sockets again:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip sockets</span>
+<span class="n">Proto</span>    <span class="n">Remote</span>      <span class="n">Port</span>      <span class="n">Local</span>       <span class="n">Port</span>  <span class="n">In</span> <span class="n">Out</span> <span class="n">Stat</span> <span class="n">TTY</span> <span class="n">OutputIF</span>
+ <span class="mi">17</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>             <span class="mi">0</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.2</span>       <span class="mi">67</span>   <span class="mi">0</span>   <span class="mi">0</span> <span class="mi">2211</span>   <span class="mi">0</span>
+</pre></div>
+</div>
+<p>That’s better! Now we see the router is listening on port 67, this means the DHCP service is active. After a few seconds, the client will receive an IP address:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1"># %DHCP-6-ADDRESS_ASSIGN: Interface FastEthernet0/0 assigned DHCP address 192.168.12.1, mask 255.255.255.0, hostname DHCPClient</span>
+</pre></div>
+</div>
+<p>As soon as the DHCP service is running you can see the client receives an IP address through DHCP…problem solved!</p>
+<p><strong>Lesson learned: If everything is OK, make sure the DHCP service is running.</strong></p>
 </div>
 </div>
 </div>

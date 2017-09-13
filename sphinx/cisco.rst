@@ -6086,6 +6086,10 @@ DHCPv4 Exercises
 
 .. image:: _static/Ch8_lab_8.1.2.3_cfg_dhcpv4.png
 
+Required Resources
++ 3 Routers (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
++ 2 Switches (Cisco 2960 with Cisco IOS Release 15.0(2) lanbasek9 image or comparable)
+
 R1 = relay agent
 
 R2 = DHCPv4 server
@@ -6187,6 +6191,437 @@ On the lines below, write the commands necessary for configuring DHCP services o
    R2(dhcp-config)# lease 2
 
 verify with ``show ip dhcp binding`` & ``show ip dhcp server statistics`` & ``show run | section dhcp``
+
+
+8.1.2.5 lab - basic dhcpv4 on a switch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/Ch8_lab_8.1.2.5_cfg_dhcpv4_on_switch.png
+
+Required Resources
++ Router (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
++ 2 Switches (Cisco 2960 with Cisco IOS Release 15.0(2) lanbasek9 image or comparable)
+
++--------+-----------+-----------------+-----------------+
+| Device | Interface | IP Address      | Subnet Mask     |
++========+===========+=================+=================+
+| R1     | G0/1      | 192.168.1.10    | 255.255.255.0   |
++--------+-----------+-----------------+-----------------+
+|        | Lo0       | 209.165.200.225 | 255.255.255.224 |
++--------+-----------+-----------------+-----------------+
+| S1     | VLAN 1    | 192.168.1.1     | 255.255.255.0   |
++--------+-----------+-----------------+-----------------+
+|        | VLAN 2    | 192.168.2.1     | 255.255.255.0   |
++--------+-----------+-----------------+-----------------+
+
+display SDM preference on S1
+
+.. code::
+
+   S1#show sdm prefer
+   The current template is "default" template. 
+   The selected template optimizes the resources in 
+   the switch to support this level of features for 
+   0 routed interfaces and 255 VLANs.  
+     number of unicast mac addresses:                  8K 
+     number of IPv4 IGMP groups:                       0.25K 
+     number of IPv4/MAC qos aces:                      0.125k 
+     number of IPv4/MAC security aces:                 0.375k
+
+change SDM preference to lanbase-routing
+
+.. code::
+
+   S1(config)# sdm prefer lanbase-routing
+   Changes to the running SDM preferences have been stored, but cannot take effect  
+   until the next reload. 
+   Use 'show sdm prefer' to see what SDM preference is currently active.
+
+   S1# reload
+   S1# show sdm prefer
+
+.. note:: The new template will be used after reboot even if the running configuration has not been saved. To save the running configuration, answer yes after reload command.
+
+Configure DHCP for VLAN 1
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+a. Exclude the first 10 valid host addresses from network 192.168.1.0/24
+b. Create a DHCP pool named DHCP1
+c. Assign the network 192.168.1.0/24 for available addresses
+d. Assign the default gateway as 192.168.1.1
+e. Assign the DNS server as 192.168.1.9
+f. Assign a lease time of 3 day
+g. Save the running configuration to the startup configuration file
+
+Configure DHCPv4 for Multiple VLANs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+assign PC-A to a port accessing VLAN 2, configure DHCPv4 for VLAN 2, renew the IP configuration of PC-A to validate DHCPv4, and verify connectivity within the VLAN.
+
+Assign a port to VLAN 2. Place port F0/6 into VLAN 2
+
+a. Exclude the first 10 valid host addresses from network 192.168.2.0
+b. Create a DHCP pool named DHCP2
+c. Assign the network 192.168.2.0/24 for available addresses
+d. Assign the default gateway as 192.168.2.1
+e. Assign the DNS server as 192.168.2.9
+f. Assign a lease time of 3 days
+g. Save the running configuration to the startup configuration file
+
+Enable IP routing on S1 ``S1(config)# ip routing``
+Verify inter-VLAN connectivity
+
+Assign static routes
+~~~~~~~~~~~~~~~~~~~~
+
+a. On S1, create a default static route to R1
+b. On R1, create a static route to VLAN 2
+c. View the routing table information for S1.How is the default static route represented?
+d. View the routing table information for R1.How is the default static route represented?
+e. From PC-A, is it possible to ping R1? From PC-A, is it possible to ping Lo0? 
+
+Configure DHCPv4
+
+.. code::
+
+   S1(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.10
+   S1(config)# ip dhcp pool DHCP1
+   S1(dhcp-config)# network 192.168.1.0 255.255.255.0 
+   S1(dhcp-config)# default-router 192.168.1.1
+   S1(dhcp-config)# dns-server 192.168.1.9
+   S1(dhcp-config)# lease 3 
+
+Configure DHCPv4 for Multiple VLANs
+
+.. code::
+
+   S1(config)# interface f0/6
+   S1(config-if)# switchport access vlan 2
+   S1(config)# ip dhcp excluded-address 192.168.2.1 192.168.2.10
+   S1(config)# ip dhcp pool DHCP2
+   S1(dhcp-config)# network 192.168.2.0 255.255.255.0
+   S1(dhcp-config)# default-router 192.168.2.1
+   S1(dhcp-config)# dns-server 192.168.2.9
+   S1(dhcp-config)# lease 3
+
+Enable IP Routing
+
+.. code::
+
+   S1(config)# ip routing
+   S1(config)# ip route 0.0.0.0 0.0.0.0 192.168.1.10
+   R1(config)# ip route 192.168.2.0 255.255.255.0 g0/1
+
+
+8.1.3.3 lab - configuring dhcp ios pt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: _static/Ch8_lab_8.1.3.3_cfg_dhcpv4_ios.png
+
++------------+-----------+----------------+-----------------+-----------------+
+| Device     | Interface | IPv4 Address   | Subnet Mask     | Default Gateway |
++============+===========+================+=================+=================+
+| R1         | G0/0      | 192.168.10.1   | 255.255.255.0   | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+|            | S0/0/0    | 10.1.1.1       | 255.255.255.252 | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+| R2         | G0/0      | 192.168.20.1   | 255.255.255.0   | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+|            | G0/1      | DHCP Assigned  | DHCP Assigned   | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+|            | S0/0/0    | 10.1.1.2       | 255.255.255.252 | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+|            | S0/0/1    | 10.2.2.2       | 255.255.255.252 | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+| R3         | G0/0      | 192.168.30.1   | 255.255.255.0   | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+|            | S0/0/1    | 10.2.2.1       | 255.255.255.0   | N/A             |
++------------+-----------+----------------+-----------------+-----------------+
+| PC1        | NIC       | DHCP Assigned  | DHCP Assigned   | DHCP Assigned   |
++------------+-----------+----------------+-----------------+-----------------+
+| PC2        | NIC       | DHCP Assigned  | DHCP Assigned   | DHCP Assigned   |
++------------+-----------+----------------+-----------------+-----------------+
+| DNS Server | NIC       | 192.168.20.254 | 255.255.255.0   | 192.168.20.1    |
++------------+-----------+----------------+-----------------+-----------------+
+
++ Configure R2 to exclude first 10 addresses from R1 and R3 LANs. All others should be available in the DHCP address pool
+
+  .. code::
+
+     R2>enable
+     R2#conf t
+     R2(config)#ip dhcp ?
+      excluded-address  Prevent DHCP from assigning certain addresses
+      pool              Configure DHCP address pools
+      relay             DHCP relay agent parameters
+     R2(config)#ip dhcp excluded-address 192.168.10.1 192.168.10.10
+     R2(config)#ip dhcp excluded-address 192.168.30.1 192.168.30.10
+     R2(config)#ip dhcp pool R1-LAN
+     R2(dhcp-config)#network 192.168.10.0 255.255.255.0
+     R2(dhcp-config)#?
+      default-router  Default routers
+      dns-server      Set name server
+      exit            Exit from DHCP pool configuration mode
+      network         Network number and mask
+      no              Negate a command or set its defaults
+      option          Raw DHCP options
+     R2(dhcp-config)#default-router 192.168.10.1
+     R2(dhcp-config)#dns-server 192.168.20.254
+     R2(config)#ip dhcp pool R3-LAN
+     R2(dhcp-config)#network 192.168.30.0 255.255.255.0
+     R2(dhcp-config)#defautl
+     R2(dhcp-config)#default-router 192.168.30.1
+     R2(dhcp-config)#dns-server 192.168.20.254
+
+
++ Set PC1 and PC2 to receive IP addressing information from DHCP.
++ Configure R1 and R3 as a DHCP relay agent.
+  Okay so lets check if R2 can reach these LANs first:
+
+  .. code::
+     
+     check interfaces
+     ----------------
+     R2#show ip int brief
+     Interface              IP-Address      OK? Method Status                Protocol 
+     GigabitEthernet0/0     192.168.20.1    YES manual up                    up 
+     GigabitEthernet0/1     unassigned      YES unset  administratively down down 
+     Serial0/0/0            10.1.1.2        YES manual up                    up 
+     Serial0/0/1            10.2.2.2        YES manual up                    up 
+     Serial0/1/0            unassigned      YES unset  down                  down 
+     Serial0/1/1            unassigned      YES unset  down                  down 
+     Vlan1                  unassigned      YES unset  administratively down down
+
+     G0/1 is down, lets give it a dhcp address from ISP
+     --------------------------------------------------
+     R2#conf t
+     R2(config)#interface gigabitEthernet 0/1
+     R2(config-if)#ip address dhcp
+     R2(config-if)#no shutdown
+     R2(config-if)#
+     %LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+     %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+     R2#
+     %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/1 assigned DHCP address 209.165.200.231, mask 255.255.255.224, hostname R2
+     %DUAL-5-NBRCHANGE: IP-EIGRP 1: Neighbor 209.165.200.225 (GigabitEthernet0/1) is up: new adjacency
+     
+     Now lets check R1 and R2 routes to LAN are known to R2
+     ------------------------------------------------------
+     R2#show ip route
+     Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+            N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+            E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+            * - candidate default, U - per-user static route, o - ODR
+            P - periodic downloaded static route
+     
+     Gateway of last resort is not set
+     
+          10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+     C       10.1.1.0/30 is directly connected, Serial0/0/0
+     L       10.1.1.2/32 is directly connected, Serial0/0/0
+     C       10.2.2.0/30 is directly connected, Serial0/0/1
+     L       10.2.2.2/32 is directly connected, Serial0/0/1
+     D    192.168.10.0/24 [90/2170112] via 10.1.1.1, 00:59:31, Serial0/0/0
+          192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+     C       192.168.20.0/24 is directly connected, GigabitEthernet0/0
+     L       192.168.20.1/32 is directly connected, GigabitEthernet0/0
+     D    192.168.30.0/24 [90/2170112] via 10.2.2.1, 00:59:32, Serial0/0/1
+          209.165.200.0/24 is variably subnetted, 2 subnets, 2 masks
+     C       209.165.200.224/27 is directly connected, GigabitEthernet0/1
+     L       209.165.200.231/32 is directly connected, GigabitEthernet0/1
+          209.165.202.0/27 is subnetted, 1 subnets
+     D       209.165.202.128/27 [90/3072] via 209.165.200.225, 00:01:10, GigabitEthernet0/1
+
+     Looking good, configure R1 and R3 as dhcpv4 relay agents
+     --------------------------------------------------------
+     R1(config)#interface gigabitEthernet 0/0
+     R1(config-if)#ip helper-address 10.1.1.2
+     
+     R3(config)#do show ip int brief | include 192.168.30
+     GigabitEthernet0/0     192.168.30.1    YES manual up                    up 
+     R3(config)#interface GigabitEthernet0/0
+     R3(config-if)#ip helper-address 10.2.2.2
+
++ Verify DHCP
+
+  .. code::
+
+     R2#show ip dhcp binding
+     ----------------------- 
+     IP address       Client-ID/              Lease expiration        Type
+                      Hardware address
+     192.168.10.11    0002.4AA5.1470           --                     Automatic
+     192.168.30.11    0004.9A97.2535           --                     Automatic
+     R2#
+ 
+     R2#show ip dhcp pool
+     --------------------
+     Pool R1-LAN :
+      Utilization mark (high/low)    : 100 / 0
+      Subnet size (first/next)       : 0 / 0 
+      Total addresses                : 254
+      Leased addresses               : 1
+      Excluded addresses             : 2
+      Pending event                  : none
+     
+      1 subnet is currently in the pool
+      Current index        IP address range                    Leased/Excluded/Total
+      192.168.10.1         192.168.10.1     - 192.168.10.254    1    / 2     / 254
+     
+     Pool R3-LAN :
+      Utilization mark (high/low)    : 100 / 0
+      Subnet size (first/next)       : 0 / 0 
+      Total addresses                : 254
+      Leased addresses               : 1
+      Excluded addresses             : 2
+      Pending event                  : none
+     
+      1 subnet is currently in the pool
+      Current index        IP address range                    Leased/Excluded/Total
+      192.168.30.1         192.168.30.1     - 192.168.30.254    1    / 2     / 254
+     
+Configuring a Router as DHCP Client
+-----------------------------------
+
+To configure an Ethernet interface as a DHCP client, use the ``ip address dhcp`` interface configuration mode command.
+
+.. code::
+
+   SOHO(config)# interface g0/1
+   SOHO(config-if)# ip address dhcp
+   SOHO(config-if)# no shutdown
+   SOHO(config-if)#
+    %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/1 assigned DHCP address 209.165.201.12, mask 255.255.255.224, hostname SOHO
+   SOHO(config-if)# end
+   SOHO# show ip interface g0/1
+   GigabitEthernet0/1 is up, line protocol is up
+     Internet address is 209.165.201.12/27
+     Broadcast address is 255.255.255.255
+     Address determined by DHCP
+
+Troubleshooting DHCP
+--------------------
+
+DHCP Service
+^^^^^^^^^^^^
+
+.. image:: _static/dhcp-client-server-cisco-routers.png
+
+Let’s verify by checking if the interfaces are up and running:
+
+.. code::
+
+   DHCPClient#show ip interface brief 
+   Interface                  IP-Address      OK? Method Status                Protocol
+   FastEthernet0/0            unassigned      YES DHCP   up                   up  
+
+First I’ll verify if the interface on the DHCP client is up/up and that it has been configured for DHCP, this is indeed the case. Let’s check the DHCP server:
+
+.. code::
+
+   DHCPServer#show ip interface brief 
+   Interface                  IP-Address      OK? Method Status                Protocol
+   FastEthernet0/0            192.168.12.2    YES manual up                   up
+
+I also want to make sure the interface on the DHCP server is up/up and that it has an IP address. This looks fine to me. Let’s start by looking at the DHCP client:
+
+.. code::
+
+   DHCPClient#debug dhcp detail
+   DHCP client activity debugging is on (detailed)
+
+I want to be absolutely sure that the client is not the issue I can enable debug dhcp detail to see if the DHCP client is sending DHCP discover messages. Here’s what we see:
+
+.. code::
+
+   DHCPClient# Hostname: DHCPClient
+   DHCP: new entry. add to queue, interface FastEthernet0/0
+   'DHCP: SDiscover attempt # 1 for entry:'
+   Temp IP addr: 0.0.0.0  for peer on Interface: FastEthernet0/0
+   Temp  sub net mask: 0.0.0.0
+   DHCP Lease server: 0.0.0.0, state: 1 Selecting
+   DHCP transaction id: 289
+   Lease: 0 secs,  Renewal: 0 secs,  Rebind: 0 secs
+   Next timer fires after: 00:00:04
+   Retry count: 1   Client-ID: cisco-cc00.1ab0.0000-Fa0/0
+   Client-ID hex dump: 636973636F2D636330302E316162302E
+                       303030302D4661302F30
+
+You’ll see some debug output like above. This proves that my DHCP client is sending DHCP Discover messages; the client doesn’t seem to be the problem here. Let’s check the DHCP server:
+
+.. code::
+
+   DHCPServer#show ip dhcp pool 
+   
+   Pool MYPOOL :
+    Utilization mark (high/low)    : 100 / 0
+    Subnet size (first/next)       : 0 / 0 
+    Total addresses                : 254
+    Leased addresses               : 0
+    Pending event                  : none
+    1 subnet is currently in the pool :
+    Current index        IP address range                    Leased addresses
+    192.168.12.1         192.168.12.1     - 192.168.12.254    0
+
+We’ll use the show ip dhcp pool command to check if there is a DHCP pool. You can see that we do have a DHCP pool called “MYPOOL” and it’s configured for the 192.168.12.0 /24 subnet. This is looking fine to me. Let’s find out if the DHCP server is doing anything:
+
+.. code::
+
+   DHCPServer#show ip dhcp server statistics 
+   Memory usage         8754
+   Address pools        1
+   Database agents      0
+   Automatic bindings   0
+   Manual bindings      0
+   Expired bindings     0
+   Malformed messages   0
+   Secure arp entries   0
+   
+   Message              Received
+   BOOTREQUEST          0
+   DHCPDISCOVER         0
+   DHCPREQUEST          0
+   DHCPDECLINE          0
+   DHCPRELEASE          0
+   DHCPINFORM           0
+   
+   Message              Sent
+   BOOTREPLY            0
+   DHCPOFFER            0
+   DHCPACK              0
+   DHCPNAK              0
+
+We can use show ip dhcp server statistics to see if the DHCP server is doing anything. You can see that it’s not doing anything…what could this mean? Take a look below:
+
+.. code::
+
+   DHCPServer#show ip sockets 
+   Proto    Remote      Port      Local       Port  In Out Stat TTY OutputIF
+
+This is a command you probably don’t see every day. Show ip sockets shows us on which ports the router is listening. As you can see it’s not listening on any ports…if I don’t see port 67 here (DHCP) it means that the DHCP service has been disabled. Let’s enable it:
+
+``DHCPServer(config)#service dhcp``
+
+Let’s enable the service. Take a look at the sockets again:
+
+.. code::
+
+   DHCPServer#show ip sockets 
+   Proto    Remote      Port      Local       Port  In Out Stat TTY OutputIF
+    17 0.0.0.0             0 192.168.12.2       67   0   0 2211   0
+
+That’s better! Now we see the router is listening on port 67, this means the DHCP service is active. After a few seconds, the client will receive an IP address:
+
+.. code::
+
+   DHCPClient# %DHCP-6-ADDRESS_ASSIGN: Interface FastEthernet0/0 assigned DHCP address 192.168.12.1, mask 255.255.255.0, hostname DHCPClient
+   
+As soon as the DHCP service is running you can see the client receives an IP address through DHCP…problem solved!
+
+**Lesson learned: If everything is OK, make sure the DHCP service is running.**
+
 
 
 
