@@ -61,6 +61,9 @@ Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
 
 Plugin 'dhruvasagar/vim-table-mode'    
+
+"Plugin 'zhou13/vim-easyescape'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -111,11 +114,14 @@ colorscheme molokai-dark
 " for terminal which supports truecolor
 set termguicolors
 " else set t_Co=256
-
+set background=dark
 
 " configure keyboard mappings here
 " type Ojj or ojj to quickly insert newline
-inoremap jj <ESC> 
+" oo and OO go back to cursor position
+nmap oo o<Esc>k
+nmap OO O<Esc>j
+inoremap jj <ESC>
 set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
  
 " Quickly go to line number
