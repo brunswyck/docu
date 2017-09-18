@@ -119,13 +119,27 @@ set background=dark
 " configure keyboard mappings here
 " type Ojj or ojj to quickly insert newline
 " oo and OO go back to cursor position
-nmap oo o<Esc>k
-nmap OO O<Esc>j
+" nmap oo o<Esc>k
+" nmap OO O<Esc>j
 inoremap jj <ESC>
 set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
  
 " Quickly go to line number
 :nnoremap <CR> G
+
+" Changing case with ~ sign
+" -------------------------
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 "  Give a shortcut key to NERD Tree
 map <F1> :NERDTreeToggle<CR>
