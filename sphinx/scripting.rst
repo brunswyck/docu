@@ -79,6 +79,16 @@ As an alternative to editing the /etc/sudoers file, you could add the two lines 
 
 This also automatically ensures that the owner and permissions of the new file is set correctly.
 
+example for DHCP
+::
+# User alias specification
+User_Alias DHCPUSERS = guru, patrick
+# Cmnd alias specification
+Cmnd_Alias DHCP = /usr/sbin/dhclient
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+DHCPUSERS	ALL = NOPASSWD: DHCP
+
 
 If sudoers is messed up
 ^^^^^^^^^^^^^^^^^^^^^^^
