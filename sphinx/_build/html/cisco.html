@@ -6823,9 +6823,10 @@ ip access-list standard BranchServer
 <div class="section" id="ch7-qna">
 <h4>Ch7 QnA<a class="headerlink" href="#ch7-qna" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><dl class="docutils">
-<dt>ACL:</dt>
-<dd>a method of controlling packet flow</dd>
+<div><p>ACL:</p>
+<blockquote>
+<div>a method of controlling packet flow</div></blockquote>
+<dl class="docutils">
 <dt>ACE:</dt>
 <dd>one line in an ACL</dd>
 <dt>Standard ACL:</dt>
@@ -6873,6 +6874,10 @@ the ACL is easier to modify</dd>
 </ul>
 </li>
 </ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">no</span> <span class="pre">access-list</span> <span class="pre">#</span></code> command removes the ACL from the running-config immediately. HOWEVER, to disable an ACL on an interface, the command <code class="docutils literal"><span class="pre">R1(config-if)#</span> <span class="pre">no</span> <span class="pre">ip</span> <span class="pre">access-group</span></code> should be entered.</p>
+</div>
 </div>
 </div>
 <div class="section" id="chapter-8-dhcp">

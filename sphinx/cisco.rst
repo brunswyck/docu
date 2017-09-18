@@ -5816,11 +5816,234 @@ using debugging to see update entries: ``router#debug ip rip``
             172.16.0.0/18 via 0.0.0.0, metric 1, tag 0
             172.16.64.0/18 via 0.0.0.0, metric 1, tag 0
 
+Chapter 7 exam
+^^^^^^^^^^^^^^
+
++-------------+-----------+-------------------+----------------+
+| device name | interface | ipaddress/submask | gateway        |
++=============+===========+===================+================+
+| Atom        | Gi0/0.20  | 172.16.20.0/24    | 172.16.20.254  |
++-------------+-----------+-------------------+----------------+
+|             | Gi0/0.40  | 172.16.40.0/24    | 172.16.40.254  |
++-------------+-----------+-------------------+----------------+
+|             | Gi0/0.60  | 172.16.60.0/24    | 172.16.60.254  |
++-------------+-----------+-------------------+----------------+
+|             | Gi0/0.88  | 172.16.88.0/24    | 172.16.88.254  |
++-------------+-----------+-------------------+----------------+
+|             | Gi0/1.250 | 172.16.250.0/24   | 172.16.250.254 |
++-------------+-----------+-------------------+----------------+
+|             | Gi0/1.254 | 172.16.254.0/24   | 172.16.254.254 |
++-------------+-----------+-------------------+----------------+
+| Neutron     | SVI       | 172.16.88.101/24  | 172.16.88.254  |
++-------------+-----------+-------------------+----------------+
+| Proton      | SVI       | 172.16.88.102/24  | 172.16.88.254  |
++-------------+-----------+-------------------+----------------+
+| Electron    | SVI       | 172.16.88.103/24  | 172.16.88.254  |
++-------------+-----------+-------------------+----------------+
+| Lab 1       | NIC       | 172.16.20.10/24   | 172.16.20.254  |
++-------------+-----------+-------------------+----------------+
+| Research 1  | NIC       | 172.16.40.10/24   | 172.16.40.254  |
++-------------+-----------+-------------------+----------------+
+| Prod 1      | NIC       | 172.16.60.10/24   | 172.16.60.254  |
++-------------+-----------+-------------------+----------------+
+| Lab 2       | NIC       | 172.16.20.20/24   | 172.16.20.254  |
++-------------+-----------+-------------------+----------------+
+| Research 2  | NIC       | 172.16.40.20/24   | 172.16.40.254  |
++-------------+-----------+-------------------+----------------+
+| Prod 2      | NIC       | 172.16.60.20/24   | 172.16.60.254  |
++-------------+-----------+-------------------+----------------+
+| DNS Server  | NIC       | 172.16.254.252    | 172.16.254.254 |
++-------------+-----------+-------------------+----------------+
+
++-------------+------------+---------------------------+
+| VLAN Number | VLAN Name  | Device/Ports              |
++=============+============+===========================+
+| 20          | Lab        | Proton: Fa0/1 - Fa0/5     |
++-------------+------------+---------------------------+
+|             |            | Electron: Fa0/1 - Fa0/5
++-------------+------------+---------------------------+
+| 40          | Research   | Proton: Fa0/6 - Fa0/10    |
++-------------+------------+---------------------------+
+|             |            | Electron: Fa0/6 - Fa0/10  |
++-------------+------------+---------------------------+
+| 60          | Production | Proton: Fa0/11 - Fa0/15   |
++-------------+------------+---------------------------+
+|             |            | Electron: Fa0/11 - Fa0/15 |
++-------------+------------+---------------------------+
+| 88          | NetOps     | Neutron: SVI              |
++-------------+------------+---------------------------+
+|             |            | Proton: SVI               |
++-------------+------------+---------------------------+
+|             |            | Electron: SVI             |
++-------------+------------+---------------------------+
+
+solution on router Atom
+
+commands used on the switches
+
+.. code::
+
+   interface range FastEthernet 0/23 - 24
+   switchport mode trunk
+   switchport trunk allowed vlan 20,40,60,88
+   
+   interface GigabitEthernet 0/1
+   switchport mode trunk
+   switchport trunk allowed vlan 20,40,60,88
+   
+   interface range FastEthernet 0/1 - 22
+   switchport mode access
+   
+   interface vlan 88
+   ip address 171.16.88.101 255.255.255.0
+   no shutdown
+   
+   interface range FastEthernet 0/1 - 5
+   switchport access vlan 20
+   no shutdown
+   
+   interface range FastEthernet 0/6 - 10
+   switchport access vlan 40
+   no shutdown
+   
+   interface range FastEthernet 0/11 - 15
+   switchport access vlan 60
+   no shutdown
+   
+   vtp domain School
+   vtp version 2
+   vtp mode client
+
+
+don't forget to configure the gateway for switches
+and ip address for mgmt vlan on every switch
+
+make sure you apply ACL on subinterface
+ ``Network:[[R1name]]:Ports:GigabitEthernet0/1.250:Access-group Out``
+
+
+Router configuration
+
+.. code::
+
+   Atom#show run
+   Building configuration...
+   
+   Current configuration : 1841 bytes
+   !
+   version 15.1
+   no service timestamps log datetime msec
+   no service timestamps debug datetime msec
+   service password-encryption
+   !
+   hostname Atom
+   !
+   enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+   !
+   !
+   !
+   no ip cef
+   no ipv6 cef
+   !
+   !
+   !
+   !
+   no ip domain-lookup
+   !
+   !spanning-tree mode pvst
+   !
+   !
+   !
+   interface GigabitEthernet0/0
+    no ip address
+    duplex auto
+    speed auto
+   !
+   interface GigabitEthernet0/0.20
+    encapsulation dot1Q 20
+    ip address 172.16.20.254 255.255.255.0
+   !
+   interface GigabitEthernet0/0.40
+    encapsulation dot1Q 40
+    ip address 172.16.40.254 255.255.255.0
+   !
+   interface GigabitEthernet0/0.60
+    encapsulation dot1Q 60
+    ip address 172.16.60.254 255.255.255.0
+   !
+   interface GigabitEthernet0/0.88
+    encapsulation dot1Q 88
+    ip address 172.16.88.254 255.255.255.0
+   !
+   interface GigabitEthernet0/1
+    no ip address
+    duplex auto
+    speed auto
+   !
+   interface GigabitEthernet0/1.250
+    encapsulation dot1Q 250
+    ip address 172.16.250.254 255.255.255.0
+    ip access-group INT-WEB out
+   !
+   interface GigabitEthernet0/1.254
+    encapsulation dot1Q 254
+    ip address 172.16.254.254 255.255.255.0
+   !
+   interface Serial0/0/0
+    ip address 209.165.200.226 255.255.255.252
+   !
+   interface Serial0/0/1
+    no ip address
+    clock rate 2000000
+    shutdown
+   !
+   interface Vlan1
+    no ip address
+    shutdown
+   !
+   ip classless
+   ip route 0.0.0.0 0.0.0.0 209.165.200.225 
+   !
+   ip flow-export version 9
+   !
+   !
+   access-list 10 permit 172.16.60.0 0.0.0.255
+   ip access-list standard INT-WEB
+    permit 172.16.40.0 0.0.0.255
+    permit 172.16.60.0 0.0.0.255
+    remark allow Research and Production VLANs to reach www.int.com
+   !
+   !
+   !
+   line con 0
+    exec-timeout 180 0
+    password 7 0822455D0A16
+    logging synchronous
+    login
+   !
+   line aux 0
+   !
+   line vty 0 4
+    access-class 10 in
+    password 7 0822455D0A16
+    login
+   line vty 5 15
+    access-class 10 in
+    password 7 0822455D0A16
+    login
+   !
+   !
+   !
+   end
+   
+   
+
 
 Ch7 QnA
 -------
 
  ACL:
+ 
   a method of controlling packet flow
  ACE:
   one line in an ACL
@@ -5868,6 +6091,19 @@ Two common reasons for having a named ACL are
   + Filter traffic based on IP addressing
 
 
+.. warning:: The ``R1(config)# no access-list #`` command removes the ACL from the running-config immediately. HOWEVER, to disable an ACL on an interface, the command ``R1(config-if)# no ip access-group`` should be entered.
+
+
+.. image:: _static/Ch7_qna_1.png
+
+If a router has two interfaces and is routing both IPv4 and IPv6 traffic, how many ACLs could be created and applied to it?
+  3P rule: 1 ACL per Protocol, 1 per Direction, 1 per Interface (PDI). In this case 2 interfaces x 2 protocols x 2 directions = 8
+
+.. image:: _static/Ch7_qna_2.png
+
+.. image:: _static/Ch7_qna_3.png
+
+.. image:: _static/Ch7_qna_4.png
 
 
 Chapter 8 DHCP

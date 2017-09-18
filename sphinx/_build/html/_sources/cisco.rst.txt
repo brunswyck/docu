@@ -5821,6 +5821,7 @@ Ch7 QnA
 -------
 
  ACL:
+ 
   a method of controlling packet flow
  ACE:
   one line in an ACL
@@ -5868,7 +5869,7 @@ Two common reasons for having a named ACL are
   + Filter traffic based on IP addressing
 
 
-
+.. warning:: The ``R1(config)# no access-list #`` command removes the ACL from the running-config immediately. HOWEVER, to disable an ACL on an interface, the command ``R1(config-if)# no ip access-group`` should be entered.
 
 Chapter 8 DHCP
 ==============
