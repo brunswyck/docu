@@ -89,9 +89,9 @@ filetype plugin indent on    " required
 " keep swap files etc out of git directories
 " swap files (.swp) in a common location
 " // means use the file's full path
-set undodir=~/.vim/.undo//
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
+set undodir=~/.vim/.undo
+set backupdir=~/.vim/.backup
+set directory=~/.vim/.swp
 "Alternatively you can turn them off, putting this in your vimrc file:
 "set nobackup
 "set noswapfile
@@ -126,7 +126,6 @@ set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<,space:␣
  
 " Quickly go to line number
 :nnoremap <CR> G
-
 " Changing case with ~ sign
 " -------------------------
 function! TwiddleCase(str)

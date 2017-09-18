@@ -5,4 +5,4 @@ export PT7HOME
 #QT_AUTO_SCREEN_SCALE_FACTOR
 PATH=/usr/local/Qt-%VERSION%/bin:$PATH
 export PATH
-
+export VISUAL=vim
