@@ -6819,6 +6819,258 @@ ip access-list standard BranchServer
 </pre></div>
 </div>
 </div>
+<div class="section" id="chapter-7-exam">
+<h5>Chapter 7 exam<a class="headerlink" href="#chapter-7-exam" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="19%" />
+<col width="32%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">device name</th>
+<th class="head">interface</th>
+<th class="head">ipaddress/submask</th>
+<th class="head">gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Atom</td>
+<td>Gi0/0.20</td>
+<td>172.16.20.0/24</td>
+<td>172.16.20.254</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Gi0/0.40</td>
+<td>172.16.40.0/24</td>
+<td>172.16.40.254</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Gi0/0.60</td>
+<td>172.16.60.0/24</td>
+<td>172.16.60.254</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Gi0/0.88</td>
+<td>172.16.88.0/24</td>
+<td>172.16.88.254</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Gi0/1.250</td>
+<td>172.16.250.0/24</td>
+<td>172.16.250.254</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Gi0/1.254</td>
+<td>172.16.254.0/24</td>
+<td>172.16.254.254</td>
+</tr>
+<tr class="row-even"><td>Neutron</td>
+<td>SVI</td>
+<td>172.16.88.101/24</td>
+<td>172.16.88.254</td>
+</tr>
+<tr class="row-odd"><td>Proton</td>
+<td>SVI</td>
+<td>172.16.88.102/24</td>
+<td>172.16.88.254</td>
+</tr>
+<tr class="row-even"><td>Electron</td>
+<td>SVI</td>
+<td>172.16.88.103/24</td>
+<td>172.16.88.254</td>
+</tr>
+<tr class="row-odd"><td>Lab 1</td>
+<td>NIC</td>
+<td>172.16.20.10/24</td>
+<td>172.16.20.254</td>
+</tr>
+<tr class="row-even"><td>Research 1</td>
+<td>NIC</td>
+<td>172.16.40.10/24</td>
+<td>172.16.40.254</td>
+</tr>
+<tr class="row-odd"><td>Prod 1</td>
+<td>NIC</td>
+<td>172.16.60.10/24</td>
+<td>172.16.60.254</td>
+</tr>
+<tr class="row-even"><td>Lab 2</td>
+<td>NIC</td>
+<td>172.16.20.20/24</td>
+<td>172.16.20.254</td>
+</tr>
+<tr class="row-odd"><td>Research 2</td>
+<td>NIC</td>
+<td>172.16.40.20/24</td>
+<td>172.16.40.254</td>
+</tr>
+<tr class="row-even"><td>Prod 2</td>
+<td>NIC</td>
+<td>172.16.60.20/24</td>
+<td>172.16.60.254</td>
+</tr>
+<tr class="row-odd"><td>DNS Server</td>
+<td>NIC</td>
+<td>172.16.254.252</td>
+<td>172.16.254.254</td>
+</tr>
+</tbody>
+</table>
+<p>solution on router Atom</p>
+<p>commands used on the switches</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="nb">range</span> <span class="n">FastEthernet</span> <span class="mi">0</span><span class="o">/</span><span class="mi">23</span> <span class="o">-</span> <span class="mi">24</span>
+<span class="n">switchport</span> <span class="n">mode</span> <span class="n">trunk</span>
+<span class="n">switchport</span> <span class="n">trunk</span> <span class="n">allowed</span> <span class="n">vlan</span> <span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">88</span>
+
+<span class="n">interface</span> <span class="n">GigabitEthernet</span> <span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">switchport</span> <span class="n">mode</span> <span class="n">trunk</span>
+<span class="n">switchport</span> <span class="n">trunk</span> <span class="n">allowed</span> <span class="n">vlan</span> <span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">88</span>
+
+<span class="n">interface</span> <span class="nb">range</span> <span class="n">FastEthernet</span> <span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">22</span>
+<span class="n">switchport</span> <span class="n">mode</span> <span class="n">access</span>
+
+<span class="n">interface</span> <span class="n">vlan</span> <span class="mi">88</span>
+<span class="n">ip</span> <span class="n">address</span> <span class="mf">171.16</span><span class="o">.</span><span class="mf">88.101</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">no</span> <span class="n">shutdown</span>
+
+<span class="n">interface</span> <span class="nb">range</span> <span class="n">FastEthernet</span> <span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">5</span>
+<span class="n">switchport</span> <span class="n">access</span> <span class="n">vlan</span> <span class="mi">20</span>
+<span class="n">no</span> <span class="n">shutdown</span>
+
+<span class="n">interface</span> <span class="nb">range</span> <span class="n">FastEthernet</span> <span class="mi">0</span><span class="o">/</span><span class="mi">6</span> <span class="o">-</span> <span class="mi">10</span>
+<span class="n">switchport</span> <span class="n">access</span> <span class="n">vlan</span> <span class="mi">40</span>
+<span class="n">no</span> <span class="n">shutdown</span>
+
+<span class="n">interface</span> <span class="nb">range</span> <span class="n">FastEthernet</span> <span class="mi">0</span><span class="o">/</span><span class="mi">11</span> <span class="o">-</span> <span class="mi">15</span>
+<span class="n">switchport</span> <span class="n">access</span> <span class="n">vlan</span> <span class="mi">60</span>
+<span class="n">no</span> <span class="n">shutdown</span>
+
+<span class="n">vtp</span> <span class="n">domain</span> <span class="n">School</span>
+<span class="n">vtp</span> <span class="n">version</span> <span class="mi">2</span>
+<span class="n">vtp</span> <span class="n">mode</span> <span class="n">client</span>
+</pre></div>
+</div>
+<p>don’t forget to configure the gateway for switches
+and ip address for mgmt vlan on every switch</p>
+<dl class="docutils">
+<dt>make sure you apply ACL on subinterface</dt>
+<dd><code class="docutils literal"><span class="pre">Network:[[R1name]]:Ports:GigabitEthernet0/1.250:Access-group</span> <span class="pre">Out</span></code></dd>
+</dl>
+<p>Router configuration</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Atom#show run
+Building configuration...
+
+Current configuration : 1841 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname Atom
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+no ip domain-lookup
+!
+!spanning-tree mode pvst
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 172.16.20.254 255.255.255.0
+!
+interface GigabitEthernet0/0.40
+ encapsulation dot1Q 40
+ ip address 172.16.40.254 255.255.255.0
+!
+interface GigabitEthernet0/0.60
+ encapsulation dot1Q 60
+ ip address 172.16.60.254 255.255.255.0
+!
+interface GigabitEthernet0/0.88
+ encapsulation dot1Q 88
+ ip address 172.16.88.254 255.255.255.0
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.250
+ encapsulation dot1Q 250
+ ip address 172.16.250.254 255.255.255.0
+ ip access-group INT-WEB out
+!
+interface GigabitEthernet0/1.254
+ encapsulation dot1Q 254
+ ip address 172.16.254.254 255.255.255.0
+!
+interface Serial0/0/0
+ ip address 209.165.200.226 255.255.255.252
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 209.165.200.225
+!
+ip flow-export version 9
+!
+!
+access-list 10 permit 172.16.60.0 0.0.0.255
+ip access-list standard INT-WEB
+ permit 172.16.40.0 0.0.0.255
+ permit 172.16.60.0 0.0.0.255
+ remark allow Research and Production VLANs to reach www.int.com
+!
+!
+!
+line con 0
+ exec-timeout 180 0
+ password 7 0822455D0A16
+ logging synchronous
+ login
+!
+line aux 0
+!
+line vty 0 4
+ access-class 10 in
+ password 7 0822455D0A16
+ login
+line vty 5 15
+ access-class 10 in
+ password 7 0822455D0A16
+ login
+!
+!
+!
+end
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="ch7-qna">
 <h4>Ch7 QnA<a class="headerlink" href="#ch7-qna" title="Permalink to this headline">¶</a></h4>
@@ -6878,6 +7130,14 @@ the ACL is easier to modify</dd>
 <p class="first admonition-title">Warning</p>
 <p class="last">The <code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">no</span> <span class="pre">access-list</span> <span class="pre">#</span></code> command removes the ACL from the running-config immediately. HOWEVER, to disable an ACL on an interface, the command <code class="docutils literal"><span class="pre">R1(config-if)#</span> <span class="pre">no</span> <span class="pre">ip</span> <span class="pre">access-group</span></code> should be entered.</p>
 </div>
+<img alt="_images/Ch7_qna_1.png" src="_images/Ch7_qna_1.png" />
+<dl class="docutils">
+<dt>If a router has two interfaces and is routing both IPv4 and IPv6 traffic, how many ACLs could be created and applied to it?</dt>
+<dd>3P rule: 1 ACL per Protocol, 1 per Direction, 1 per Interface (PDI). In this case 2 interfaces x 2 protocols x 2 directions = 8</dd>
+</dl>
+<img alt="_images/Ch7_qna_2.png" src="_images/Ch7_qna_2.png" />
+<img alt="_images/Ch7_qna_3.png" src="_images/Ch7_qna_3.png" />
+<img alt="_images/Ch7_qna_4.png" src="_images/Ch7_qna_4.png" />
 </div>
 </div>
 <div class="section" id="chapter-8-dhcp">

@@ -91,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="cisco.html">CCNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cisco.html">Networking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
@@ -133,6 +133,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#deleting">deleting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#changing-case">changing case</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#adding-whitespace-across-multiple-lines">adding whitespace across multiple lines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#indenting-across-multiple-lines">indenting across multiple lines</a></li>
 </ul>
@@ -643,6 +644,43 @@ now enter :retab</p>
 </div>
 <div class="section" id="formatting">
 <h3>formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="changing-case">
+<h4>changing case<a class="headerlink" href="#changing-case" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>~</dt>
+<dd>Toggle case of the character under the cursor, or all visually-selected characters.</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>3~</dt>
+<dd>Toggle case of the next three characters.</dd>
+<dt>g~3w</dt>
+<dd>Toggle case of the next three words.</dd>
+<dt>g~iw</dt>
+<dd>Toggle case of the current word (inner word – cursor anywhere in word).</dd>
+<dt>g~$</dt>
+<dd>Toggle case of all characters to end of line.</dd>
+<dt>g~~</dt>
+<dd>Toggle case of the current line (same as V~).</dd>
+</dl>
+<p>The above uses ~ to toggle case. In each example, you can replace ~ with u to convert to lowercase, or with U to convert to uppercase. For example:</p>
+<dl class="docutils">
+<dt>U</dt>
+<dd>Uppercase the visually-selected text.
+First press v or V then move to select text.
+If you don’t select text, pressing U will undo all changes to the current line.</dd>
+<dt>gUU</dt>
+<dd>Change the current line to uppercase (same as VU).</dd>
+<dt>gUiw</dt>
+<dd>Change current word to uppercase.</dd>
+<dt>u</dt>
+<dd>Lowercase the visually-selected text.
+If you don’t select text, pressing u will undo the last change.</dd>
+<dt>guu</dt>
+<dd>Change the current line to lowercase (same as Vu).</dd>
+</dl>
+</div>
 <div class="section" id="adding-whitespace-across-multiple-lines">
 <h4>adding whitespace across multiple lines<a class="headerlink" href="#adding-whitespace-across-multiple-lines" title="Permalink to this headline">¶</a></h4>
 <p>ctrl+V selectblock shift+I space ESC</p>
