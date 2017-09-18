@@ -1,0 +1,10 @@
+#!/bin/sh
+FLAGFILE=/var/run/scripthasrun
+# var run is a volatile fs tmpfs so deleted upon reboot
+
+if [ -e $FLAGFILE ]; then
+    exit 0
+else
+    touch $FLAGFILE
+fi
+dhclient -4 enp0s25

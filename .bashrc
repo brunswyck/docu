@@ -110,6 +110,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+if [ -f ~/configs/if-up.d.dhclient ]; then
+    . ~/.configs/if-up.d.dhclient
+fi
 if [ -f ~/.xsessionrc ]; then
     . ~/.xsessionrc
 fi
