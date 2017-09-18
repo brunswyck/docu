@@ -1,7 +1,6 @@
-####
-CCNA
-####
-
+##########
+Networking
+##########
 
 ***********************
 Networking Fundamentals
@@ -6623,6 +6622,119 @@ As soon as the DHCP service is running you can see the client receives an IP add
 **Lesson learned: If everything is OK, make sure the DHCP service is running.**
 
 
+Troubleshooting Tasks
+---------------------
 
+#. Resolve address conflicts
+    The ``show ip dhcp conflict`` command displays all address conflicts recorded by the DHCPv4 server, as shown in Figure 2. The server uses the ping command to detect clients. The client uses Address Resolution Protocol (ARP) to detect conflicts. If an address conflict is detected, the address is removed from the pool and not assigned until an administrator resolves the conflict.
+
+    This output displays IP addresses that have conflicts with the DHCP server. It shows the detection method and detection time for conflicting IP addresses that the DHCP server has offered.
+
+#. Verify physical connectivity
+    use the ``show interfaces interface`` command to confirm that the router interface acting as the default gateway for the client is operational. If the state of the interface is anything other than up, the port does not pass traffic, including DHCP client requests.
+
+#. Test with a static IPv4 address
+    If the workstation is unable to reach network resources with a statically configured IPv4 address, the root cause of the problem is not DHCPv4. At this point, network connectivity troubleshooting is required.
+
+#. Verify switch port configuration
+    If the DHCPv4 client is unable to obtain an IPv4 address from the DHCPv4 server on startup, attempt to obtain an IPv4 address from the DHCPv4 server by manually forcing the client to send a DHCPv4 request. In linux that is ``dhclient -4``
+    
+    .. note:: if there is a switch between the client and the DHCPv4 server, and the client is unable to obtain the DHCP configuration, switch port configuration issues may be the cause. These causes may include issues from trunking and channeling, STP, and RSTP. PortFast and edge port configurations resolve the most common DHCPv4 client issues that occur with an initial installation of a Cisco switch.
+
+#. Test from the same subnet or VLAN
+    It is important to distinguish whether DHCPv4 is functioning correctly when the client is on the same subnet or VLAN as the DHCPv4 server. If DHCPv4 is working correctly when the client is on the same subnet or VLAN, the problem may be the DHCP relay agent. If the problem persists even with testing DHCPv4 on the same subnet or VLAN as the DHCPv4 server, the problem may actually be with the DHCPv4 server.
+
+Verify Router DHCPv4 Configuration
+
+.. code::
+
+   R1# show running-config | section interface GigabitEthernet0/0
+   interface GigabitEthernet0/0
+    ip address 192.168.10.1 255.255.255.0
+    ip helper-address 192.168.11.6
+    duplex auto
+    speed auto
+   R1#
+   R1# show running-config | include no service dhcp
+
+Debug DHCPv4 using router debug commands
+
+.. code::
+
+   R1(config)# access-list 100 permit udp any any eq 67
+   R1(config)# access-list 100 permit udp any any eq 68
+   R1(config)# end
+   R1# debug ip packet 100
+   IP packet debugging is on for access list 100
+   *IP: s=0.0.0.0 (GigabitEthernet0/1), d=255.255.255.255, len 333, rcvd 2
+   *IP: s=0.0.0.0 (GigabitEthernet0/1), d=255.255.255.255, len 333, stop process pak for forus packet 
+   *IP: s=192.168.11.1 (local), d=255.255.255.255 (GigabitEthernet0/1), len 328, sending broad/multicast
+   ...
+   R1# debug ip dhcp server events
+   DHCPD: returned 192.168.10.11 to address pool LAN-POOL-1
+   DHCPD: assigned IP address 192.168.10.12 to client 0100.0103.85e9.87.
+   DHCPD: checking for expired leases.
+   DHCPD: the lease for address 192.168.10.10 has expired.
+   DHCPD: returned 192.168.10.10 to address pool LAN-POOL-1
+
+The extended ACL is used with the ``debug ip packet`` command to display only DHCPv4 messages.
+
+The output in the figure shows that the router is receiving DHCP requests from the client. The source IP address is 0.0.0.0 because the client does not yet have an IP address. The destination is 255.255.255.255 because the DHCP discovery message from the client is sent as a broadcast. This output only shows a summary of the packet and not the DHCPv4 message itself. Nevertheless, the router did receive a broadcast packet with the source and destination IP and UDP ports that are correct for DHCPv4. The complete debug output shows all the packets in the DHCPv4 communications between the DHCPv4 server and client.
+
+Another useful command for troubleshooting DHCPv4 operation is the ``debug ip dhcp server events`` command. This command reports server events, like address assignments and database updates.
+
+The DHCP assignment conflict indicates there may be an issue with the excluded-address statement on the DHCP server configuration on R2.  
+
+.. code::
+
+   *Mar  5 06:32:16.939: DHCPD: Sending notification of DISCOVER:
+   *Mar  5 06:32:16.939: DHCPD: htype 1 chaddr 0050.56be.768c
+   *Mar  5 06:32:16.939: DHCPD: circuit id 00000000
+   *Mar  5 06:32:16.939: DHCPD: Seeing if there is an internally specified pool class:
+   *Mar  5 06:32:16.939: DHCPD: htype 1 chaddr 0050.56be.768c
+   *Mar  5 06:32:16.939: DHCPD: circuit id 00000000
+   *Mar  5 06:32:16.943: DHCPD: Allocated binding 2944C764
+   *Mar  5 06:32:16.943: DHCPD: Adding binding to radix tree (192.168.1.1)
+   *Mar  5 06:32:16.943: DHCPD: Adding binding to hash tree
+   *Mar  5 06:32:16.943: DHCPD: assigned IP address 192.168.1.1 to client 0100.5056.be76.8c.
+   *Mar  5 06:32:16.951: %DHCPD-4-PING_CONFLICT: DHCP address conflict: server pinged 192.168.1.1.
+   *Mar  5 06:32:16.951: DHCPD: returned 192.168.1.1 to address pool R1G1.
+   *Mar  5 06:32:16.951: DHCPD: Sending notification of DISCOVER:
+   *Mar  5 06:32:16.951: DHCPD: htype 1 chaddr 0050.56be.768c
+   *Mar  5 06:32:16.951: DHCPD: circuit id 00000000
+   *Mar  5 06:32:16.951: DHCPD: Seeing if there is an internally specified pool class:
+   *Mar  5 06:32:16.951: DHCPD: htype 1 chaddr 0050.56be.768c
+   *Mar  5 06:32:16.951: DHCPD: circuit id 00000000
+   *Mar  5 06:32:16.951: DHCPD: Allocated binding 31DC93C8
+   *Mar  5 06:32:16.951: DHCPD: Adding binding to radix tree (192.168.1.2)
+   *Mar  5 06:32:16.951: DHCPD: Adding binding to hash tree
+   *Mar  5 06:32:16.951: DHCPD: assigned IP address 192.168.1.2 to client 0100.5056.be76.8c.
+   *Mar  5 06:32:18.383: %DHCPD-4-PING_CONFLICT: DHCP address conflict:server pinged 192.168.1.2.
+   *Mar  5 06:32:18.383: DHCPD: returned 192.168.1.2 to address pool R1G1.
+   *Mar  5 06:32:18.383: DHCPD: Sending notification of DISCOVER:
+   *Mar  5 06:32:18.383: DHCPD: htype 1 chaddr 0050.56be.6c89
+   *Mar  5 06:32:18.383: DHCPD: circuit id 00000000
+   *Mar  5 06:32:18.383: DHCPD: Seeing if there is an internally specified pool class:
+   *Mar  5 06:32:18.383: DHCPD: htype 1 chaddr 0050.56be.6c89
+   *Mar  5 06:32:18.383: DHCPD: circuit id 00000000
+   *Mar  5 06:32:18.383: DHCPD: Allocated binding 2A40E074
+   *Mar  5 06:32:18.383: DHCPD: Adding binding to radix tree (192.168.1.3)
+   *Mar  5 06:32:18.383: DHCPD: Adding binding to hash tree
+   *Mar  5 06:32:18.383: DHCPD: assigned IP address 192.168.1.3 to client 0100.5056.be76.8c
+   .
+   <output omitted>
+
+.. code::
+   
+   R2#
+   show run | section dhcp
+   ip dhcp excluded-address 192.168.11.1 192.168.11.9
+   ip dhcp excluded-address 192.168.0.1 192.168.0.9
+   ip dhcp pool R1G1
+    network 192.168.1.0 255.255.255.0
+    default-router 192.168.1.1
+   ip dhcp pool R1G0
+    network 192.168.0.0 255.255.255.128
+    default-router 192.168.1.1
 
 
