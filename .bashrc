@@ -111,7 +111,7 @@ if ! shopt -oq posix; then
   fi
 fi
 if [ -f ~/configs/if-up.d.dhclient ]; then
-    . ~/.configs/if-up.d.dhclient
+    . ~/configs/if-up.d.dhclient
 fi
 if [ -f ~/.xsessionrc ]; then
     . ~/.xsessionrc
