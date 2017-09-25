@@ -98,7 +98,10 @@
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Scripting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#bash">BASH</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#functions">functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#run-commands-in-script-as-sudo">run commands in script as sudo</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -209,6 +212,57 @@ fun
 
 exit $?
 </pre></div>
+</div>
+<div class="section" id="run-commands-in-script-as-sudo">
+<h4>run commands in script as sudo<a class="headerlink" href="#run-commands-in-script-as-sudo" title="Permalink to this headline">¶</a></h4>
+<p><strong>Use the NOPASSWD directive</strong></p>
+<p>You can use the NOPASSWD directive in your <code class="docutils literal"><span class="pre">/etc/sudoers</span> <span class="pre">file</span></code>.</p>
+<p>If your user is called user and your host is called host you could add these lines to /etc/sudoers:</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">user</span> <span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">NOPASSWD</span><span class="p">:</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">shutdown</span>
+<span class="n">user</span> <span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">NOPASSWD</span><span class="p">:</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">reboot</span>
+</pre></div>
+</div>
+<p>This will allow the user user to run the desired commands on host without entering a password. All other sudoed commands will still require a password.</p>
+<p>The commands specified in the sudoers file must be fully qualified (i.e. using the absolute path to the command to run) as described in the sudoers man page. Providing a relative path is considered a syntax error.</p>
+<p>If the command ends with a trailing / character and points to a directory, the user will be able to run any command in that directory (but not in any sub-directories therein). In the following example, the user user can run any command in the directory /home/someuser/bin/:</p>
+<p><code class="docutils literal"><span class="pre">user</span> <span class="pre">host</span> <span class="pre">=</span> <span class="pre">(root)</span> <span class="pre">NOPASSWD:</span> <span class="pre">/home/someuser/bin/</span></code></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Always use the command visudo to edit the sudoers file to make sure you do not lock yourself out of the system – just in case you accidentally write something incorrect to the sudoers file. visudo will save your modified file to a temporary location and will only overwrite the real sudoers file if the modified file can be parsed without errors.</p>
+</div>
+<p><strong>Using /etc/sudoers.d instead of modifying /etc/sudoers</strong></p>
+<p>As an alternative to editing the /etc/sudoers file, you could add the two lines to a new file in /etc/sudoers.d e.g. /etc/sudoers.d/shutdown. This is an elegant way of separating different changes to the sudo rights and also leaves the original sudoers file untouched for easier upgrades.</p>
+<p><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">visudo</span> <span class="pre">-f</span> <span class="pre">/etc/sudoers.d/shutdown</span></code></p>
+<p>This also automatically ensures that the owner and permissions of the new file is set correctly.</p>
+<p>example for DHCP
+::
+# User alias specification
+User_Alias DHCPUSERS = guru, patrick
+# Cmnd alias specification
+Cmnd_Alias DHCP = /usr/sbin/dhclient
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+DHCPUSERS       ALL = NOPASSWD: DHCP</p>
+<div class="section" id="if-sudoers-is-messed-up">
+<h5>If sudoers is messed up<a class="headerlink" href="#if-sudoers-is-messed-up" title="Permalink to this headline">¶</a></h5>
+<p>If you did not use visudo to edit your files and then accidentally messed up /etc/sudoers or messed up a file in /etc/sudoers.d then you will be locked out of sudo.</p>
+<p>The solution could be to fix the files using pkexec which is an alternative to sudo.</p>
+<p>To fix /etc/sudoers:</p>
+<p><code class="docutils literal"><span class="pre">pkexec</span> <span class="pre">visudo</span></code></p>
+<p>To fix /etc/sudoers.d/shutdown:</p>
+<p><code class="docutils literal"><span class="pre">pkexec</span> <span class="pre">visudo</span> <span class="pre">-f</span> <span class="pre">/etc/sudoers.d/shutdown</span></code></p>
+<p>If the ownership and/or permissions are incorrect for any sudoers file, the file will be ignored by sudo so you might also find yourself locked out in this situation. Again, you can use pkexec to fix this.</p>
+<p>The correct permissions should be like this:</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>$ls -l /etc/sudoers.d/shutdown
+-r--r----- 1 root root 86 Jul 16 15:37 /etc/sudoers.d/shutdown
+
+Use pkexec like this to fix ownership and permissions:
+
+pkexec chown root:root /etc/sudoers.d/shutdown
+pkexec chmod 0440 /etc/sudoers.d/shutdown
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>

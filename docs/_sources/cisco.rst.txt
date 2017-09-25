@@ -5860,7 +5860,7 @@ Chapter 7 exam
 +=============+============+===========================+
 | 20          | Lab        | Proton: Fa0/1 - Fa0/5     |
 +-------------+------------+---------------------------+
-|             |            | Electron: Fa0/1 - Fa0/5
+|             |            | Electron: Fa0/1 - Fa0/5   |
 +-------------+------------+---------------------------+
 | 40          | Research   | Proton: Fa0/6 - Fa0/10    |
 +-------------+------------+---------------------------+
@@ -6042,41 +6042,40 @@ Router configuration
 Ch7 QnA
 -------
 
- ACL:
- 
+ACL:
   a method of controlling packet flow
- ACE:
-  one line in an ACL
- Standard ACL:
-  IP-based ACLs that can be numbered 1 to 99
- ip access-group:
-  a command that is used to apply a standard ACL to an interface
- access-class:
-  a command that is used to apply a standard ACL to one or more VTY ports
- goes to next ACE:
-  the action taken when the criteria specified in an ACE does not match
- 0.0.0.31:
-  wildcard mask for a /27 network
- match the address bit value:
-  the purpose of a zero in a wildcard mask
- closest to destination:
-  the common placement location for a standard ACL
- one:
-  the number of IP-based ACLs that can be applied to one router interface in the inbound direction
- easy to modify:
-  an advantage of using a named ACL
- host:
-  the common keyword that is used when only one IP address is to be matched
- any:
-  the keyword that is the same as using an address of 0.0.0.0 255.255.255.255
- permit or deny:
-  the actions that can be taken when a router matches an address in an ACE
+ACE:
+ one line in an ACL
+Standard ACL:
+ IP-based ACLs that can be numbered 1 to 99
+ip access-group:
+ a command that is used to apply a standard ACL to an interface
+access-class:
+ a command that is used to apply a standard ACL to one or more VTY ports
+goes to next ACE:
+ the action taken when the criteria specified in an ACE does not match
+0.0.0.31:
+ wildcard mask for a /27 network
+match the address bit value:
+ the purpose of a zero in a wildcard mask
+closest to destination:
+ the common placement location for a standard ACL
+one:
+ the number of IP-based ACLs that can be applied to one router interface in the inbound direction
+easy to modify:
+ an advantage of using a named ACL
+host:
+ the common keyword that is used when only one IP address is to be matched
+any:
+ the keyword that is the same as using an address of 0.0.0.0 255.255.255.255
+permit or deny:
+ the actions that can be taken when a router matches an address in an ACE
 
 Which scenario would cause an ACL misconfiguration and deny all traffic?
-  Apply an ACL that has all deny ACE statements
+ Apply an ACL that has all deny ACE statements
 
 Which type of standard ACL is easiest to modify on a production router?
-  A named ACL that has not been applied yet
+ A named ACL that has not been applied yet
 
 Two common reasons for having a named ACL are
  its function is easier to identify
@@ -6858,8 +6857,8 @@ As soon as the DHCP service is running you can see the client receives an IP add
 **Lesson learned: If everything is OK, make sure the DHCP service is running.**
 
 
-Troubleshooting Tasks
----------------------
+DHCPv4 Troubleshooting Tasks
+----------------------------
 
 #. Resolve address conflicts
     The ``show ip dhcp conflict`` command displays all address conflicts recorded by the DHCPv4 server, as shown in Figure 2. The server uses the ping command to detect clients. The client uses Address Resolution Protocol (ARP) to detect conflicts. If an address conflict is detected, the address is removed from the pool and not assigned until an administrator resolves the conflict.
@@ -6972,5 +6971,1218 @@ The DHCP assignment conflict indicates there may be an issue with the excluded-a
    ip dhcp pool R1G0
     network 192.168.0.0 255.255.255.128
     default-router 192.168.1.1
+
+
+SLAAC
+-----
+**Stateless** Address AutoConfiguration
+
+A Stateless service
+ no server that maintains network address information. Unlike DHCP there is no SLAAC server that knows what IPv6 addresses are being used and which ones are available
+
+SLAAC is a method in which a device can obtain an IPv6 global unicast address without the services of a DHCPv6 server. At the core of SLAAC is ICMPv6. ICMPv6 is similar to ICMPv4 but includes additional functionality and is a much more robust protocol. SLAAC uses ICMPv6 Router Solicitation and Router Advertisement messages to provide addressing and other configuration information that would normally be provided by a DHCP server:
+
++ Router Solicitation (RS) message
+   When a client is configured to obtain its addressing information automatically using SLAAC, the client sends an RS message to the router. The RS message is sent to the IPv6 all-routers multicast address **FF02::2**
+
++ Router Advertisement (RA) message
+   RA messages are sent by routers to provide addressing information to clients configured to obtain their IPv6 addresses automatically. The RA message includes the prefix and prefix length of the local segment. A client uses this information to create its own IPv6 global unicast address. A router sends an RA message periodically, or in response to an RS message. By default, Cisco routers send RA messages every 200 seconds.
+  
+.. note:: RA messages are always sent to the IPv6 all-nodes multicast address FF02::1
+
+SLAAC operation
+^^^^^^^^^^^^^^^
+
+.. image:: _static/Ch8_SLAAC_operation.png
+
+#. Client sends Router Sollicitation message
+    Since booting, PC1 has not received an RA message, so it sends an RS message to the all-routers multicast address to inform the local IPv6 router that it needs an RA.
+
+   .. note:: a router must have IPv6 routing enabled before it can send RA messages ``Router(config)# ipv6 unicast-routing``
+
+#. R1 receives the RS message and responds with an RA message
+    Included in the RA message are the prefix and prefix length of the network. The RA message is sent to the IPv6 all-nodes multicast address **FF02::1**, with the **link-local address of the router as the IPv6 source address**.
+
+#. PC1 receives the RA message containing the prefix and prefix length for the local network
+    PC1 will use this information to create its own IPv6 global unicast address. PC1 now has a 64-bit network prefix, but needs a 64-bit Interface ID (IID) to create a global unicast address.
+    There are 2 ways PC1 can create its own unique IID
+
+    #. EUI-64
+        Using the EUI-64 process, PC1 will create an IID using its 48-bit MAC address.
+    #. Randomly generated
+        The 64-bit IID can be a random number generated by the client operating system. 
+
+    PC1 can create a 128-bit IPv6 global unicast address by combining the 64-bit prefix with the 64-bit IID. PC1 will use the link-local address of the router as its IPv6 default gateway address.
+
+#. Because SLAAC is stateless, PC1 must verify that this newly created IPv6 address is unique
+    PC1 sends an **ICMPv6 Neighbor Solicitation message with a specially constructed multicast address**, called a solicited-node multicast address, which duplicates the last 24 bits of PC1’s IPv6 address. If no other devices respond with a Neighbor Advertisement message, then the address is virtually guaranteed to be unique and can be used by PC1. **If a Neighbor Advertisement is received** by PC1 **then the address is not unique** and the operating system has to determine a new Interface ID to use.
+
+.. note:: This process is part of ICMPv6 Neighbor Discovery and is known as Duplicate Address Detection (DAD).
+
+
+
+The decision of whether a client is configured to obtain its IPv6 address information automatically using SLAAC, DHCPv6, or a combination of both depends on the **settings within the RA message**
+
+The two flags are the Managed Address Configuration flag (M flag) and the Other Configuration flag (O flag)
+ Using different combinations of the M and O flags, RA messages have one of three addressing options for the IPv6 device:
+
+ + SLAAC (Router Advertisement only) (Default)
+ + Stateless DHCPv6 (Router Advertisement and DHCPv6)
+ + Stateful DHCPv6 (DHCPv6 only)
+
+.. note:: Regardless of the option used, it is recommended by RFC 4861 that all IPv6 devices perform Duplicate Address Detection (DAD) on any unicast address, including addresses configured using SLAAC or DHCPv6. DAD is implemented using ICMPv6, which is specified by RFC 4443.
+
+.. note:: Although the RA message specifies the process the client should use in obtaining an IPv6 address dynamically, the client operating system may choose to ignore the RA message and use the services of a DHCPv6 server exclusively.
+
+
+SLAAC Option
+^^^^^^^^^^^^
+SLAAC Option (Router Advertisement only)
+ SLAAC is the default option on Cisco routers. Both the M flag and the O flag are set to 0 in the RA
+
+This option instructs the client to use the information in the RA message exclusively. This includes **prefix, prefix-length, DNS server, MTU, and default gateway information**. There is no further information available from a DHCPv6 server. The IPv6 global unicast address is created by combining the prefix from RA and an Interface ID using either EUI-64 or a randomly generated value.
+
+RA messages are configured on an individual interface of a router
+ To **re-enable an interface for SLAAC** that might have been set to another option, the M and O flags need to be reset to their initial values of 0. This is done using the following interface configuration mode commands:
+
+
+
+
+ .. code::
+
+    Router(config-if)# no ipv6 nd managed-config-flag
+    Router(config-if)# no ipv6 nd other-config-flag
+
+ipv6 **N** eighbor **D** iscovery **M** anaged/**O** ther **-CONFIG-FLAG**
+
+.. image:: _static/Ch8_stateful_dhcpv6_option.png
+
+
+DHCPv6 Operations
+-----------------
+
+.. image:: _static/Ch8_DHCPv6_operations.png
+
+
+When stateless DHCPv6 or stateful DHCPv6 is indicated by the RA, DHCPv6 operation is invoked. DHCPv6 messages are sent over UDP. DHCPv6 messages from the **server to the client use UDP destination port 546**. **The client sends DHCPv6 messages to the server using UDP destination port 547**.
+
+#. Router Solicitation
+#. Router Advertisement
+#. the client sends a DHCPv6 **SOLICIT** message to the **reserved IPv6 multicast all-DHCPv6-servers address FF02::1:2**. This multicast address has **link-local scope**, which means routers do not forward the messages to other networks.
+#. One or more DHCPv6 servers respond with a **DHCPv6 ADVERTISE unicast message** as shown in Figure 3. The ADVERTISE message informs the DHCPv6 client that the server is available for DHCPv6 service.
+#. the client responds with a DHCPv6 **REQUEST or INFORMATION-REQUEST** unicast message to the server, **depending on whether it is using stateful or stateless DHCPv6**.
+
+   + Stateless DHCPv6 client
+      The client sends a DHCPv6 INFORMATION-REQUEST message to the DHCPv6 server requesting only configuration parameters, such as DNS server address. The **client generated its own IPv6 address using the prefix from the RA message and a self-generated Interface ID**.
+   + Stateful DHCPv6 client
+      The client sends a DHCPv6 REQUEST message to the server to obtain an IPv6 address and all other configuration parameters from the server
+
+#. server sends a DHCPv6 **REPLY** unicast message to the client containing the information requested in the REQUEST or INFORMATION-REQUEST message as shown in 5.
+
+mnemonic: RSRA SolARR (vd SARR)
+
+DHCPv6 Stateless Config
+-----------------------
+
+#. Enable IPv6 Routing
+
+   .. code::
+
+      R(config)# ipv6 unicast-routing
+
+#. Configure a DHCPv6 Pool
+
+   .. code::
+
+      R(config)# ipv6 dhcp pool STUDENT-POOL
+      R(config-dhcpv6)# 
+
+#. Configure Pool Parameters
+
+   .. code::
+
+      R(config-dhcpv6)# dns-server dns-server-address
+      R(config-dhcpv6)# domain-name domain-name
+
+   .. note:: During the SLAAC process, the client received the information it needed to create an IPv6 global unicast address. The client also received the default gateway information using the source IPv6 address from the RA message, which is the link-local address of the router. However, the stateless DHCPv6 server can be configured to provide other information that might not have been included in the RA message such as DNS server address and the domain name.
+
+#. Configure DHCPv6 Interface
+
+   .. code::
+
+      R(config)# interface Gi0/0
+      R(config-if)# ipv6 dhcp server STUDENT-POOL
+      R(config-if)# ipv6 nd other-config-flag
+
+   ``ipv6 dhcp server STUDENT-POOL`` binds the DHCPv6 pool to the interface. The router responds to stateless DHCPv6 requests on this interface with the information contained in the pool. The O flag needs to be changed from 0 to 1 using the interface command ``ipv6 nd other-config-flag``. RA messages sent on this interface indicate that additional information is available from a stateless DHCPv6 server.
+
+
+Example, R3 is configured as a client to help verify the stateless DHCPv6 operations.
+
+.. image:: _static/Ch8_dhcpv6_stateless_server.png
+
+DHCPv6 Stateless Client
+-----------------------
+
+.. code::
+
+   R3(config)# interface g0/1
+   R3(config-if)# ipv6 enable
+   R3(config-if)# ipv6 address autoconfig
+
+The client router needs an IPv6 link-local address on the interface to send and receive IPv6 messages, such as RS messages and DHCPv6 messages. The link-local address of a router is created automatically when IPv6 is enabled on the interface. This can happen when a global unicast address is configured on the interface or by using the ipv6 enable command. ``After the router receives a link-local address, it can participate in IPv6 neighbor discovery``.
+
+.. note:: the ipv6 enable command is used because the router does not yet have a global unicast address.
+
+The ``ipv6 address autoconfig`` command enables automatic configuration of IPv6 addressing using SLAAC. By assumption, the server router is configured for stateless DHCPv6 so it sends an RA message to inform the client router to use stateless DHCPv6 to obtain DNS information.
+
+
+Verify Stateless dhcpv6
+-----------------------
+
+server
+ ``R1# show ipv6 dhcp pool``
+
+client
+ + ``R3# show ipv6 interface Gi0/1``
+ + ``debug ipv6 dhcp detail``
+   The debug output displays all the DHCPv6 messages sent between the client and the server including the DNS server and domain name options that were configured on the server.
+
+.. note:: Notice that the client, router R3, is sending the DHCPv6 messages from its link-local address to the All_DHCPv6_Relay_Agents_and_Servers address FF02::1:2
+
+DHCPv6 Stateful Config
+----------------------
+
+
+#. Enable IPv6 Routing
+
+   .. code::
+
+      R(config)# ipv6 unicast-routing
+
+   .. note:: This command is not necessary for the router to be a stateful DHCPv6 server, but it is required for the router to source ICMPv6 RA messages
+
+#. Configure a DHCPv6 Pool
+
+   .. code::
+      
+      R(config)# ipv6 dhcp pool IPV6-STATEFUL
+      R(config-dhcpv6)# 
+
+#. Configure Pool Parameters
+
+   .. code::
+
+      R(config-dhcpv6)# address prefix prefix/length [lifetime {valid-lifetime preferred-lifetime | infinite}]
+      R(config-dhcpv6)# address prefix 2001:db8:cafe:1::/64 lifetime infinite 
+      R(config-dhcpv6)# dns-server 2001:db8:cafe:aaaa::5
+      R(config-dhcpv6)# domain-name example.com
+      R(config-dhcpv6)# exit 
+
+   .. note:: During the SLAAC process, the client received the information it needed to create an IPv6 global unicast address. The client also received the default gateway information using the source IPv6 address from the RA message, which is the link-local address of the router. However, the stateless DHCPv6 server can be configured to provide other information that might not have been included in the RA message such as DNS server address and the domain name.
+
+#. Configure DHCPv6 Interface
+
+   .. code::
+
+      R(config)# interface Gi0/0
+      R(config-if)# ipv6 dhcp server IPV6-STATEFUL
+      R(config-if)# ipv6 nd MANAGED-config-flag
+
+   ``The M flag needs to be changed from 0 to 1 using the interface command ipv6 nd managed-config-flag. This informs the device not to use SLAAC but to obtain IPv6 addressing and all configuration parameters from a stateful DHCPv6 server``
+
+
+
+DHCPv6 Stateful Client
+----------------------
+
+.. code::
+
+   R3(config)# interface g0/1
+   R3(config-if)# ipv6 enable
+   R3(config-if)# ipv6 address dhcp
+
+The ``ipv6 enable`` interface configuration mode command allows the client router to receive an IPv6 link-local address on the interface to send RS messages and participate in DHCPv6
+
+
+Verify Stateful dhcpv6
+----------------------
+
+server
+ ``R1# show ipv6 dhcp pool``
+ ``R1# show ipv6 dhcp binding``
+ displays the automatic binding between the link-local address of the client and the address assigned by the server. FE80::32F7:DFF:FE25:2DE1 is the link-local address of the client. In this example, this is the G0/1 interface of R3. This address is bound to the IPv6 global unicast address, 2001:DB8:CAFE:1:5844:47B2:2603:C171, which was assigned by R1, the DHCPv6 server. This information is maintained by a stateful DHCPv6 server and NOT by a stateless DHCPv6 server.
+
+client
+ + ``R3# show ipv6 interface Gi0/1``
+ + ``debug ipv6 dhcp detail``
+   The debug output displays all the DHCPv6 messages sent between the client and the server including the DNS server and domain name options that were configured on the server.
+
+
+Configure DHCPv6 relay
+----------------------
+
+.. image:: _static/Ch8_dhcpv6_relay_agent.png
+
+DHCPv6 messages from clients are sent to the IPv6 multicast address **FF02::1:2. All_DHCPv6_Relay_Agents_and_Servers address**. This address has link-local scope which means routers do not forward these messages. The router must be configured as a DHCPv6 relay agent to enable the DHCPv6 client and server to communicate.
+
+.. code::
+
+   R1(config)# interface g0/0
+   R1(config-if)# ipv6 dhcp relay destination 2001:db8:cafe:1::6
+   R1(config-if)# end
+   R1# show ipv6 interface g0/0
+   GigabitEthernet0/0 is in relay mode
+     Relay destinations:
+       2001:DB8:CAFE:1::6
+   R1#
+
+.. note:: DHCPv6 relay agent is configured using the ``ipv6 dhcp relay destination`` command. This command is configured on the interface facing the DHCPv6 client using the address of the DHCPv6 server as the destination.
+
+The ``show ipv6 dhcp interface`` command verifies the G0/0 interface is in relay mode with 2001:DB8:CAFE:1::6 configured as the DHCPv6 server.
+
+The dynamic assignment of IPv6 global unicast addresses can be configured in three ways:
+ • Stateless Address Autoconfiguration (SLAAC) only
+ • Stateless Dynamic Host Configuration Protocol for IPv6 (DHCPv6) 
+ • Stateful DHCPv6
+
+With SLAAC (pronounced slack), a DHCPv6 server is not needed for hosts to acquire IPv6 addresses. It can be used to receive additional information that the host needs, such as the domain name and the domain name server (DNS) address. When SLAAC is used to assign the IPv6 host addresses and DHCPv6 is used to assign other network parameters, it is called Stateless DHCPv6.
+With Stateful DHCPv6, the DHCP server assigns all information, including the host IPv6 address.
+Determination of how hosts obtain their dynamic IPv6 addressing information is dependent on flag settings contained within the router advertisement (RA) messages.
+
+DHCPv6 labs
+-----------
+
+.. note:: The default bias template (used by the Switch Database Manager (SDM)) does not provide IPv6 address capabilities. Verify that SDM is using either the dual-ipv4-and-ipv6 template or the lanbase-routing template. The new template will be used after reboot even if the config is not saved
+
+.. code::
+
+   S1# show sdm prefer
+
+   assign the dual-ipv4-and-ipv6 template as the default sdm template:
+
+   S1# config t
+   S1(config)# sdm prefer dual-ipv4-and-ipv6 default
+   S1(config)# end
+   S1# reload
+
+.. note:: wireshark filter to see only ipv6 RA messages ``ipv6.dst==ff02::1``
+
+
+Use the show ipv6 interface g0/1 command to verify that G0/1 is part of the All-router multicast group (FF02::2). RA messages are not sent out G0/1 without that group assignment.
+
+.. code:: 
+
+   R1# show ipv6 interface g0/1
+   GigabitEthernet0/1 is up, line protocol is up 
+     IPv6 is enabled, link-local address is FE80::1 
+     No Virtual link-local address(es): 
+     Global unicast address(es): 
+       2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64  
+     Joined group address(es): 
+       FF02::1 
+       FF02::2 
+       FF02::1:FF00:1 
+     MTU is 1500 bytes 
+     ICMP error messages limited to one every 100 milliseconds 
+     ICMP redirects are enabled 
+     ICMP unreachables are sent 
+     ND DAD is enabled, number of DAD attempts: 1 
+     ND reachable time is 30000 milliseconds (using 30000) 
+     ND advertised reachable time is 0 (unspecified) 
+     ND advertised retransmit interval is 0 (unspecified) 
+     ND router advertisements are sent every 200 seconds 
+     ND router advertisements live for 1800 seconds 
+     ND advertised default router preference is Medium 
+     Hosts use stateless autoconfig for addresses. 
+
+
+Use the ipv6 address autoconfig command on VLAN 1 to obtain an IPv6 address through SLAAC 
+
+.. code::
+
+   S1(config)# interface vlan 1
+   S1(config-if)# ipv6 address autoconfig 
+   S1(config-if)# end
+
+
+Use the ``show ipv6 interface`` command to verify that SLAAC provided a unicast address to VLAN1 on S1.
+
+.. code::
+
+   S1# show ipv6 interface 
+   Vlan1 is up, line protocol is up 
+     IPv6 is enabled, link-local address is FE80::ED9:96FF:FEE8:8A40 
+     No Virtual link-local address(es): 
+     Stateless address autoconfig enabled 
+     Global unicast address(es): 
+       2001:DB8:ACAD:A:ED9:96FF:FEE8:8A40, subnet is 2001:DB8:ACAD:A::/64 [EUI/CAL/PRE] 
+         valid lifetime 2591988 preferred lifetime 604788 
+     Joined group address(es): 
+       FF02::1 
+       FF02::1:FFE8:8A40 
+     MTU is 1500 bytes 
+     ICMP error messages limited to one every 100 milliseconds 
+     ICMP redirects are enabled 
+     ICMP unreachables are sent 
+     Output features: Check hwidb 
+     ND DAD is enabled, number of DAD attempts: 1 
+     ND reachable time is 30000 milliseconds (using 30000) 
+     ND NS retransmit interval is 1000 milliseconds 
+     Default router is FE80::1 on Vlan1 
+
+Configure an IPv6 stateless DHCP server on R1.
+
+a. Create an IPv6 DHCP pool.
+    ``R1(config)# ipv6 dhcp pool IPV6POOL-A``
+b. Assign a domain name to the pool.
+    ``R1(config-dhcpv6)# domain-name ccna-statelessDHCPv6.com``
+c. Assign a DNS server address.  
+    ``R1(config-dhcpv6)# dns-server 2001:db8:acad:a::abcd``
+    ``R1(config-dhcpv6)# exit``
+d. Assign the DHCPv6 pool to the interface.
+    ``R1(config)# interface g0/1``
+    ``R1(config-if)# ipv6 dhcp server IPV6POOL-A``
+e. Set the DHCPv6 network discovery (ND) other-config-flag. 
+    ``R1(config-if)# ipv6 nd other-config-flag``
+    ``R1(config-if)# end``
+
+
+Configure an IPv6 stateful DHCP server on R1.
+
+a. Add the network prefix to the pool
+    ``R1(config)# ipv6 dhcp pool IPV6POOL-A``
+    ``R1(config-dhcpv6)# address prefix 2001:db8:acad:a::/64``
+b. Change domain name to ccna-statefulDHCPv6.com
+    ``R1(config-dhcpv6)# no domain-name ccna-statelessDHCPv6.com``
+    ``R1(config-dhcpv6)# domain-name ccna-statefulDHCPv6.com``
+    ``R1(config-dhcpv6)# end``
+c. Verify DHCPv6 pool settings
+
+   .. code::
+
+      R1# show ipv6 dhcp pool
+      DHCPv6 pool: IPV6POOL-A 
+        Address allocation prefix: 2001:DB8:ACAD:A::/64 valid 172800 preferred 86400 (0 in use, 0 conflicts) 
+        DNS server: 2001:DB8:ACAD:A::ABCD 
+        Domain name: ccna-StatefulDHCPv6.com 
+        Active clients: 0 
+
+d. Enter debug mode to verify the stateful DHCPv6 address assignment
+    ``R1# debug ipv6 dhcp detail``
+    ``  IPv6 DHCP debugging is on (detailed)``
+   
+Set the flag on G0/1 for stateful DHCPv6
+
+.. note:: Shutting down the G0/1 interface before making changes ensures that an RA message is sent when the interface is activated.
+   
+.. code::
+
+   R1(config)# interface g0/1 
+   R1(config-if)# shutdown
+   R1(config-if)# ipv6 nd managed-config-flag
+   R1(config-if)# no shutdown 
+   R1(config-if)# end
+
+Enable interface F0/6 on S1
+ Now that R1 is configured for stateful dhcpv6 you can reconnect PC-A to the nw by activating f0/6 on s1
+
+ .. code::
+
+    S1(config)# interface f0/6 
+    S1(config-if)# no shutdown
+    S1(config-if)# end 
+
+verify
+
+.. code::
+
+   R1# show ipv6 dhcp pool
+   DHCPv6 pool: IPV6POOL-A 
+     Address allocation prefix: 2001:DB8:ACAD:A::/64 valid 172800 preferred 86400 (1 in use, 0 conflicts) 
+     DNS server: 2001:DB8:ACAD:A::ABCD 
+     Domain name: ccna-StatefulDHCPv6.com 
+     Active clients: 1 
+   
+   
+   R1# show ipv6 dhcp binding
+   Client: FE80::D428:7DE2:997C:B05A 
+     DUID: 0001000117F6723D000C298D5444 
+     Username : unassigned 
+     IA NA: IA ID 0x0E000C29, T1 43200, T2 69120 
+       Address: 2001:DB8:ACAD:A:B55C:8519:8915:57CE 
+               preferred lifetime 86400, valid lifetime 172800 
+               expires at Mar 07 2013 04:09 PM (171595 seconds) 
+   R1# u all
+   All possible debugging has been turned off 
+
+
+Stateful DHCPv6 uses more memory resources. Stateful DHCPv6 requires the router to store dynamic state information about the DHCPv6 clients. Stateless DHCPv6 clients do not use the DHCP server to obtain address information, so this information does not need to be stored.
+
+Which type of dynamic IPv6 address assignment is recommended by Cisco, Stateless DHCPv6 or Stateful DHCPv6?
+Cisco recommends Stateless DHCPv6 when implementing and deploying IPv6 networks without a Cisco Network Registar (CNR)
+
+
+DHCPv6 Troubleshooting Tasks
+----------------------------
+
+#. Resolve address conflicts
+    The ``show ipv6 dhcp conflict`` command displays all address conflicts recorded by the stateful DHCPv6 server. If an address conflict is detected, the client typically removes the address and generates a new address using either SLAAC or stateful DHCPv6.
+
+#. Verify allocation method
+    the ``show ipv6 interface g0/0`` command can be used to verify the method of address allocation indicated in the RA message as indicated by the settings of the M and O flags. This information is displayed in the last lines of the output. If a client is not receiving its IPv6 address information from a stateful DHCPv6 server, it could be due to incorrect M and O flags in the RA message.
+
+#. Test with a static IPv6 address
+    In the case of IPv6, if the workstation is unable to reach network resources with a statically configured IPv6 address, the root cause of the problem is not SLAAC or DHCPv6. At this point, network connectivity troubleshooting is required.
+
+#. Verify switch port configuration
+    If the DHCPv6 client is unable to obtain information from a DHCPv6 server, verify that the switch port is enabled and is operating correctly.
+    In linux do a manual ``sudo dhclient -6``
+
+    .. note:: If there is a switch between the client and the DHCPv6 server, and the client is unable to obtain the DHCP configuration, switch port configuration issues may be the cause. These causes may include issues related to trunking, channeling, or spanning tree. **PortFast and edge port** configurations resolve the most common DHCPv6 client issues that occur with an initial installation of a Cisco switch.
+    
+#. Test DHCPv6 Operation on the same subnet or VLAN
+    If the stateless or stateful DHCPv6 server is functioning correctly, but is on a different IPv6 network or VLAN than the client, the problem may be with the DHCPv6 relay agent. The **client facing interface** on the router must be configured with the ``ipv6 dhcp relay destination`` command.
+
+.. image:: _static/verify_router_dhcpv6_config1.png
+
+.. image:: _static/verify_router_dhcpv6_config2.png
+
+``R1# debug ipv6 dhcp detail``
+
+
+Ch8 Lab Troubleshooting DHCPv6
+------------------------------
+
++--------+-----------+------------------------------+---------------+-------------------+
+| Device | Interface | IPv6 Address                 | Prefix Length | Default Gateway   |
++========+===========+==============================+===============+===================+
+| R1     | G0/1      | 2001:DB8:ACAD:A::1           | 64            | N/A               |
++--------+-----------+------------------------------+---------------+-------------------+
+| S1     | VLAN 1    | Assigned by SLAAC            | 64            | Assigned by SLAAC |
++--------+-----------+------------------------------+---------------+-------------------+
+| PC-A   | NIC       | Assigned by SLAAC and DHCPv6 | 64            | Assigned by SLAAC |
++--------+-----------+------------------------------+---------------+-------------------+
+
+.. image:: _static/Ch8_8.2.4.4_TB_DHCPv6.png
+
+Part 1 Build NW and configure basic settings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+cable as show in topology, intitialize and reload the router n switch
+.. code::
+
+   R1# show sdm prefer
+
+Follow this configuration to assign the dual-ipv4-and-ipv6 template as the default SDM template:
+
+.. code::
+
+   S1# config t
+   S1(config)# sdm prefer dual-ipv4-and-ipv6 default
+   S1(config)# end
+   S1# reload
+
+Required Resources
+ * 1 Router (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
+ * 1 Switch (Cisco 2960 with Cisco IOS Release 15.0(2) lanbasek9 image or comparable)
+ * PC (Linux, don't bother with Windows)
+ * Console cables to configure the Cisco IOS devices via the console ports
+ * Ethernet cables as shown in the topology
+
+
+a. Disable DNS lookup.
+b. Configure device names as shown in the topology.
+c. Encrypt plain text passwords.
+d. Create a MOTD banner warning users that unauthorized access is prohibited.
+e. Assign class as the encrypted privileged EXEC mode password.
+f. Assign cisco as the console and vty passwords and enable login.
+g. Configure logging synchronous to prevent console messages from interrupting command entry.
+
+Load the IPv6 configuration to R1
+
+.. code::
+
+   ip domain name ccna-lab.com
+   ipv6 dhcp pool IPV6POOL-A
+    dns-server 2001:DB8:ACAD:CAFE::A
+    domain-name ccna-lab.com
+   interface g0/0
+    no ip address
+    shutdown
+    duplex auto
+    speed auto
+   interface g0/1
+    no ip address
+    duplex auto
+    speed auto
+    ipv6 address FE80::1 link-local
+    ipv6 address 2001:DB8:ACAD:A::11/64
+   end
+
+Load the IPv6 configuration to S1.
+
+.. code::
+
+   interface range f0/1-24
+    shutdown
+   interface range g0/1-2
+    shutdown
+   interface Vlan1
+    shutdown
+   end
+
+Save the running configurations on R1 and S1
+Verify that IPv6 is enabled on PC-A
+Verify that IPv6 has been enabled in the Local Area Connection Properties window on PC-A
+
+
+Part 2 Troubleshoot IPv6 connectivity
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+you will test and verify Layer 3 IPv6 connectivity on the network
+
+Continue troubleshooting the network until Layer 3 connectivity has been established on all devices. Do not continue to Part 3
+until you have succe ssfully completed Part 2
+
+Troubleshoot IPv6 interfaces on R1
+ a. According to the topology, which interface must be active on R1 for network connectivity to be established?  Record any commands used to identify which interfaces are active.
+ b. If necessary, take the steps required to bring up the interface. Record the commands used to correct the configuration errors and verify that the interface is active.
+ c. Identify the IPv6 addresses configured on R1. Record the address es found and the commands used to view the IPv6 addresses.
+ d. Determine if a configuration error has been made. If any errors are identified, record all the commands used to correct the configuration.
+ e. On R1, what multicast group is needed for SLAAC to function?
+ f. What command is used to verify that R1 is a member of that group?
+ g. If R1 is not a member of the multicast group that is needed for SLAAC to function correctly, make the necessary changes to the configuration so that it joins the group. Record any commands necessary to correct the configurations errors.
+ h. Re-issue the command to verify that interface G0/1 has joined the all-routers multicast group (FF02::2).
+
+.. note:: If you are unable to join the all-routers multicast group, you may need to save your current configuration and reload the router.
+
+Troubleshoot S1
+ a. Are the interfaces needed for network connectivity active on S1?  Record any commands that are used to activate necessary interfaces on S1
+ b. What command could you use to determine if an IPv6 unicast address has been assigned to S1?
+ c. Does S1 have an IPv6 unicast address configured? If so, what is it?
+ d. If S1 is not receiving a SLAAC address, make the necessary configuration changes to allow it to receive one. Record the commands used.
+ e. Re-issue the command that verifies that the interface now receives a SLAAC address.
+ f. Can S1 ping the IPv6 unicast address assigned to the G0/1 interface assigned to R1?
+
+Troubleshoot PC-A
+ a. Issue the command used on PC-A to verify the IPv6 address assigned. Record the command
+ b. What is the IPv6 unicast address SLAAC is providing to PC-A?
+ c. Can PC-A ping th e default gateway address that was assigned by SLAAC?
+ d. Can PC-A ping the management interface on S1?
+ 
+ .. note:: Continue troubleshooting until you can ping R1 and S1 from PC-A
+
+Part 3 Troubleshoot Stateless DHCPv6
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You will test and verify that Stateless DHCPv6 is working correctly on the network. You will need to use the correct IPv6 CLI commands on the router to determine if Stateless DHCPv6 is working. You may want to use **debug** to help determine if the DHCP server is being solicited.
+
+Determine if Stateless DHCPv6 is functioning correctly.
+ a. What is the name of the IPv6 DHCP pool? How did you determine this?
+ b. What network information is listed in the DHCPv6 pool?
+ c. Was the DHCPv6 information assigned to PC-A?  How did you determine this?
+
+Troubleshoot R1
+ a. What commands can be used to determine if R1 is configured for Stateless DHCPv6?
+ b. Is the G0/1 interface on R1 in Stateless DHCPv6 mode?
+ c. What command can be used to have R1 join the all-DHCPv6 server group?
+ d. Verify that the all-DHCPv6 server group is configured for interface G0/1.
+ e. Will PC-A receive the DHCP information now? Explain?
+ f. What is missing from the configuration of G0/1 that causes hosts to use the DCHP server to retrieve other network information?
+ g. Reset the IPv6 settings on PC-A
+    1) Open the Local Area Connection Properties window, deselect the Internet Protocol Version 6 (TCP/IPv6) check box, and then click OK to accept the change.
+    2) Open the Local Area Connection Properties window again, click the Internet Protocol Version 6 (TCP/IPv6) check box, and then click OK to accept the change.
+ h. Issue the command to verify changes have been made on PC-A.
+    Continue troubleshooting until PC-A receives the additional DHCP information from R1
+
+Reflection
+ 1. What command is needed in the DHCPv6 pool for Stateful DHCPv6 that is not needed for Stateless DHCPv6? Why?
+ 2. What command is needed on the interface to change the network to use Stateful DHCPv6 instead of Stateless DHCPv6?
+
+Ch8 8.3.1.2 Skills Integration Challenge DHCPv4
+-----------------------------------------------
+
+.. image:: _static/ch8_skills_integration_challenge.png
+
+Addressing Table
+^^^^^^^^^^^^^^^^
++--------+-----------+---------------+-----------------+-----------------+
+| Device | Interface | IP Address    | Subnet Mask     | Default Gateway |
++========+===========+===============+=================+=================+
+|        | G0/0.10   | 172.31.10.1   | 255.255.255.224 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.20   | 172.31.20.1   | 255.255.255.240 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+| R1     | G0/0.30   | 172.31.30.1   | 255.255.255.128 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.40   | 172.31.40.1   | 255.255.255.192 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/1      | DHCP Assigned | DHCP Assigned   | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+| PC1    | NIC       | DHCP Assigned | DHCP Assigned   | DHCP Assigned   |
++--------+-----------+---------------+-----------------+-----------------+
+| PC2    | NIC       | DHCP Assigned | DHCP Assigned   | DHCP Assigned   |
++--------+-----------+---------------+-----------------+-----------------+
+| PC3    | NIC       | DHCP Assigned | DHCP Assigned   | DHCP Assigned   |
++--------+-----------+---------------+-----------------+-----------------+
+| PC4    | NIC       | DHCP Assigned | DHCP Assigned   | DHCP Assigned   |
++--------+-----------+---------------+-----------------+-----------------+
+
+VLAN Port Assignments and DHCP Information
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++-----------------+----------------------+----------------+----------------+
+| Ports           | VLAN Number - Name   | DHCP Pool Name | Network        |
++=================+======================+================+================+
+| Fa0/5 – 0/9     | VLAN 10 - Sales      | VLAN_10        | 172.31.10.0/27 |
++-----------------+----------------------+----------------+----------------+
+| Fa0/10 – Fa0/14 | VLAN 20 - Production | VLAN_20        | 172.31.20.0/28 |
++-----------------+----------------------+----------------+----------------+
+| Fa0/15 – Fa0/19 | VLAN 30 - Marketing  | VLAN_30        | 172.31.30.0/25 |
++-----------------+----------------------+----------------+----------------+
+| Fa0/20 – Fa0/24 | VLAN 40 - HR         | VLAN_40        | 172.31.40.0/26 |
++-----------------+----------------------+----------------+----------------+
+
+Configure VLANs, trunks, DHCP Server, DHCP relay agents, and configure a router as a DHCP client
+
+• Create VLANs on S2 and assign VLANs to appropriate ports. Names are case-sensitive
+• Configure S2 ports for trunking.
+• Configure all non-trunk ports on S2 as access ports.
+• Configure R1 to route between VLANs. Subinterface names should match the VLAN number.
+• Configure R1 to act as a DHCP server for the VLANs attached to S2.
+
+  - Create a DHCP pool for each VLAN. Names are case-sensitive.
+  - Assign the appropriate addresses to each pool. 
+  - Configure DHCP to provide the default gateway address
+  - Configure the DNS server 209.165.201.14 for each pool. 
+  - Prevent the first 10 addresses from each pool from being distributed to end devices.
+
+• Verify that each PC has an address assigned from the correct DHCP pool.
+  Note: DHCP address assignments may take some time. Click Fast Forward Time to speed up the process.
+• Configure R1 as a DHCP client so that it receives an IP address from the ISP network.
+• Verify all devices can now ping each other and www.cisco.pka
+
+Solution
+
+R1
+
+.. code::
+
+   R1>en
+   R1#conf t
+   R1(config)#interface G0/0
+   R1(config-if)#no shutdown
+   R1(config-if)#
+   %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+   R1(config-if)#interface G0/0.10
+   R1(config-subif)#
+   %LINK-5-CHANGED: Interface GigabitEthernet0/0.10, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.10, changed state to up
+   R1(config-subif)#encapsulation dot1Q 10
+   R1(config-subif)#ip address 172.31.10.1 255.255.255.224
+
+   R1(config-subif)#interface G0/0.20
+   R1(config-subif)#
+   %LINK-5-CHANGED: Interface GigabitEthernet0/0.20, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.20, changed state to up
+   encapsulation dot1Q 20
+   R1(config-subif)#encapsulation dot1Q 20
+   R1(config-subif)#ip address 172.31.20.1 255.255.255.240
+
+   R1(config-subif)#interface G0/0.30
+   R1(config-subif)#
+   %LINK-5-CHANGED: Interface GigabitEthernet0/0.30, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.30, changed state to up
+   encapsulation dot1Q 30
+   R1(config-subif)#ip address 172.31.30.1 255.255.255.128
+
+   R1(config-subif)#interface G0/0.40
+   R1(config-subif)#
+   %LINK-5-CHANGED: Interface GigabitEthernet0/0.40, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.40, changed state to up
+   encapsulation dot1Q 40
+   R1(config-subif)#ip address 172.31.40.1 255.255.255.192
+   R1(config-subif)#exit
+   R1(config)#
+
+Configure R1 G0/1 as DHCP client
+
+.. code::
+
+   R1(config)#interface G0/1
+   R1(config-if)#ip address dhcp
+   R1(config-if)#no shutdown 
+   %LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+   %DHCP-6-ADDRESS_ASSIGN: Interface GigabitEthernet0/1 assigned DHCP address 209.165.200.227, mask 255.255.255.224, hostname R1
+
+Configure R1 as DHCPv4 server for each vlan
+
+.. code::
+
+   R1(config)#ip dhcp excluded-address 172.31.10.1 172.31.10.10
+   R1(config)#ip dhcp pool VLAN_10
+   R1(dhcp-config)#network 172.31.10.0 255.255.255.224
+   R1(dhcp-config)#dns-server 209.165.201.14
+   R1(dhcp-config)#default-router 172.31.10.1
+   R1(dhcp-config)#option ?
+     <0-254>  DHCP option code
+   R1(dhcp-config)#exit
+   R1(config)#ip dhcp excluded-address 172.31.20.1 172.31.20.10
+   R1(config)#ip dhcp pool VLAN_20
+   R1(dhcp-config)#network 172.31.20.0 255.255.255.240
+   R1(dhcp-config)#default-router 172.31.20.1
+   R1(dhcp-config)#dns-server 209.165.201.14
+   R1(dhcp-config)#exit
+   R1(config)#ip dhcp excluded-address 172.31.30.1 172.31.30.10
+   R1(config)#ip dhcp pool VLAN_30
+   R1(dhcp-config)#default-router 172.31.30.1
+   R1(dhcp-config)#dns-server 209.165.201.14
+   R1(dhcp-config)#network 172.31.30.0 255.255.255.128
+   R1(dhcp-config)#exit
+   R1(config)#ip dhcp excluded-address 172.31.40.1 172.31.40.10
+   R1(config)#ip dhcp pool VLAN_40
+   R1(dhcp-config)#network 172.31.40.0 255.255.255.192
+   R1(dhcp-config)#default-router 172.31.40.1
+   R1(dhcp-config)#dns-server 209.165.201.14
+   R1(dhcp-config)#exit
+   R1(config)#
+
+
+Create VLANs on S2 and assign VLANs to respective ports
+
+.. code::
+
+   S2(config)#interface range fastEthernet 0/1 - 4
+   S2(config-if-range)#switchport mode trunk 
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to down
+   %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/4, changed state to up
+   S2(config-if-range)#switchport trunk allowed vlan 10,20,30,40
+   S2(config)#interface range fastEthernet 0/5 - 24
+   S2(config-if-range)#switchport mode access 
+   S2(config-if-range)#switchport ?
+     access         Set access mode characteristics of the interface
+     mode           Set trunking mode of the interface
+     native         Set trunking native characteristics when interface is in
+                    trunking mode
+     nonegotiate    Device will not engage in negotiation protocol on this
+                    interface
+     port-security  Security related command
+     priority       Set appliance 802.1p priority
+     trunk          Set trunking characteristics of the interface
+     voice          Voice appliance attributes
+   S2(config-if-range)#interface range fastEthernet 0/5 - 9
+   S2(config-if-range)#switchport access vlan 10
+   S2(config-if-range)#interface range fastEthernet 0/10 - 14
+   S2(config-if-range)#switchport access vlan 20
+   S2(config-if-range)#interface range fastEthernet 0/15 - 19
+   S2(config-if-range)#switchport access vlan 30
+   S2(config-if-range)#interface range fastEthernet 0/20 - 24
+   S2(config-if-range)#switchport access vlan 40
+   S2(config-if-range)#
+
+running config R1
+
+.. code::
+
+   R1>en
+   R1#show run
+   Building configuration...
+   
+   Current configuration : 1786 bytes
+   !
+   version 15.1
+   no service timestamps log datetime msec
+   no service timestamps debug datetime msec
+   no service password-encryption
+   !
+   hostname R1
+   !
+   !
+   !
+   !
+   ip dhcp excluded-address 172.31.10.1 172.31.10.10
+   ip dhcp excluded-address 172.31.20.1 172.31.20.10
+   ip dhcp excluded-address 172.31.30.1 172.31.30.10
+   ip dhcp excluded-address 172.31.40.1 172.31.40.10
+   !
+   ip dhcp pool VLAN_10
+    network 172.31.10.0 255.255.255.224
+    default-router 172.31.10.1
+    dns-server 209.165.201.14
+   ip dhcp pool VLAN_20
+    network 172.31.20.0 255.255.255.240
+    default-router 172.31.20.1
+    dns-server 209.165.201.14
+   ip dhcp pool VLAN_30
+    network 172.31.30.0 255.255.255.128
+    default-router 172.31.30.1
+    dns-server 209.165.201.14
+   ip dhcp pool VLAN_40
+    network 172.31.40.0 255.255.255.192
+    default-router 172.31.40.1
+    dns-server 209.165.201.14
+   !
+   !
+   !
+   ip cef
+   no ipv6 cef
+   !
+   !
+   !
+   !
+   license udi pid CISCO2911/K9 sn FTX1524A6QI
+   !
+   !
+   !
+   !
+   !
+   !
+   !
+   !
+   !
+   !
+   !
+   spanning-tree mode pvst
+   !
+   !
+   !
+   !
+   !
+   !
+   interface GigabitEthernet0/0
+    no ip address
+    duplex auto
+    speed auto
+   !
+   interface GigabitEthernet0/0.10
+    encapsulation dot1Q 10
+    ip address 172.31.10.1 255.255.255.224
+   !
+   interface GigabitEthernet0/0.20
+    encapsulation dot1Q 20
+    ip address 172.31.20.1 255.255.255.240
+   !
+   interface GigabitEthernet0/0.30
+    encapsulation dot1Q 30
+    ip address 172.31.30.1 255.255.255.128
+   !
+   interface GigabitEthernet0/0.40
+    encapsulation dot1Q 40
+    ip address 172.31.40.1 255.255.255.192
+   !
+   interface GigabitEthernet0/1
+    description Connection to ISP
+    ip address dhcp
+    duplex auto
+    speed auto
+   !
+   interface GigabitEthernet0/2
+    no ip address
+    duplex auto
+    speed auto
+    shutdown
+   !
+   interface Vlan1
+    no ip address
+    shutdown
+   !
+   ip classless
+   ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/1 
+   !
+   ip flow-export version 9
+   !
+   !
+   !
+   !
+   !
+   !
+   !
+   line con 0
+   !
+   line aux 0
+   !
+   line vty 0 4
+    login
+   !
+   !
+   !
+   end
+
+
+switch2
+
+.. code::
+
+   S2#show vlan brief
+   
+   VLAN Name                             Status    Ports
+   ---- -------------------------------- --------- -------------------------------
+   1    default                          active    Gig0/1, Gig0/2
+   10   Sales                            active    Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                   Fa0/9
+   20   Production                       active    Fa0/10, Fa0/11, Fa0/12, Fa0/13
+                                                   Fa0/14
+   30   Marketing                        active    Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                   Fa0/19
+   40   HR                               active    Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                   Fa0/24
+   1002 fddi-default                     active    
+   1003 token-ring-default               active    
+   1004 fddinet-default                  active    
+   1005 trnet-default                    active    
+
+.. code::
+
+   S2#show running-config 
+   Building configuration...
+   
+   Current configuration : 2356 bytes
+   !
+   version 12.2
+   no service timestamps log datetime msec
+   no service timestamps debug datetime msec
+   no service password-encryption
+   !
+   hostname S2
+   !
+   !
+   !
+   !
+   !
+   spanning-tree mode pvst
+   spanning-tree extend system-id
+   !
+   interface FastEthernet0/1
+    switchport trunk allowed vlan 10,20,30,40
+    switchport mode trunk
+   !
+   interface FastEthernet0/2
+    switchport trunk allowed vlan 10,20,30,40
+    switchport mode trunk
+   !
+   interface FastEthernet0/3
+    switchport trunk allowed vlan 10,20,30,40
+    switchport mode trunk
+   !
+   interface FastEthernet0/4
+    switchport trunk allowed vlan 10,20,30,40
+    switchport mode trunk
+   !
+   interface FastEthernet0/5
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/6
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/7
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/8
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/9
+    switchport access vlan 10
+    switchport mode access
+   !
+   interface FastEthernet0/10
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/11
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/12
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/13
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/14
+    switchport access vlan 20
+    switchport mode access
+   !
+   interface FastEthernet0/15
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/16
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/17
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/18
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/19
+    switchport access vlan 30
+    switchport mode access
+   !
+   interface FastEthernet0/20
+    switchport access vlan 40
+    switchport mode access
+   !
+   interface FastEthernet0/21
+    switchport access vlan 40
+    switchport mode access
+   !
+   interface FastEthernet0/22
+    switchport access vlan 40
+    switchport mode access
+   !
+   interface FastEthernet0/23
+    switchport access vlan 40
+    switchport mode access
+   !
+   interface FastEthernet0/24
+    switchport access vlan 40
+    switchport mode access
+   !
+   interface GigabitEthernet0/1
+   !
+   interface GigabitEthernet0/2
+   !
+   interface Vlan1
+    no ip address
+    shutdown
+   !
+   !
+   !
+   !
+   line con 0
+   !
+   line vty 0 4
+    login
+   line vty 5 15
+    login
+   !
+
+Router1 DHCP show commands
+
+.. code::
+
+   R1#show ip dhcp ?
+     binding   DHCP address bindings
+     conflict  DHCP address conflicts
+     pool      DHCP pools information
+     relay     Miscellaneous DHCP relay information
+   R1#show ip dhcp binding 
+   IP address       Client-ID/              Lease expiration        Type
+                    Hardware address
+   172.31.10.11     0000.0C92.D758           --                     Automatic
+   172.31.20.11     0060.706D.2129           --                     Automatic
+   172.31.30.11     0030.F21A.5348           --                     Automatic
+   172.31.40.11     0002.1730.4277           --                     Automatic
+   R1#show ip dhcp conflict 
+   IP address        Detection method   Detection time          VRF
+   R1#show ip dhcp pool
+   
+   Pool VLAN_10 :
+    Utilization mark (high/low)    : 100 / 0
+    Subnet size (first/next)       : 0 / 0 
+    Total addresses                : 30
+    Leased addresses               : 1
+    Excluded addresses             : 4
+    Pending event                  : none
+   
+    1 subnet is currently in the pool
+    Current index        IP address range                    Leased/Excluded/Total
+    172.31.10.1          172.31.10.1      - 172.31.10.30      1    / 4     / 30
+   
+   Pool VLAN_20 :
+    Utilization mark (high/low)    : 100 / 0
+    Subnet size (first/next)       : 0 / 0 
+    Total addresses                : 14
+    Leased addresses               : 1
+    Excluded addresses             : 4
+    Pending event                  : none
+   
+    1 subnet is currently in the pool
+    Current index        IP address range                    Leased/Excluded/Total
+    172.31.20.1          172.31.20.1      - 172.31.20.14      1    / 4     / 14
+   
+   Pool VLAN_30 :
+    Utilization mark (high/low)    : 100 / 0
+    Subnet size (first/next)       : 0 / 0 
+    Total addresses                : 126
+    Leased addresses               : 1
+    Excluded addresses             : 4
+    Pending event                  : none
+   
+    1 subnet is currently in the pool
+    Current index        IP address range                    Leased/Excluded/Total
+    172.31.30.1          172.31.30.1      - 172.31.30.126     1    / 4     / 126
+   
+   Pool VLAN_40 :
+    Utilization mark (high/low)    : 100 / 0
+    Subnet size (first/next)       : 0 / 0 
+    Total addresses                : 62
+    Leased addresses               : 1
+    Excluded addresses             : 4
+    Pending event                  : none
+   
+    1 subnet is currently in the pool
+    Current index        IP address range                    Leased/Excluded/Total
+    172.31.40.1          172.31.40.1      - 172.31.40.62      1    / 4     / 62
+   R1#show ip dhcp relay ?
+     information  DHCP relay information option
+   R1#show ip dhcp relay information trusted-sources 
+   List of trusted sources of relay agent information option:
+   
+   R1#show dhcp lease
+   Temp IP addr: 209.165.200.227 for peer on Interface: GigabitEthernet0/1
+   Temp sub net mask: 255.255.255.224
+      DHCP Lease server: 209.165.200.225 , state: Bound
+      DHCP Transaction id: 0E98472C
+      Lease: 86400 secs,  Renewal: 43200 secs,  Rebind: 75600 secs
+   Temp default-gateway addr: 0.0.0.0
+      Next timer fires after: 09:44:51
+      Retry count: 0  Client-ID:cisco-0002.1638.B602-Gig0/1
+      Client-ID hex dump: 636973636F2D303030322E313633382E
+                          23630322D476967302F31
+      Hostname: R1
+   
+   R1#show ip interface GigabitEthernet 0/1
+   GigabitEthernet0/1 is up, line protocol is up (connected)
+     Internet address is 209.165.200.227/27
+     Broadcast address is 255.255.255.255
+     Address determined by DHCP
+     MTU is 1500 bytes
+     Helper address is not set
+     Directed broadcast forwarding is disabled
+     Outgoing access list is not set
+     Inbound  access list is not set
+
+
+DHCPv6 conclusion
+-----------------
+
+There are two methods available for the dynamic configuration of IPv6 global unicast addresses.
+
++ Stateless Address Autoconfiguration (SLAAC)
+
++ Dynamic Host Configuration Protocol for IPv6 (Stateful DHCPv6)
+
+With stateless autoconfiguration, the client uses information provided by the IPv6 RA message to automatically select and configure a unique IPv6 address. The stateless DHCPv6 option informs the client to use the information in the RA message for addressing, but additional configuration parameters are available from a DHCPv6 server.
+
+Stateful DHCPv6 is similar to DHCPv4. In this case, the RA message informs the client not to use the information in the RA message. All addressing information and DNS configuration information is obtained from a stateful DHCPv6 server. The DHCPv6 server maintains IPv6 state information similar to a DHCPv4 server allocating addresses for IPv4.
+
+Chapter 9 NAT for IPv4
+======================
 
 

@@ -409,6 +409,34 @@ for more help::
    
    :help cmdline-ranges
 
+yank lines upwards
+------------------
+
+
+You can use the :yank command with a range to accomplish this effect.
+
+:.-6,.yank
+
+The range explanation
+ + . or the dot means current line
+ + .-6 means current line minus 6
+ + .-6,. is current line minus 6 to the current line
+ + This can be abbreviated .-6 to just -6 giving us -6,.yank
+ + the current line is also assumed in the end of the range so -6,yank
+ + the yank command can be shortened to just :y giving us -6,y
+
+Final command:
+
+:-6,y
+
+For more help:
+
+:h :yank
+:h [range]
+
+
+
+
 replacing
 =========
 

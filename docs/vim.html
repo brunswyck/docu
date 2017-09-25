@@ -125,6 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#copy-paste">copy paste</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#yank-line-on-line-x">yank line on line x</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#yank-lines-relative-numbers">yank lines relative numbers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yank-lines-upwards">yank lines upwards</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
@@ -606,6 +607,28 @@ Plugin ‘scrooloose/nerdcommenter’</dd>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="yank-lines-upwards">
+<h4>yank lines upwards<a class="headerlink" href="#yank-lines-upwards" title="Permalink to this headline">¶</a></h4>
+<p>You can use the :yank command with a range to accomplish this effect.</p>
+<p>:.-6,.yank</p>
+<dl class="docutils">
+<dt>The range explanation</dt>
+<dd><ul class="first last simple">
+<li>. or the dot means current line</li>
+<li>.-6 means current line minus 6</li>
+<li>.-6,. is current line minus 6 to the current line</li>
+<li>This can be abbreviated .-6 to just -6 giving us -6,.yank</li>
+<li>the current line is also assumed in the end of the range so -6,yank</li>
+<li>the yank command can be shortened to just :y giving us -6,y</li>
+</ul>
+</dd>
+</dl>
+<p>Final command:</p>
+<p>:-6,y</p>
+<p>For more help:</p>
+<p>:h :yank
+:h [range]</p>
 </div>
 </div>
 <div class="section" id="replacing">
