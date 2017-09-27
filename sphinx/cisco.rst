@@ -9991,7 +9991,211 @@ When decoding the debug output, note what the following symbols and values indic
 PT Troubleshooting NAT ex1
 --------------------------
 
+.. image:: _static/Ch9_pt_troubleshooting_NAT_ex1.png
+
+Addressing Table ex1
+^^^^^^^^^^^^^^^^^^^^
+
++---------+-----------+----------------+-----------------+-----------------+
+| Device  | Interface | IP Address     | Subnet Mask     | Default Gateway |
++=========+===========+================+=================+=================+
+| R1      | G0/0      | 10.4.10.254    | 255.255.255.0   | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | G0/1      | 10.4.11.254    | 255.255.255.0   | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/1    | 10.4.1.2       | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+| R2      | S0/0/0    | 209.165.76.194 | 255.255.255.224 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/1    | 10.4.1.1       | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+| Server1 | NIC       | 64.100.201.5   | 255.255.255.0   | 64.100.201.1    |
++---------+-----------+----------------+-----------------+-----------------+
+| PC1     | NIC       | 10.4.10.1      | 255.255.255.0   | 10.4.10.254     |
++---------+-----------+----------------+-----------------+-----------------+
+| PC2     | NIC       | 10.4.10.2      | 255.255.255.0   | 10.4.10.254     |
++---------+-----------+----------------+-----------------+-----------------+
+| L1      | NIC       | 10.4.11.1      | 255.255.255.0   | 10.4.11.254     |
++---------+-----------+----------------+-----------------+-----------------+
+| L2      | NIC       | 10.4.11.2      | 255.255.255.0   | 10.4.11.254     |
++---------+-----------+----------------+-----------------+-----------------+
+
+
+Objectives
+
+Part 1: Isolate Problems
+Part 2: Troubleshoot NAT Configuration
+Part 3: Verify Connectivity
+
+Scenario
+
+A contractor restored an old configuration to a new router running NAT. But, the network has changed and a new subnet was added after the old configuration was backed up. It is your job to get the network working again.
+
+Ping Server1 from PC1, PC2, L1, L2, and R2.
+Record the success of each ping. Ping any other machines as needed. 
+
+PT Troubleshoot NAT Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#. View the NAT translations on R2. If NAT is working, there should be table entries.
+#. Show the running configuration of R2. The NAT inside port should align with the private address, while the NAT outside port should align with the public address.
+#. Correct the Interfaces. Assign the ip nat inside and ip nat outside commands to the correct ports.
+#. Ping Server1 from PC1, PC2, L1, L2, and R2. Record the success of each ping. Ping any other machines as needed.
+#. View the NAT translations on R2. If NAT is working, there should be table entries.
+#. Show Access-list 101 on R2. The wildcard mask should encompass both the 10.4.10.0 network and the 10.4.11.0 network.
+#. Correct the Access-list. Delete access-list 101 and replace it with a similar list that is also one statement in length. The only difference should be the wildcard.
+  
+PT Verify Connectivity
+^^^^^^^^^^^^^^^^^^^^^^
+
+#. Verify connectivity to Server1. Record the success of each ping. All hosts should be able to ping Server1, R1, and R2. Troubleshoot if the pings are not successful.
+#. View the NAT translations on R2. NAT should display many table entries.
    
-PT Troubleshooting NAT ex2
---------------------------
+LAB Troubleshooting NAT
+-----------------------
+
+.. image:: _static/Ch9_lab_troubleshooting_NAT.png
+
+PT Addressing Table
+^^^^^^^^^^^^^^^^^^^
+
++---------+--------------+-----------------+-----------------+-----------------+
+| Device  | Interface    | IP address      | Subnet Mask     | Default Gateway |
++=========+==============+=================+=================+=================+
+| Gateway | G0/1         | 192.168.1.1     | 255.255.255.0   | N/A             |
++---------+--------------+-----------------+-----------------+-----------------+
+|         | S0/0/1       | 209.165.200.225 | 255.255.255.252 | N/A             |
++---------+--------------+-----------------+-----------------+-----------------+
+| ISP     | S0/0/0 (DCE) | 209.165.200.226 | 255.255.255.252 | N/A             |
++---------+--------------+-----------------+-----------------+-----------------+
+|         | Lo0          | 198.133.219.1   | 255.255.255.255 | N/A             |
++---------+--------------+-----------------+-----------------+-----------------+
+| PC-A    | NIC          | 192.168.1.3     | 255.255.255.0   | 192.168.1.1     |
++---------+--------------+-----------------+-----------------+-----------------+
+| PC-B    | NIC          | 192.168.1.4     | 255.255.255.0   | 192.168.1.1     |
++---------+--------------+-----------------+-----------------+-----------------+
+
+Objectives
+Part 1: Build the Network and Configure Basic Device Settings
+Part 2: Troubleshoot Static NAT
+Part 3: Troubleshoot Dynamic NAT
+
+Background / Scenario
+In this lab, the Gateway router was configured by an inexperienced network administrator at your company.  Several errors in the configuration have resulted in NAT issues. Your boss has asked you to troubleshoot and correct the NAT errors and document your work. Ensure that the network supports the following: 
+
+ • PC-A acts as a web server with a static NAT and will be reachable from the outside using the 209.165.200.254 address.
+ • PC-B acts as a host computer and dynamically receives an IP address from the created pool of addresses called NAT_POOL, which uses the 209.165.200.240/29 range.
+
+
+Copy the following basic configuration and paste it to the running-configuration on the router.
+
+.. code::
+
+   no ip domain-lookup 
+   service password-encryption 
+   enable secret class 
+   banner motd # 
+   Unauthorized access is strictly prohibited. # 
+   line con 0 
+   password cisco 
+   login 
+   logging synchronous 
+   line vty 0 4 
+   password cisco 
+   login 
+
+Configure Static Routing
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+a. Create a static route from the ISP router to the Gateway router which was assigned public network address range 209.165.200.224/27.
+
+   .. code::
+
+      ISP(config)# ip route 209.165.200.224 255.255.255.224 s0/0/0 
+
+b. Create a default route from the Gateway router to the ISP router.
+
+   .. code::
+ 
+      Gateway(config)# ip route 0.0.0.0 0.0.0.0 s0/0/1
+
+provided faulty configurations:
+
+Gateway Router Configuration
+
+.. code::
+
+   interface 
+   g0/1 
+    ip nat outside 
+   no shutdown 
+   interface 
+   s0/0/0 
+    ip nat outside 
+   interface 
+   s0/0/1 
+   no shutdown 
+   ip nat inside source static 192.168.2.3 
+   209.165.200.254 
+   ip nat pool NAT_POOL 
+   209.165.200.241 209.165.200.246 
+   netmask 255.255.255.248 
+   ip nat inside source list NAT_ACL pool NATPOOL 
+   ip access-
+   list standard NAT_ACL 
+    permit 192.168
+   .10.0 0.0.0.255 
+   banner motd $AUTHORIZED ACCESS ONLY$ 
+   end 
+
+Troubleshoot Static NAT
+^^^^^^^^^^^^^^^^^^^^^^^
+examine the static NAT for PC-A to determine if it is configured correctly. You will troubleshoot the scenario until the correct static NAT is verified.
+
+a. To troubleshoot issues with NAT, use the ``debug ip nat`` command. Turn on NAT debugging to see translations in real-time across the Gateway router.
+
+   .. code::
+  
+      Gateway# debug ip nat 
+
+b. From PC-A, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?
+c. On the Gateway router, enter the command that allows you to see all current NAT translations on the Gateway router. Write the command in the space below.
+   Why are you seeing a NAT translation in the table, but none occurred when PC-A pinged the ISP loopback interface? What is needed to correct the issue?
+d. Record any commands that are necessary to correct the static NAT configuration error
+e. From PC-A, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?
+f. On the Gateway router, enter the command that allows you to observe the total number of current NATs. 
+
+   Write the command in the space below. Is the static NAT occurring successfully? Why?
+
+g. On the Gateway router, enter the command that allows you to view the current configuration of the router. Write the command in the space below.
+
+h. Are there any problems with the current configuration that prevent the static NAT from occurring?
+i. Record any commands that are necessary to correct the static NAT configuration errors.
+j. From PC-A, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?
+k.    Use the ``show ip nat translations verbose`` command to verify static NAT functionality.
+
+   .. note:: The timeout value for ICMP is very short. If you do not see all the translations in the output, redo the ping.
+
+   Is the static NAT translation occurring successfully?
+   If static NAT is not occurring, repeat the steps above to troubleshoot the configuration.
+
+
+Troubleshoot Dynamic NAT
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+a. From PC-B, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?
+b. On the Gateway router, enter the command that allows you to view the current configuration of the router. Are there any problems with the current configuration that prevent dynamic NAT from occurring?
+c. Record any commands that are necessary to correct the dynamic NAT configuration errors.
+d. From PC-B, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?
+e. Use the ``show ip nat statistics`` to view NAT usage.
+   
+   Is the NAT occurring successfully?
+   What percentage of dynamic addresses has been allocated? 
+
+f. Turn off all debugging using the ``undebug all`` command.
+
+Reflection
+
+1. What is the benefit of a static NAT?
+
+2. What issues would arise if 10 host computers in this network were attempting simultaneous Internet communication? 
 
