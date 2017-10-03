@@ -10024,8 +10024,11 @@ Addressing Table ex1
 Objectives
 
 Part 1: Isolate Problems
+
 Part 2: Troubleshoot NAT Configuration
+
 Part 3: Verify Connectivity
+
 
 Scenario
 
@@ -10034,21 +10037,229 @@ A contractor restored an old configuration to a new router running NAT. But, the
 Ping Server1 from PC1, PC2, L1, L2, and R2.
 Record the success of each ping. Ping any other machines as needed. 
 
+Pinging 64.100.201.5 with 32 bytes of data:
+ from pc1
+  Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)
+ from pc2
+  Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)
+ from L1
+  Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)
+ from L2
+  Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)
+ from R2
+  R2#ping 64.100.201.5
+
+  Sending 5, 100-byte ICMP Echos to 64.100.201.5, timeout is 2 seconds
+
+  !!!!!
+
+  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms
+
+
+
 PT Troubleshoot NAT Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #. View the NAT translations on R2. If NAT is working, there should be table entries.
+   
+   .. code::
+
+      R2#show ip nat translation
+      R2#show ip nat statistics
+      Total translations: 0 (0 static, 0 dynamic, 0 extended)
+      Outside Interfaces: Serial0/0/1
+      Inside Interfaces: Serial0/0/0
+      Hits: 0  Misses: 16
+      Expired translations: 0
+      Dynamic mappings:
+      -- Inside Source
+      access-list 101 pool R2POOL refCount 0
+       pool R2POOL: netmask 255.255.255.224
+             start 209.165.76.195 end 209.165.76.223
+             type generic, total addresses 29 , allocated 0 (0%), misses 0      
+
+      so the statistics tell us that there were 16 misses on the inside interface Serial 0/0/0 
+      Indeed we deed pings from 4 locations in the network to this interface towards server1 this makes sense.
+     
 #. Show the running configuration of R2. The NAT inside port should align with the private address, while the NAT outside port should align with the public address.
+
+   .. code::
+
+      !
+      interface Serial0/0/0
+       ip address 209.165.76.194 255.255.255.224
+       ip nat inside
+       clock rate 2000000
+      !
+      interface Serial0/0/1
+       ip address 10.4.1.1 255.255.255.252
+       ip nat outside
+       clock rate 2000000
+      !
+      ip nat pool R2POOL 209.165.76.195 209.165.76.223 netmask 255.255.255.224
+      ip nat inside source list 101 pool R2POOL
+      !
+      ip route 10.0.0.0 255.0.0.0 10.4.1.2 
+      ip route 0.0.0.0 0.0.0.0 209.165.76.193 
+      !
+      access-list 101 permit ip 10.4.10.0 0.0.0.255 any
+      !
+      
+   Inside and outside are incorrectly configured, got it backwards here
+
 #. Correct the Interfaces. Assign the ip nat inside and ip nat outside commands to the correct ports.
+
+   .. code::
+
+      nat debugging is on
+
+      R2(config)#interface Serial 0/0/1
+      R2(config-if)#no ip nat outside
+      R2(config-if)#
+      ip_ifnat_modified: old_if 1, new_if 2
+
+      ip nat inside
+      R2(config-if)#
+      ip_ifnat_modified: old_if 2, new_if 0
+
+      now configure serial 0/0/0 as outside nat if
+      --------------------------------------------
+      R2(config-if)#interface Serial 0/0/0
+      R2(config-if)#no ip nat insid
+      R2(config-if)#no ip nat inside 
+      R2(config-if)#
+      ip_ifnat_modified: old_if 0, new_if 2
+      
+      ip nat outside
+      R2(config-if)#
+      ip_ifnat_modified: old_if 2, new_if 1
+
 #. Ping Server1 from PC1, PC2, L1, L2, and R2. Record the success of each ping. Ping any other machines as needed.
+   
+   from L1 and L2
+    same as before, ping unsuccessful and increasing the miss counter in ip nat statistics
+   from PC1 is successful
+    see NAT translations working and later expiring via debug ip nat after the ping from PC1 (ip 10.4.10.1)
+
+    .. code::
+ 
+       R2(config-if)#
+       NAT: s=10.4.10.1->209.165.76.195, d=64.100.201.5 [5]
+       NAT*: s=64.100.201.5, d=209.165.76.195->10.4.10.1 [33]
+ 
+       NAT: s=10.4.10.1->209.165.76.195, d=64.100.201.5 [6]
+       NAT*: s=64.100.201.5, d=209.165.76.195->10.4.10.1 [34]
+ 
+       NAT: s=10.4.10.1->209.165.76.195, d=64.100.201.5 [7]
+       NAT*: s=64.100.201.5, d=209.165.76.195->10.4.10.1 [35]
+ 
+       NAT: s=10.4.10.1->209.165.76.195, d=64.100.201.5 [8]
+       NAT*: s=64.100.201.5, d=209.165.76.195->10.4.10.1 [36]
+ 
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 5 (5)
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 6 (6)
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 7 (7)
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 8 (8)
+
 #. View the NAT translations on R2. If NAT is working, there should be table entries.
+    Well NAT is not working properly yet as only nodes on the 10.4.10.0/24 network are being translated
+    the 10.4.11.0/24 ain't getting any..
+   
+    .. code::
+
+       R2#show ip nat translations 
+       Pro  Inside global     Inside local       Outside local      Outside global
+       icmp 209.165.76.195:10 10.4.10.1:10       64.100.201.5:10    64.100.201.5:10
+       icmp 209.165.76.195:11 10.4.10.1:11       64.100.201.5:11    64.100.201.5:11
+       icmp 209.165.76.195:12 10.4.10.1:12       64.100.201.5:12    64.100.201.5:12
+       icmp 209.165.76.195:9  10.4.10.1:9        64.100.201.5:9     64.100.201.5:9
+       R2#
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 9 (9)
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 10 (10)
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 11 (11)
+       NAT: expiring 209.165.76.195 (10.4.10.1) icmp 12 (12)
+
 #. Show Access-list 101 on R2. The wildcard mask should encompass both the 10.4.10.0 network and the 10.4.11.0 network.
+   
+   .. code::
+
+      R2#show ip access-list
+      Extended IP access list 101
+          10 permit ip 10.4.10.0 0.0.0.255 any (16 match(es))
+
+   obviously the 11 isn't included.. lets fix this
+
 #. Correct the Access-list. Delete access-list 101 and replace it with a similar list that is also one statement in length. The only difference should be the wildcard.
-  
+   
+   to include the 11 we will need to change the third octet of the wildcard..
+   so to include 11 would be like changing the subnet from 24 to 23 which means 2^23 network bits and 2^9 host bits = 510 nodes
+   so 255.255.255.255
+    - 255.255.254.0 (/23 instead of /24)
+    =   0.  0.  1.255   
+
+   .. code::
+
+      R2(config)# no access-list 101 permit ip 10.4.10.0 0.0.0.255 any
+      R2(config)#access-list 101 permit ip 10.4.10.0 0.0.1.255 any
+
+
 PT Verify Connectivity
 ^^^^^^^^^^^^^^^^^^^^^^
+.. note the NAT* is the Outside interface :)
 
 #. Verify connectivity to Server1. Record the success of each ping. All hosts should be able to ping Server1, R1, and R2. Troubleshoot if the pings are not successful.
+   sure enough pings are working now
 #. View the NAT translations on R2. NAT should display many table entries.
+   launch a ping from a node in each network and check nat translations with debugging on for bonus kudos
+
+   .. code::
+
+      R2>en
+      R2#show ip nat translation
+      R2#
+      NAT: s=10.4.11.1->209.165.76.195, d=64.100.201.5 [29]
+      NAT*: s=64.100.201.5, d=209.165.76.195->10.4.11.1 [49]
+
+      NAT: s=10.4.11.1->209.165.76.195, d=64.100.201.5 [30]
+      NAT*: s=64.100.201.5, d=209.165.76.195->10.4.11.1 [50]
+
+      NAT: s=10.4.11.1->209.165.76.195, d=64.100.201.5 [31]
+      NAT*: s=64.100.201.5, d=209.165.76.195->10.4.11.1 [51]
+
+      NAT: s=10.4.11.1->209.165.76.195, d=64.100.201.5 [32]
+      NAT*: s=64.100.201.5, d=209.165.76.195->10.4.11.1 [52]
+
+      NAT: s=10.4.10.1->209.165.76.196, d=64.100.201.5 [13]
+      NAT*: s=64.100.201.5, d=209.165.76.196->10.4.10.1 [53]
+
+      NAT: s=10.4.10.1->209.165.76.196, d=64.100.201.5 [14]
+      NAT*: s=64.100.201.5, d=209.165.76.196->10.4.10.1 [54]
+
+      NAT: s=10.4.10.1->209.165.76.196, d=64.100.201.5 [15]
+      NAT*: s=64.100.201.5, d=209.165.76.196->10.4.10.1 [55]
+
+      NAT: s=10.4.10.1->209.165.76.196, d=64.100.201.5 [16]
+      NAT*: s=64.100.201.5, d=209.165.76.196->10.4.10.1 [56]
+      show ip nat translation
+      Pro  Inside global     Inside local       Outside local      Outside global
+      icmp 209.165.76.195:29 10.4.11.1:29       64.100.201.5:29    64.100.201.5:29
+      icmp 209.165.76.195:30 10.4.11.1:30       64.100.201.5:30    64.100.201.5:30
+      icmp 209.165.76.195:31 10.4.11.1:31       64.100.201.5:31    64.100.201.5:31
+      icmp 209.165.76.195:32 10.4.11.1:32       64.100.201.5:32    64.100.201.5:32
+      icmp 209.165.76.196:13 10.4.10.1:13       64.100.201.5:13    64.100.201.5:13
+      icmp 209.165.76.196:14 10.4.10.1:14       64.100.201.5:14    64.100.201.5:14
+      icmp 209.165.76.196:15 10.4.10.1:15       64.100.201.5:15    64.100.201.5:15
+      icmp 209.165.76.196:16 10.4.10.1:16       64.100.201.5:16    64.100.201.5:16
+
+      R2#
+      NAT: expiring 209.165.76.195 (10.4.11.1) icmp 29 (29)
+      NAT: expiring 209.165.76.195 (10.4.11.1) icmp 30 (30)
+      NAT: expiring 209.165.76.195 (10.4.11.1) icmp 31 (31)
+      NAT: expiring 209.165.76.195 (10.4.11.1) icmp 32 (32)
+      NAT: expiring 209.165.76.196 (10.4.10.1) icmp 13 (13)
+      NAT: expiring 209.165.76.196 (10.4.10.1) icmp 14 (14)
+      NAT: expiring 209.165.76.196 (10.4.10.1) icmp 15 (15)
+      NAT: expiring 209.165.76.196 (10.4.10.1) icmp 16 (16)
+
    
 LAB Troubleshooting NAT
 -----------------------
@@ -10199,3 +10410,265 @@ Reflection
 
 2. What issues would arise if 10 host computers in this network were attempting simultaneous Internet communication? 
 
+Ch9 Skills Integration Test - assignment
+----------------------------------------
+Topology Assigned
+
+.. image:: _static/Ch9_skills_integration_test_assignment.png
+
+Addressing Table Assigned
+
++--------+-----------+---------------+-----------------+-----------------+
+| Device | Interface | IP Address    | Subnet Mask     | Default Gateway |
++========+===========+===============+=================+=================+
+|        | G0/0.15   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.30   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.45   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.60   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/1    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/1/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0      |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/1    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0      |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/1    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | VLAN 60   |               |                 |                 |
++--------+-----------+---------------+-----------------+-----------------+
+|        | NIC       | DHCP Assigned | DHCP Assigned   | DHCP Assigned   |
++--------+-----------+---------------+-----------------+-----------------+
+
+VLANs and Port Assignments Table Given
+
++--------------------+-----------------+---------+
+| VLAN Number - Name | Port assignment | Network |
++====================+=================+=========+
+| 15- Servers        | F0/11 - F0/20   |         |
++--------------------+-----------------+---------+
+| 30- PCs            | F0/1 - F0/10    |         |
++--------------------+-----------------+---------+
+| 45- Native         | G0/1            |         |
++--------------------+-----------------+---------+
+| 60 - Management    | VLAN 60         |         |
++--------------------+-----------------+---------+
+
++ complete the documentation for the network
++ configure VLANS, Trunking, port security and SSH remote access on a switch
++ implement inter-VLAN routing and NAT on a router
++ Use your documentation to verify implementation & test end2end connectivity
+
+#. Label All the device names, network addresses and other important information
+#. Complete the **Addressing Table** and **VLANS & Port assignment Table**
+#. Fill in any blanks in the implementation and verification steps. The information is supplied when 
+   you launch the Packet Tracer activity.
+
+Implementation Given
+^^^^^^^^^^^^^^^^^^^^
+
+Note: All devices in the topology except , , and    are fully configured. You do not have access to the other routers. You can access all the servers and PCs for testing purposes.
+
+Implement to following requirements using your documentation: 
+• Configure remote management access including IP addressing and SSH:
+  
+  - Domain is cisco.com
+  - User     with password
+  - Crypto key length of 1024
+  - SSH version 2, limited to 2 authentication attempts and a 60 second timeout
+  - Clear text passwords should be encrypted.
+
+• Configure, name and assign VLANs. Ports should be manually configured as access ports.
+• Configure trunking.
+• Implement port security:
+
+  - On Fa0/1, allow 2 MAC addresses that are automatically added to the configuration file when detected. The port should not be disabled, but a syslog message should be captured if a violation occurs.
+  - Disable all other unused ports.
+
+• Configure inter-VLAN routing.
+• Configure DHCP services for VLAN 30. Use **LAN** as the case-sensitive name for the pool.
+• Implement routing:
+
+- Use RIPv2 as the routing protocol.
+- Configure one network statement for the entire address space. 
+- Disable interfaces that should not send RIPv2 messages.
+- Configure a default route to the Internet.
+
+• Implement NAT:
+
+  - Configure a standard, one statement ACL number 1. All IP addresses belonging to the addr ess space are allowed.
+  - Refer to your documentation and configure static NAT for the File Server.
+  - Configure dynamic NAT with PAT using a pool name of your choice, a /30 mask, and these two public addresses: 
+
+Verify       has received full addressing information from       .
+
+Verification Given
+^^^^^^^^^^^^^^^^^^
+
+All devices should now be able to ping all other devices. If not, troubleshoot your configurations to isolate and solve problems. A few tests include:
+• Verify remote access to       by using SSH from a PC.
+• Verify VLANs are assigned to appropriate ports and port security is in force.
+• Verify OSPF neighbors and a complete routing table.
+• Verify NAT translations and statics. 
+
+  - **Outside Host** should be able to access **File Server** at the public address.
+  - Inside PCs should be able to access **Web Server**.
+
+• Document any problems you encountered and the solutions in the **Troubleshooting Documentation** table below.
+       
+Troubleshooting Documentation
+
++-------------------------+--------------------------+
+| ________Problem________ | ________Solution________ |
++=========================+==========================+
+|                         |                          |
++-------------------------+--------------------------+
+|                         |                          |
++-------------------------+--------------------------+
+|                         |                          |
++-------------------------+--------------------------+
+|                         |                          |
++-------------------------+--------------------------+
+Packet Tracer scores 70 points.  Documentation is worth 30 points.
+
+Ch9 Skills Integration Test - Solution
+--------------------------------------
+
+Topology Solved 
+
+.. image:: _static/Ch9_Skills_integration_test.png
+
+
+Addressing Table Solved
+
++---------+-----------+----------------+-----------------+-----------------+
+| Device  | Interface | IP Address     | Subnet Mask     | Default Gateway |
++=========+===========+================+=================+=================+
+| Central | G0/0.15   | 172.16.15.17   | 255.255.255.240 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | G0/0.30   | 172.16.15.33   | 255.255.255.224 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | G0/0.45   | 172.16.15.1    | 255.255.255.248 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | G0/0.60   | 172.16.15.9    | 255.255.255.248 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/0    | 172.16.15.245  | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/1    | 172.16.15.254  | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/1/0    | 192.135.250.18 | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+| East    | G0/0      | 172.16.15.65   | 255.255.255.192 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/0    | 172.16.15.249  | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/1    | 172.16.15.246  | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+| West    | G0/0      | 172.16.15.129  | 255.255.255.192 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/0    | 172.16.15.253  | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+|         | S0/0/1    | 172.16.15.250  | 255.255.255.252 | N/A             |
++---------+-----------+----------------+-----------------+-----------------+
+| Cnt-Sw  | VLAN 60   | 172.16.15.10   |                 |                 |
++---------+-----------+----------------+-----------------+-----------------+
+|         | NIC       | DHCP Assigned  | DHCP Assigned   | DHCP Assigned   |
++---------+-----------+----------------+-----------------+-----------------+
+
+VLANs and Port Assignments Table Solved 
+
++--------------------+-----------------+------------------+
+| VLAN Number - Name | Port assignment | Network          |
++====================+=================+==================+
+| 15 - Servers       | F0/11 - F0/20   | 172.16.15.16 /28 |
++--------------------+-----------------+------------------+
+| 30 - PCs           | F0/1 - F0/10    | 172.16.15.32 /27 |
++--------------------+-----------------+------------------+
+| 45 - Native        | G0/1            | 172.16.15.0  /29 |
++--------------------+-----------------+------------------+
+| 60 - Management    | VLAN 60         | 172.16.15.8  /29 |
++--------------------+-----------------+------------------+
+
++ complete the documentation for the network
++ configure VLANS, Trunking, port security and SSH remote access on a switch
++ implement inter-VLAN routing and NAT on a router
++ Use your documentation to verify implementation & test end2end connectivity
+
+#. Label All the device names, network addresses and other important information
+#. Complete the **Addressing Table** and **VLANS & Port assignment Table**
+#. Fill in any blanks in the implementation and verification steps. The information is supplied when 
+   you launch the Packet Tracer activity.
+
+Implementation completed 
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note:: All devices in the topology except Central, Cnt-Sw, and NetAdmin are fully configured. You do not have access to the other routers. You can access all the servers and PCs for testing purposes.
+
+Implement to following requirements using your documentation: 
+
+Cnt-Sw
+
+• Configure remote management access including IP addressing and SSH:
+  
+  - Domain is cisco.com
+  - User HQadmin with password ciscoclass
+  - Crypto key length of 1024
+  - SSH version 2, limited to 2 authentication attempts and a 60 second timeout
+  - Clear text passwords should be encrypted.
+
+• Configure, name and assign VLANs. Ports should be manually configured as access ports.
+• Configure trunking.
+• Implement port security:
+
+  - On Fa0/1, allow 2 MAC addresses that are automatically added to the configuration file when detected. The port should not be disabled, but a syslog message should be captured if a violation occurs.
+  - Disable all other unused ports.
+
+Central
+
+• Configure inter-VLAN routing.
+• Configure DHCP services for VLAN 30. Use **LAN** as the case-sensitive name for the pool.
+• Implement routing:
+  
+  - Use OSPF Process ID 1 and router ID 1.1.1.1
+  - Configure one network statement for the entire 172.16.15.0/24 address space. 
+  - Disable interfaces that should not send RIPv2 messages.
+  - Configure a default route to the Internet.
+
+  • Implement NAT:
+
+    - Configure a standard, one statement ACL number 1. All IP addresses belonging to thei 172.16.15.0/24 address space are allowed.
+    - Refer to your documentation and configure static NAT for the File Server.
+    - Configure dynamic NAT with PAT using a pool name of your choice, a /30 mask, and these two public addresses: 
+      209.165.200.225 and 209.165.200.226
+
+NetAdmin
+
+• Verify NetAdmin has received full addressing information from Central.
+
+
+Verification Solved
+^^^^^^^^^^^^^^^^^^^
+
+All devices should now be able to ping all other devices. If not, troubleshoot your configurations to isolate and solve problems. A few tests include:
+• Verify remote access to Cnt-Sw by using SSH from a PC.
+• Verify VLANs are assigned to appropriate ports and port security is in force.
+• Verify OSPF neighbors and a complete routing table.
+• Verify NAT translations and statics. 
+
+  - **Outside Host** should be able to access **File Server** at the public address.
+  - Inside PCs should be able to access **Web Server**.
+
+• Document any problems you encountered and the solutions in the **Troubleshooting Documentation** table below.
+       

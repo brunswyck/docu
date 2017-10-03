@@ -287,6 +287,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-nat">Troubleshooting NAT</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pt-troubleshooting-nat-ex1">PT Troubleshooting NAT ex1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#lab-troubleshooting-nat">LAB Troubleshooting NAT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ch9-skills-integration-test-assignment">Ch9 Skills Integration Test - assignment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ch9-skills-integration-test-solution">Ch9 Skills Integration Test - Solution</a></li>
 </ul>
 </li>
 </ul>
@@ -11330,31 +11332,237 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 </tbody>
 </table>
 <p>Objectives</p>
-<p>Part 1: Isolate Problems
-Part 2: Troubleshoot NAT Configuration
-Part 3: Verify Connectivity</p>
+<p>Part 1: Isolate Problems</p>
+<p>Part 2: Troubleshoot NAT Configuration</p>
+<p>Part 3: Verify Connectivity</p>
 <p>Scenario</p>
 <p>A contractor restored an old configuration to a new router running NAT. But, the network has changed and a new subnet was added after the old configuration was backed up. It is your job to get the network working again.</p>
 <p>Ping Server1 from PC1, PC2, L1, L2, and R2.
 Record the success of each ping. Ping any other machines as needed.</p>
+<dl class="docutils">
+<dt>Pinging 64.100.201.5 with 32 bytes of data:</dt>
+<dd><dl class="first last docutils">
+<dt>from pc1</dt>
+<dd>Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)</dd>
+<dt>from pc2</dt>
+<dd>Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)</dd>
+<dt>from L1</dt>
+<dd>Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)</dd>
+<dt>from L2</dt>
+<dd>Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)</dd>
+<dt>from R2</dt>
+<dd><p class="first">R2#ping 64.100.201.5</p>
+<p>Sending 5, 100-byte ICMP Echos to 64.100.201.5, timeout is 2 seconds</p>
+<p class="last">Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </div>
 <div class="section" id="pt-troubleshoot-nat-configuration">
 <h5>PT Troubleshoot NAT Configuration<a class="headerlink" href="#pt-troubleshoot-nat-configuration" title="Permalink to this headline">¶</a></h5>
-<ol class="arabic simple">
-<li>View the NAT translations on R2. If NAT is working, there should be table entries.</li>
-<li>Show the running configuration of R2. The NAT inside port should align with the private address, while the NAT outside port should align with the public address.</li>
-<li>Correct the Interfaces. Assign the ip nat inside and ip nat outside commands to the correct ports.</li>
-<li>Ping Server1 from PC1, PC2, L1, L2, and R2. Record the success of each ping. Ping any other machines as needed.</li>
-<li>View the NAT translations on R2. If NAT is working, there should be table entries.</li>
-<li>Show Access-list 101 on R2. The wildcard mask should encompass both the 10.4.10.0 network and the 10.4.11.0 network.</li>
-<li>Correct the Access-list. Delete access-list 101 and replace it with a similar list that is also one statement in length. The only difference should be the wildcard.</li>
+<ol class="arabic">
+<li><p class="first">View the NAT translations on R2. If NAT is working, there should be table entries.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translation</span>
+<span class="n">R2</span><span class="c1">#show ip nat statistics</span>
+<span class="n">Total</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">0</span> <span class="n">dynamic</span><span class="p">,</span> <span class="mi">0</span> <span class="n">extended</span><span class="p">)</span>
+<span class="n">Outside</span> <span class="n">Interfaces</span><span class="p">:</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">Inside</span> <span class="n">Interfaces</span><span class="p">:</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">Hits</span><span class="p">:</span> <span class="mi">0</span>  <span class="n">Misses</span><span class="p">:</span> <span class="mi">16</span>
+<span class="n">Expired</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Dynamic</span> <span class="n">mappings</span><span class="p">:</span>
+<span class="o">--</span> <span class="n">Inside</span> <span class="n">Source</span>
+<span class="n">access</span><span class="o">-</span><span class="nb">list</span> <span class="mi">101</span> <span class="n">pool</span> <span class="n">R2POOL</span> <span class="n">refCount</span> <span class="mi">0</span>
+ <span class="n">pool</span> <span class="n">R2POOL</span><span class="p">:</span> <span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.224</span>
+       <span class="n">start</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="n">end</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.223</span>
+       <span class="nb">type</span> <span class="n">generic</span><span class="p">,</span> <span class="n">total</span> <span class="n">addresses</span> <span class="mi">29</span> <span class="p">,</span> <span class="n">allocated</span> <span class="mi">0</span> <span class="p">(</span><span class="mi">0</span><span class="o">%</span><span class="p">),</span> <span class="n">misses</span> <span class="mi">0</span>
+
+<span class="n">so</span> <span class="n">the</span> <span class="n">statistics</span> <span class="n">tell</span> <span class="n">us</span> <span class="n">that</span> <span class="n">there</span> <span class="n">were</span> <span class="mi">16</span> <span class="n">misses</span> <span class="n">on</span> <span class="n">the</span> <span class="n">inside</span> <span class="n">interface</span> <span class="n">Serial</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">Indeed</span> <span class="n">we</span> <span class="n">deed</span> <span class="n">pings</span> <span class="kn">from</span> <span class="mi">4</span> <span class="n">locations</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">network</span> <span class="n">to</span> <span class="n">this</span> <span class="n">interface</span> <span class="n">towards</span> <span class="n">server1</span> <span class="n">this</span> <span class="n">makes</span> <span class="n">sense</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Show the running configuration of R2. The NAT inside port should align with the private address, while the NAT outside port should align with the public address.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>!
+interface Serial0/0/0
+ ip address 209.165.76.194 255.255.255.224
+ ip nat inside
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 10.4.1.1 255.255.255.252
+ ip nat outside
+ clock rate 2000000
+!
+ip nat pool R2POOL 209.165.76.195 209.165.76.223 netmask 255.255.255.224
+ip nat inside source list 101 pool R2POOL
+!
+ip route 10.0.0.0 255.0.0.0 10.4.1.2
+ip route 0.0.0.0 0.0.0.0 209.165.76.193
+!
+access-list 101 permit ip 10.4.10.0 0.0.0.255 any
+!
+</pre></div>
+</div>
+<p>Inside and outside are incorrectly configured, got it backwards here</p>
+</li>
+<li><p class="first">Correct the Interfaces. Assign the ip nat inside and ip nat outside commands to the correct ports.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">nat</span> <span class="n">debugging</span> <span class="ow">is</span> <span class="n">on</span>
+
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface Serial 0/0/1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no ip nat outside</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">ip_ifnat_modified</span><span class="p">:</span> <span class="n">old_if</span> <span class="mi">1</span><span class="p">,</span> <span class="n">new_if</span> <span class="mi">2</span>
+
+<span class="n">ip</span> <span class="n">nat</span> <span class="n">inside</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">ip_ifnat_modified</span><span class="p">:</span> <span class="n">old_if</span> <span class="mi">2</span><span class="p">,</span> <span class="n">new_if</span> <span class="mi">0</span>
+
+<span class="n">now</span> <span class="n">configure</span> <span class="n">serial</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> <span class="k">as</span> <span class="n">outside</span> <span class="n">nat</span> <span class="k">if</span>
+<span class="o">--------------------------------------------</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#interface Serial 0/0/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no ip nat insid</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no ip nat inside</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">ip_ifnat_modified</span><span class="p">:</span> <span class="n">old_if</span> <span class="mi">0</span><span class="p">,</span> <span class="n">new_if</span> <span class="mi">2</span>
+
+<span class="n">ip</span> <span class="n">nat</span> <span class="n">outside</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">ip_ifnat_modified</span><span class="p">:</span> <span class="n">old_if</span> <span class="mi">2</span><span class="p">,</span> <span class="n">new_if</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Ping Server1 from PC1, PC2, L1, L2, and R2. Record the success of each ping. Ping any other machines as needed.</p>
+<dl class="docutils">
+<dt>from L1 and L2</dt>
+<dd><p class="first last">same as before, ping unsuccessful and increasing the miss counter in ip nat statistics</p>
+</dd>
+<dt>from PC1 is successful</dt>
+<dd><p class="first">see NAT translations working and later expiring via debug ip nat after the ping from PC1 (ip 10.4.10.1)</p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">33</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">34</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">35</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">36</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">5</span> <span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">6</span> <span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">7</span> <span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">8</span> <span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>View the NAT translations on R2. If NAT is working, there should be table entries.</dt>
+<dd><p class="first">Well NAT is not working properly yet as only nodes on the 10.4.10.0/24 network are being translated
+the 10.4.11.0/24 ain’t getting any..</p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translations</span>
+<span class="n">Pro</span>  <span class="n">Inside</span> <span class="k">global</span>     <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">10</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">10</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">10</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">10</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">11</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">11</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">11</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">11</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">12</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">12</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">12</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">12</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">9</span>  <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">9</span>        <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">9</span>     <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">9</span>
+<span class="n">R2</span><span class="c1">#</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">9</span> <span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">10</span> <span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">11</span> <span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">12</span> <span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p class="first">Show Access-list 101 on R2. The wildcard mask should encompass both the 10.4.10.0 network and the 10.4.11.0 network.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip access-list</span>
+<span class="n">Extended</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="mi">101</span>
+    <span class="mi">10</span> <span class="n">permit</span> <span class="n">ip</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.0</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span> <span class="nb">any</span> <span class="p">(</span><span class="mi">16</span> <span class="n">match</span><span class="p">(</span><span class="n">es</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>obviously the 11 isn’t included.. lets fix this</p>
+</li>
+<li><p class="first">Correct the Access-list. Delete access-list 101 and replace it with a similar list that is also one statement in length. The only difference should be the wildcard.</p>
+<p>to include the 11 we will need to change the third octet of the wildcard..
+so to include 11 would be like changing the subnet from 24 to 23 which means 2^23 network bits and 2^9 host bits = 510 nodes
+so 255.255.255.255</p>
+<blockquote>
+<div><ul class="simple">
+<li>255.255.254.0 (/23 instead of /24)</li>
+</ul>
+<p>=   0.  0.  1.255</p>
+</div></blockquote>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no access-list 101 permit ip 10.4.10.0 0.0.0.255 any</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#access-list 101 permit ip 10.4.10.0 0.0.1.255 any</span>
+</pre></div>
+</div>
+</li>
 </ol>
 </div>
 <div class="section" id="pt-verify-connectivity">
 <h5>PT Verify Connectivity<a class="headerlink" href="#pt-verify-connectivity" title="Permalink to this headline">¶</a></h5>
-<ol class="arabic simple">
-<li>Verify connectivity to Server1. Record the success of each ping. All hosts should be able to ping Server1, R1, and R2. Troubleshoot if the pings are not successful.</li>
-<li>View the NAT translations on R2. NAT should display many table entries.</li>
+<ol class="arabic">
+<li><p class="first">Verify connectivity to Server1. Record the success of each ping. All hosts should be able to ping Server1, R1, and R2. Troubleshoot if the pings are not successful.
+sure enough pings are working now</p>
+</li>
+<li><p class="first">View the NAT translations on R2. NAT should display many table entries.
+launch a ping from a node in each network and check nat translations with debugging on for bonus kudos</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="o">&gt;</span><span class="n">en</span>
+<span class="n">R2</span><span class="c1">#show ip nat translation</span>
+<span class="n">R2</span><span class="c1">#</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">29</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span> <span class="p">[</span><span class="mi">49</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">30</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span> <span class="p">[</span><span class="mi">50</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">31</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span> <span class="p">[</span><span class="mi">51</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">32</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span> <span class="p">[</span><span class="mi">52</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">13</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">53</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">14</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">54</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">55</span><span class="p">]</span>
+
+<span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">56</span><span class="p">]</span>
+<span class="n">show</span> <span class="n">ip</span> <span class="n">nat</span> <span class="n">translation</span>
+<span class="n">Pro</span>  <span class="n">Inside</span> <span class="k">global</span>     <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">29</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">:</span><span class="mi">29</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">29</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">29</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">30</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">:</span><span class="mi">30</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">30</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">30</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">31</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">:</span><span class="mi">31</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">31</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">31</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">32</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">:</span><span class="mi">32</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">32</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">32</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">:</span><span class="mi">13</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">13</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">13</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">13</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">:</span><span class="mi">14</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">14</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">14</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">14</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">:</span><span class="mi">15</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">15</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">15</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">15</span>
+<span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span><span class="p">:</span><span class="mi">16</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">16</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">16</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">16</span>
+
+<span class="n">R2</span><span class="c1">#</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">29</span> <span class="p">(</span><span class="mi">29</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">30</span> <span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">31</span> <span class="p">(</span><span class="mi">31</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">32</span> <span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">13</span> <span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">14</span> <span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">15</span> <span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">NAT</span><span class="p">:</span> <span class="n">expiring</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.196</span> <span class="p">(</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">)</span> <span class="n">icmp</span> <span class="mi">16</span> <span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -11551,6 +11759,481 @@ What percentage of dynamic addresses has been allocated?</p>
 <li>What is the benefit of a static NAT?</li>
 <li>What issues would arise if 10 host computers in this network were attempting simultaneous Internet communication?</li>
 </ol>
+</div>
+</div>
+<div class="section" id="ch9-skills-integration-test-assignment">
+<h4>Ch9 Skills Integration Test - assignment<a class="headerlink" href="#ch9-skills-integration-test-assignment" title="Permalink to this headline">¶</a></h4>
+<p>Topology Assigned</p>
+<img alt="_images/Ch9_skills_integration_test_assignment.png" src="_images/Ch9_skills_integration_test_assignment.png" />
+<p>Addressing Table Assigned</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+<col width="22%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#160;</td>
+<td>G0/0.15</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/0.30</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>G0/0.45</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/0.60</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/1/0</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>G0/0</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>&#160;</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>VLAN 60</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>NIC</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+</tr>
+</tbody>
+</table>
+<p>VLANs and Port Assignments Table Given</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="37%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">VLAN Number - Name</th>
+<th class="head">Port assignment</th>
+<th class="head">Network</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>15- Servers</td>
+<td>F0/11 - F0/20</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>30- PCs</td>
+<td>F0/1 - F0/10</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>45- Native</td>
+<td>G0/1</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>60 - Management</td>
+<td>VLAN 60</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>complete the documentation for the network</li>
+<li>configure VLANS, Trunking, port security and SSH remote access on a switch</li>
+<li>implement inter-VLAN routing and NAT on a router</li>
+<li>Use your documentation to verify implementation &amp; test end2end connectivity</li>
+</ul>
+<ol class="arabic simple">
+<li>Label All the device names, network addresses and other important information</li>
+<li>Complete the <strong>Addressing Table</strong> and <strong>VLANS &amp; Port assignment Table</strong></li>
+<li>Fill in any blanks in the implementation and verification steps. The information is supplied when
+you launch the Packet Tracer activity.</li>
+</ol>
+<div class="section" id="implementation-given">
+<h5>Implementation Given<a class="headerlink" href="#implementation-given" title="Permalink to this headline">¶</a></h5>
+<p>Note: All devices in the topology except , , and    are fully configured. You do not have access to the other routers. You can access all the servers and PCs for testing purposes.</p>
+<p>Implement to following requirements using your documentation:
+• Configure remote management access including IP addressing and SSH:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Domain is cisco.com</li>
+<li>User     with password</li>
+<li>Crypto key length of 1024</li>
+<li>SSH version 2, limited to 2 authentication attempts and a 60 second timeout</li>
+<li>Clear text passwords should be encrypted.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Configure, name and assign VLANs. Ports should be manually configured as access ports.</li>
+<li>Configure trunking.</li>
+<li>Implement port security:<ul>
+<li>On Fa0/1, allow 2 MAC addresses that are automatically added to the configuration file when detected. The port should not be disabled, but a syslog message should be captured if a violation occurs.</li>
+<li>Disable all other unused ports.</li>
+</ul>
+</li>
+<li>Configure inter-VLAN routing.</li>
+<li>Configure DHCP services for VLAN 30. Use <strong>LAN</strong> as the case-sensitive name for the pool.</li>
+<li>Implement routing:</li>
+</ul>
+<ul class="simple">
+<li>Use RIPv2 as the routing protocol.</li>
+<li>Configure one network statement for the entire address space.</li>
+<li>Disable interfaces that should not send RIPv2 messages.</li>
+<li>Configure a default route to the Internet.</li>
+</ul>
+<ul class="simple">
+<li>Implement NAT:<ul>
+<li>Configure a standard, one statement ACL number 1. All IP addresses belonging to the addr ess space are allowed.</li>
+<li>Refer to your documentation and configure static NAT for the File Server.</li>
+<li>Configure dynamic NAT with PAT using a pool name of your choice, a /30 mask, and these two public addresses:</li>
+</ul>
+</li>
+</ul>
+<p>Verify       has received full addressing information from       .</p>
+</div>
+<div class="section" id="verification-given">
+<h5>Verification Given<a class="headerlink" href="#verification-given" title="Permalink to this headline">¶</a></h5>
+<p>All devices should now be able to ping all other devices. If not, troubleshoot your configurations to isolate and solve problems. A few tests include:
+• Verify remote access to       by using SSH from a PC.
+• Verify VLANs are assigned to appropriate ports and port security is in force.
+• Verify OSPF neighbors and a complete routing table.
+• Verify NAT translations and statics.</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Outside Host</strong> should be able to access <strong>File Server</strong> at the public address.</li>
+<li>Inside PCs should be able to access <strong>Web Server</strong>.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Document any problems you encountered and the solutions in the <strong>Troubleshooting Documentation</strong> table below.</li>
+</ul>
+<p>Troubleshooting Documentation</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">________Problem________</th>
+<th class="head">________Solution________</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Packet Tracer scores 70 points.  Documentation is worth 30 points.</p>
+</div>
+</div>
+<div class="section" id="ch9-skills-integration-test-solution">
+<h4>Ch9 Skills Integration Test - Solution<a class="headerlink" href="#ch9-skills-integration-test-solution" title="Permalink to this headline">¶</a></h4>
+<p>Topology Solved</p>
+<img alt="_images/Ch9_Skills_integration_test.png" src="_images/Ch9_Skills_integration_test.png" />
+<p>Addressing Table Solved</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="16%" />
+<col width="23%" />
+<col width="24%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Central</td>
+<td>G0/0.15</td>
+<td>172.16.15.17</td>
+<td>255.255.255.240</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/0.30</td>
+<td>172.16.15.33</td>
+<td>255.255.255.224</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>G0/0.45</td>
+<td>172.16.15.1</td>
+<td>255.255.255.248</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>G0/0.60</td>
+<td>172.16.15.9</td>
+<td>255.255.255.248</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>172.16.15.245</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>172.16.15.254</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/1/0</td>
+<td>192.135.250.18</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>East</td>
+<td>G0/0</td>
+<td>172.16.15.65</td>
+<td>255.255.255.192</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>172.16.15.249</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>172.16.15.246</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>West</td>
+<td>G0/0</td>
+<td>172.16.15.129</td>
+<td>255.255.255.192</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>172.16.15.253</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>172.16.15.250</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>Cnt-Sw</td>
+<td>VLAN 60</td>
+<td>172.16.15.10</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>NIC</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+<td>DHCP Assigned</td>
+</tr>
+</tbody>
+</table>
+<p>VLANs and Port Assignments Table Solved</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="31%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">VLAN Number - Name</th>
+<th class="head">Port assignment</th>
+<th class="head">Network</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>15 - Servers</td>
+<td>F0/11 - F0/20</td>
+<td>172.16.15.16 /28</td>
+</tr>
+<tr class="row-odd"><td>30 - PCs</td>
+<td>F0/1 - F0/10</td>
+<td>172.16.15.32 /27</td>
+</tr>
+<tr class="row-even"><td>45 - Native</td>
+<td>G0/1</td>
+<td>172.16.15.0  /29</td>
+</tr>
+<tr class="row-odd"><td>60 - Management</td>
+<td>VLAN 60</td>
+<td>172.16.15.8  /29</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>complete the documentation for the network</li>
+<li>configure VLANS, Trunking, port security and SSH remote access on a switch</li>
+<li>implement inter-VLAN routing and NAT on a router</li>
+<li>Use your documentation to verify implementation &amp; test end2end connectivity</li>
+</ul>
+<ol class="arabic simple">
+<li>Label All the device names, network addresses and other important information</li>
+<li>Complete the <strong>Addressing Table</strong> and <strong>VLANS &amp; Port assignment Table</strong></li>
+<li>Fill in any blanks in the implementation and verification steps. The information is supplied when
+you launch the Packet Tracer activity.</li>
+</ol>
+<div class="section" id="implementation-completed">
+<h5>Implementation completed<a class="headerlink" href="#implementation-completed" title="Permalink to this headline">¶</a></h5>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All devices in the topology except Central, Cnt-Sw, and NetAdmin are fully configured. You do not have access to the other routers. You can access all the servers and PCs for testing purposes.</p>
+</div>
+<p>Implement to following requirements using your documentation:</p>
+<p>Cnt-Sw</p>
+<ul class="simple">
+<li>Configure remote management access including IP addressing and SSH:<ul>
+<li>Domain is cisco.com</li>
+<li>User HQadmin with password ciscoclass</li>
+<li>Crypto key length of 1024</li>
+<li>SSH version 2, limited to 2 authentication attempts and a 60 second timeout</li>
+<li>Clear text passwords should be encrypted.</li>
+</ul>
+</li>
+<li>Configure, name and assign VLANs. Ports should be manually configured as access ports.</li>
+<li>Configure trunking.</li>
+<li>Implement port security:<ul>
+<li>On Fa0/1, allow 2 MAC addresses that are automatically added to the configuration file when detected. The port should not be disabled, but a syslog message should be captured if a violation occurs.</li>
+<li>Disable all other unused ports.</li>
+</ul>
+</li>
+</ul>
+<p>Central</p>
+<ul>
+<li><p class="first">Configure inter-VLAN routing.</p>
+</li>
+<li><p class="first">Configure DHCP services for VLAN 30. Use <strong>LAN</strong> as the case-sensitive name for the pool.</p>
+</li>
+<li><p class="first">Implement routing:</p>
+<ul class="simple">
+<li>Use OSPF Process ID 1 and router ID 1.1.1.1</li>
+<li>Configure one network statement for the entire 172.16.15.0/24 address space.</li>
+<li>Disable interfaces that should not send RIPv2 messages.</li>
+<li>Configure a default route to the Internet.</li>
+</ul>
+<ul class="simple">
+<li>Implement NAT:<ul>
+<li>Configure a standard, one statement ACL number 1. All IP addresses belonging to thei 172.16.15.0/24 address space are allowed.</li>
+<li>Refer to your documentation and configure static NAT for the File Server.</li>
+<li>Configure dynamic NAT with PAT using a pool name of your choice, a /30 mask, and these two public addresses:
+209.165.200.225 and 209.165.200.226</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>NetAdmin</p>
+<ul class="simple">
+<li>Verify NetAdmin has received full addressing information from Central.</li>
+</ul>
+</div>
+<div class="section" id="verification-solved">
+<h5>Verification Solved<a class="headerlink" href="#verification-solved" title="Permalink to this headline">¶</a></h5>
+<p>All devices should now be able to ping all other devices. If not, troubleshoot your configurations to isolate and solve problems. A few tests include:
+• Verify remote access to Cnt-Sw by using SSH from a PC.
+• Verify VLANs are assigned to appropriate ports and port security is in force.
+• Verify OSPF neighbors and a complete routing table.
+• Verify NAT translations and statics.</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Outside Host</strong> should be able to access <strong>File Server</strong> at the public address.</li>
+<li>Inside PCs should be able to access <strong>Web Server</strong>.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Document any problems you encountered and the solutions in the <strong>Troubleshooting Documentation</strong> table below.</li>
+</ul>
 </div>
 </div>
 </div>
