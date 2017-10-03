@@ -10543,8 +10543,8 @@ Troubleshooting Documentation
 
 Packet Tracer scores 70 points.  Documentation is worth 30 points.
 
-Ch9 Skills Integration Test - Solution
---------------------------------------
+Ch9 Skills Integration Test - when opened with PT 7.0 on windos 
+---------------------------------------------------------------
 
 Topology Solved 
 
