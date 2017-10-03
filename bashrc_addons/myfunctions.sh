@@ -1,6 +1,8 @@
 # Adds the current branch to the bash prompt when the working directory is
 # part of a Git repository. Includes color-coding and indicators to quickly
 
+killbrowser() { kill -s 9 "$(ps --user patrick | grep browser | cut -d ' ' -f 2)"; }
+
 push_docs2github() {
     cddocu    
     source ~/docu/sphinx/env/bin/activate
