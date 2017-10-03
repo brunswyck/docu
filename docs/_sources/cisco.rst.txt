@@ -10047,13 +10047,12 @@ Pinging 64.100.201.5 with 32 bytes of data:
  from L2
   Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)
  from R2
-  R2#ping 64.100.201.5
-
-  Sending 5, 100-byte ICMP Echos to 64.100.201.5, timeout is 2 seconds
-
-  !!!!!
-
-  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms
+  .. code::
+  
+     R2#ping 64.100.201.5
+     Sending 5, 100-byte ICMP Echos to 64.100.201.5, timeout is 2 seconds
+     !!!!!
+     Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms
 
 
 
@@ -10192,9 +10191,9 @@ PT Troubleshoot NAT Configuration
    
    to include the 11 we will need to change the third octet of the wildcard..
    so to include 11 would be like changing the subnet from 24 to 23 which means 2^23 network bits and 2^9 host bits = 510 nodes
-   so 255.255.255.255
-    - 255.255.254.0 (/23 instead of /24)
-    =   0.  0.  1.255   
+   so  255.255.255.255
+   | - 255.255.254.0 (/23 instead of /24)
+   | =   0.  0.  1.255
 
    .. code::
 
@@ -10541,6 +10540,7 @@ Troubleshooting Documentation
 +-------------------------+--------------------------+
 |                         |                          |
 +-------------------------+--------------------------+
+
 Packet Tracer scores 70 points.  Documentation is worth 30 points.
 
 Ch9 Skills Integration Test - Solution
@@ -10550,6 +10550,7 @@ Topology Solved
 
 .. image:: _static/Ch9_Skills_integration_test.png
 
+???????why are ips present here and not in PDF ????????
 
 Addressing Table Solved
 
@@ -10641,7 +10642,7 @@ Central
 • Configure DHCP services for VLAN 30. Use **LAN** as the case-sensitive name for the pool.
 • Implement routing:
   
-  - Use OSPF Process ID 1 and router ID 1.1.1.1
+  - Use OSPF Process ID 1 and router ID 1.1.1.1 ?????? why was RIPv2 asked in PDF??????
   - Configure one network statement for the entire 172.16.15.0/24 address space. 
   - Disable interfaces that should not send RIPv2 messages.
   - Configure a default route to the Internet.
