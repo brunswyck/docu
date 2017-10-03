@@ -563,44 +563,44 @@ install vundle plugin on vim
 to install all of them
 
 :BundleInstall
+ <td>Exactly n occurrences of the preceding atom.</td>
+ </tr>
+ <tr>
+ <td><code>\{-</code>n<code>,}</code></td>
+ <td>At least n occurrences of the preceding atom (as few as possible).</td>
+ </tr>
+ <tr>
+ <td><code>\{-,</code>m<code>}</code></td>
+ <td>0 to n occurrences of the preceding atom (as few as possible).</td>
+ </tr>
+ <tr>
+ <td><code>\{-}</code></td>
+ <td>0 or more occurrences of the preceding atom (as few as possible).</td>
+ </tr>
+ </tbody></table>
+ </td>
+ </tr>
+ </tbody></table>
 
-.. Place Source links below 
 
-.. |vim_searchnreplace| raw:: html
+keyboard shortcuts
+==================
 
-   <a href="http://vim.wikia.com/wiki/Search_and_replace" target="_blank">more examples here</a>
+mnemonics
+---------
 
-.. |vim_syntax_ale| raw:: html
-
-   <a href="https://github.com/w0rp/ale" target="_blank">click here for more info</a>
-
-: commands
-==========
-
-append output of external command
----------------------------------
-`append_output <http://vim.wikia.com/wiki/Append_output_of_an_external_command>`_
-
-.. code::
-
-   :read !ip neigh show dev enp0s25
-   172.16.4.254 lladdr 52:54:10:ff:10:02 REACHABLE
-
-   insert output after specified line
-   :12read !date
-
-if you want command output straight into a variable
-
-.. code::
-
-   :let curdate=system('date')
-
-    Use system() to capture the output of an external command in a script.
-    Use shellescape() to escape any arguments to an external command to avoid passing possibly dangerous commands to the shell.
-    Use setline() to change text without moving the cursor. 
-
-~/.vimrc configuration
-======================
-have vim recognize your aliases
--------------------------------
-
+* a: append or around
+* b: before
+* c: change
+* d: delete
+* e: edit
+* f: find
+* g: go
+* h: left
+* i: insert or in
+* j: down
+* k: up
+* l: right
+* m: mark
+* n: next
+* o: open a new line
