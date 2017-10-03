@@ -10999,6 +10999,7 @@ running configs:
 
 Verification Solved
 ^^^^^^^^^^^^^^^^^^^
+to be done 2morrow
 
 All devices should now be able to ping all other devices. If not, troubleshoot your configurations to isolate and solve problems. A few tests include:
 • Verify remote access to Cnt-Sw by using SSH from a PC.
