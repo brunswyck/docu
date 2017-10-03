@@ -10658,6 +10658,344 @@ NetAdmin
 
 • Verify NetAdmin has received full addressing information from Central.
 
+.. note:: the default vlan needs to be configured on the router subinterface ``Central(config-subif)#encapsulation dot1Q 45 native``
+
+.. note:: ospf uses area 0 by default ``Central(config-router)#network 172.16.15.0 0.0.0.255 area 0``
+
+.. note:: don't forget to apply the ACL. PT does not score this atm. ``Central(config)#ip nat inside source list 1 pool NAT-OVERLOAD``
+
+running configs:
+
+ .. code::
+
+    Central(config-router)#do show run
+    Building configuration...
+    
+    Current configuration : 2110 bytes
+    !
+    version 15.1
+    no service timestamps log datetime msec
+    no service timestamps debug datetime msec
+    no service password-encryption
+    !
+    hostname Central
+    !
+    no logging console
+    !
+    !
+    !
+    ip dhcp excluded-address 172.16.15.33
+    !
+    ip dhcp pool LAN
+     network 172.16.15.32 255.255.255.224
+     default-router 172.16.15.33
+    !
+    !
+    !
+    ip cef
+    no ipv6 cef
+    !
+    !
+    !
+    !
+    license udi pid CISCO1941/K9 sn FTX1524OT6M
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    !
+    spanning-tree mode pvst
+    !
+    !
+    !
+    !
+    interface GigabitEthernet0/0
+     no ip address
+     ip nat inside
+     duplex auto
+     speed auto
+    !
+    interface GigabitEthernet0/0.15
+     description ros-vlan15
+     encapsulation dot1Q 15
+     ip address 172.16.15.17 255.255.255.240
+     ip nat inside
+    !
+    interface GigabitEthernet0/0.30
+     description ros-vlan30
+     encapsulation dot1Q 30
+     ip address 172.16.15.33 255.255.255.224
+     ip nat inside
+    !
+    interface GigabitEthernet0/0.45
+     description ros-vlan45-native
+     encapsulation dot1Q 45 native
+     ip address 172.16.15.1 255.255.255.248
+     ip nat inside
+    !
+    interface GigabitEthernet0/0.60
+     encapsulation dot1Q 60
+     ip address 172.16.15.9 255.255.255.248
+     ip nat inside
+    !
+    interface GigabitEthernet0/1
+     no ip address
+     duplex auto
+     speed auto
+     shutdown
+    !
+    interface Serial0/0/0
+     ip address 172.16.15.245 255.255.255.252
+     ip nat inside
+     clock rate 2000000
+    !
+    interface Serial0/0/1
+     ip address 172.16.15.254 255.255.255.252
+     ip nat inside
+    !
+    interface Serial0/1/0
+     description link2internet
+     ip address 192.135.250.18 255.255.255.252
+     ip nat outside
+    !
+    interface Serial0/1/1
+     no ip address
+     clock rate 2000000
+     shutdown
+    !
+    interface Vlan1
+     no ip address
+     shutdown
+    !
+    interface Vlan45
+     mac-address 0005.5e43.8601
+     no ip address
+    !
+    router ospf 1
+     router-id 1.1.1.1
+     log-adjacency-changes
+     passive-interface GigabitEthernet0/0
+     network 172.16.15.0 0.0.0.255 area 0
+    !
+    ip nat pool NAT-OVERLOAD 209.165.200.225 209.165.200.226 netmask 255.255.255.252
+    ip nat inside source list 1 pool NAT-OVERLOAD
+    ip nat inside source static 172.16.15.18 209.165.200.227 
+    ip classless
+    ip route 0.0.0.0 0.0.0.0 Serial0/1/0 
+    !
+    ip flow-export version 9
+    !
+    !
+    access-list 1 permit 172.16.15.0 0.0.0.255
+    !
+    !
+    !
+    !
+    !
+    line con 0
+     exec-timeout 0 0
+    !
+    line aux 0
+    !
+    line vty 0 4
+     login
+    line vty 5 15
+     login
+    !
+    !
+    !
+    end
+    
+    switch
+    ------
+    Cnt-Sw#show run
+    Building configuration...
+    
+    Current configuration : 3361 bytes
+    !
+    version 12.2
+    no service timestamps log datetime msec
+    no service timestamps debug datetime msec
+    service password-encryption
+    !
+    hostname Cnt-Sw
+    !
+    !
+    !
+    ip ssh version 2
+    ip ssh authentication-retries 2
+    ip ssh time-out 60
+    ip domain-name cisco.com
+    !
+    username HQadmin privilege 1 password 7 0822455D0A16061B13181F
+    !
+    !
+    spanning-tree mode pvst
+    !
+    interface FastEthernet0/1
+     description link2NetAdminVLAN30
+     switchport access vlan 30
+     switchport mode access
+     switchport port-security
+     switchport port-security maximum 2
+     switchport port-security mac-address sticky 
+     switchport port-security violation restrict 
+     switchport port-security mac-address sticky 0001.C90E.8923
+    !
+    interface FastEthernet0/2
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/3
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/4
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/5
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/6
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/7
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/8
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/9
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/10
+     switchport access vlan 30
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/11
+     description link2FileServerVLAN15
+     switchport access vlan 15
+     switchport mode access
+    !
+    interface FastEthernet0/12
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/13
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/14
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/15
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/16
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/17
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/18
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/19
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/20
+     switchport access vlan 15
+     switchport mode access
+     shutdown
+    !
+    interface FastEthernet0/21
+     switchport mode access
+     switchport port-security violation restrict 
+     shutdown
+    !
+    interface FastEthernet0/22
+     switchport port-security violation restrict 
+    !
+    interface FastEthernet0/23
+     switchport port-security violation restrict 
+    !
+    interface FastEthernet0/24
+     switchport port-security violation restrict 
+    !
+    interface GigabitEthernet0/1
+     description link_Trunk2Central
+     switchport trunk native vlan 45
+     switchport trunk allowed vlan 15,30,45,60
+     switchport mode trunk
+    !
+    interface GigabitEthernet0/2
+     switchport trunk native vlan 45
+     switchport trunk allowed vlan 15,30,45,60
+     switchport mode trunk
+     shutdown
+    !
+    interface Vlan1
+     no ip address
+     shutdown
+    !
+    interface Vlan60
+     mac-address 0001.c9aa.4801
+     ip address 172.16.15.10 255.255.255.248
+    !
+    ip default-gateway 172.16.15.9
+    !
+    !
+    !
+    !
+    line con 0
+    !
+    line vty 0 4
+     login local
+     transport input ssh
+     transport output none
+    line vty 5 15
+     login local
+     transport input ssh
+     transport output none
+    !
+    !
+    !
+    end
 
 Verification Solved
 ^^^^^^^^^^^^^^^^^^^
