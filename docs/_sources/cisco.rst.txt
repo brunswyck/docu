@@ -11800,12 +11800,51 @@ To view syslog messages, a syslog server must be installed on a workstation in t
 Default Logging Service Settings
 --------------------------------
 
+by default routers and switches send log messages for all security levels to the console
+``logging console``
+On some IOS version the device also **buffers** log messages
+``logging buffered``
+
+The ``show logging`` command displays the default logging service settings on a cisco router.
+
+.. image:: _static/Ch10_Show_logging.png
+
+The first highlighted line states that this router logs to the console and includes debug messages. This actually means that **all debug level messages, as well as any lower level messages (such as notification level messages), are logged to the console**. On most Cisco IOS routers, the **default severity level is 7, debugging**. The output also notes that 32 such messages have been logged.
+
+The second highlighted line states that this router logs to an internal buffer. Because this router has **enabled logging to an internal buffer**, the show logging command also lists the messages in that buffer. You can view some of the system messages that have been logged at the end of the output.
+
+Syslog configuration
+--------------------
+
+#. configure destination hostname/IPv4 of the syslog server
+
+   .. code::
+   
+      R1(config)# logging 192.168.1.3
+
+#. control messages to be sent to the syslog server with the ``logging trap`` command. E.g. 4 and lower(more severe) the msgs with a higher,less severe level are sent to console.
+
+   .. code::
+   
+      R1(config)# logging trap 4
+
+#. Optionally configure the source IF with ``logging source-interface if-type if-number``. This specifies that **syslog packets shall contain the IP of this interface** regardless of what IF the packet uses to exit the router
+
+   .. code::
+   
+      R1(config)# logging source-interface GigabitEthernet 0/0
 
 
+Verifying Syslog
+----------------
 
+.. code::
+   
+   R1# show logging | include changed state to up
+   R1# show logging | begin June 12 22:35
 
-filter output of show logging by specific date
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+filter logging with specific date
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code::
 
@@ -11813,8 +11852,8 @@ filter output of show logging by specific date
    show logging | include (Oct 30 20:44)..*(3/1/0.6/3:0)
 
 
-capture what's happening
-^^^^^^^^^^^^^^^^^^^^^^^^
+capturing traffic & EPC
+^^^^^^^^^^^^^^^^^^^^^^^
 
 To capture what's happening
  To capture what's happening on each router you can use debug ip icmp detail and debug ip packet detail, increase the buffers and record it or send it to the console and view it in real time , if your coming over the vty log to the monitor or use term mon  which replicates like logging to the console either , logging to monitor is on by default in ios so you will see debug if you enable for a specific  feature even if buffer is not set, other than that you could setup span session and capture the traffic on either side in wireshark 
@@ -11825,9 +11864,857 @@ Embedded Packet Capture (EPC)
  Embedded Packet Capture (EPC) is an onboard packet capture facility that allows network administrators to capture packets flowing to, through, and from the device and to analyze them locally or save and export them for offline analysis by using a tool such as Wireshark. This feature simplifies network operations by allowing devices to become active participants in the management and operation of the network. This feature facilitates troubleshooting by gathering information about the packet format. This feature also facilitates application analysis and security. 
 
 
+PT Configure Syslog & NTP
+-------------------------
+
+.. image:: _static/Ch10_PT_Syslog_NTP.png
+
+#. enable the syslog service on the syslog server via services tab
+   Turn it on and move the window so you can monitor actively
+  
+#. Configure intermediary devices to use the syslog server
+
+   + Configure R1 to send log events
+     
+     .. code::
+
+        R1(config)#logging ?
+        A.B.C.D   IP address of the logging host
+        buffered  Set buffered logging parameters
+        console   Set console logging parameters
+        host      Set syslog server IP address and parameters
+        on        Enable logging to all enabled destinations
+        trap      Set syslog server logging level
+        userinfo  Enable logging of user info on privileged mode enabling 
+
+        R1(config)# logging 10.0.1.254
+        R1(config)#exit
+        R1#
+        %SYS-5-CONFIG_I: Configured from console by console
+        %SYS-6-LOGGINGHOST_STARTSTOP: Logging to host 10.0.1.254 port 514 started - CLI initiated
+
+   + Configure S1 and S2 to send event to syslog server
+
+#. Change the status of interfaces to create event logs
+
+   + configure a loopback 0 interface on R1 then disable it
+   + turn off PC1 and PC2 and then turn them on again
+
+#. examine the syslog events.
+   
+   + The timestamps are incorrect!
+   + Clear the log before proceeding
+
+#. manually set the clocks on the switches to the current date and time
+
+   .. code::
+
+      S2#clock set 14:57:33 September 5 2017
+      S1#clock set 15:00:00 September 5 2017
 
 
-.. _rfc 3195: https://tools.ietf.org/html/3195
+#. Enable the logging timestamp **service** on the switches
+
+   + Configure S1 and S2 to send its timestamp with logs it sends to the syslog server
+
+     .. code::
+
+        S1(config)# service timestamps log datetime msec
+        S2(config)# service timestamps log datetime msec
+
+#. Configure NTP Service (public ntp server). If server was private, authentication could also be used
+
+   + Open the services tab of the NTP server
+   + Turn the NTP service on and not the date and time
+   + Automatically set the clock on R1 w date & time according to NTP server
+
+     .. code:: 
+
+        R1(config)# ntp server 64.103.224.2
+
+   + Configure R1 to send its timestamp with the logs that it sends to the Syslog server
+     
+     .. code:: 
+  
+        R1(config)#service timestamps log datetime msec
+
+#. Verify timestamped logs
+
+   + re-enable and then disable the Loopback 0 interface on R1
+   + turn off laptops L1 and L2. Turn them on again.
+   + Look at the syslog events
+
+   .. note:: R1 uses the clock settings from the NTP server, S1 and S2 the clock settings configured by you
+
+   .. image:: _static/Ch10_Syslog_Service_Entries.png
+
+   That is one badly configured NTP server :p
+
+LAB Configuring syslog & NTP
+----------------------------
+
+.. image:: _static/Ch10_Lab_syslog_NTP.png
+
+Addressing Table
+
++--------+--------------+------------+-----------------+------------+
+| Device | Interface    | IP Address | Subnet Mask     | Default GW |
++========+==============+============+=================+============+
+| R1     | S0/0/0 (DCE) | 10.1.1.1   | 255.255.255.252 | N/A        |
++--------+--------------+------------+-----------------+------------+
+| R2     | S0/0/0       | 10.1.1.2   | 255.255.255.252 | N/A        |
++--------+--------------+------------+-----------------+------------+
+|        | G0/0         | 172.16.2.1 | 255.255.255.0   | N/A        |
++--------+--------------+------------+-----------------+------------+
+| PC-B   | NIC          | 172.16.2.3 | 255.255.255.0   | 172.16.2.1 |
++--------+--------------+------------+-----------------+------------+
+
+In this lab, you will configure R1 as the NTP server and R2 as a Syslog and NTP client. The syslog server application, such as Tftp32d or other similar program, will be running on PC-B. Furthermore, you will control the severity level of log messages that are collected and archived on the syslog server.
+Note: The routers used with CCNA hands-on labs are Cisco 1941 Integrated Services Routers (ISRs) with Cisco IOS Release 15.2(4)M3 (universal k9 image). Other routers and Cisco IOS versions can be used. 
+
+#. Console into the router and enter global configuration mode.
+   
+   + Copy the following basic configuration and paste it to the running-configuration on the router.
+
+     .. code::
+
+        no ip domain-lookup 
+        service password-encryption 
+        enable secret class 
+        banner motd # 
+        Unauthorized access is strictly prohibited. # 
+        line con 0 
+        password cisco 
+        login 
+        logging synchronous 
+        line vty 0 4 
+        password cisco 
+        login 
+
+   + Configure the hostname as shown
+   + Apply the IP addresses to Serial and Gig interfaces according to table and activate them
+   + set the clock rate to 128000 for the DCE serial interface
+
+#. Configure routing
+
+   + Enable RIPv2 on the routers. Add all the networks into the RIPv2 process
+
+#. Configure IP and Default GW for PC-B
+#. Verify end-to-end connectivity
+#. Save running-config to startup-config
+#. Configure NTP
+
+   + Configure R1 as the NTP Server and R2 as the NTP client of R1. Synchronized time is important for Syslog and debug functions
+   + Display the current time
+
+     .. code::
+
+        R1#show clock
+
+   + Set the time. Use the clock set command
+
+     .. code::
+
+        R1# clock set 15:45:00 5 october 2017
+
+     .. note:: The time can also be set using the clock timezone command in the global configuration mode. For more information regarding this command, research the clock timezone command at `cisco timezone`_ to determine the zone for your region. UTC+1 ``clock timezone WEST +1`` configure summertime ``Router(config)# clock summer-time WEST recurring``
+
+   + Configure the NTP master
+     Use the ``ntp master stratum--hopcountnumber``. NTP hops away from an authoritative time source.
+
+     .. code::
+
+        R1(config)# ntp master 5
+
+   + Configure the NTP client
+
+     .. code::
+
+        R2(config)# ntp server 10.1.1.1
+        R2(config)# ntp update-calendar
+
+     the ``ntp update-calendar`` command periodically updates the calendar with NTP time
+
+   + Verify NTP configuration
+
+     .. code::
+
+        R2# show ntp associations
+
+   + Issue show clock on R1 and R2 to compare the timestamp
+
+     .. code::
+      
+        R1# show clock
+        R2# show clock
+
+#. Configure Syslog
+
+   + install a syslog server on the pc
+   + start the syslog server on PC-B
+   + Verify that the timestamp service is enabled on R2
+
+     .. code::
+
+        R2(config)# show run | include timestamp
+        service timestamps debug datetime msec
+        service timestamps log datetime msec
+
+        if not enabled:
+        R2(config)# service timestamps log datetime msec
+
+   + Configure R2 to send syslog messages to syslog server, PC-B
+
+     .. code::
+
+        R2(config)# logging host 172.16.2.3
+
+   + Display the default logging settings
+
+     .. code::
+
+        R2# show logging
+
+     - What is the IP address of the syslog server? 
+     - What protocol and port is syslog using? 
+     - At what level is trap logging enabled? 
+
+   + Configure and observe the effect of logging severity levels on R2
+
+     .. code::
+
+        R2(config)# logging trap ?
+        <0-7>          Logging severity level 
+        alerts         Immediate action needed           (severity=1) 
+        critical       Critical conditions               (severity=2) 
+        debugging      Debugging messages                (severity=7) 
+        emergencies    System is unusable                (severity=0) 
+        errors         Error conditions                  (severity=3) 
+        informational  Informational messages            (severity=6) 
+        notifications  Normal but significant conditions (severity=5) 
+        warnings       Warning conditions                (severity=4) 
+        <cr> 
+
+     - if the ``logging trap warnings`` command was issued, what severity levels of msgs are logged?
+     - Change the logging severity level to 4
+
+       .. code::
+
+          R2(config)# logging trap warnings
+          or
+          R2(config)# logging trap 4
+          
+   + Create interface loopback 0 IF on R2 and observe the log messages on PC-B
+
+     .. code:: 
+
+        R2(config)# interface lo 0
+        R2(config-if)#
+
+   + Remove the loopback 0 IF on R2 and observe logs
+
+     .. code:: 
+
+        R2(config)# no interface lo 0
+
+     - At severity level 4, are there any log messages on the syslog server? If any log messages appeared, explain what appeared and why
+
+   + Change the logging severity to 6
+
+     .. code::
+
+        R2(config)# logging trap informational
+        or
+        R2(config)# logging trap 6
+
+   + Clear the syslog entries on PC-B
+   + Create the loopback 1 IF on R2
+
+     .. code::
+
+        R2(config)# interface loopback 1
+        R2(config-if)# no interface loopback 1
+
+   + Observe the syslog server output. Compare the results with that at trapping lvl 4
+
+Reflection
+ What is the problem when setting the level of severity too high or too low for syslog?
+
+Router File Systems
+-------------------
+
+Cisco IOS File System (IFS)
+
+Although there are several file systems listed, of interest to us will be the tftp, flash, and nvram file systems.
+
+.. note:: Note that the flash file system also has an asterisk preceding it. This indicates that flash is the current default file system. The bootable IOS is located in flash; therefore, the pound symbol (#) is appended to the flash listing, indicating that it is a bootable disk.
+
+.. code::
+   
+   Router# show file systems
+   Router# dir
+   Router# pwd
+   nvram:/
+   Router# dir
+   Directory of nvram:/
+   ....
+
+   Switch# show file systems
+   File Systems:
+   ....
+
+Backing up and restoring
+------------------------
+
+Backup w text capture (eg Tera Term)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. On the File menu, click Log.
+
+#. Choose the location to save the file. Tera Term will begin capturing text.
+
+#. After capture has been started, execute the show running-config or show startup-config command at the privileged EXEC prompt. Text displayed in the terminal window will be directed to the chosen file.
+
+#. When the capture is complete, select Close in the Tera Term: Log window.
+
+#. View the file to verify that it was not corrupted.
+
+Restoring Text Configurations
+
+A configuration can be copied from a file to a device. When copied from a text file and pasted into a terminal window, the IOS executes each line of the configuration text as a command. This means that the file will require editing to ensure that encrypted passwords are in plain text and that non-command text such as "--More--" and IOS messages are removed. This process is discussed in the lab.
+
+Further, at the CLI, the device must be set at the global configuration mode to receive the commands from the text file being pasted into the terminal window.
+
+When using Tera Term, the steps are:
+
+#. On the File menu, click Send file.
+
+#. Locate the file to be copied into the device and click Open.
+
+#. Tera Term will paste the file into the device.
+
+The text in the file will be applied as commands in the CLI and become the running configuration on the device. This is a convenient method for manually configuring a router.
+
+Backup configs w TFTP
+^^^^^^^^^^^^^^^^^^^^^
+
+#. use the ``copy running-config tftp`` or ``copy startup-config tftp`` commands to backup the configs
+#. use the ``copy tftp running-config`` or ``copy tftp startup-config`` commands to restore the configs     
+     
+Using USB ports
+---------------
+
+.. code::
+  
+   R1# dir usbflash0:
+   Directory of usbflash0:/
+   1 -rw- 30125020 Dec 22 2032 05:22:32 +00:00 c3825-entservicesk9-mz.123-14.T
+   63158272 bytes total (33033216 bytes free)
+
+you can use the ``more`` command to view the the contents
+
+.. code::
+
+   R1# more usbflash0:/R1-Config
+
+
+Backing up to USB
+^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   R1# copy running-config usbflash0:
+   Destination filename [running-config]? R1-Config
+   5024 bytes copied in 0.736 secs (6826 bytes/sec)
+
+Restoring from USB
+^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   R1# copy usbflash0:/R1-Config running-config
+
+Password Recovery
+-----------------
+
+#. Enter rommon mode
+
+   .. note:: With console access, a user can access the ROMMON mode by using a break sequence during the boot up process or removing the external flash memory when the device is powered off.
+
+#. Change the configuration register to ``0x2142`` to ignore the startup-config file
+   
+   .. code::
+  
+      monitor: command "boot" aborted due to user interrupt
+      rommon 1 > confreg 0x2142
+      rommon 2 > reset
+
+#. make necessary changes to original startup config file
+#. save those changes
+#. apply the changes and reset config-register to ``0x2102`` and ``reload``
+
+   .. code::
+
+      Router# copy startup-config running-config
+      Destination filename [running-config]?
+
+      1450 bytes copied in 0.156 secs
+      Router# conf t
+      Router(config)# enable secret cisco
+      Router(config)# config-register 0x2102
+      Router(config)# end
+      Router# copy running-config startup-config
+      Destination filename [startup-config]?
+      Building configuration...
+      [OK]
+      Router# reload
+
+.. note:: Note that in rommon it's ``confreg 0x2142`` and in IOS it's ``config-register 0x2102``
+
+
+Lab - Managing Device Configuration Files
+-----------------------------------------
+
+
+#. Build the Network and Configure Basic Device Settings
+
+#. (Optional) Download TFTP Server Software
+
+#. Use TFTP to Back Up and Restore the Switch Running Configuration
+
+#. Use TFTP to Back Up and Restore the Router Running Configuration
+
+#. Back Up and Restore Running Configurations Using Router Flash Memory
+
+#. (Optional) Use a USB Drive to Back Up and Restore the Running Configuration
+
+Addressing Table
+
++--------+-----------+--------------+---------------+-----------------+
+| Device | Interface | IP Address   | Subnet Mask   | Default Gateway |
++========+===========+==============+===============+=================+
+| R1     | G0/1      | 192.168.1.1  | 255.255.255.0 | N/A             |
++--------+-----------+--------------+---------------+-----------------+
+| S1     | VLAN 1    | 192.168.1.11 | 255.255.255.0 | 192.168.1.1     |
++--------+-----------+--------------+---------------+-----------------+
+| PC-A   | NIC       | 192.168.1.3  | 255.255.255.0 | 192.168.1.1     |
++--------+-----------+--------------+---------------+-----------------+
+
+.. code-block:: html
+
+     g0/1    F0/5
+   R1 <--------> S1 <---------> PC-A
+   tftp            F0/6         tftp
+   client    tftp client        client
+
+
+
+
+Configure basic device parameters as shown in the Addressing Table
+To prevent the router and switch from attempting to translate incorrectly entered commands as though they were host names, disable DNS lookup
+Assign class as the privileged EXEC encrypted password
+Configure the passwords and allow login for console and vty lines using cisco as the password 
+Configure the default GW for S1
+Encrypt clear txt passwords
+Configure the IP - SM - GW for PC-A
+Ping from PC-A to S1
+Ping from PC-A to R1
+Install and configure a TFTP server
+
+The TFTP application uses the UDP Layer 4 transport protocol, which is encapsulated in an IP packet. For TFTP file transfers to function, there must be Layer 1 and 2 (Ethernet, in this case) and Layer 3 (IP) connectivity be tween the TFTP client and the TFTP server.
+
+.. note:: A common misconception is that you can TFTP a file over the console connection. This is not the case because the console connection does not use IP. The TFTP transfer can be initiated from the client device (router or switch) using the console connection, but there must be IP connectivity between the client and server for the file transfer to take place.
+
+.. code::
+
+   S1# copy ?
+   /erase          Erase destination file system.
+   /error          Allow to copy error file.
+   /noverify       Don't verify image signature before reload.
+   /verify         Verify image signature before reload.
+   archive:        Copy from archive: file system
+   cns:            Copy from cns: file system
+   flash0:         Copy from flash0: file system
+   flash1:         Copy from flash1: file system
+   flash:          Copy from flash: file system
+   ftp:            Copy from ftp: file system
+   http:           Copy from http: file system
+   https:          Copy from https: file system
+   null:           Copy from null: file system
+   nvram:          Copy from nvram: file system
+   rcp:            Copy from rcp: file system
+   running-config  Copy from current system configuration
+   scp:            Copy from scp: file system
+   startup-config  Copy from startup configuration
+   system:         Copy from system: file system
+   tar:            Copy from tar: file system
+   tftp:           Copy from tftp: file system
+   tmpsys:         Copy from tmpsys: file system
+   xmodem:         Copy from xmodem: file system
+   ymodem:         Copy from ymodem: file syste
+
+   Router# copy usbflash1: R1-running-config-backup.txt running-config
+
+The flash: file system for S1 is the source file system in this example.
+
+.. code::
+
+   S1# copy flash: ?
+   archive:        Copy to archive: file system
+   flash0:         Copy to flash0: file system
+   flash1:         Copy to flash1: file system
+   flash:          Copy to flash: file system
+   ftp:            Copy to ftp: file system
+   http:           Copy to http: file system
+   https:          Copy to https: file system
+   idconf          Load an IDConf configuration file
+   null:           Copy to null: file system
+   nvram:          Copy to nvram: file system
+   rcp:            Copy to rcp: file system
+   running-config  Update (merge with) current system configuration
+   scp:            Copy to scp: file system
+   startup-config  Copy to startup configuration
+   syslog:		    Copy to syslog: file system
+   system:         Copy to system: file system
+   tftp:           Copy to tftp: file system
+   tmpsys:         Copy to tmpsys: file system
+   xmodem:         Copy to xmodem: file system
+   ymodem:         Copy to ymodem: file system
+
+
+Enter the copy running-config tftp: command. Provide the remote host address of the TFTP server (PC-A), 192.168.1.3. Press Enter to accept default destination filename (s1-config) or provide your own filename. The exclamation marks (!!) indicate the transfer process is in progress and is successful.
+
+.. code::
+
+   S1# copy running-config tftp:
+   Address or name of remote host []?  192.168.1.3
+   Destination filename [s1-config]?
+   !!
+   1465 bytes copied in 0.663 secs (2210 bytes/sec)
+   S1#
+
+The TFTP server also displays the progress during the transfer.
+If you don't have the required permissions you'll get this error
+%Error opening tftp://192.168.1.3/s1-config (Permission denied)
+
+
+explore flash/usbflash as well
+
+.. code::
+
+   R1# copy running-config flash:
+   R1# dir flash:
+   R1# more flash:R1-running-config-backup
+
+   R1# show file systems
+   R1# copy running-config usbflash0:
+   R1# dir usbflash0:
+   Router# copy usbflash1: R1-running-config-backup.txt running-config
+
+IOS 15 System Image Packaging
+-----------------------------
+
+.. image:: _static/Ch10_Packaging_Model_4_ISR_G2_Routers.png
+
+Cisco Integrated Services Routers Generation Two (ISR G2) 1900, 2900, and 3900 Series support services on demand through the use of software licensing. The Services on Demand process enables customers to realize operational savings through ease of software ordering and management. When an order is placed for a new ISR G2 platform, the router is shipped with a single universal Cisco IOS Software image and **a license is used to enable the specific feature set packages**, as shown in image above.
+
+There are 2 types of universal images supported in ISR G2:
+
+ + Universal images with the “universalk9" designation in the image name - This universal image offers all of the Cisco IOS Software features, including strong payload cryptography features, such as IPsec VPN, SSL VPN, and Secure Unified Communications.
+
+ + Universal images with the “universalk9_npe" designation in the image name - The strong enforcement of encryption capabilities provided by Cisco Software Activation satisfies requirements for the export of encryption capabilities. However, some countries have import requirements that require that the platform does not support any strong cryptography functionality, such as payload cryptography. To satisfy the import requirements of those countries, the npe universal image does not support any strong payload encryption.
+
+With the ISR G2 devices, IOS image selection has been made easier because all features are included within the universal image. Features are activated through licensing. Each device ships with Universal image. The technology packages IP Base, Data, UC (Unified Communications), and SEC (Security), are enabled in the universal image using Cisco Software Activation licensing keys. Each licensing key is unique to a particular device and is obtained from Cisco by providing the product ID and serial number of the router and a Product Activation Key (PAK). The PAK is provided by Cisco at the time of software purchase. The IP Base is installed by default. 
+
+
+IOS Image Filenames
+-------------------
+
+.. image:: _static/Ch10_Software_Image_Name.png
+
++ Image Name (c1900) - Identifies the platform on which the image runs. In this example, the platform is a Cisco 1900 router.
+
++ universalk9 - Specifies the image designation. The two designations for an ISR G2 are universalk9 and universalk9_npe. Universalk9_npe does not contain strong encryption and is meant for countries with encryption restrictions. Features are controlled by licensing and can be divided into four technology packages. These are IP Base, Security, Unified Communications, and Data.
+
++ mz - Indicates where the image runs and if the file is compressed. In this example, mz indicates that the file runs from RAM and is compressed.
+
++ SPA - Designates that file is digitally signed by Cisco.
+
++ 152-4.M3 - Specifies the filename format for the image 15.2(4)M3. This is the version of IOS, which includes the major release, minor release, maintenance release, and maintenance rebuild numbers. The M indicates this is an extended maintenance release.
+
++ bin - The file extension. This extension indicates that this file is a binary executable file.
+
+The most common designation for memory location and compression format is mz. The first letter indicates the location where the image is executed on the router. The locations can include:
+
+ + f - flash
+ 
+ + m - RAM
+ 
+ + r - ROM
+ 
+ + l - relocatable
+
+The compression format can be either z for zip or x for mzip. Zipping is a method Cisco uses to compress some run-from-RAM images that is effective in reducing the size of the image. It is self-unzipping, so when the image is loaded into RAM for execution, the first action is to unzip.
+
+Note: The Cisco IOS Software naming conventions, field meaning, image content, and other details are subject to change.
+
+Memory Requirements
+
+On most Cisco routers including the integrated services routers, the IOS is stored in compact flash as a compressed image and loaded into DRAM during boot-up. The Cisco IOS Software Release 15.0 images available for the Cisco 1900 and 2900 ISR require 256MB of flash and 512MB of RAM. The 3900 ISR requires 256MB of flash and 1GB of RAM. This does not include additional management tools such as Cisco Configuration Professional (Cisco CP). For complete details, refer to the product data sheet for the specific router. 
+
+to backup ios image ``R1# copy flash0: tftp:``
+to restore ios image ``R1# copy tftp: flash0:``
+
+boot system command
+-------------------
+
+To upgrade to the copied IOS image after that image is saved on the router's flash memory, configure the router to load the new image during bootup using the ``boot system`` command
+Verify with ``show version``
+
+.. code::
+
+   R1# configure terminal
+   R1(config)# boot system flash0://c1900-universalk9-mz.SPA.152-4.M3.bin
+   R1(config)# exit
+   R1# copy running-config startup-config
+   R1# reload
+
+Copy the IPBase with strong encryption IOS image (ipbasek9) for the 1841 router from the TFTP Server to R1
+
+.. code::
+
+   R1# copy tftp: flash:
+   Address or name of remote host []? 192.168.2.254
+   Source filename []?  c1841-ipbasek9-mz.124-12.bin
+   Destination filename [c1841-ipbasek9-mz.124-12.bin]? 
+   
+   Accessing tftp://192.168.2.254/c1841-ipbasek9-mz.124-12.bin....
+   Loading c1841-ipbasek9-mz.124-12.bin from 192.168.2.254: 
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   !!!!!!!!!!!!!!!!!!!!!!
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   [OK - 16599160 bytes]
+   
+   16599160 bytes copied in 3.44 secs (1079726 bytes/sec)
+
+Verify that the IOS image has been copied to flash
+How many IOS images are located in the flash:? 
+
+Use the ``boot system`` command to load the IPBase image on the next reload
+
+.. code::
+
+   R1(config)# boot system flash:c1841-ipbasek9-mz.124-12.bin
+   Save the configuration and reload R1
+   
+   Verify the upgraded IOS image is loaded after R1 reboots
+
+Technology Packages Licenses
+----------------------------
+
+What are the ISO v15 Feature sets (technology package) types we have now days with ISR G2:
+
++ IP Base (ipbaseK9)come and running with any new ISR G2 routers (1900,2900,3900 Series), its entry level for Cisco IOS functionality
+  Offers features found in IP Base IOS image on ISR 1900, 2900, and 3900 + Flexible Netflow + IPv6 parity for IPv4 features present in IP Base. Some of the key features are AAA, BGP, OSPF, EIGRP, IS-IS, RIP, PBR, IGMP, Multicast, DHCP, HSRP, GLBP, NHRP, HTTP, HQF, QoS, ACL, NBAR, GRE, CDP, ARP, NTP, PPP, PPPoA, PPPoE, RADIUS, TACACS, SCTP, SMDS, SNMP, STP, VLAN, DTP, IGMP, Snooping, SPAN, WCCP, ISDN, ADSL over ISDN, NAT-Basic X.25, RSVP, NTP, Flexible Netflow, etc.
++ DATA (dataK9)support MPLS.ATM. Multiprotocol support
+  Data features found in SP Services and Enterprise Services IOS image on ISR 1900, 2900, and 3900 e.g. MPLS, BFD, RSVP, L2VPN, L2TPv3, Layer 2 Local Switching, Mobile IP, Multicast Authentication, FHRP-GLBP, IP SLAs, PfR, DECnet, ALPS, RSRB, BIP, DLSw+, FRAS, Token Ring, ISL, IPX, STUN, SNTP, SDLC, QLLC, etc.
++ Unified Commuincations (ucK9) support VOIP & IP Telephony
+  Offers the UC Features found in IPVoice IOS image on ISR 1900, 2900, and 3900 e.g. TDM/PSTN Gateway, Video Gateway [H320/324], Voice Conferencing, Codec Transcoding, RSVP Agent (voice), FAX T.37/38, CAC/QOS, Hoot-n-Holler, etc.
++ Security (securityK9) support Cisco IOS Firewall , IPS , IPsec , 3DES, VPN
+  Offers the security features found in Advanced Security IOS image on ISR 1900, 2900, and 3900 e.g. IKE v1 / IPsec / PKI, IPsec/GRE, Easy VPN w/ DVTI, DMVPN, Static VTI, Firewall, Network Foundation Protection, GETVPN, etc.
+
+.. note:: The IP Base license is a prerequisite for installing the Data, Security, and Unified Communications licenses. For earlier router platforms that can support Cisco IOS Software release 15.0, a universal image is not available. It is necessary to download a separate image that contains the desired features.
+
+Technology Package Licenses
+
+Technology package licenses are supported on Cisco ISR G2 platforms (Cisco 1900, 2900, and 3900 Series routers). The Cisco IOS universal image contains all packages and features in one image. Each package is a grouping of technology-specific features. Multiple technology package licenses can be activated on the Cisco 1900, 2900, and 3900 series ISR platforms.
+
+.. image:: _static/Ch10_Technology_Packages.png
+
+Licensing Proces
+----------------
+
+.. image:: _static/Ch10_Licensing_Process.png
+
+When a new router is shipped, it comes preinstalled with the software image and the corresponding permanent licenses for the customer-specified packages and features.
+
+The router also comes with the evaluation license, known as a temporary license, for most packages and features supported on the specified router. This allows customers to try a new software package or feature by activating a specific evaluation license. If customers want to permanently activate a software package or feature on the router, they must get a new software license.
+
+The figure shows the three steps to permanently activate a new software package or feature on the router.
+
+for more info click here: `cisco licensing`_
+
+
+.. image:: _static/Ch10_license_purchase.png
+
+#. purchase the software package or feature needed. This may be adding a package to IP Base, such as Security.
+
+   + Software Claim Certificates are used for licenses that require software activation. The claim certificate provides the Product Activation Key (PAK) for the license and important information regarding the Cisco End User License Agreement (EULA). In most instances, Cisco or the Cisco channel partner will have already activated the licenses ordered at the time of purchase and no Software Claim Certificate is provided.
+
+   + In either instance, customers receive a PAK with their purchase. The PAK serves as a receipt and is used to obtain a license. A PAK is an 11 digit alpha numeric key created by Cisco manufacturing. It defines the Feature Set associated with the PAK. A PAK is not tied to a specific device until the license is created. A PAK can be purchased that generates any specified number of licenses. As shown in the figure, a separate license is required for each package, IP Base, Data, UC, and SEC.
+
+
+#. obtain the license, which is actually a license file. A license file, also known as a Software Activation License, is obtained using one of the following options:
+
+   + Cisco License Manager (CLM) - This is a free software application available at http://www.cisco.com/go/clm. Cisco License Manager is a standalone application from Cisco that helps network administrators rapidly deploy multiple Cisco software licenses across their networks. Cisco License Manager can discover network devices, view their license information, and acquire and deploy licenses from Cisco. The application provides a GUI that simplifies installation and helps automate license acquisition, as well as perform multiple licensing tasks from a central location. CLM is free of charge and can be downloaded from CCO.
+
+   + Cisco License Registration Portal - This is the web-based portal for getting and registering individual software licenses, available at http://www.cisco.com/go/license.
+
+Both of these processes require a PAK number and a Unique Device Identifier (UDI).
+
+The PAK is received during purchase.
+
+The UDI is a combination of the Product ID (PID), the Serial Number (SN), and the hardware version. The SN is an 11 digit number which uniquely identifies a device. The PID identifies the type of device. Only the PID and SN are used for license creation. This UDI can be displayed using the show license udi command shown in Figure 1. This information is also available on a pull-out label tray found on the device. Figure 2 shows an example of the pull-out label on a Cisco 1941 router.
+
+After entering the appropriate information, the customer receives an email containing the license information to install the license file. The license file is an XML text file with a .lic extension. 
+
+``R2# show license udi``
+
+#. Install the license
+   
+   .. code::
+
+      R1# license install flash0:security-CISCO1941-FHH12250057.xml
+      ...
+      R1# reload
+
+#. Verify with ``show version`` and ``show license``
+#. Activate an evaluation right-to-use license
+
+   .. code:: 
+
+      R1(config)# license accept end user agreement
+      R1(config)# license boot module c1900 technology-package datak9
+      R1(config)# show license
+
+Use the ``show license feature`` command to view the technology package licenses and feature licenses supported on the router.
+
+#. Backup the license
+
+   .. code::
+
+      R1# license save file-sys://lic-location 
+      R1# license save flash0://all_licenses.lic
+      R1# show flash0: 
+      to restore
+      ----------
+      R1# license install
+
+
+To clear an active permanent license from the Cisco 1900 series, 2900 series, and 3900 series routers, perform the following steps:
+
+ #. Disable the technology package.
+
+    Disable the active license with the command:
+
+    ``Router(config)# license boot module module-name technology-package package-name disable``
+
+    Reload the router using the reload command. A reload is required to make the software package inactive.
+
+ #. Clear the license.
+
+    Clear the technology package license from license storage.
+
+    ``Router# license clear feature-name``
+
+    Clear the license boot module command used for disabling the active license:
+
+    ``Router(config)# no license boot module module-name technology-package package-name disable``
+
+.. image:: _static/Ch10_clearing_license.png
+
+.. note:: Some licenses, such as built-in licenses, cannot be cleared. Only licenses that have been added by using the license install command are removed. Evaluation licenses are not removed.
+
+
+A lesson on ios licensing here: `cisco licensing_lesson`_
+
+
+Ch10 Skills Integration Challenge
+---------------------------------
+
+Addressing Table
+
++--------+-----------+---------------+-----------------+-----------------+
+| Device | Interface | IP Address    | Subnet Mask     | Default Gateway |
++========+===========+===============+=================+=================+
+|        | G0/0.15   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.30   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.45   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0.60   |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/1    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/1/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0      |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/1    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | G0/0      |               |                 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/0    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | S0/0/1    |               | 255.255.255.252 | N/A             |
++--------+-----------+---------------+-----------------+-----------------+
+|        | VLAN 60   |               |                 |                 |
++--------+-----------+---------------+-----------------+-----------------+
+|        | NIC       | DHCP Assigned | DHCP Assigned   | DHCP Assigned   |
++--------+-----------+---------------+-----------------+-----------------+
+
+VLANs and Port Assignments Table
+
++--------------------+-----------------+---------+
+| VLAN Number - Name | Port assignment | Network |
++====================+=================+=========+
+| 15 - Servers       | F0/11 - F0/20   |         |
++--------------------+-----------------+---------+
+| 30 - PCs           | F0/1 - F0/10    |         |
++--------------------+-----------------+---------+
+| 45 - Native        | G0/1            |         |
++--------------------+-----------------+---------+
+| 60 - Management    | VLAN 60         |         |
++--------------------+-----------------+---------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. _cisco licensing_lesson: https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/ios-licensing/
+
+.. _cisco licensing: https://learningnetwork.cisco.com/docs/DOC-20321
+
+.. _cisco timezone: https://www.cisco.com/c/en/us/td/docs/video/cds/cda/is/3_0/command_reference/Command_Ref/timezone.html
+
+.. _rfc 3164: https://tools.ietf.org/html/rfc3164
+
+.. _rfc 3195: https://tools.ietf.org/html/rfc3195
 
 .. _rfc 5424: https://tools.ietf.org/html/rfc5424
 
