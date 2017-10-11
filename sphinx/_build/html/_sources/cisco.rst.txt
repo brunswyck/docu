@@ -1,3 +1,8 @@
+.. role:: strike
+   :class: strike
+.. role:: transparent
+   :class: transparent
+
 ##########
 Networking
 ##########
@@ -1072,7 +1077,7 @@ configure passive interfaces
 
 By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.
 
-.. image:: _static/configure_passive_ifs_on_R1.png
+.. image:: _static/img/configure_passive_ifs_on_R1.png
 
 For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:
 
@@ -1188,7 +1193,7 @@ As an alternative, all interfaces can be made passive using the passive-interfac
 propagate a default route
 -------------------------
 
-.. image:: _static/propagate_default_route.png
+.. image:: _static/img/propagate_default_route.png
 
 To propagate a default route in RIP, the edge router must be configured with:
 
@@ -1261,7 +1266,7 @@ exercise example
 
 Remote Networks in Routing table
 --------------------------------
-.. image:: _static/RemoteNetworkEntries.png
+.. image:: _static/img/RemoteNetworkEntries.png
 
 * Route Source: ids how route was learned
 * Dest Network: ids address of the remote network
@@ -1271,7 +1276,7 @@ Remote Networks in Routing table
 * route timestamp: ids from when the route was last heard
 * Outgoing interface: ids exit interface to use to forward packet to final destination
 
-.. image:: _static/RemoteNetworkEntriesExercise.png
+.. image:: _static/img/RemoteNetworkEntriesExercise.png
 
 Routing table terms
 -------------------
@@ -1330,7 +1335,7 @@ IPv6 Routing Table Entries
 
 reference topology
 
-.. image:: _static/ipv6_routingtable_entries.png
+.. image:: _static/img/ipv6_routingtable_entries.png
 
 .. note:: Because IPv6 is classless by design, all routes are effectively **L1 ultimate routes**. There is no L1 parent or L2 child routes
 
@@ -1340,7 +1345,7 @@ EIGRP is cfgd on all of them
 
 Directly connected routes on R1 = show ipv6 route --> C and L
 
-.. image:: _static/routingtable_ipv6.png
+.. image:: _static/img/routingtable_ipv6.png
 
 .. warning:: RIP configuration on a router should contain network statements for connected networks only. Remote networks are learned from routing updates from other routers.
 
@@ -1384,7 +1389,7 @@ Hierarchy in the Borderless Switched Network
 
 The three critical layers within these tiered designs are the **access, distribution, and core layers**.
 
-.. image:: _static/accesslayer.png
+.. image:: _static/img/accesslayer.png
 
 Access, Distribution, and Core Layers
 
@@ -1417,16 +1422,16 @@ The core layer is the network backbone. It connects several layers of the campus
 
 Figure 1 shows a three-tier campus network design for organizations where the access, distribution, and core are each separate layers. To build a simplified, scalable, cost-effective, and efficient physical cable layout design, the recommendation is to build an extended-star physical network topology from a centralized building location to all other buildings on the same campus.
 
-.. image:: _static/corelayer1.png
+.. image:: _static/img/corelayer1.png
 
 In some cases where extensive physical or network scalability does not exist, maintaining separate distribution and core layers is not required. In smaller campus locations where there are fewer users accessing the network or in campus sites consisting of a single building, separate core and distribution layers may not be needed. In this scenario, the recommendation is the alternate two-tier campus network design, also known as the collapsed core network design.
 
 Figure 2 shows a two-tier campus network design example for an enterprise campus where the distribution and core layers are collapsed into a single layer.
-.. image:: _static/corelayercollapsed.png
+.. image:: _static/img/corelayercollapsed.png
 
 Borderless switched networks
 
-.. image:: _static/borderlessswitchednetworks.png
+.. image:: _static/img/borderlessswitchednetworks.png
 
 considerations switch
 ---------------------
@@ -1463,9 +1468,9 @@ Fragment free switching is a modified form of cut-through switching in which the
 Collision domains
 -----------------
 
-.. image:: _static/collisiondomains.png
+.. image:: _static/img/collisiondomains.png
 
-.. image:: _static/collisiondomains2.png
+.. image:: _static/img/collisiondomains2.png
 
 QnA Ch4
 -------
@@ -1481,7 +1486,7 @@ Stackable switches provide fault tolerance and bandwidth availability by using s
 
 Match the borderless switched network guideline description to the principle.
 
-.. image:: _static/borderlessswitchednetworks_matchup.png
+.. image:: _static/img/borderlessswitchednetworks_matchup.png
 
 Place the options in the following order:
 
@@ -1537,7 +1542,7 @@ switch: dir flash:
 
 Catalyst 2960 switch LEDs
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-.. image:: _static/c2960leds.png
+.. image:: _static/img/c2960leds.png
 
 #. System LED: system has power and is functioning properly. If Amber = power but not working properly
 #. RPS LED: blinking = connected but providing power to another device. Amber = standby mode Blinking Amber = providing power due to main PSU failed
@@ -1670,10 +1675,10 @@ check with show interfaces interface id
 Verify interface status
 -----------------------
 
-.. image:: _static/interface_errors.png
+.. image:: _static/img/interface_errors.png
 
 
-.. image:: _static/interface_error_types.png
+.. image:: _static/img/interface_error_types.png
 
 “Input errors” is the sum of all errors in datagrams that were received on the interface being examined. This includes runts, giants, CRC, no buffer, frame, overrun, and ignored counts.
 
@@ -1741,7 +1746,7 @@ If sticky learning is disabled by using the ``no switchport port-security mac-ad
 
 Characteristics of sticky secure MAC addresses.
 
-.. image:: _static/sticky_secure.png
+.. image:: _static/img/sticky_secure.png
 
 .. Note:: The port security feature will not work until port security is enabled on the interface using the switchport port-security command. 
 
@@ -2274,7 +2279,7 @@ VoIP traffic requires:
 
 To meet these requirements, the entire network has to be designed to support VoIP. 
 
-.. image:: _static/voice_vlans.png
+.. image:: _static/img/voice_vlans.png
 
 VLAN Trunks
 -----------
@@ -2283,12 +2288,12 @@ A trunk is a point-to-point link between 2 network devices dat carries more than
 
 A trunk does not belong to a specific VLAN, it is a conduit for multiple VLANS between switches and routers. A trunk can also be used between a NW device and server or other device that is equiped with an 802.1Q capable NIC
 
-.. image:: _static/vlan_trunks.png
+.. image:: _static/img/vlan_trunks.png
 
 802.1Q Frame
 ------------
 
-.. image:: _static/802.1Q_frame.png
+.. image:: _static/img/802.1Q_frame.png
 
 When the switch receives a frame on a port configured in access mode and assigned a VLAN, the switch inserts a VLAN tag in the frame header, recalculates the Frame Check Sequence (FCS), and sends the tagged frame out of a trunk port.
 
@@ -2315,7 +2320,7 @@ Consequently, when configuring a switch port on a Cisco switch, configure device
 
 This scenario reflects poor network design for several reasons: it uses a hub, it has a host connected to a trunk link, and it implies that the switches have access ports assigned to the native VLAN. It also illustrates the motivation for the IEEE 802.1Q specification for native VLANs as a means of handling legacy scenarios.
 
-.. image:: _static/trunkbehavior_nativevlans.png
+.. image:: _static/img/trunkbehavior_nativevlans.png
 
 
 Untagged Frames on the Native VLAN
@@ -2328,7 +2333,7 @@ For example, if VLAN 99 is configured as the native VLAN, the PVID is 99 and all
 Voice VLAN Tagging
 ------------------
 
-.. image:: _static/voice_vlan_tagging.png
+.. image:: _static/img/voice_vlan_tagging.png
 
 * Port 1 connects to the switch or other VoIP device.
 * Port 2 is an internal 10/100 interface that carries the IP phone traffic.
@@ -2873,7 +2878,7 @@ Verify commands
 combination exercise
 --------------------
 
-.. image:: _static/vlan_and_vtps_exercise.png
+.. image:: _static/img/vlan_and_vtps_exercise.png
 
 +--------+-----------+--------------+---------------+-----------------+
 | Device | Interface | IP Address   | Subnet Mask   | Default Gateway |
@@ -3079,7 +3084,7 @@ Each VLAN must correspond to a unique IP subnet. If two devices in the same VLAN
 Missing VLAN
 ^^^^^^^^^^^^
 
-.. image:: _static/missing_vlan.png
+.. image:: _static/img/missing_vlan.png
 
 Use the show vlan command to check whether the port belongs to the expected VLAN. If the port is assigned to the wrong VLAN, use the switchport access vlan command to correct the VLAN membership. Use the show mac address-table command to check which addresses were learned on a particular port of the switch, and to which VLAN that port is assigned, as show in Figure 2.
 
@@ -3100,7 +3105,7 @@ Use the show vlan command to check whether the port belongs to the expected VLAN
      56    000a.f333.b702    DYNAMIC     Gig0/2
      56    00d0.5828.2501    DYNAMIC     Gig0/1
 
-.. image:: _static/missing_vlan.png
+.. image:: _static/img/missing_vlan.png
 
 If the VLAN to which the port is assigned is deleted, the port becomes inactive. The ports of a deleted VLAN will not be listed in the output of the show vlan command. Use the show interfaces switchport command to verify the inactive VLAN is assigned to the port
 
@@ -3117,9 +3122,9 @@ Troubleshooting Trunks
 
 most important command ``show interfaces trunk``
 
-.. image:: _static/troubleshooting_trunks1.png
+.. image:: _static/img/troubleshooting_trunks1.png
 
-.. image:: _static/troubleshooting_trunks2.png
+.. image:: _static/img/troubleshooting_trunks2.png
 
 
 * Native VLAN mismatches - Trunk ports are configured with different native VLANs. This configuration error generates console notifications, and can cause inter-VLAN routing issues, among other problems. This poses a security risk.
@@ -3128,17 +3133,17 @@ most important command ``show interfaces trunk``
 
 * Allowed VLANs on trunks - The list of allowed VLANs on a trunk has not been updated with the current VLAN trunking requirements. In this situation, unexpected traffic (or no traffic) is being sent over the trunk.
 
-.. image:: _static/common_problems_trunks.png
+.. image:: _static/img/common_problems_trunks.png
 
 .. note:: start troubleshooting by examining the trunks for a **native VLAN mismatch**. If that is not the cause, check for **trunk mode mismatches**, and finally check for the **allowed VLAN list on the trunk**.
 
 Mismatched Port Modes
 
-.. image:: _static/mismatched_port_modes.png
+.. image:: _static/img/mismatched_port_modes.png
 
 fixed:
 
-.. image:: _static/mismatched_port_modes_fixed.png
+.. image:: _static/img/mismatched_port_modes_fixed.png
 
 fix incorrect vlan list with
 
@@ -3200,7 +3205,7 @@ VLAN and Port Assignments
 | F0/18 – F0/24 | VLAN 20 – Students          | 192.168.20.0/24 |
 +---------------+-----------------------------+-----------------+
 
-.. image:: _static/troubleshooting_vlans2.png
+.. image:: _static/img/troubleshooting_vlans2.png
 
 
 Switch 1
@@ -3653,7 +3658,7 @@ VLAN Command Summary Table
 
 Inter-VLAN Routing
 ------------------
-.. image:: _static/what_is_intervlan_routing.png
+.. image:: _static/img/what_is_intervlan_routing.png
 
 A VLAN is a broadcast domain, so computers on separate VLANs are unable to communicate without the intervention of a routing device. Layer 2 switches have very limited IPv4 and IPv6 functionality and cannot perform the dynamic routing function of routers. While Layer 2 switches are gaining more IP functionality, such as the ability to perform static routing, this is insufficient to handle these large number of VLANs.
 
@@ -3668,7 +3673,7 @@ There are three options for inter-VLAN routing:
 
 legacy intervlan routing
 ^^^^^^^^^^^^^^^^^^^^^^^^
-.. image:: _static/legacy_intervlan_routing.png
+.. image:: _static/img/legacy_intervlan_routing.png
 
 Router R1 has a separate interface configured for each of the VLANs.
 
@@ -3683,7 +3688,7 @@ Because the Ethernet frame has the destination MAC address of the router interfa
 Lab configuration
 ~~~~~~~~~~~~~~~~~
 
-.. image:: _static/configure_legacy_intervlanning.png
+.. image:: _static/img/configure_legacy_intervlanning.png
 
 +--------+------------+---------------+---------------+------------------+
 | Device | Interface  | IP Address    | Subnet Mask   | Default Gateway, |
@@ -3738,7 +3743,7 @@ Lab configuration
 
 router-on-a-stick intervlan routing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. image:: _static/router_on_a_stick_intervlanning.png
+.. image:: _static/img/router_on_a_stick_intervlanning.png
 
 Subinterfaces are configured for different subnets corresponding to their VLAN assignment to facilitate logical routing. After a routing decision is made based on the destination VLAN, the data frames are VLAN-tagged and sent back out the physical interface. 
 
@@ -3763,7 +3768,7 @@ Subinterfaces are configured for different subnets corresponding to their VLAN a
 multilayer switch intervlanning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _static/multilayer_switch_intervlanning.png
+.. image:: _static/img/multilayer_switch_intervlanning.png
 
 .. note:: outside the scope of course for now..
 
@@ -4068,7 +4073,7 @@ Skills integration challenge
 
 * Addressing Table
 
-.. image:: _static/ch6_skills_integration_challenge.png
+.. image:: _static/img/ch6_skills_integration_challenge.png
 
 +--------+-----------+--------------+---------------+-----------------+------+
 | Device | Interface | IP Address   | Subnet Mask   | Default Gateway | VLAN |
@@ -4417,7 +4422,7 @@ ACLs define the set of rules that give added control for packets that enter inbo
 
 ACLs can be configured to apply to inbound traffic and outbound traffic as shown in the figure.
 
-.. image:: _static/inbound_outbound_acl.png
+.. image:: _static/img/inbound_outbound_acl.png
 
 **Inbound ACLs**
 Incoming packets are processed before they are routed to the outbound interface. An inbound ACL is efficient because it saves the overhead of routing lookups if the packet is discarded. If the packet is permitted by the ACL, it is then processed for routing. Inbound ACLs are best used to filter packets when the network attached to an inbound interface is the only source of packets that need to be examined.
@@ -4535,7 +4540,7 @@ You could accomplish the same result with statements like the two shown below:
 Wildcard Mask Abbreviations
 ---------------------------
 
-.. image:: _static/wildcard_abbreviations.png
+.. image:: _static/img/wildcard_abbreviations.png
 
 .. code::
 
@@ -4546,12 +4551,12 @@ Wildcard Mask Abbreviations
    R1(config)# access-list 1 permit 192.168.10.10 0.0.0.0
    R1(config)# access-list 1 permit host 192.168.10.10
 
-.. image:: _static/permit_or_deny.png
+.. image:: _static/img/permit_or_deny.png
 
 Rules for applying ACLs
 -----------------------
 
-.. image:: _static/acl_rules1.png
+.. image:: _static/img/acl_rules1.png
 
 .. note:: If we needed ACLs for both protocols, on both interfaces and in both directions, this would require eight separate ACLs. Each interface would have four ACLs; two ACLs for IPv4 and two ACLs for IPv6. For each protocol, one ACL is for inbound traffic and one for outbound traffic.
 
@@ -4601,7 +4606,7 @@ Ease of configuration:
 Standard ACL placement
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _static/standard_acl_placement.png
+.. image:: _static/img/standard_acl_placement.png
 
 
 R3 S0/0/1 interface:
@@ -4663,7 +4668,7 @@ to remove ACL from interface:
 
 This is not very efficient, better to apply it to the inbound interface so the router doesn't have to examine packets
 
-.. image:: _static/efficiency_standard_acl_deny_host.png
+.. image:: _static/img/efficiency_standard_acl_deny_host.png
 
 .. code::
 
@@ -4687,7 +4692,7 @@ Named Standard ACLs
    * Activates the named IP ACL on an interface
 
 
-.. image:: _static/named_acl_example.png
+.. image:: _static/img/named_acl_example.png
 
 .. code::
    
@@ -4740,7 +4745,7 @@ Addressing Table
 | WebServer | NIC       | 192.168.20.254 | 255.255.255.0   | 192.168.20.1    |
 +-----------+-----------+----------------+-----------------+-----------------+
 
-.. image:: _static/ex1_std_acls.png
+.. image:: _static/img/ex1_std_acls.png
 
 Objectives
 * Part 1: Plan an ACL Implementation
@@ -4845,7 +4850,7 @@ solution:
 Lab Config/Mod Std IPv4 ACLs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _static/Lab_7.2.2.6.png
+.. image:: _static/img/Lab_7.2.2.6.png
 
 +--------+--------------+-----------------+-----------------+-----------------+
 | Device | Interface    | IP Address      | Subnet Mask     | Default Gateway |
@@ -5347,7 +5352,7 @@ Clearing ACL Statistics
 
 ``R1# clear access-list counters 1`` or ``clear access-list counters ACL_NAME``
 
-.. image:: _static/clear_matches_acl.png
+.. image:: _static/img/clear_matches_acl.png
 
 Accesss-class command
 ---------------------
@@ -5367,7 +5372,7 @@ The following should be considered when configuring access lists on VTYs:
 
 .. note:: Access lists apply to packets that travel through a router. They are not designed to block packets that originate within the router. By default, an outbound ACL does not prevent remote access connections initiated from the router.
 
-.. image:: _static/ch7_access_class_1.png
+.. image:: _static/img/ch7_access_class_1.png
 
 .. code::
 
@@ -5386,7 +5391,7 @@ A single-entry ACL with only one deny entry has the effect of denying all traffi
 
 For the network in the figure, applying either ACL 1 or ACL 2 to the S0/0/0 interface of R1 in the outbound direction will have the same effect. Network 192.168.10.0 will be permitted to access the networks reachable through S0/0/0, while 192.168.11.0 will not be allowed to access those networks. In ACL 1, if a packet does not match the permit statement, it is discarded.
 
-.. image:: _static/Ch7_implicit_deny_any.png
+.. image:: _static/img/Ch7_implicit_deny_any.png
 
 ACL 1
 
@@ -5436,10 +5441,10 @@ Host statement can be configured if there's no conflict
 Sequencing considerations during configuration
 ----------------------------------------------
 
-.. image:: _static/Ch7_sequencing_config.png
+.. image:: _static/img/Ch7_sequencing_config.png
 
 
-.. image:: _static/Ch7_sequencing_after_reload.png
+.. image:: _static/img/Ch7_sequencing_after_reload.png
 
 The order in which the standard ACEs are listed is the sequence used by the IOS to process the list. Notice that the statements are grouped into two sections, host statements followed by range statements. The sequence number indicates the order that the statement was entered, not the order the statement will be processed.
 
@@ -5454,7 +5459,7 @@ ACL and Routing Processes
 
 open in new tab to view properly
 
-.. image:: _static/Ch7_acl_router_processes.png
+.. image:: _static/img/Ch7_acl_router_processes.png
    :width: 1874px
    :height: 360px
 
@@ -5620,7 +5625,7 @@ PT Ch7 Skills Integration Challenge
 | BranchServer.pka | NIC       | 172.16.128.1   | 255.255.240.0   | 172.16.143.254  |
 +------------------+-----------+----------------+-----------------+-----------------+
 
-.. image:: _static/Ch7_Skills_Integration.png
+.. image:: _static/img/Ch7_Skills_Integration.png
 
 
 #. Configure HQ & Branch with RIPv2 routing:
@@ -6093,16 +6098,16 @@ Two common reasons for having a named ACL are
 .. warning:: The ``R1(config)# no access-list #`` command removes the ACL from the running-config immediately. HOWEVER, to disable an ACL on an interface, the command ``R1(config-if)# no ip access-group`` should be entered.
 
 
-.. image:: _static/Ch7_qna_1.png
+.. image:: _static/img/Ch7_qna_1.png
 
 If a router has two interfaces and is routing both IPv4 and IPv6 traffic, how many ACLs could be created and applied to it?
   3P rule: 1 ACL per Protocol, 1 per Direction, 1 per Interface (PDI). In this case 2 interfaces x 2 protocols x 2 directions = 8
 
-.. image:: _static/Ch7_qna_2.png
+.. image:: _static/img/Ch7_qna_2.png
 
-.. image:: _static/Ch7_qna_3.png
+.. image:: _static/img/Ch7_qna_3.png
 
-.. image:: _static/Ch7_qna_4.png
+.. image:: _static/img/Ch7_qna_4.png
 
 
 Chapter 8 DHCP
@@ -6116,7 +6121,7 @@ Clients lease the information from the server for an administratively defined pe
 
 Lease Origination
 
-.. image:: _static/Ch8_dhcp4_lease_origination.png
+.. image:: _static/img/Ch8_dhcp4_lease_origination.png
 
 When the client boots (or otherwise wants to join a network), it begins a four step process to obtain a lease. As shown in Figure 2, a client starts the process with a broadcast DHCPDISCOVER message with its own MAC address to discover available DHCPv4 servers.
 
@@ -6139,7 +6144,7 @@ DHCP Acknowledgment (DHCPACK)
 On receiving the DHCPREQUEST message, the server verifies the lease information with an ICMP ping to that address to ensure it is not being used already, creates a new ARP entry for the client lease, and replies with a unicast DHCPACK message as shown in Figure 5. The DHCPACK message is a duplicate of the DHCPOFFER, except for a change in the message type field. When the client receives the DHCPACK message, it logs the configuration information and performs an ARP lookup for the assigned address. If there is no reply to the ARP, the client knows that the IPv4 address is valid and starts using it as its own.
 
 
-.. image:: _static/Ch8_dhcp4_lease_renewal.png
+.. image:: _static/img/Ch8_dhcp4_lease_renewal.png
 
 Lease Renewal
 
@@ -6154,7 +6159,7 @@ On receiving the DHCPREQUEST message, the server verifies the lease information 
 DHCPv4 Message Format
 ---------------------
 
-.. image:: _static/Ch8_dhcp4_message_format.png
+.. image:: _static/img/Ch8_dhcp4_message_format.png
 
 + Operation (OP) Code - Specifies the general type of message. A value of 1 indicates a request message; a value of 2 is a reply message.
 + Hardware Type - Identifies the type of hardware used in the network. For example, 1 is Ethernet, 15 is Frame Relay, and 20 is a serial line. These are the same codes used in ARP messages.
@@ -6175,7 +6180,7 @@ DHCPv4 Message Format
 DHCPv4 Discover Message
 -----------------------
 
-.. image:: _static/Ch8_dhcp4_discover_message.png
+.. image:: _static/img/Ch8_dhcp4_discover_message.png
 
 As shown in Figure 1, the client IPv4 address (CIADDR), default gateway address (GIADDR), and subnet mask are all marked to indicate that the address 0.0.0.0 is used.
 
@@ -6185,7 +6190,7 @@ When the DHCPv4 server receives the DHCPDISCOVER message, it responds with a DHC
 
 The DHCPOFFER message can be configured to include other information, such as the lease renewal time and DNS address.
 
-.. image:: _static/Ch8_dhcp4_offer_message.png
+.. image:: _static/img/Ch8_dhcp4_offer_message.png
 
 As shown now, the DHCP server responds to the DHCPDISCOVER by assigning values to the CIADDR and subnet mask. The frame is constructed using the client hardware address (CHADDR) and sent to the requesting client.
 
@@ -6318,7 +6323,7 @@ DHCPv4 Exercises
 8.1.2.3 lab - configuring basic dhcpv4
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _static/Ch8_lab_8.1.2.3_cfg_dhcpv4.png
+.. image:: _static/img/Ch8_lab_8.1.2.3_cfg_dhcpv4.png
 
 Required Resources
 + 3 Routers (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
@@ -6430,7 +6435,7 @@ verify with ``show ip dhcp binding`` & ``show ip dhcp server statistics`` & ``sh
 8.1.2.5 lab - basic dhcpv4 on a switch
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _static/Ch8_lab_8.1.2.5_cfg_dhcpv4_on_switch.png
+.. image:: _static/img/Ch8_lab_8.1.2.5_cfg_dhcpv4_on_switch.png
 
 Required Resources
 + Router (Cisco 1941 with Cisco IOS Release 15.2(4)M3 universal image or comparable)
@@ -6550,7 +6555,7 @@ Enable IP Routing
 8.1.3.3 lab - configuring dhcp ios pt
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: _static/Ch8_lab_8.1.3.3_cfg_dhcpv4_ios.png
+.. image:: _static/img/Ch8_lab_8.1.3.3_cfg_dhcpv4_ios.png
 
 +------------+-----------+----------------+-----------------+-----------------+
 | Device     | Interface | IPv4 Address   | Subnet Mask     | Default Gateway |
@@ -6741,7 +6746,7 @@ Troubleshooting DHCP
 DHCP Service
 ^^^^^^^^^^^^
 
-.. image:: _static/dhcp-client-server-cisco-routers.png
+.. image:: _static/img/dhcp-client-server-cisco-routers.png
 
 Let’s verify by checking if the interfaces are up and running:
 
@@ -6980,7 +6985,7 @@ SLAAC
 A Stateless service
  no server that maintains network address information. Unlike DHCP there is no SLAAC server that knows what IPv6 addresses are being used and which ones are available
 
-SLAAC is a method in which a device can obtain an IPv6 global unicast address without the services of a DHCPv6 server. At the core of SLAAC is ICMPv6. ICMPv6 is similar to ICMPv4 but includes additional functionality and is a much more robust protocol. SLAAC uses ICMPv6 Router Solicitation and Router Advertisement messages to provide addressing and other configuration information that would normally be provided by a DHCP server:
+SLAAC is a method in which a device can obtain an IPv6 global unicast address without the services of a DHCPv6 server. **At the core of SLAAC is ICMPv6**. ICMPv6 is similar to ICMPv4 but includes additional functionality and is a much more robust protocol. **SLAAC uses ICMPv6 Router Solicitation and Router Advertisement messages** to provide addressing and other configuration information that would normally be provided by a DHCP server:
 
 + Router Solicitation (RS) message
    When a client is configured to obtain its addressing information automatically using SLAAC, the client sends an RS message to the router. The RS message is sent to the IPv6 all-routers multicast address **FF02::2**
@@ -6993,7 +6998,7 @@ SLAAC is a method in which a device can obtain an IPv6 global unicast address wi
 SLAAC operation
 ^^^^^^^^^^^^^^^
 
-.. image:: _static/Ch8_SLAAC_operation.png
+.. image:: _static/img/Ch8_SLAAC_operation.png
 
 #. Client sends Router Sollicitation message
     Since booting, PC1 has not received an RA message, so it sends an RS message to the all-routers multicast address to inform the local IPv6 router that it needs an RA.
@@ -7055,13 +7060,13 @@ RA messages are configured on an individual interface of a router
 
 ipv6 **N** eighbor **D** iscovery **M** anaged/**O** ther **-CONFIG-FLAG**
 
-.. image:: _static/Ch8_stateful_dhcpv6_option.png
+.. image:: _static/img/Ch8_stateful_dhcpv6_option.png
 
 
 DHCPv6 Operations
 -----------------
 
-.. image:: _static/Ch8_DHCPv6_operations.png
+.. image:: _static/img/Ch8_DHCPv6_operations.png
 
 
 When stateless DHCPv6 or stateful DHCPv6 is indicated by the RA, DHCPv6 operation is invoked. DHCPv6 messages are sent over UDP. DHCPv6 messages from the **server to the client use UDP destination port 546**. **The client sends DHCPv6 messages to the server using UDP destination port 547**.
@@ -7119,7 +7124,7 @@ DHCPv6 Stateless Config
 
 Example, R3 is configured as a client to help verify the stateless DHCPv6 operations.
 
-.. image:: _static/Ch8_dhcpv6_stateless_server.png
+.. image:: _static/img/Ch8_dhcpv6_stateless_server.png
 
 DHCPv6 Stateless Client
 -----------------------
@@ -7222,7 +7227,7 @@ client
 Configure DHCPv6 relay
 ----------------------
 
-.. image:: _static/Ch8_dhcpv6_relay_agent.png
+.. image:: _static/img/Ch8_dhcpv6_relay_agent.png
 
 DHCPv6 messages from clients are sent to the IPv6 multicast address **FF02::1:2. All_DHCPv6_Relay_Agents_and_Servers address**. This address has link-local scope which means routers do not forward these messages. The router must be configured as a DHCPv6 relay agent to enable the DHCPv6 client and server to communicate.
 
@@ -7444,9 +7449,9 @@ DHCPv6 Troubleshooting Tasks
 #. Test DHCPv6 Operation on the same subnet or VLAN
     If the stateless or stateful DHCPv6 server is functioning correctly, but is on a different IPv6 network or VLAN than the client, the problem may be with the DHCPv6 relay agent. The **client facing interface** on the router must be configured with the ``ipv6 dhcp relay destination`` command.
 
-.. image:: _static/verify_router_dhcpv6_config1.png
+.. image:: _static/img/verify_router_dhcpv6_config1.png
 
-.. image:: _static/verify_router_dhcpv6_config2.png
+.. image:: _static/img/verify_router_dhcpv6_config2.png
 
 ``R1# debug ipv6 dhcp detail``
 
@@ -7464,7 +7469,7 @@ Ch8 Lab Troubleshooting DHCPv6
 | PC-A   | NIC       | Assigned by SLAAC and DHCPv6 | 64            | Assigned by SLAAC |
 +--------+-----------+------------------------------+---------------+-------------------+
 
-.. image:: _static/Ch8_8.2.4.4_TB_DHCPv6.png
+.. image:: _static/img/Ch8_8.2.4.4_TB_DHCPv6.png
 
 Part 1 Build NW and configure basic settings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -7603,7 +7608,7 @@ Reflection
 Ch8 8.3.1.2 Skills Integration Challenge DHCPv4
 -----------------------------------------------
 
-.. image:: _static/ch8_skills_integration_challenge.png
+.. image:: _static/img/ch8_skills_integration_challenge.png
 
 Addressing Table
 ^^^^^^^^^^^^^^^^
@@ -8182,13 +8187,516 @@ With stateless autoconfiguration, the client uses information provided by the IP
 
 Stateful DHCPv6 is similar to DHCPv4. In this case, the RA message informs the client not to use the information in the RA message. All addressing information and DNS configuration information is obtained from a stateful DHCPv6 server. The DHCPv6 server maintains IPv6 state information similar to a DHCPv4 server allocating addresses for IPv4.
 
+
+Ch8 QnA
+-------
+
+SLAAC
+ stateless address autoconfiguation. A method of automatic IPv6 address configuration on a client
+Stateless DHCPv6
+ method of automatic IPv6 address configuration on a client with additional information provided by aDHCPv6 server
+Stateful DHCPv6
+ a method of obtaining an IPv6 address and other configuration values from a DHCPv6 server
+EUI-64
+ extended unique identifier. a process to configure the client ID based on the interface MAC address
+DAD
+ Duplicate Address Detection. a process by a SLAAC client to verify that no duplication exists for its self-configured IPv6 address
+FF02::1:2
+ Which destination IP address is used when an IPv6 host sends a DHCPv6 SOLICIT message to locate a DHCPv6 server?
+ .. note:: DHCPv6 hosts will send a DHCP SOLICIT message to the all DHCP routers multicast address of FF02::1:2
+client rcvs RA msg with M flag 0 and O flag 1
+ The client should automatically configure an IPv6 address without contacting a DHCPv6 server.
+Why is DHCPREQUEST sent as broadcast?
+ The client may have received offers from multiple servers, and the broadcast serves to implicitly decline those other offers
+ipv6 address dhcp
+ set the router as a stateful DHCPv6 client
+255.255.255.255
+ the destination IP address when an IPv4 host sends a DHCPDISCOVER message
+ .. note:: Because a DHCP client does not have a valid IPv4 address, it must use a broadcast IP address of 255.255.255.255 as the destination address to communicate with the DHCP server. The DHCPDISCOVER message sent by the client is the first message sent in order to make initial contact with a DHCP server.
+
+An administrator has configured a DHCPv4 relay router and issued these commands
+
+.. code::
+
+   Router(config)# interface g0/0
+   Router(config-if)# ip address 10.0.1.1 255.255.255.0
+   Router(config-if)# no shutdown
+   Router(config-if)# exit
+   Router(config)# ip dhcp pool RELAY
+   Router(dhcp-config)# end
+
+The clients are not receiving IP parameters from the DHCPv4 server. What is a possible cause? 
+The ``ip helper-address server-ip`` command is missing
+
+DHCPREQUEST
+ What message does an IPv4 host use to reply when it receives a DHCPOFFER message from a DHCP server?
+ .. note:: When the client receives the DHCPOFFER from the server, it sends back a DHCPREQUEST broadcast message. On receiving the DHCPREQUEST message, the server replies with a unicast DHCPACK message.
+
+SLAAC
+ In which alternative to DHCPv6 does a router dynamically provide IPv6 configuration information to hosts?
+ .. note:: Stateless Address Autoconfiguration (SLAAC) can be used as an alternative to DHCPv6. In this approach, a router provides global routing prefix, prefix length, default gateway, and DNS server information to a host. The host is not provided with a global unicast address by SLAAC. Instead, SLAAC suggests that the host create its own global unicast address based on the supplied global routing prefix. ARP is not used in IPv6. ICMPv6 messages are used by SLAAC to provide addressing and other configuration information. EUI-64 is a process in which a host will create an Interface ID from its 48-bit MAC address.
+
+DAD 
+ What process is used in ICMPv6 for a host to verify that an IPv6 address is unique before configuring it on an interface?
+ .. note:: Before an IPv6 host can enable and use an assigned IPv6 address, the host must verify that the address is unique on the network. To verify that no other hosts are using the IPv6 address, the host performs the duplicate address detection (DAD) process by sending a **Neighbor Solicitation (NS) message** to the IPv6 address.
+
+.. note:: clients in stateless DHCPv6 operation will configure their interface IDs either by EUI-64 or a random number  
+
+Router# show ip dhcp binding
+ Which command will allow a network administrator to check the IP address that is assigned to a particular MAC address? 
+
+After booting, a client receives an ICMPv6 RA message with the M flag set to 0 and the O flag set to 1. What does this indicate?
+ :strike:`The client should automatically configure an IPv6 address without contacting a DHCPv6 server`
+ The client should automatically configure an IPv6 address and then contact a DHCPv6 server for more information
+
+When a client is requesting an initial address lease from a DHCP server, why is the DHCPREQUEST message sent as a broadcast?
+ The client may have received offers from multiple servers, and the broadcast serves to implicitly decline those other offers
+ .. note:: During the initial DHCP exchange between a client and server, the client broadcasts a DHCPDISCOVER message looking for DHCP servers. Multiple servers may be configured to respond to this request with DHCPOFFER messages. The client will choose the lease from one of the servers by sending a DHCPREQUEST message. It sends this message as a broadcast so that the other DHCP servers that sent offers will know that their offers were declined and the corresponding address can go back into the pool
+
+An administrator is troubleshooting a DHCPv4 issue on a router. By issuing the debug ip dhcp ........ command, the administrator can watch, in real time, the IP address assignments that are performed by the router. 
+ ``debug ip dhcp server events``
+
+Ch8 practice exam
+------------------
+
+#. Which DHCPv4 message will a client send to accept an IPv4 address that is offered by a DHCP server? 
+
+   + unicast DHCPACK
+   + broadcast DHCPACK
+   + unicast DHCPREQUEST
+   + broadcast DHCPREQUEST
+   + Answer -> :transparent:`broadcast DHCPREQUEST`
+
+#. A company uses DHCP servers to dynamically assign IPv4 addresses to employee workstations. The address lease duration is set as 5 days. An employee returns to the office after an absence of one week. When the employee boots the workstation, it sends a message to obtain an IP address. Which Layer 2 and Layer 3 destination addresses will the message contain?
+
+   + FF-FF-FF-FF-FF-FF and 255.255.255.255
+   + both MAC and IPv4 addresses of the DHCP server
+   + MAC address of the DHCP server and 255.255.255.255
+   + FF-FF-FF-FF-FF-FF and IPv4 address of the DHCP server
+   + Answer -> :transparent:`FF-FF-FF-FF-FF-FF and 255.255.255.255`
+
+#. Which is a DHCPv4 address allocation method that assigns IPv4 addresses for a limited lease period?
+
+   + manual allocation 
+   + pre-allocation
+   + automatic allocation
+   + dynamic allocation
+   + Answer -> :transparent:`dynamic allocation`
+
+#. Which address does a DHCPv4 server target when sending a DHCPOFFER message to a client that makes an address request?
+
+   + client IP address
+   + client hardware address 
+   + gateway IP address
+   + broadcast MAC address
+   + Answer -> :transparent:`client hardware address`
+
+#. As a DHCPv4 client lease is about to expire, what is the message that the client sends the DHCP server?
+
+   + DHCPDISCOVER
+   + DHCPOFFER
+   + DHCPREQUEST
+   + DHCPACK
+   + Answer -> :transparent:`DHCPREQUEST`
+
+#. What is an advantage of configuring a Cisco router as a relay agent?
+
+   + It will allow DHCPDISCOVER messages to pass without alteration
+   + It can forward both broadcast and multicast messages on behalf of clients
+   + It can provide relay services for multiple UDP services 
+   + It reduces the response time from a DHCP server.
+   + Answer -> :transparent:`It can provide relay services for multiple UDP services`
+
+#. An administrator issues the commands
+
+   .. code::
+
+      Router(config)# interface g0/1
+      Router(config-if)# ip address dhcp
+   
+   What is the administrator trying to achieve?
+
+   + configuring the router to act as a DHCPv4 server
+   + configuring the router to obtain IP parameters from a DHCPv4 server
+   + configuring the router to act as a relay agent
+   + configuring the router to resolve IP address conflicts
+   + Answer -> :transparent:`configuring the router to obtain IP parameters from a DHCPv4 server`
+
+#. Under which two circumstances would a router usually be configured as a DHCPv4 client? (Choose two.)
+
+   + The router is intended to be used as a SOHO gateway
+   + The administrator needs the router to act as a relay agent
+   + The router is meant to provide IP addresses to the hosts
+   + This is an ISP requirement
+   + The router has a fixed IP address
+   + Answer -> :transparent:`The router is intended to be used as a SOHO gateway && This is an ISP requirement`
+
+#. A company uses the SLAAC method to configure IPv6 addresses for the employee workstations. Which address will a client use as its default gateway?
+
+   + the all-routers multicast address
+   + the link-local address of the router interface that is attached to the network
+   + the unique local address of the router interface that is attached to the network
+   + the global unicast address of the router interface that is attached to the network
+   + Answer -> :transparent:`the link-local address of the router interface that is attached to the network`
+
+#. A network administrator configures a router to send RA messages with M flag as 0 and O flag as 1. Which statement describes the effect of this configuration when a PC tries to configure its IPv6 address?
+
+   + It should contact a DHCPv6 server for all the information that it needs
+   + It should use the information that is contained in the RA message exclusively
+   + It should use the information that is contained in the RA message and contact a DHCPv6 server for additional information
+   + It should contact a DHCPv6 server for the prefix, the prefix-length information, and an interface ID that is both random and unique
+   + Answer -> :transparent:`It should use the information that is contained in the RA message and contact a DHCPv6 server for additional information`
+
+#. A company implements the stateless DHCPv6 method for configuring IPv6 addresses on employee workstations. After a workstation receives messages from multiple DHCPv6 servers to indicate their availability for DHCPv6 service, which message does it send to a server for configuration information?
+
+   + DHCPv6 SOLICIT
+   + DHCPv6 REQUEST
+   + DHCPv6 ADVERTISE
+   + DHCPv6 INFORMATION-REQUEST
+   + Answer -> :transparent:`DHCPv6 INFORMATION-REQUEST`
+
+#. An administrator wants to configure hosts to automatically assign IPv6 addresses to themselves by the use of Router Advertisement messages, but also to obtain the DNS server address from a DHCPv6 server. Which address assignment method should be configured?
+
+   + SLAAC
+   + stateless DHCPv6
+   + stateful DHCPv6
+   + RA and EUI-64
+   + Answer -> :transparent:`stateless DHCPv6`
+
+#. How does an IPv6 client ensure that it has a unique address after it configures its IPv6 address using the SLAAC allocation method?
+
+   + It sends an ARP message with the IPv6 address as the destination IPv6 address
+   + It checks with the IPv6 address database that is hosted by the SLAAC server
+   + It contacts the DHCPv6 server via a special formed ICMPv6 message
+   + It sends an ICMPv6 Neighbor Solicitation message with the IPv6 address as the target IPv6 address
+   + Answer -> :transparent:`It sends an ICMPv6 Neighbor Solicitation message with the IPv6 address as the target IPv6 address`
+
+#. What is used in the EUI-64 process to create an IPv6 interface ID on an IPv6 enabled interface?
+
+   + the MAC address of the IPv6 enabled interface
+   + a randomly generated 64-bit hexadecimal address
+   + an IPv6 address that is provided by a DHCPv6 server
+   + an IPv4 address that is configured on the interface
+   + Answer -> :transparent:`the MAC address of the IPv6 enabled interface`
+
+#. What two methods can be used to generate an interface ID by an IPv6 host that is using SLAAC? (Choose two.)
+
+   + EUI-64
+   + random generation
+   + stateful DHCPv6
+   + DAD
+   + ARP
+   + Answer -> :transparent:`EUI-64 && random generation`
+
+#. Refer to the exhibit. Based on the output that is shown, what kind of IPv6 addressing is being configured?
+
+   .. code::
+
+      R1# show running-config
+      <output omitted>
+      !
+      ipv6 dhcp pool IPV6
+       dns-server 2001:DB8:1234:5678::100
+       domain-name netacad.com
+      !
+      interface FastEthernet0/0
+       <output omitted>
+      !
+       ipv6 nd other-config-flag
+       ipv6 dhcp server IPV6
+      !
+      <output omitted>
+
+   + SLAAC
+   + stateful DHCPv6
+   + stateless DHCPv6
+   + static link-local
+   + Answer -> :transparent:`stateless DHCPv6`
+
+#. Refer to the exhibit. What should be done to allow PC-A to receive an IPv6 address from the DHCPv6 server?
+
+   .. image:: _static/img/Ch8_exam_practice_1.png
+
+   + Add the ipv6 dhcp relay command to interface Fa0/0
+   + Configure the ipv6 nd managed-config-flag command on interface Fa0/1
+   + Change the ipv6 nd managed-config-flag command to ipv6 nd other-config-flag
+   + Add the IPv6 address 2001:DB8:1234:5678::10/64 to the interface configuration of the DHCPv6 server
+   + Answer -> :transparent:`Add the ipv6 dhcp relay command to interface Fa0/0`
+
+#. Refer to the exhibit. A network administrator is implementing stateful DHCPv6 operation for the company. However, the clients are not using the prefix and prefix-length information that is configured in the DHCP pool. The administrator issues a show ipv6 interface command. What could be the cause of the problem?
+  
+   .. code::
+
+      R1# show ipv6 interface gigabitBthernet 0/0
+      GigabitEthernet0/0 is up, line protocol is up
+        IPv6 is enabled, link-local address is FE80::523D:E5FF:FEAA:COAO
+        No Virtual link-local address(es):
+        Global unicast address(es):
+        2001:DB8:ACAD:1::1, subnet is 2001:DB8:ACAD:1::/64 
+      
+      <output omitted> 
+      ICMP error messages limited to one every 100 milliseconds
+      ICMP redirects are enabled
+      ICMP unreachables are sent ND DAD is enabled, number of DAD attempts:1
+      ND reachable time is 30000 milliseconds (using 30000)
+      ND advertised reachable time is 0 (unspecified)
+      ND advertised retransmit interval is 0 (unspecified)
+      ND router advertisements are sent every 200 seconds
+      ND router advertisements live for 1800 seconds
+      ND advertised default router preference is Medium
+      Hosts use stateless autoconfig for addresses.
+      Hosts use DHCP to obtain other configuration.
+      R1# 
+   
+   + No virtual link-local address is configured
+   + The Duplicate Address Detection feature is disabled
+   + The router is configured for SLAAC DHCPv6 operation
+   + The router is configured for stateless DHCPv6 operation
+   + Answer -> :transparent:`The router is configured for stateless DHCPv6 operation`
+   + more info on answer -> :transparent:`The router is configured for stateless DHCPv6 operation, which is shown by the last two lines of the show command output. Hosts will configure their IPv6 addresses by using the prefix information that is provided by RA messages. They will also obtain additional configuration information from a DHCPv6 server. The “No virtual link-local address” option and the “Duplicate Address Detection” option are irrelevant to DHCP configuration. Option “SLAAC configuration” is incorrect because by definition SLAAC will use only the information that is provided by RA messages to configure IPv6 settings.`
+
+#. Refer to the exhibit. A network administrator is implementing the stateless DHCPv6 operation for the company. Clients are configuring IPv6 addresses as expected. However, the clients are not getting the DNS server address and the domain name information configured in the DHCP pool. What could be the cause of the problem? 
+
+   .. code::
+
+      R1# configure terminal
+      Enter configuration commands, one per line. End with CNTL/Z.
+      R1(config)# ipv6 unicast-routing
+      R1(config)# ipv6 dhcp pool ACAD_NET
+      R1(config-dhcp)# dns-server 2001:db8:acad:a1::10
+      R1(config-dhcp)# domain-name netacad.net
+      R1(config-dhcp)# exit
+      R1(config)# interface gigabitEthernet 0/0
+      R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
+      R1(config-if)# ipv6 dhcp server ACAD_NET
+      R1(config-if)# end
+      R1#
+      R1# show ipv6 dhcp pool
+      DHCPv6 pool: ACAD_NET
+      DNS server: 2001:DE8:ACAD:A1::10
+      Domain name: netacad.net
+      Active clients: 0
+      R1# 
+
+   + The GigabitEthernet interface is not activated 
+   + The router is configured for SLAAC operation
+   + The DNS server address is not on the same network as the clients are on
+   + The clients cannot communicate with the DHCPv6 server, evidenced by the number of active clients being 0
+   + Answer -> :transparent:`The router is configured for SLAAC operation`
+
+#. Fill in the blank. Do not abbreviate.
+   Type a command to exclude the first fifteen useable IP addresses from a DHCPv4 address pool of the network 10.0.15.0/24
+
+   + Router(config)# ip dhcp :transparent:`excluded-address 10.0.15.1 10.0.15.15`
+
+#. Order the steps of configuring a router as a DHCPv4 Server. (Not all options are used.)
+   
+   + Step 1 
+   + Step 2 
+   + Step 3 
+   + Configure a DHCP pool. 
+   + Exclude IP addresses. 
+   + Configure the routing protocol. 
+   + Define the default gateway router. 
+   + Configure a secret password. 
+   + Answer -> :transparent:`Step1=Exclude IP addresses - Step2=Configure a DHCP pool - Step3=Define the default gateway router`
+
+#. Match the descriptions to the corresponding DHCPv6 server type. (Not all options are used)
+
+   + enabled in RA messages with the ipv6 nd other-config-flag command
+   + clients communicate with the DHCPv6 server by the use of RA messages
+   + the M flag is set to 1 in RA messages
+   + uses the address command to create a pool of addresses for clients 
+   + clients send only DHCPv6 INFORMATION-REQUEST messages to the server 
+   + enabled on the client with the ipv6 address dhcp command 
+   + enabled on the client with the ipv6 address autoconfig command 
+   
+   + Stateless DHCPv6
+
+     - :transparent:`enabled in RA messages with the ipv6 nd other-config-flag command`
+     - :transparent:`clients send only DHCPv6 INFORMATION-REQUEST messages to the server`
+     - :transparent:`enabled on the client with the ipv6 address autoconfig command`
+       
+   + Stateful DHCPv6 
+
+     - :transparent:`the M flag is set to 1 in RA messages`
+     - :transparent:`uses the address command to create a pool of addresses for clients`
+     - :transparent:`enabled on the client with the ipv6 address dhcp command`
+
+
+#. Refer to the exhibit. What should be done to allow PC-A to receive an IPv6 address from the DHCPv6 server?
+
+   .. image:: _static/img/Ch10_practice_exam_q1.png
+
+   .. code::
+
+      RTR1# show running-config
+      hostname RTR1
+      !
+      <output omitted>
+      interface FastEthernet0/0
+       ip address dhcp
+       duplex auto
+       speed auto
+       ipv6 address 2001:DB8:1234:5678::1/64
+       ipv6 nd managed-config-flag
+      !
+      interface FastEthernet0/1
+       no ip address
+       duplex auto
+       speed auto
+       ipv6 address 2001:DB8:1234:ABCD::1/64
+      !
+      <output omitted>
+
+   + Add the IPv6 address 2001:DB8:1234:5678::10/64 to the interface configuration of the DHCPv6 server
+   + Configure the ipv6 nd managed-config-flag command on interface Fa0/1
+   + Change the ipv6 nd managed-config-flag command to ipv6 nd other-config-flag
+   + Add the ipv6 dhcp relay command to interface Fa0/0
+   + Answer -> :transparent:`Add the ipv6 dhcp relay command to interface Fa0/0`
+
+#. What is the reason why the DHCPREQUEST message is sent as a broadcast during the DHCPv4 process?
+
+   + for routers to fill their routing tables with this new information
+   + to notify other hosts not to request the same IP address
+   + to notify other DHCP servers on the subnet that the IP address was leased*
+   + for hosts on other subnets to receive the information
+   + answer -> :transparent:`to notify other DHCP servers on the subnet that the IP address was leased`
+
+#. A company uses DHCP servers to dynamically assign IPv4 addresses to employee workstations. The address lease duration is set as 5 days. An employee returns to the office after an absence of one week. When the employee boots the workstation, it sends a message to obtain an IP address. Which Layer 2 and Layer 3 destination addresses will the message contain?
+
+   + FF-FF-FF-FF-FF-FF and 255.255.255.255*
+   + MAC address of the DHCP server and 255.255.255.255
+   + FF-FF-FF-FF-FF-FF and IPv4 address of the DHCP server
+   + both MAC and IPv4 addresses of the DHCP server
+   + answer -> :transparent:`to notify other DHCP servers on the subnet that the IP address was leased`
+
+#. Fill in the blank. Do not abbreviate.
+Type a command to exclude the first fifteen useable IP addresses from a DHCPv4 address pool of the network 10.0.15.0/24.
+
+   + Router(config)# ip dhcp :transparent:`excluded-address 10.0.15.1 10.0.15.15`
+
+#. Match the descriptions to the corresponding DHCPV6 servertype. (Not all options are used)
+
+   + :transparent:`0` enabled in RA messages with the ``ipv6 nd other-config-flag`` command
+   + :transparent:`x` clients communicate with the DHCPV6 server by the use of RA messages
+   + :transparent:`1` the M flag is set to 1 in RA messages
+   + :transparent:`1` uses the ``address`` command to create a pool of addresses for clients
+   + :transparent:`0` clients send only DHCPV6 INFORMATlON-REQUEST messages to the server
+   + :transparent:`1` enabled on the client with the ``ipv6 address dhcp`` command
+   + :transparent:`0` enabled on the client with the ``ipv6 address autoconfig`` command
+
+   + Stateless DHCPV6 = 0   
+   + Stateful DHCPV6 = 1
+   + Neither = x
+
+
+#. Refer to the exhibit. A network administrator is implementing stateful DHCPv6 operation for the company. However, the clients are not using the prefix and prefix-length information that is configured in the DHCP pool. The administrator issues a show ipv6 interface command. What could be the cause of the problem?
+
+   .. code::
+
+      R1# show ipv6 interface gigabitEthernet 0/0
+      GigabitEthernet0/0 is up, line protocol is up
+        IPv6 is enabled, link-local address is FE80::523D:E5FF:FEAA:C0A0
+        No Virtual link-local address(es):
+        Global unicast address(es):  2001:DB8:ACAD:1::1, subnet is 2001:DB8:ACAD:1::/64
+      
+      <output omitted>
+      
+        ICMP error messages limited to one every 100 milliseconds
+        ICMP redirects are enabled
+        ICMP unreachables are sent
+        ND DAD is enabled, number of DAD attempts: 1
+        ND reachable time is 30000 milliseconds (using 30000)
+        ND advertised reachable time is 0 (unspecified)
+        ND advertised retransmit interval is 0 (unspecified)
+        ND router advertisements are sent every 200 seconds
+        ND router advertisements live for 1800 seconds
+        ND advertised default router preference is Medium
+        Hosts use stateless autoconfig for addresses.
+        Hosts use DHCP to obtain other configuration.
+      R1#
+
+   + The router is configured for stateless DHCPv6 operation
+   + No virtual link-local address is configured
+   + The router is configured for SLAAC DHCPv6 operation
+   + The Duplicate Address Detection feature is disabled
+   + Answer -> :transparent:`The router is configured for stateless DHCPv6 operation`
+
+#. A network engineer is troubleshooting hosts on a LAN that are not being assigned an IPv4 address from a DHCP server after a new Ethernet switch has been installed on the LAN. The configuration of the DHCP server has been confirmed as correct and the clients have network connectivity to other networks if a static IP address is configured on each one. What step should the engineer take next to solve the issue?
+
+   + Issue the ipconfig/release command on each client
+   + Issue the show ip dhcp binding command on the switch
+   + Issue the show interface command on the router to confirm that the LAN gateway is operational
+   + Confirm that ports on the Layer 2 LAN switch are configured as edge ports
+   + Answer -> :transparent:`Confirm that ports on the Layer 2 LAN switch are configured as edge ports`
+
+#. A network administrator configures a router to send RA messages with M flag as 0 and O flag as 1. Which statement describes the effect of this configuration when a PC tries to configure its IPv6 address?
+
+   + It should use the information that is contained in the RA message exclusively
+   + It should contact a DHCPv6 server for the prefix, the prefix-length information, and an interface ID that is both random and unique
+   + It should use the information that is contained in the RA message and contact a DHCPv6 server for additional information
+   + It should contact a DHCPv6 server for all the information that it needs
+   + Answer -> :transparent:`It should use the information that is contained in the RA message and contact a DHCPv6 server for additional information`
+
+#. Which protocol supports Stateless Address Autoconfiguration (SLAAC) for dynamic assignment of IPv6 addresses to a host?
+
+   + UDP
+   + ICMPv6
+   + ARPv6
+   + DHCPv6
+   + Answer -> :transparent:`ICMPv6`
+
+#. A company uses the SLAAC method to configure IPv6 addresses for the employee workstations. Which address will a client use as its default gateway?
+
+   + the unique local address of the router interface that is attached to the network
+   + the global unicast address of the router interface that is attached to the network
+   + the link-local address of the router interface that is attached to the network
+   + the all-routers multicast address
+   + Answer -> :transparent:`the link-local address of the router interface that is attached to the network`
+
+#. Which set of commands will configure a router as a DHCP server that will assign IPv4 addresses to the 192.168.100.0/23 LAN while reserving the first 10 and the last addresses for static assignment?
+
+   .. code::
+
+      -- 1 -- 
+      dhcp pool LAN-POOL-100
+      ip dhcp excluded-address 192.168.100.1 192.168.100.9
+      ip dhcp excluded-address 192.168.100.254
+      network 192.168.100.0 255.255.254.0
+      default-router 192.168.101.1
+      
+      -- 2 -- 
+      ip dhcp excluded-address 192.168.100.1 192.168.100.9
+      ip dhcp excluded-address 192.168.101.254
+      ip dhcp pool LAN-POOL-100
+      ip network 192.168.100.0 255.255.254.0
+      ip default-gateway 192.168.100.1
+      
+      -- 3 -- 
+      ip dhcp excluded-address 192.168.100.1 192.168.100.10
+      ip dhcp excluded-address 192.168.101.254
+      ip dhcp pool LAN-POOL-100
+      network 192.168.100.0 255.255.254.0
+      default-router 192.168.100.1 ************************
+      
+      -- 4 -- 
+      ip dhcp excluded-address 192.168.100.1 192.168.100.10
+      ip dhcp excluded-address 192.168.100.254
+      ip dhcp pool LAN-POOL-100
+      network 192.168.100.0 255.255.255.0
+      ip default-gateway 192.168.100.1
+
+   + The answer is: :transparent:`-- 3 --`
+
+
 Chapter 9 NAT for IPv4
 ======================
 
 NAT Border
 ----------
 
-.. image:: _static/Ch9_NAT_border.png
+.. image:: _static/img/Ch9_NAT_border.png
 
 NAT has many uses, but its primary use is to conserve public IPv4 addresses. It does this by allowing networks to use private IPv4 addresses internally and providing translation to a public address only when needed. NAT has an added benefit of adding a degree of privacy and security to a network, because it hides internal IPv4 addresses from outside networks.
 
@@ -8201,7 +8709,7 @@ When a device inside the stub network wants to communicate with a device outside
 Types of NAT Addresses
 ----------------------
 
-.. image:: _static/Ch9_Types_of_NAT_addresses.png
+.. image:: _static/img/Ch9_Types_of_NAT_addresses.png
 
 It is important to remember that NAT terminology is always applied from the perspective of the device with the translated address:
 
@@ -8228,7 +8736,7 @@ The NAT router, R2, is the **demarcation point** between the inside and outside 
 NAT Address Terminology
 -----------------------
 
-.. image:: _static/Ch9_NAT_address_examples.png
+.. image:: _static/img/Ch9_NAT_address_examples.png
 
 
 The terms, inside and outside, are combined with the terms local and global to refer to specific addresses. In the figure, router R2 has been configured to provide NAT. It has a pool of public addresses to assign to inside hosts.
@@ -8251,13 +8759,13 @@ Note: The use of the outside local address is outside the scope of this course.
 
 .. note:: inside = Source  outside = Destination 
 
-.. image:: _static/Ch9_NAT_identify1.png
+.. image:: _static/img/Ch9_NAT_identify1.png
 
 
 Static NAT
 ----------
 
-.. image:: _static/Ch9_Static_NAT.png
+.. image:: _static/img/Ch9_Static_NAT.png
 
 
 There are three types of NAT translation:
@@ -8283,7 +8791,7 @@ Static NAT is particularly **useful for web servers or devices that must have a 
 Dynamic NAT
 -----------
 
-.. image:: _static/Ch9_Dynamic_NAT.png
+.. image:: _static/img/Ch9_Dynamic_NAT.png
 
 
 Dynamic NAT
@@ -8297,7 +8805,7 @@ PC3 has accessed the Internet using the first available address in the dynamic N
 PAT aka NAT Overload
 --------------------
 
-.. image:: _static/Ch9_PAT_process.png
+.. image:: _static/img/Ch9_PAT_process.png
 
 Port Address Translation (PAT), also known as NAT overload, maps multiple private IPv4 addresses to a single public IPv4 address or a few addresses. This is what most home routers do. The ISP assigns one address to the router, yet several members of the household can simultaneously access the Internet. This is the most common form of NAT.
 
@@ -8314,7 +8822,7 @@ For the source address, R2 translates the inside local address to an inside glob
 NAT vs PAT
 ----------
 
-.. image:: _static/Ch9_NAT_vs_PAT.png
+.. image:: _static/img/Ch9_NAT_vs_PAT.png
 
 NAT translates IPv4 addresses on a 1:1 basis between private IPv4 addresses and public IPv4 addresses. However, PAT modifies both the address and the port number.
 
@@ -8463,7 +8971,7 @@ Configuring Static NAT
 Image shows the commands needed on R2 to create a static NAT mapping to the web server in the example topology. With the configuration shown, R2 translates packets from the web server with address 192.168.10.254 to public IPv4 address 209.165.201.5. The Internet client directs web requests to the public IPv4 address 209.165.201.5. R2 forwards that traffic to the web server at 192.168.10.254.
 
 
-.. image:: _static/Ch9_Static_NAT_example.png
+.. image:: _static/img/Ch9_Static_NAT_example.png
 
 .. code::
 
@@ -8488,7 +8996,7 @@ Image shows the commands needed on R2 to create a static NAT mapping to the web 
 Static NAT Process
 ------------------
 
-.. image:: _static/Ch9_Static_NAT_process.png
+.. image:: _static/img/Ch9_Static_NAT_process.png
 
 #. The client sends a packet to the web server using the public IPv4 destination address of 209.165.201.5. This is the **inside global address of the web server**
 
@@ -8517,7 +9025,7 @@ In this example it would show **1 static** in **Total active translations**
 Configure Static NAT exercise
 -----------------------------
 
-.. image:: _static/Ch9_9.2.1.4_Configuring_Static_NAT.png
+.. image:: _static/img/Ch9_9.2.1.4_Configuring_Static_NAT.png
 
 configure static NAT so that outside devices can access and inside server at its public address
 
@@ -8602,7 +9110,7 @@ Use the following commands to verify the static NAT configuration:
 Dynamic NAT operation
 ---------------------
 
-.. image:: _static/Ch9_Dynamic_NAT_1to1_translation.png
+.. image:: _static/img/Ch9_Dynamic_NAT_1to1_translation.png
 
 While static NAT provides a permanent mapping between an inside local address and an inside global address, **dynamic NAT allows the automatic mapping of inside local addresses to inside global addresses**. **These inside global addresses are typically public IPv4 addresses**. Dynamic NAT uses a group, or pool of public IPv4 addresses for translation.
 
@@ -8654,7 +9162,7 @@ Configuring Dynamic NAT
 Dynamic NAT example
 -------------------
 
-.. image:: _static/Ch9_dynamic_NAT_example_config.png
+.. image:: _static/img/Ch9_dynamic_NAT_example_config.png
 
 Defines a pool of public IPv4 addresses under the pool name NAT POOL1
 
@@ -8684,7 +9192,7 @@ Identifies interface serial 0/0/0 as an inside NAT interface
 Dynamic NAT process
 -------------------
 
-.. image:: _static/Ch9_Dynamic_NAT_process_1.png
+.. image:: _static/img/Ch9_Dynamic_NAT_process_1.png
 
 Using the previous configuration, the figures illustrate the dynamic NAT translation process between two clients and the web server:
 
@@ -8698,7 +9206,7 @@ In image 1, the traffic flow from inside to outside is shown:
 
 #. R2 replaces the inside local source address of PC1, 192.168.10.10, with the translated inside global address of 209.165.200.226 and forwards the packet. The same process occurs for the packet from PC2 using the translated address for PC2 (209.165.200.227).
 
-   .. image:: _static/Ch9_Dynamic_NAT_process_2.png
+   .. image:: _static/img/Ch9_Dynamic_NAT_process_2.png
 
    In image 2, the traffic flow from outside to inside is shown:
 
@@ -8744,7 +9252,7 @@ Clearing NAT Translations
 Configure Dynamic NAT exercise
 ------------------------------
 
-.. image:: _static/Ch9_9.2.2.5_Configuring_Dynamic_NAT.png
+.. image:: _static/img/Ch9_9.2.2.5_Configuring_Dynamic_NAT.png
 
 configure dynamic NAT
 ^^^^^^^^^^^^^^^^^^^^^
@@ -8962,7 +9470,7 @@ Verify NAT implementation
 Configure Dynamic & Static NAT Lab
 ----------------------------------
 
-.. image:: _static/Ch9_9.2.2.6_Configuring_Dynamic_And_Static_NAT.png
+.. image:: _static/img/Ch9_9.2.2.6_Configuring_Dynamic_And_Static_NAT.png
 
 
 Addressing Table 9.2.2.6
@@ -9364,7 +9872,7 @@ There are two ways to configure PAT, depending on how the ISP allocates public I
 .. note:: The primary difference between this configuration and the configuration for dynamic, one-to-one NAT is that the overload keyword is used. The **overload** keyword enables PAT.
 
 
-.. image:: _static/Ch9_PAT_with_single_address.png
+.. image:: _static/img/Ch9_PAT_with_single_address.png
 
 ``R2(config)# ip nat inside source list 2 interface Serial 0/1/0 overload``
 
@@ -9373,9 +9881,9 @@ There are two ways to configure PAT, depending on how the ISP allocates public I
 PAT analysis
 ------------
 
-.. image:: _static/Ch9_PAT_Analysis1.png
+.. image:: _static/img/Ch9_PAT_Analysis1.png
 
-.. image:: _static/Ch9_PAT_Analysis2.png
+.. image:: _static/img/Ch9_PAT_Analysis2.png
 
 However, PC2 has the same source port number as a current PAT entry, the translation for PC1. **PAT increments the source port number until it is a unique value in its table**. In this instance, the source port entry in the NAT table and the packet for PC2 receives 1445.
 
@@ -9389,7 +9897,7 @@ PT Implementing Static & Dynamic NAT
 PT 9.2.3.6
 ^^^^^^^^^^
 
-.. image:: _static/Ch9_pt_9.2.3.6_static_dynamic_NAT.png
+.. image:: _static/img/Ch9_pt_9.2.3.6_statdyn_NAT.png
 
 Configure dynamic NAT with PAT
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -9566,7 +10074,7 @@ Router 2 running config
 Configure PAT NAT Lab
 ---------------------
 
-.. image:: _static/Ch9_9.2.3.7_Configuring_PAT_NAT_lab.png
+.. image:: _static/img/Ch9_9.2.3.7_Configuring_PAT_NAT_lab.png
 
 
 Addressing Table 9.2.3.7
@@ -9814,7 +10322,7 @@ Port Forwarding
 - extendable
    The extendable option is applied automatically. The **extendable** keyword allows the user to configure several ambiguous static translations, **where ambiguous translations are translations with the same local or global address.** It allows the router to extend the translation to more than one port if necessary.
 
-.. image:: _static/Ch9_port_forwarding_example.png
+.. image:: _static/img/Ch9_port_forwarding_example.png
 
 Establishes static translation between an inside local address and local port and an inside global address and global port
 
@@ -9854,7 +10362,7 @@ IPv6, with a 128-bit address, provides 340 undecillion addresses. Therefore, add
 IPv6 Unique Local Address ULA
 -----------------------------
 
-.. image:: _static/Ch9_ipv6_unique_local_address.png
+.. image:: _static/img/Ch9_ipv6_unique_local_address.png
 
 The intent of ULA is to provide IPv6 address space for communications within a local site; it is not meant to provide additional IPv6 address space, nor is it meant to provide a level of security.
 
@@ -9877,7 +10385,7 @@ The implementation and potential uses for IPv6 unique local addresses are still 
 NAT for IPv6
 ------------
 
-.. image:: _static/Ch9_NAT64.png
+.. image:: _static/img/Ch9_NAT64.png
 
 NAT for IPv6 is used in a much different context than NAT for IPv4. The varieties of NAT for IPv6 are used to transparently provide access between IPv6-only and IPv4-only networks. It is not used as a form of private IPv6 to global IPv6 translation.
 
@@ -9930,7 +10438,7 @@ When decoding the debug output, note what the following symbols and values indic
 
 .. note:: Verify that the ACL referenced in the NAT command is permitting all of the necessary networks. E.g., only 192.168.0.0/16 addresses are eligible to be translated. Packets from the inside network destined for the Internet with source addresses that are not explicitly permitted by ACL 1 are not translated by R2.
 
-.. image:: _static/Ch9_NAT_troubleshooting_scenario1.png
+.. image:: _static/img/Ch9_NAT_troubleshooting_scenario1.png
 
 .. code::
 
@@ -9991,7 +10499,7 @@ When decoding the debug output, note what the following symbols and values indic
 PT Troubleshooting NAT ex1
 --------------------------
 
-.. image:: _static/Ch9_pt_troubleshooting_NAT_ex1.png
+.. image:: _static/img/Ch9_pt_troubleshooting_NAT_ex1.png
 
 Addressing Table ex1
 ^^^^^^^^^^^^^^^^^^^^
@@ -10263,7 +10771,7 @@ PT Verify Connectivity
 LAB Troubleshooting NAT
 -----------------------
 
-.. image:: _static/Ch9_lab_troubleshooting_NAT.png
+.. image:: _static/img/Ch9_lab_troubleshooting_NAT.png
 
 PT Addressing Table
 ^^^^^^^^^^^^^^^^^^^
@@ -10413,7 +10921,7 @@ Ch9 Skills Integration Test - assignment
 ----------------------------------------
 Topology Assigned
 
-.. image:: _static/Ch9_skills_integration_test_assignment.png
+.. image:: _static/img/Ch9_skills_integration_test_assignment.png
 
 Addressing Table Assigned
 
@@ -10548,7 +11056,7 @@ Ch9 Skills Integration Test - when opened with PT 7.0 on windos
 
 Topology Solved 
 
-.. image:: _static/Ch9_Skills_integration_test.png
+.. image:: _static/img/Ch9_Skills_integration_test.png
 
 ???????why are ips present here and not in PDF ????????
 
@@ -10908,6 +11416,236 @@ All devices should now be able to ping all other devices. If not, troubleshoot y
 • Document any problems you encountered and the solutions in the **Troubleshooting Documentation** table below.
 
 
+Ch9 practice exam
+-----------------
+select transparent answer below every question
+
+#. Which method is used by a PAT-enabled router to send incoming packets to the correct inside hosts?
+   
+   + It uses the destination TCP or UDP port number on the incoming packet
+   + It uses the source IP address on the incoming packet
+   + It uses the source TCP or UDP port number on the incoming packet
+   + It uses a combination of the source TCP or UDP port number and the destination IP address on the incoming packet
+   + Answer ->:transparent:`It uses the destination TCP or UDP port number on the incoming packet`
+
+#. Refer to the exhibit. Which address or addresses represent the inside global address?
+
+   .. code::
+
+      R1(config)# ip nat inside source static 192.168.0.100 209.165.20.25
+      R1(config)# interface serial0/0/0
+      R1(config-if)# ip nat inside 
+      R1(config-if)# ip address 10.1.1.2 255.255.255.0
+      R1(config)# interface serial 0/0/2
+      R1(config-if)# ip address 209.165.20.25 255.255.255.0
+      R1(config-if)# ip nat outside
+
+   + 10.1.1.2
+   + any address in the 10.1.1.0 network
+   + 192.168.0.100
+   + 209.165.20.25
+   + Answer -> :transparent:`209.165.20.25`
+
+#. Fill in the blank. Don't use abbreviations
+   
+   + NAT overload is also known as :transparent:`Port Address Translation`
+
+#. A network administrator is configuring a static NAT on the border router for a web server located in the DMZ network. The web server is configured to listen on TCP port 8080. The web server is paired with the internal IP address of 192.168.5.25 and the external IP address of 209.165.200.230. For easy access by hosts on the Internet, external users do not need to specify the port when visiting the web server. Which command will configure the static NAT?
+
+   + R1(config)# ip nat inside source static tcp 192.168.5.25 80 209.165.200.230 8080
+   + R1(config)# ip nat inside source static tcp 192.168.5.25 8080 209.165.200.230 80
+   + R1(config)# ip nat inside source static tcp 209.165.200.230 80 192.168.5.25 8080
+   + R1(config)# ip nat inside source static tcp 209.165.200.230 8080 192.168.5.25 80
+   + Answer -> :transparent:`R1(config)# ip nat inside source static tcp 192.168.5.25 8080 209.165.200.230 80`
+
+#. What is defined by the ip nat pool command when configuring dynamic NAT?
+
+   + the pool of available NAT servers
+   + the range of external IP addresses that internal hosts are permitted to access
+   + the range of internal IP addresses that are translated
+   + the pool of global address*
+   + Answer -> :transparent:`the pool of global address`
+
+#. Refer to the exhibit. Based on the output that is shown, what type of NAT has been implemented?
+   
+   .. code::
+
+      R1# show ip nat translations
+      Pro Inside global         Inside local    Outside local       Outside global 
+      tcp 209.165.200.225:1405  10.6.15.2:1405  209.165.202.141:80  209.165.202.141:80
+      tcp 209.165.200.225:1406  10.6.15.1:1406  198.51.100.3:80     198.51.100.3:80 
+
+   + dynamic NAT with a pool of two public IP addresses
+   + PAT using an external interface
+   + static NAT with one entry
+   + static NAT with a NAT pool
+   + Answer -> :transparent:`PAT using an external interface`
+
+#. What is the primary purpose of NAT? 
+
+   + conserve IPv4 addresses*
+   + increase network security
+   + allow peer-to-peer file sharing
+   + enhance network performance
+   + Answer -> :transparent:`conserve IPv4 addresses`
+
+#. What is the major benefit of using NAT with Port Address Translation?
+
+   + It allows external hosts access to internal servers
+   + It improves network performance for real-time protocols
+   + It allows many internal hosts to share the same public IPv4 address
+   + It provides a pool of public addresses that can be assigned to internal hosts.
+   + Answer -> :transparent:`It allows many internal hosts to share the same public IPv4 address`
+
+#. What is a characteristic of unique local addresses?
+
+   + They allow sites to be combined without creating any address conflicts
+   + They are designed to improve the security of IPv6 networks
+   + Their implementation depends on ISPs providing the service
+   + They are defined in RFC 3927
+   + Answer -> :transparent:`They allow sites to be combined without creating any address conflicts`
+
+#. A network administrator configures the border router with the command ``R1(config)# ip nat inside source list 4 pool corp``. What is required to be configured in order for this particular command to be functional?
+
+   + a NAT pool named corp that defines the starting and ending public IP addresses
+   + an access list named corp that defines the private addresses that are affected by NAT
+   + an access list numbered 4 that defines the starting and ending public IP addresses
+   + ip nat outside to be enabled on the interface that connects to the LAN affected by the NAT
+   + a VLAN named corp to be enabled and active and routed by R1
+   + Answer -> :transparent:`a NAT pool named corp that defines the starting and ending public IP addresses`
+
+#. Which statement describes IPv6 ULAs?
+
+   + They conserve IPv6 address space
+   + They begin with the fe80::/10 prefix
+   + They are assigned by an ISP
+   + They are not routable across the internet
+   + Answer -> :transparent:`They are not routable across the internet`
+
+#. What is the purpose of port forwarding?
+
+   + Port forwarding allows an external user to reach a service on a private IPv4 address that is located inside a LAN
+   + Port forwarding allows users to reach servers on the Internet that are not using standard port numbers
+   + Port forwarding allows an internal user to reach a service on a public IPv4 address that is located outside a LAN
+   + Port forwarding allows for translating inside local IP addresses to outside local addresses
+   + Answer -> :transparent:`Port forwarding allows an external user to reach a service on a private IPv4 address that is located inside a LAN`
+
+#. When dynamic NAT without overloading is being used, what happens if seven users attempt to access a public server on the Internet when only six addresses are available in the NAT pool?
+
+   + No users can access the server
+   + The request to the server for the seventh user fails
+   + All users can access the server
+   + The first user gets disconnected when the seventh user makes the request
+   + Answer -> :transparent:`The request to the server for the seventh user fails`
+
+#. A network engineer has configured a router with the command ip nat inside source list 4 pool corp overload. Why did the engineer use the overload option?
+
+   + The company has more private IP addresses than available public IP addresses
+   + The company needs to have more public IP addresses available to be used on the Internet
+   + The company router must throttle or buffer traffic because the processing power of the router is not enough to handle the normal load of external-bound Internet traffic
+   + The company has a small number of servers that should be accessible by clients from the Internet
+   + Answer -> :transparent:`The company has more private IP addresses than available public IP addresses`
+
+#. Match the steps with the actions that are involved when an internal host with IP address 192.168.10.10 attempts to send a packet to and external server at the IP address 209.165.200.254 across a router R1 that running dynamic NAT. (Not all options are used.)
+
+   + not scored
+   + step 1 
+   + step 2 
+   + step 3 
+   + step 4 
+   + step 5 
+   - :transparent:`no score!` R1 translates the IP address in the packets from 209.65.200.254 to 192.168.10.10
+   - :transparent:`step 5 =>` R1 replaces the address 192.168.10.10 with a translated inside global address 
+   - :transparent:`step 2 =>` R1 checks the NAT configuration to determine if this packet should be translated 
+   - :transparent:`step 4 =>` R1 selects an available global address from the dynamic address pool 
+   - :transparent:`step 1 =>` The host sends packets that request a connection to the server at the address 209.165.200.254
+   - :transparent:`step 3 =>` If there is no translation entry for this IP address, R1 determines that the source address 192.168.10.10 must be translated
+
+#. What is a disadvantage of NAT?
+
+   + There is no end-to-end addressing
+   + The router does not need to alter the checksum of the IPv4 packets.
+   + The internal hosts have to use a single public IPv4 address for external communication.
+   + The costs of readdressing hosts can be significant for a publicly addressed network. 
+   + Answer -> :transparent:`There is no end-to-end addressing`
+
+#. Refer to the exhibit. What is the purpose of the command marked with an arrow shown in the partial configuration output of a Cisco broadband router?
+   
+   .. code::
+
+      interface FastEthernet 0/0
+       ip address 10.10.10.1 255.255.255.0
+       ip nat inside
+       no cdp enable
+       hold-queue 32 in
+       hold-queue 100 out
+      interface FastEthernet 0/1
+       ip address dhcp
+       ip nat outside
+       no cdp enable
+      !
+      ip classless
+      ip http server
+      !
+      ip nat inside source list 102 interface fastethernet 0/1 overload
+      access-list 102 permit ip 10.10.10.0 0.0.0.255 any
+      no cdp run
+      !
+
+   + defines which addresses can be translated
+   + defines which addresses are allowed into the router
+   + defines which addresses are assigned to a NAT pool
+   + defines which addresses are allowed out of the router
+   + Answer -> :transparent:`defines which addresses can be translated`
+
+#. What are two of the required steps to configure PAT? (Choose two.)
+
+   + Define a pool of global addresses to be used for overload translation
+   + Create a standard access list to define applications that should be translated
+   + Define the range of source ports to be used
+   + Identify the inside interface
+   + Define the hello and interval timers to match the adjacent neighbor router
+   + answer -> :transparent:`Define a pool of global addresses to be used for overload translation && Identify the inside interface`
+
+#. Refer to the exhibit. A technician is configuring R2 for static NAT to allow the client to access the web server. What is a possible reason that the client PC cannot access the web server?
+
+   .. image:: _static/img/Ch9_practice_exam_q19.png
+
+   .. code::
+
+      R2(config)# ip nat inside source static 192.168.10.2 209.165.201.5
+      R2(config)# interface Fa0/1
+      R2(config-if# ip address 192.168.10.254 255.255.255.0
+      R2(config-if)# ip nat inside
+      R2(config-if)# exit
+      R2(config)# interface Serial0/0/0
+      R2(config-if)# ip address 209.165.200.225 255.255.255.224
+
+   + Interface S0/0/0 should be identified as the outside NAT interface
+   + Interface Fa0/1 should be identified as the outside NAT interface
+   + The IP NAT statement is incorrect
+   + The configuration is missing a valid access control list
+   + Answer -> :transparent:`Interface Fa0/1 should be identified as the outside NAT interface`
+
+#. What are two benefits of NAT? (Choose two.)
+
+   + It saves public IP addresses
+   + It adds a degree of privacy and security to a network
+   + It increases routing performance. It makes troubleshooting routing issues easier
+   + It makes tunneling with IPsec less complicated
+   + It makes troubleshooting routing issues easier
+   + answer -> :transparent:`It saves public IP addresses && It adds a degree of privacy and security to a network`
+
+#. What is an advantage of deploying IPv4 NAT technology for internal hosts in an organization?
+
+   + makes internal network access easy for outside hosts using UDP
+   + provides flexibility in designing the IPv4 addressing scheme
+   + increases the performance of packet transmission to the Internet
+   + enables the easy deployment of applications that require end-to-end traceability
+   + answer -> :transparent:`provides flexibility in designing the IPv4 addressing scheme`
+
+
+
 Chapter 10 Device Discovery Management & Maintenance
 ====================================================
 
@@ -10984,7 +11722,7 @@ Branch Office Network
 Username: branchadmin
 Password: S3cre7P@55
 
-.. image:: _static/Ch10_ex_cdp_10.1.1.4.png
+.. image:: _static/img/Ch10_ex_cdp_10.1.1.4.png
 
 #. On Admin-PC open CMD and SSH into the gateway router at 192.168.1.1 using the username admin01 and the password S3cre7P@55
 
@@ -11556,6 +12294,13 @@ lldp
 | R(config-if)# no cdp enable    | R(config-if)# no lldp transmit & no lldp receive |
 +--------------------------------+--------------------------------------------------+
 
+.. note:: The show cdp neighbors command can be used to prove that Layer 1 and Layer 2 connectivity exists between two Cisco devices. For example, if two devices have duplicate IP addresses, a ping between the devices will fail, but the output of show cdp neighbors will be successful. The show cdp neighbors detail could be used to verify the IP address of the directly connected device in case the same IP address is assigned to the two routers.
+
+.. note:: The show cdp neighbors detail command reveals the IP address of a neighboring device regardless of whether you can ping the neighbor
+
+.. note:: The show cdp neighbors command provides information on directly connected Cisco devices including Device ID, local interface, capability, platform, and port ID of the remote device.
+
+.. note:: Cisco developed NetFlow for the purpose of gathering statistics on packets flowing through Cisco routers and multilayer switches. SNMP can be used to collect and store information about a device. Syslog is used to access and store system messages. NTP is used to allow network devices to synchronize time settings.
 
 NTP
 ---
@@ -11578,7 +12323,7 @@ When NTP is implemented in the network, it can be set up to synchronize to a pri
 NTP Stratum Labels
 ------------------
 
-.. image:: _static/Ch10_NTP_Stratum_labels.png
+.. image:: _static/img/Ch10_NTP_Stratum_labels.png
 
 .. note:: The stratum level is defined as the number of hop counts from the authoritative source.
 
@@ -11598,7 +12343,7 @@ Smaller stratum numbers
 Verify NTP Server Config
 ------------------------
 
-.. image:: _static/Ch10_Verify_NTP_Server_configuration.png
+.. image:: _static/img/Ch10_Verify_NTP_Server_configuration.png
 
 +------------------------------------+----------------------------------------------------+
 | command                            | description                                        |
@@ -11737,9 +12482,9 @@ The list of severities is also defined by `rfc 5424`_
 |       |               |         |               | Messages that contain information of use only when debugging a program   |
 +-------+---------------+---------+---------------+--------------------------------------------------------------------------+
 
-.. image:: _static/Ch10_Syslog_Severity_Level.png
+.. image:: _static/img/Ch10_Syslog_Severity_Level.png
 
-.. image:: _static/Ch10_Syslog_Message_Format.png
+.. image:: _static/img/Ch10_Syslog_Message_Format.png
 
 The meaning of severity levels other than Emergency and Debug are relative to the application. For example, if the purpose of the system is to process transactions to update customer account balance information, an error in the final step should be assigned Alert level. However, an error occurring in an attempt to display the ZIP code of the customer may be assigned Error or even Warning level.
 
@@ -11807,7 +12552,7 @@ On some IOS version the device also **buffers** log messages
 
 The ``show logging`` command displays the default logging service settings on a cisco router.
 
-.. image:: _static/Ch10_Show_logging.png
+.. image:: _static/img/Ch10_Show_logging.png
 
 The first highlighted line states that this router logs to the console and includes debug messages. This actually means that **all debug level messages, as well as any lower level messages (such as notification level messages), are logged to the console**. On most Cisco IOS routers, the **default severity level is 7, debugging**. The output also notes that 32 such messages have been logged.
 
@@ -11867,7 +12612,7 @@ Embedded Packet Capture (EPC)
 PT Configure Syslog & NTP
 -------------------------
 
-.. image:: _static/Ch10_PT_Syslog_NTP.png
+.. image:: _static/img/Ch10_PT_Syslog_NTP.png
 
 #. enable the syslog service on the syslog server via services tab
    Turn it on and move the window so you can monitor actively
@@ -11946,14 +12691,14 @@ PT Configure Syslog & NTP
 
    .. note:: R1 uses the clock settings from the NTP server, S1 and S2 the clock settings configured by you
 
-   .. image:: _static/Ch10_Syslog_Service_Entries.png
+   .. image:: _static/img/Ch10_Syslog_Service_Entries.png
 
    That is one badly configured NTP server :p
 
 LAB Configuring syslog & NTP
 ----------------------------
 
-.. image:: _static/Ch10_Lab_syslog_NTP.png
+.. image:: _static/img/Ch10_Lab_syslog_NTP.png
 
 Addressing Table
 
@@ -12414,7 +13159,7 @@ explore flash/usbflash as well
 IOS 15 System Image Packaging
 -----------------------------
 
-.. image:: _static/Ch10_Packaging_Model_4_ISR_G2_Routers.png
+.. image:: _static/img/Ch10_Packaging_Model_4_ISR_G2_Routers.png
 
 Cisco Integrated Services Routers Generation Two (ISR G2) 1900, 2900, and 3900 Series support services on demand through the use of software licensing. The Services on Demand process enables customers to realize operational savings through ease of software ordering and management. When an order is placed for a new ISR G2 platform, the router is shipped with a single universal Cisco IOS Software image and **a license is used to enable the specific feature set packages**, as shown in image above.
 
@@ -12430,7 +13175,7 @@ With the ISR G2 devices, IOS image selection has been made easier because all fe
 IOS Image Filenames
 -------------------
 
-.. image:: _static/Ch10_Software_Image_Name.png
+.. image:: _static/img/Ch10_Software_Image_Name.png
 
 + Image Name (c1900) - Identifies the platform on which the image runs. In this example, the platform is a Cisco 1900 router.
 
@@ -12531,12 +13276,12 @@ Technology Package Licenses
 
 Technology package licenses are supported on Cisco ISR G2 platforms (Cisco 1900, 2900, and 3900 Series routers). The Cisco IOS universal image contains all packages and features in one image. Each package is a grouping of technology-specific features. Multiple technology package licenses can be activated on the Cisco 1900, 2900, and 3900 series ISR platforms.
 
-.. image:: _static/Ch10_Technology_Packages.png
+.. image:: _static/img/Ch10_Technology_Packages.png
 
 Licensing Proces
 ----------------
 
-.. image:: _static/Ch10_Licensing_Process.png
+.. image:: _static/img/Ch10_Licensing_Process.png
 
 When a new router is shipped, it comes preinstalled with the software image and the corresponding permanent licenses for the customer-specified packages and features.
 
@@ -12547,7 +13292,7 @@ The figure shows the three steps to permanently activate a new software package 
 for more info click here: `cisco licensing`_
 
 
-.. image:: _static/Ch10_license_purchase.png
+.. image:: _static/img/Ch10_license_purchase.png
 
 #. purchase the software package or feature needed. This may be adding a package to IP Base, such as Security.
 
@@ -12623,7 +13368,7 @@ To clear an active permanent license from the Cisco 1900 series, 2900 series, an
 
     ``Router(config)# no license boot module module-name technology-package package-name disable``
 
-.. image:: _static/Ch10_clearing_license.png
+.. image:: _static/img/Ch10_clearing_license.png
 
 .. note:: Some licenses, such as built-in licenses, cannot be cleared. Only licenses that have been added by using the license install command are removed. Evaluation licenses are not removed.
 
@@ -12687,19 +13432,284 @@ VLANs and Port Assignments Table
 
 
 
+Ch10 practice exam
+------------------
 
+#. A ping fails when performed from router R1 to directly connected router R2. The network administrator then proceeds to issue the show cdp neighbors command. Why would the network administrator issue this command if the ping failed between the two routers?
 
+   + The network administrator suspects a virus because the ping command did not work.
+   + The network administrator wants to verify Layer 2 connectivity.
+   + The network administrator wants to verify the IP address configured on router R2.
+   + The network administrator wants to determine if connectivity can be established from a non-directly connected network.
+   + Answer -> :transparent:`The network administrator wants to verify Layer 2 connectivity`
 
+#. Which statement is true about CDP on a Cisco device?
 
+   + The show cdp neighbor detail command will reveal the IP address of a neighbor only if there is Layer 3 connectivity​.
+   + To disable CDP globally, the no cdp enable command in interface configuration mode must be used.
+   + CDP can be disabled globally or on a specific interface
+   + Because it runs at the data link layer, the CDP protocol can only be implemented in switches.
+   + Answer -> :transparent:`CDP can be disabled globally or on a specific interface`
 
+#. Why would a network administrator issue the show cdp neigbors command on a router?
 
+   + to display device ID and other information about directly connected Cisco devices
+   + to display router ID and other information about OSPF neighbors
+   + to display line status and other information about directly connected Cisco devices
+   + to display routing table and other information about directly connected Cisco devices
+   + Answer -> :transparent:`to display device ID and other information about directly connected Cisco devices`
 
+#. Refer to the exhibit. Routers R1 and R2 are connected via a serial link. One router is configured as the NTP master, and the other is an NTP client. Which two pieces of information can be obtained from the partial output of the show ntp associations detail command on R2? (Choose two.)
 
+   + Both routers are configured to use NTPv2
+   + Router R1 is the master, and R2 is the client
+   + Router R2 is the master, and R1 is the client
+   + The IP address of R1 is 192.168.1.2
+   + The IP address of R2 is 192.168.1.2
+   + Answer -> :transparent:`Router R1 is the master, and R2 is the client && The IP address of R1 is 192.168.1.2`
 
+#. Which two statements are true about NTP servers in an enterprise network? (Choose two)
 
+   + There can only be one NTP server on an enterprise network
+   + All NTP servers synchronize directly to a stratum 1 time source
+   + NTP servers at stratum 1 are directly connected to an authoritative time source
+   + NTP servers ensure an accurate time stamp on logging and debugging information
+   + NTP servers control the mean time between failures (MTBF) for key network devices
+   + Answer -> :transparent:`NTP servers at stratum 1 are directly connected to an authoritative time source && NTP servers ensure an accurate time stamp on logging and debugging information`
 
+#. The command ntp server 10.1.1.1 is issued on a router. What impact does this command have?
 
+   + determines which server to send system log files to
+   + identifies the server on which to store backup configurations
+   + ensures that all logging will have a time stamp associated with it
+   + synchronizes the system clock with the time source with IP address 10.1.1.1
+   + Answer -> :transparent:`synchronizes the system clock with the time source with IP address 10.1.1.1`
 
+#. Refer to the exhibit. Which two conclusions can be drawn from the syslog message that was generated by the router? (Choose two.)
+   
+   .. code::
+
+      Mar 31 07:23:03.2323: %LINEPROTO-5-UPDOWN: Line protocol on Interface Serial0/0, changed state to up
+
+   + This message resulted from an unusual error requiring reconfiguration of the interface.
+   + This message indicates that the interface should be replaced.
+   + This message is a level 5 notification message.
+   + This message indicates that service timestamps have been configured.
+   + This message indicates that the interface changed state five times.
+   + Answer -> :transparent:`This message is a level 5 notification message && This message indicates that service timestamps have been configured`
+
+#. Which protocol or service allows network administrators to receive system messages that are provided by network devices?
+
+   + syslog
+   + NTP
+   + SNMP
+   + NetFlow
+   + Answer -> :transparent:`syslog`
+
+#. Which syslog message type is accessible only to an administrator and only via the Cisco CLI?
+
+   + errors
+   + debugging
+   + emergency
+   + alerts
+   + Answer -> :transparent:`debugging`
+
+#. Refer to the exhibit. From what location have the syslog messages been retrieved?
+
+   + syslog server
+   + syslog client
+   + router RAM
+   + router NVRAM
+   + Answer -> :transparent:`router RAM`
+
+#. Refer to the exhibit. What does the number 17:46:26.143 represent?
+
+   + the time passed since the syslog server has been started
+   + the time when the syslog message was issued
+   + the time passed since the interfaces have been up
+   + the time on the router when the show logging command was issued
+   + Answer -> :transparent:`the time when the syslog message was issued`
+
+#. What is used as the default event logging destination for Cisco routers and switches?
+
+   + terminal line
+   + syslog server
+   + console line
+   + workstation
+   + Answer -> :transparent:`console line`
+
+#. A network administrator has issued the logging trap 4 global configuration mode command. What is the result of this command?
+
+   + After four events, the syslog client will send an event message to the syslog server
+   + The syslog client will send to the syslog server any event message that has a severity level of 4 and higher
+   + The syslog client will send to the syslog server any event message that has a severity level of 4 and lower
+   + The syslog client will send to the syslog server event messages with an identification trap level of only 4
+   + Answer -> :transparent:`The syslog client will send to the syslog server any event message that has a severity level of 4 and lower`
+
+#. What is the major release number in the IOS image name c1900-universalk9-mz.SPA.152-3.T.bin?
+
+   + 2
+   + 3
+   + 15
+   + 52
+   + 1900
+   + Answer -> :transparent:`15`
+
+#. What statement describes a Cisco IOS image with the “universalk9_npe” designation for Cisco ISR G2 routers?
+
+   + It is an IOS version that can only be used in the United States of America
+   + It is an IOS version that provides only the IPBase feature set
+   + It is an IOS version that offers all of the Cisco IOS Software feature sets
+   + It is an IOS version that, at the request of some countries, removes any strong cryptographic functionality
+   + Answer -> :transparent:`It is an IOS version that, at the request of some countries, removes any strong cryptographic functionality`
+
+#. What code in the Cisco IOS 15 image filename c1900-universalk9-mz.SPA.153-3.M.bin indicates that the file is digitally signed by Cisco?
+
+   + SPA
+   + universalk9
+   + M
+   + mz
+   + Answer -> :transparent:`SPA`
+
+#. Which two conditions should the network administrator verify before attempting to upgrade a Cisco IOS image using a TFTP server? (Choose two.)
+
+   + Verify the name of the TFTP server using the show hosts command
+   + Verify that the TFTP server is running using the tftpdnld command
+   + Verify that the checksum for the image is valid using the show version command
+   + Verify connectivity between the router and TFTP server using the ping command
+   + Verify that there is enough flash memory for the new Cisco IOS image using the show flash command
+   + Answer -> :transparent:`Verify connectivity between the router and TFTP server using the ping command && Verify that there is enough flash memory for the new Cisco IOS image using the show flash command`
+
+#. A network administrator configures a router with the command sequence:
+
+   .. code::
+   
+      R1(config)# boot system tftp://c1900-universalk9-mz.SPA.152-4.M3.bin
+      R1(config)# boot system rom
+   
+   What is the effect of the command sequence?
+   
+   + On next reboot, the router will load the IOS image from ROM
+   + The router will copy the IOS image from the TFTP server and then reboot the system
+   + The router will load IOS from the TFTP server. If the image fails to load, it will load the IOS image from ROM
+   + The router will search and load a valid IOS image in the sequence of flash, TFTP, and ROM
+   + Answer -> :transparent:`The router will load IOS from the TFTP server. If the image fails to load, it will load the IOS image from ROM`
+
+#. A network engineer is upgrading the Cisco IOS image on a 2900 series ISR. What command could the engineer use to verify the total amount of flash memory as well as how much flash memory is currently available?
+
+   + show flash0:
+   + show version
+   + show interfaces
+   + show startup-config
+   + Answer -> :transparent:`show flash0:`
+
+#. Beginning with the Cisco IOS Software Release 15.0, which license is a prerequisite for installing additional technology pack licenses?
+
+   + IPBase
+   + DATA
+   + UC
+   + SEC
+   + Answer -> :transparent:`IPBase`
+
+#. Which three software packages are available for Cisco IOS Release 15.0?
+
+   + DATA
+   + IPVoice
+   + Security
+   + Enterprise Services
+   + Unified Communications
+   + Advanced IP Services
+   + Answer -> :transparent:`DATA - Security - Unified Communications`
+
+#. When a customer purchases a Cisco IOS 15.0 software package, what serves as the receipt for that customer and is used to obtain the license as well?
+
+   + Software Claim Certificate
+   + End User License Agreement
+   + Unique Device Identifier
+   + Product Activation Key
+   + Answer -> :transparent:`Product Activation Key`
+
+#. In addition to IPBase, what are the three technology packs that are shipped within the universal Cisco IOS Software Release 15 image? (Choose three.)
+
+   + Advanced IP Services
+   + Advanced Enterprise Services
+   + DATA
+   + Security
+   + SP Services
+   + Unified Communications
+   + Answer -> :transparent:`DATA - Security - Unified Communications`
+
+#. Which command would a network engineer use to find the unique device identifier of a Cisco router?
+
+   + show version
+   + show license udi
+   + show running-configuration
+   + license install stored-location-url
+   + Answer -> :transparent:`show license udi`
+
+#. Which command is used to configure a one-time acceptance of the EULA for all Cisco IOS software packages and features?
+
+   + license save
+   + show license
+   + license boot module module-name
+   + license accept end user agreement
+   + Answer -> :transparent:`license accept end user agreement`
+
+#. Refer to the exhibit. Match the components of the IOS image name to their description. (Not all options are used)
+
+   +-------------+----------------------------------------------------+
+   | part        | description choice                                 |
+   +=============+====================================================+
+   | mz          | specifying the feature set                         |
+   +-------------+----------------------------------------------------+
+   | 15          | minor release number                               |
+   +-------------+----------------------------------------------------+
+   | bin         | where the image runs and if the file is compressed |
+   +-------------+----------------------------------------------------+
+   | universalk9 | platform on which the image runs                   |
+   +-------------+----------------------------------------------------+
+   | 1           | authentication type                                |
+   +-------------+----------------------------------------------------+
+   | 4           | maintenance release and rebuild number             |
+   +-------------+----------------------------------------------------+
+   | M4          | new feature release number                         |
+   +-------------+----------------------------------------------------+
+   |             | file extension                                     |
+   +-------------+----------------------------------------------------+
+   |             | major release number                               |
+   +-------------+----------------------------------------------------+
+
+    Answer
+
+   +-------------+----------------------------------------------------+
+   | part        | correct description                                |
+   +=============+====================================================+
+   | universalk9 | specifying the feature set                         |
+   +-------------+----------------------------------------------------+
+   | 1           | minor release number                               |
+   +-------------+----------------------------------------------------+
+   | mz          | where the image runs and if the file is compressed |
+   +-------------+----------------------------------------------------+
+   | c1900       | platform on which the image runs                   |
+   +-------------+----------------------------------------------------+
+   |             | authentication type                                |
+   +-------------+----------------------------------------------------+
+   | M4          | maintenance release and rebuild number             |
+   +-------------+----------------------------------------------------+
+   | 4           | new feature release number                         |
+   +-------------+----------------------------------------------------+
+   | bin         | file extension                                     |
+   +-------------+----------------------------------------------------+
+   | 15          | major release number                               |
+   +-------------+----------------------------------------------------+
+
+#. A ping fails when performed from router R1 to directly connected router R2. The network administrator then proceeds to issue the show cdp neighbors command. Why would the network administrator issue this command if the ping failed between the two routers?
+
+   + The network administrator wants to venfy the IP address configured on router R2 
+   + The network administrator suspects a virus because the ping command did not work
+   + The network administrator wants to verify Layer 2 connectivity
+   + The network administrator wants to determine if connectivity can be established from a non-directly connected network
+   + Answer :transparent:`The network administrator wants to verify Layer 2 connectivity`
 
 
 
