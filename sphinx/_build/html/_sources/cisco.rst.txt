@@ -11554,12 +11554,12 @@ select transparent answer below every question
    + step 3 
    + step 4 
    + step 5 
-   - :transparent:`no score!` R1 translates the IP address in the packets from 209.65.200.254 to 192.168.10.10
-   - :transparent:`step 5 =>` R1 replaces the address 192.168.10.10 with a translated inside global address 
-   - :transparent:`step 2 =>` R1 checks the NAT configuration to determine if this packet should be translated 
-   - :transparent:`step 4 =>` R1 selects an available global address from the dynamic address pool 
-   - :transparent:`step 1 =>` The host sends packets that request a connection to the server at the address 209.165.200.254
-   - :transparent:`step 3 =>` If there is no translation entry for this IP address, R1 determines that the source address 192.168.10.10 must be translated
+   + :transparent:`no score!` R1 translates the IP address in the packets from 209.65.200.254 to 192.168.10.10
+   + :transparent:`step 5 =>` R1 replaces the address 192.168.10.10 with a translated inside global address 
+   + :transparent:`step 2 =>` R1 checks the NAT configuration to determine if this packet should be translated 
+   + :transparent:`step 4 =>` R1 selects an available global address from the dynamic address pool 
+   + :transparent:`step 1 =>` The host sends packets that request a connection to the server at the address 209.165.200.254
+   + :transparent:`step 3 =>` If there is no translation entry for this IP address, R1 determines that the source address 192.168.10.10 must be translated
 
 #. What is a disadvantage of NAT?
 
