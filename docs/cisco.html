@@ -95,7 +95,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Networking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#networking-fundamentals">Networking Fundamentals</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#chapter-on-fundamentals">chapter on fundamentals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#title">title</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connecting-to-console">Connecting to console</a></li>
 </ul>
 </li>
 </ul>
@@ -403,10 +403,23 @@
 <h2>Networking Fundamentals<a class="headerlink" href="#networking-fundamentals" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="chapter-on-fundamentals">
 <h3>chapter on fundamentals<a class="headerlink" href="#chapter-on-fundamentals" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="title">
-<h4>title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="subtitle">
-<h5>subtitle<a class="headerlink" href="#subtitle" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="connecting-to-console">
+<h4>Connecting to console<a class="headerlink" href="#connecting-to-console" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="minicom">
+<h5>minicom<a class="headerlink" href="#minicom" title="Permalink to this headline">¶</a></h5>
+<p>make your user member of the dialout group</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">G</span> <span class="n">dialout</span> <span class="n">guru</span>
+</pre></div>
+</div>
+<p>check what tty you should use after connecting the cable with <code class="docutils literal"><span class="pre">dmesg</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dmesg</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">tty</span>
+</pre></div>
+</div>
+<p>launch minicom with the appropriate baudrate and tty device</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">minicom</span> <span class="o">--</span><span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span> <span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyS0</span>
+</pre></div>
+</div>
+<p>off you go</p>
 </div>
 </div>
 </div>
