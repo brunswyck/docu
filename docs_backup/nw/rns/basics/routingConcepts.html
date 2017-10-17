@@ -1,0 +1,991 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Routing Concepts &mdash; debian &amp; networking 20170824 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="../../../index.html"/>
+        <link rel="up" title="Routing/Switching" href="../routing_n_switching.html"/>
+        <link rel="next" title="Static Routes" href="staticRouting.html"/>
+        <link rel="prev" title="Connect to console" href="connect2console.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201708
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../routing_n_switching.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../routing_n_switching.html#basics">basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Routing Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-concepts">basic concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#router-s-3-packet-forwarding-mechanisms">Router’s 3 packet-forwarding mechanisms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loopback-interfaces">Loopback interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-loopback-interface">configure loopback interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-parameters">Filtering parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#history-commands">History commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-command-examples">Show command examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arp-neighbor-advertisement-sollicitation">ARP - Neighbor Advertisement/Sollicitation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routing-best-path-selection">Routing BEST PATH selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#changing-administrative-distance">Changing Administrative Distance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-of-changing-ad-for-rip">example of changing AD for rip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#other-applications-of-a-d">Other applications of A.D.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-ip-routing-process">The IP routing process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="staticRouting.html">Static Routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamicRouting.html">Dynamic Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switchedNetworks.html">switched networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switchConfiguration.html">Switch Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vlans.html">VLANS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="acl.html">ACLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dhcp.html">DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">debian & networking</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../routing_n_switching.html">Routing/Switching</a> &raquo;</li>
+        
+      <li>Routing Concepts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/nw/rns/basics/routingConcepts.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="routing-concepts">
+<h1>Routing Concepts<a class="headerlink" href="#routing-concepts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic-concepts">
+<h2>basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="docutils">
+<dt>RAM</dt>
+<dd>Running IOS
+Running config file
+IP routing tables, ARP tables, CDP info
+Packet buffer</dd>
+<dt>ROM</dt>
+<dd>Bootup instructions (System Bootstrap)
+Basic diagnostic software (POST)
+Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
+<dt>NVRAM</dt>
+<dd>Startup config file</dd>
+<dt>FLASH</dt>
+<dd>IOS</dd>
+</dl>
+<p>view their size via:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">version</span>
+</pre></div>
+</div>
+<p>bootup process lookup for ios</p>
+<blockquote>
+<div><ul class="simple">
+<li>flash memory</li>
+<li>TFTP server</li>
+<li>ROM</li>
+</ul>
+</div></blockquote>
+<p>to change this order, change configuration register</p>
+</div></blockquote>
+</div>
+<div class="section" id="router-s-3-packet-forwarding-mechanisms">
+<h2>Router’s 3 packet-forwarding mechanisms<a class="headerlink" href="#router-s-3-packet-forwarding-mechanisms" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="docutils">
+<dt>Process Switching</dt>
+<dd>An older packet forwarding mechanism still available for Cisco routers. When a packet arrives on an interface, it is forwarded to the control plane where the CPU matches the destination address with an entry in its routing table, and then determines the exit interface and forwards the packet. It is important to understand that the router does this for every packet, even if the destination is the same for a stream of packets. This process-switching mechanism is very slow and rarely implemented in modern networks.</dd>
+<dt>Fast switching</dt>
+<dd>This is a common packet forwarding mechanism which uses a fast-switching cache to store next-hop information. When a packet arrives on an interface, it is forwarded to the control plane where the CPU searches for a match in the fast-switching cache. If it is not there, it is process-switched and forwarded to the exit interface. The flow information for the packet is also stored in the fast-switching cache. If another packet going to the same destination arrives on an interface, the next-hop information in the cache is re-used without CPU intervention.</dd>
+<dt>Cisco Express Forwarding (CEF)</dt>
+<dd>CEF is the most recent and preferred Cisco IOS packet-forwarding mechanism. Like fast switching, CEF builds a Forwarding Information Base (FIB), and an adjacency table. However, the table entries are not packet-triggered like fast switching but change-triggered such as when something changes in the network topology. Therefore, when a network has converged, the FIB and adjacency tables contain all the information a router would have to consider when forwarding a packet. The FIB contains pre-computed reverse lookups, next hop information for routes including the interface and Layer 2 information. Cisco Express Forwarding is the fastest forwarding mechanism and the preferred choice on Cisco routers.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="loopback-interfaces">
+<h2>Loopback interfaces<a class="headerlink" href="#loopback-interfaces" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Multiple loopback interfaces can be enabled on a router. The IPv4 address for each loopback interface must be unique and unused by any other interface.</div></blockquote>
+</div>
+<div class="section" id="configure-loopback-interface">
+<h2>configure loopback interface<a class="headerlink" href="#configure-loopback-interface" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface loopback 0</span>
+<span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.0.0.1 255.255.255.0</span>
+<span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-parameters">
+<h2>Filtering parameters<a class="headerlink" href="#filtering-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Used after the pipe are:</p>
+<dl class="docutils">
+<dt>section</dt>
+<dd><p class="first">Shows entire section that starts with the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show running-config | section line vty</span>
+</pre></div>
+</div>
+</dd>
+<dt>include</dt>
+<dd><p class="first">Includes all output lines that match the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | include up</span>
+</pre></div>
+</div>
+</dd>
+<dt>exclude</dt>
+<dd><p class="first">Excludes all output lines that match the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | exclude unassigned</span>
+</pre></div>
+</div>
+</dd>
+<dt>begin</dt>
+<dd><p class="first">hows all the output lines from a certain point, starting with the line that matches the filtering expression</p>
+<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip route | begin Gateway</span>
+<span class="go">R1# show running-config | begin line</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="history-commands">
+<h2>History commands<a class="headerlink" href="#history-commands" title="Permalink to this headline">¶</a></h2>
+<p>set/show history</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># terminal history size 200</span>
+<span class="n">R1</span><span class="c1"># show history</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="show-command-examples">
+<h2>Show command examples<a class="headerlink" href="#show-command-examples" title="Permalink to this headline">¶</a></h2>
+<p>show interfaces</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">TA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show interfaces</span>
+<span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+<span class="n">OB</span> <span class="n">Hardware</span> <span class="ow">is</span> <span class="n">CN</span> <span class="n">Gigabit</span> <span class="n">Ethernet</span><span class="p">,</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">0004.9</span><span class="n">ae8</span><span class="o">.</span><span class="n">b901</span> <span class="p">(</span><span class="n">bia</span> <span class="mf">0004.9</span><span class="n">ae8</span><span class="o">.</span><span class="n">b901</span><span class="p">)</span>
+<span class="n">Description</span><span class="p">:</span> <span class="n">Link</span> <span class="n">RTA</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="n">to</span> <span class="n">SW1</span> <span class="n">G0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">24</span>
+<span class="n">MTU</span> <span class="mi">1500</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">BW</span> <span class="mi">1000000</span> <span class="n">Kbit</span><span class="p">,</span> <span class="n">DLY</span> <span class="mi">10</span> <span class="n">usec</span><span class="p">,</span>
+   <span class="n">reliability</span> <span class="mi">255</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="n">txload</span> <span class="mi">1</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="n">rxload</span> <span class="mi">1</span><span class="o">/</span><span class="mi">255</span>
+<span class="n">Encapsulation</span> <span class="n">ARPA</span><span class="p">,</span> <span class="n">loopback</span> <span class="ow">not</span> <span class="nb">set</span>
+<span class="n">Keepalive</span> <span class="nb">set</span> <span class="p">(</span><span class="mi">10</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">Full</span><span class="o">-</span><span class="n">duplex</span><span class="p">,</span> <span class="mi">100</span><span class="n">Mb</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="n">media</span> <span class="nb">type</span> <span class="ow">is</span> <span class="n">RJ45</span>
+<span class="n">output</span> <span class="n">flow</span><span class="o">-</span><span class="n">control</span> <span class="ow">is</span> <span class="n">unsupported</span><span class="p">,</span> <span class="nb">input</span> <span class="n">flow</span><span class="o">-</span><span class="n">control</span> <span class="ow">is</span> <span class="n">unsupported</span>
+<span class="n">ARP</span> <span class="nb">type</span><span class="p">:</span> <span class="n">ARPA</span><span class="p">,</span> <span class="n">ARP</span> <span class="n">Timeout</span> <span class="mi">04</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span>
+<span class="n">Last</span> <span class="nb">input</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">08</span><span class="p">,</span> <span class="n">output</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">05</span><span class="p">,</span> <span class="n">output</span> <span class="n">hang</span> <span class="n">never</span>
+<span class="n">Last</span> <span class="n">clearing</span> <span class="n">of</span> <span class="s2">&quot;show interface&quot;</span> <span class="n">counters</span> <span class="n">never</span>
+<span class="n">Input</span> <span class="n">queue</span><span class="p">:</span> <span class="mi">0</span><span class="o">/</span><span class="mi">75</span><span class="o">/</span><span class="mi">0</span> <span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="nb">max</span><span class="o">/</span><span class="n">drops</span><span class="p">);</span> <span class="n">Total</span> <span class="n">output</span> <span class="n">drops</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Queueing</span> <span class="n">strategy</span><span class="p">:</span> <span class="n">fifo</span>
+<span class="n">Output</span> <span class="n">queue</span> <span class="p">:</span><span class="mi">0</span><span class="o">/</span><span class="mi">40</span> <span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="nb">max</span><span class="p">)</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="nb">input</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bits</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span><span class="o">/</span><span class="n">sec</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">output</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bits</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span><span class="o">/</span><span class="n">sec</span>
+   <span class="mi">0</span> <span class="n">packets</span> <span class="nb">input</span><span class="p">,</span> <span class="mi">0</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">0</span> <span class="n">no</span> <span class="n">buffer</span>
+   <span class="n">Received</span> <span class="mi">0</span> <span class="n">broadcasts</span><span class="p">,</span> <span class="mi">0</span> <span class="n">runts</span><span class="p">,</span> <span class="mi">0</span> <span class="n">giants</span><span class="p">,</span> <span class="mi">0</span> <span class="n">throttles</span>
+   <span class="mi">0</span> <span class="nb">input</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">CRC</span><span class="p">,</span> <span class="mi">0</span> <span class="n">frame</span><span class="p">,</span> <span class="mi">0</span> <span class="n">overrun</span><span class="p">,</span> <span class="mi">0</span> <span class="n">ignored</span><span class="p">,</span> <span class="mi">0</span> <span class="n">abort</span>
+   <span class="mi">0</span> <span class="n">watchdog</span><span class="p">,</span> <span class="mi">1017</span> <span class="n">multicast</span><span class="p">,</span> <span class="mi">0</span> <span class="n">pause</span> <span class="nb">input</span>
+   <span class="mi">0</span> <span class="nb">input</span> <span class="n">packets</span> <span class="k">with</span> <span class="n">dribble</span> <span class="n">condition</span> <span class="n">detected</span>
+   <span class="mi">0</span> <span class="n">packets</span> <span class="n">output</span><span class="p">,</span> <span class="mi">0</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">0</span> <span class="n">underruns</span>
+   <span class="mi">0</span> <span class="n">output</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">collisions</span><span class="p">,</span> <span class="mi">2</span> <span class="n">interface</span> <span class="n">resets</span>
+   <span class="mi">0</span> <span class="n">unknown</span> <span class="n">protocol</span> <span class="n">drops</span>
+   <span class="mi">0</span> <span class="n">babbles</span><span class="p">,</span> <span class="mi">0</span> <span class="n">late</span> <span class="n">collision</span><span class="p">,</span> <span class="mi">0</span> <span class="n">deferred</span>
+   <span class="mi">0</span> <span class="n">lost</span> <span class="n">carrier</span><span class="p">,</span> <span class="mi">0</span> <span class="n">no</span> <span class="n">carrier</span>
+   <span class="mi">0</span> <span class="n">output</span> <span class="n">buffer</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">0</span> <span class="n">output</span> <span class="n">buffers</span> <span class="n">swapped</span> <span class="n">out</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>show ip interface</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">SW1</span><span class="c1">#show ip interface</span>
+<span class="n">Vlan1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
+  <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.2</span><span class="o">/</span><span class="mi">24</span>
+  <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
+  <span class="n">Address</span> <span class="n">determined</span> <span class="n">by</span> <span class="n">setup</span> <span class="n">command</span>
+  <span class="n">MTU</span> <span class="ow">is</span> <span class="mi">1500</span> <span class="nb">bytes</span>
+  <span class="n">Helper</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Directed</span> <span class="n">broadcast</span> <span class="n">forwarding</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">Outgoing</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Inbound</span>  <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Proxy</span> <span class="n">ARP</span> <span class="ow">is</span> <span class="n">enabled</span>
+  <span class="n">Local</span> <span class="n">Proxy</span> <span class="n">ARP</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">Security</span> <span class="n">level</span> <span class="ow">is</span> <span class="n">default</span>
+  <span class="n">Split</span> <span class="n">horizon</span> <span class="ow">is</span> <span class="n">enabled</span>
+  <span class="n">ICMP</span> <span class="n">redirects</span> <span class="n">are</span> <span class="n">always</span> <span class="n">sent</span>
+  <span class="n">ICMP</span> <span class="n">unreachables</span> <span class="n">are</span> <span class="n">always</span> <span class="n">sent</span>
+  <span class="n">ICMP</span> <span class="n">mask</span> <span class="n">replies</span> <span class="n">are</span> <span class="n">never</span> <span class="n">sent</span>
+  <span class="n">IP</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">IP</span> <span class="n">fast</span> <span class="n">switching</span> <span class="n">on</span> <span class="n">the</span> <span class="n">same</span> <span class="n">interface</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">IP</span> <span class="n">Null</span> <span class="n">turbo</span> <span class="n">vector</span>
+  <span class="n">IP</span> <span class="n">multicast</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">IP</span> <span class="n">multicast</span> <span class="n">distributed</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">IP</span> <span class="n">route</span><span class="o">-</span><span class="n">cache</span> <span class="n">flags</span> <span class="n">are</span> <span class="kc">None</span>
+  <span class="n">Router</span> <span class="n">Discovery</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">IP</span> <span class="n">output</span> <span class="n">packet</span> <span class="n">accounting</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">IP</span> <span class="n">access</span> <span class="n">violation</span> <span class="n">accounting</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">TCP</span><span class="o">/</span><span class="n">IP</span> <span class="n">header</span> <span class="n">compression</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">RTP</span><span class="o">/</span><span class="n">IP</span> <span class="n">header</span> <span class="n">compression</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">Probe</span> <span class="n">proxy</span> <span class="n">name</span> <span class="n">replies</span> <span class="n">are</span> <span class="n">disabled</span>
+  <span class="n">Policy</span> <span class="n">routing</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">Network</span> <span class="n">address</span> <span class="n">translation</span> <span class="ow">is</span> <span class="n">disable</span>
+  <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">outbound</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">inbound</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="n">disabled</span>
+  <span class="n">BGP</span> <span class="n">Policy</span> <span class="n">Mapping</span> <span class="ow">is</span> <span class="n">disabled</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>show ip int brief</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span>RTA(config)#do show ip int brief
+ Interface              IP-Address      OK? Method Status                Protocol
+ GigabitEthernet0/0     10.10.10.1      YES manual up                    up
+ GigabitEthernet0/1     10.10.20.1      YES manual up                    up
+ Vlan1                  unassigned      YES unset  administratively down down
+</pre></div>
+</div>
+</div></blockquote>
+<p>show ip interface</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip interface</span>
+ <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+   <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">24</span>
+   <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
+   <span class="n">Address</span> <span class="n">determined</span> <span class="n">by</span> <span class="n">setup</span> <span class="n">command</span>
+   <span class="n">MTU</span> <span class="ow">is</span> <span class="mi">1500</span> <span class="nb">bytes</span>
+   <span class="n">Helper</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+   <span class="n">Directed</span> <span class="n">broadcast</span> <span class="n">forwarding</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Outgoing</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+   <span class="n">Inbound</span>  <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+   <span class="n">Proxy</span> <span class="n">ARP</span> <span class="ow">is</span> <span class="n">enabled</span>
+   <span class="n">Security</span> <span class="n">level</span> <span class="ow">is</span> <span class="n">default</span>
+   <span class="n">Split</span> <span class="n">horizon</span> <span class="ow">is</span> <span class="n">enabled</span>
+   <span class="n">ICMP</span> <span class="n">redirects</span> <span class="n">are</span> <span class="n">always</span> <span class="n">sent</span>
+   <span class="n">ICMP</span> <span class="n">unreachables</span> <span class="n">are</span> <span class="n">always</span> <span class="n">sent</span>
+   <span class="n">ICMP</span> <span class="n">mask</span> <span class="n">replies</span> <span class="n">are</span> <span class="n">never</span> <span class="n">sent</span>
+   <span class="n">IP</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">fast</span> <span class="n">switching</span> <span class="n">on</span> <span class="n">the</span> <span class="n">same</span> <span class="n">interface</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">Flow</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">Fast</span> <span class="n">switching</span> <span class="n">turbo</span> <span class="n">vector</span>
+   <span class="n">IP</span> <span class="n">multicast</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">multicast</span> <span class="n">distributed</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Router</span> <span class="n">Discovery</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">output</span> <span class="n">packet</span> <span class="n">accounting</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">access</span> <span class="n">violation</span> <span class="n">accounting</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">TCP</span><span class="o">/</span><span class="n">IP</span> <span class="n">header</span> <span class="n">compression</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">RTP</span><span class="o">/</span><span class="n">IP</span> <span class="n">header</span> <span class="n">compression</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Probe</span> <span class="n">proxy</span> <span class="n">name</span> <span class="n">replies</span> <span class="n">are</span> <span class="n">disabled</span>
+   <span class="n">Policy</span> <span class="n">routing</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Network</span> <span class="n">address</span> <span class="n">translation</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">BGP</span> <span class="n">Policy</span> <span class="n">Mapping</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Input</span> <span class="n">features</span><span class="p">:</span> <span class="n">MCI</span> <span class="n">Check</span>
+   <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">outbound</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">inbound</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="n">disabled</span>
+ <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+   <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">20.1</span><span class="o">/</span><span class="mi">24</span>
+   <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
+   <span class="n">Address</span> <span class="n">determined</span> <span class="n">by</span> <span class="n">setup</span> <span class="n">command</span>
+   <span class="n">MTU</span> <span class="ow">is</span> <span class="mi">1500</span> <span class="nb">bytes</span>
+   <span class="n">Helper</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+   <span class="n">Directed</span> <span class="n">broadcast</span> <span class="n">forwarding</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Outgoing</span> <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+   <span class="n">Inbound</span>  <span class="n">access</span> <span class="nb">list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+   <span class="n">Proxy</span> <span class="n">ARP</span> <span class="ow">is</span> <span class="n">enabled</span>
+   <span class="n">Security</span> <span class="n">level</span> <span class="ow">is</span> <span class="n">default</span>
+   <span class="n">Split</span> <span class="n">horizon</span> <span class="ow">is</span> <span class="n">enabled</span>
+   <span class="n">ICMP</span> <span class="n">redirects</span> <span class="n">are</span> <span class="n">always</span> <span class="n">sent</span>
+   <span class="n">ICMP</span> <span class="n">unreachables</span> <span class="n">are</span> <span class="n">always</span> <span class="n">sent</span>
+   <span class="n">ICMP</span> <span class="n">mask</span> <span class="n">replies</span> <span class="n">are</span> <span class="n">never</span> <span class="n">sent</span>
+   <span class="n">IP</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">fast</span> <span class="n">switching</span> <span class="n">on</span> <span class="n">the</span> <span class="n">same</span> <span class="n">interface</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">Flow</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">Fast</span> <span class="n">switching</span> <span class="n">turbo</span> <span class="n">vector</span>
+   <span class="n">IP</span> <span class="n">multicast</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">multicast</span> <span class="n">distributed</span> <span class="n">fast</span> <span class="n">switching</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Router</span> <span class="n">Discovery</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">output</span> <span class="n">packet</span> <span class="n">accounting</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">IP</span> <span class="n">access</span> <span class="n">violation</span> <span class="n">accounting</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">TCP</span><span class="o">/</span><span class="n">IP</span> <span class="n">header</span> <span class="n">compression</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">RTP</span><span class="o">/</span><span class="n">IP</span> <span class="n">header</span> <span class="n">compression</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Probe</span> <span class="n">proxy</span> <span class="n">name</span> <span class="n">replies</span> <span class="n">are</span> <span class="n">disabled</span>
+   <span class="n">Policy</span> <span class="n">routing</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Network</span> <span class="n">address</span> <span class="n">translation</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">BGP</span> <span class="n">Policy</span> <span class="n">Mapping</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">Input</span> <span class="n">features</span><span class="p">:</span> <span class="n">MCI</span> <span class="n">Check</span>
+   <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">outbound</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">inbound</span> <span class="ow">is</span> <span class="n">disabled</span>
+   <span class="n">WCCP</span> <span class="n">Redirect</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="n">disabled</span>
+ <span class="n">Vlan1</span> <span class="ow">is</span> <span class="n">administratively</span> <span class="n">down</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">down</span>
+   <span class="n">Internet</span> <span class="n">protocol</span> <span class="n">processing</span> <span class="n">disabled</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>show ip route</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route</span>
+<span class="n">Codes</span><span class="p">:</span> <span class="n">L</span> <span class="o">-</span> <span class="n">local</span><span class="p">,</span> <span class="n">C</span> <span class="o">-</span> <span class="n">connected</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">static</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">RIP</span><span class="p">,</span> <span class="n">M</span> <span class="o">-</span> <span class="n">mobile</span><span class="p">,</span> <span class="n">B</span> <span class="o">-</span> <span class="n">BGP</span>
+       <span class="n">D</span> <span class="o">-</span> <span class="n">EIGRP</span><span class="p">,</span> <span class="n">EX</span> <span class="o">-</span> <span class="n">EIGRP</span> <span class="n">external</span><span class="p">,</span> <span class="n">O</span> <span class="o">-</span> <span class="n">OSPF</span><span class="p">,</span> <span class="n">IA</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">inter</span> <span class="n">area</span>
+       <span class="n">N1</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">external</span> <span class="nb">type</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N2</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">external</span> <span class="nb">type</span> <span class="mi">2</span>
+       <span class="n">E1</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">external</span> <span class="nb">type</span> <span class="mi">1</span><span class="p">,</span> <span class="n">E2</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">external</span> <span class="nb">type</span> <span class="mi">2</span><span class="p">,</span> <span class="n">E</span> <span class="o">-</span> <span class="n">EGP</span>
+       <span class="n">i</span> <span class="o">-</span> <span class="n">IS</span><span class="o">-</span><span class="n">IS</span><span class="p">,</span> <span class="n">L1</span> <span class="o">-</span> <span class="n">IS</span><span class="o">-</span><span class="n">IS</span> <span class="n">level</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">L2</span> <span class="o">-</span> <span class="n">IS</span><span class="o">-</span><span class="n">IS</span> <span class="n">level</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">ia</span> <span class="o">-</span> <span class="n">IS</span><span class="o">-</span><span class="n">IS</span> <span class="n">inter</span> <span class="n">area</span>
+       <span class="o">*</span> <span class="o">-</span> <span class="n">candidate</span> <span class="n">default</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">per</span><span class="o">-</span><span class="n">user</span> <span class="n">static</span> <span class="n">route</span><span class="p">,</span> <span class="n">o</span> <span class="o">-</span> <span class="n">ODR</span>
+       <span class="n">P</span> <span class="o">-</span> <span class="n">periodic</span> <span class="n">downloaded</span> <span class="n">static</span> <span class="n">route</span>
+<span class="o">--</span>
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+<span class="o">--</span>
+     <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">4</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">2</span> <span class="n">masks</span>
+<span class="n">C</span>       <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">L</span>       <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">C</span>       <span class="mf">10.10</span><span class="o">.</span><span class="mf">20.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">L</span>       <span class="mf">10.10</span><span class="o">.</span><span class="mf">20.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>show ip route connected</p>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route connected</span>
+ <span class="n">C</span>   <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+ <span class="n">C</span>   <span class="mf">10.10</span><span class="o">.</span><span class="mf">20.0</span><span class="o">/</span><span class="mi">24</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="arp-neighbor-advertisement-sollicitation">
+<h2>ARP - Neighbor Advertisement/Sollicitation<a class="headerlink" href="#arp-neighbor-advertisement-sollicitation" title="Permalink to this headline">¶</a></h2>
+<p>A similar process is used for IPv6 packets. Instead of the ARP process, IPv6 address resolution uses ICMPv6 Neighbor Solicitation and Neighbor Advertisement messages. IPv6-to-MAC address mapping are kept in a table similar to the ARP cache, called the neighbor cache.</p>
+</div>
+<div class="section" id="mac-addresses-on-serial-interfaces">
+<h2>MAC addresses on Serial Interfaces<a class="headerlink" href="#mac-addresses-on-serial-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>When the interface is a point-to-point (P2P) serial connection, the router encapsulates the IPv4 packet into the proper data link frame format used by the exit interface (HDLC, PPP, etc.). Because there are no MAC addresses on serial interfaces, R2 sets the data link destination address to an equivalent of a broadcast.
+The router does not need to know any info about the destination L2 address, so the router just sends the frame out the corresponding serial interface. No source address is required on a P2P serial connection</p>
+<p>HDLC frames can be transmitted over synchronous or asynchronous serial communication links. Those links have no mechanism to mark the beginning or end of a frame, so the beginning and end of each frame has to be identified. This is done by using a frame delimiter, or flag, which is a unique sequence of bits that is guaranteed not to be seen inside a frame.
+This sequence is ‘01111110’, or, in hexadecimal notation, 0x7E. Each frame begins and ends with a frame delimiter. A frame delimiter at the end of a frame may also mark the start of the next frame.
+A sequence of 7 or more consecutive 1-bits within a frame will cause the frame to be aborted.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="0%" />
+<col width="11%" />
+<col width="13%" />
+<col width="15%" />
+<col width="31%" />
+<col width="5%" />
+<col width="13%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Flag 7E</td>
+<td colspan="2">Address</td>
+<td>Control</td>
+<td>Protocol</td>
+<td>Data</td>
+<td>FCS</td>
+<td>Flag 7E</td>
+</tr>
+<tr class="row-even"><td>8 bits</td>
+<td colspan="2">8 bits</td>
+<td>8 bits</td>
+<td>16 bits</td>
+<td>~ length 0 or x*8</td>
+<td>16b</td>
+<td>8 bits</td>
+</tr>
+</tbody>
+</table>
+<p>The Address field is used to specify the type of packet contained in the cHDLC frame; 0x0F for Unicast and 0x8F for Broadcast packets.
+The Control field is always set to zero (0x00).
+The Protocol Code field is used to specify the protocol type encapsulated within the cHDLC frame (e.g. 0x0800 for Internet Protocol).</p>
+</div>
+<div class="section" id="packet-forwarding-decision-process">
+<h2>Packet Forwarding Decision Process<a class="headerlink" href="#packet-forwarding-decision-process" title="Permalink to this headline">¶</a></h2>
+<p>Directly Connected Interface?
+Yes -&gt; Check ARP cache (ARP request if necessary) and forward to host on local subnet
+Remote Network? Yes -&gt; Encapsulate the frame and forward out of the exit interface to the next hop
+else Gateway of last resort or drop</p>
+</div>
+<div class="section" id="routing-best-path-selection">
+<h2>Routing BEST PATH selection<a class="headerlink" href="#routing-best-path-selection" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>RIP</dt>
+<dd>Routing Information Protocol - Hop count</dd>
+<dt>OSPF</dt>
+<dd>Open Shortest Path First     - Cisco’s cost based on CUMULATIVE bandwidth from source to destination</dd>
+<dt>EIGRP</dt>
+<dd>Enhanced Interior Gateway Routing Protocol - Bandwidth, delay, load, reliability (bladder)</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">two or more paths with identical metrics = LOAD BALANCING</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Equal cost load balancing can be cfd to use both dynamic routing protocols and static routes ONLY EIGRP support UNEQUAL COST LOAD BALANCING</p>
+</div>
+</div>
+<div class="section" id="administrative-distance">
+<h2>ADMINISTRATIVE DISTANCE<a class="headerlink" href="#administrative-distance" title="Permalink to this headline">¶</a></h2>
+<p>For example, if both RIP and EIGRP are configured on a router, both routing protocols may learn of the same destination network.
+However, each routing protocol may decide on a different path to reach the destination based on that routing protocol’s metrics.
+RIP chooses a path based on hop count, whereas EIGRP chooses a path based on its composite metric. How does the router know which route to use?</p>
+<p>Cisco IOS uses what is known as the administrative distance (AD) to determine the route to install into the IP routing table.
+The AD represents the “trustworthiness” of the route; the lower the AD,
+the more trustworthy the route source. For example, a static route has an AD of 1,
+whereas an EIGRP-discovered route has an AD of 90.
+Given two separate routes to the same destination, the router chooses the route with the lowest AD.
+When a router has the choice of a static route and an EIGRP route, the static route takes precedence.</p>
+<blockquote>
+<div><p>Default Distance Value Table</p>
+<p>This table lists the administrative distance default values of the protocols that Cisco supports:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="63%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Routing Protocol</th>
+<th class="head">Administrative distance</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Directly connected interface</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>Static route out an interface</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>Static route to next-hop address</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>DMNR - Dynamic Mobile Network Routing</td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td>EIGRP summary route</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>External BGP</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>Internal EIGRP</td>
+<td>90</td>
+</tr>
+<tr class="row-odd"><td>IGRP</td>
+<td>100</td>
+</tr>
+<tr class="row-even"><td>OSPF</td>
+<td>110</td>
+</tr>
+<tr class="row-odd"><td>IS-IS</td>
+<td>115</td>
+</tr>
+<tr class="row-even"><td>Routing Information Protocol (RIP)</td>
+<td>120</td>
+</tr>
+<tr class="row-odd"><td>Exterior Gateway Protocol (EGP)</td>
+<td>140</td>
+</tr>
+<tr class="row-even"><td>On Demand Routing (ODR)</td>
+<td>160</td>
+</tr>
+<tr class="row-odd"><td>External EIGRP</td>
+<td>170</td>
+</tr>
+<tr class="row-even"><td>Internal BGP</td>
+<td>200</td>
+</tr>
+<tr class="row-odd"><td>Next Hop Resolution Protocol (NHRP)</td>
+<td>250</td>
+</tr>
+<tr class="row-even"><td>Floating Static Route (ex. DHCP-learned)</td>
+<td>254</td>
+</tr>
+<tr class="row-odd"><td>Unknown (Others)</td>
+<td>255</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the administrative distance is 255, the router does not believe the source of that route and does not install the route in the routing table.
+Since IOS 12.2, the administrative distance of a static route with an exit interface is 1.
+Only the interface itself has an administrative distance of 0, since a route cannot have a distance of less than 1.
+Directly connected routes have an administrative distance of 0.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="changing-administrative-distance">
+<h2>Changing Administrative Distance<a class="headerlink" href="#changing-administrative-distance" title="Permalink to this headline">¶</a></h2>
+<p>When you use <em>route redistribution</em>, occasionally you need to modify the administrative distance of a protocol so that it takes precedence.
+For example, if you want the router to select RIP-learned routes (default value 120) rather than IGRP-learned routes (default value 100)
+to the same destination, you must increase the administrative distance for IGRP to 120+,
+or decrease the administrative distance of RIP to a value less than 100.</p>
+<p>You can modify the administrative distance of a protocol through the distance command in the routing process subconfiguration mode.
+This command specifies that the administrative distance is assigned to the routes learned from a particular routing protocol.
+You need to use this procedure generally when you migrate the network from one routing protocol to another,
+and the latter has a higher administrative distance. However, a change in the administrative distance <em>can lead to routing loops and black holes</em>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">use caution if you change the administrative distance.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router eigrp 10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#distance eigrp xx yy</span>
+
+<span class="n">where</span> <span class="n">xx</span> <span class="n">representes</span> <span class="n">the</span> <span class="n">new</span> <span class="n">value</span> <span class="n">of</span> <span class="n">internal</span> <span class="n">administrative</span> <span class="n">distance</span> <span class="ow">and</span> <span class="n">yy</span> <span class="n">representes</span> <span class="n">the</span> <span class="n">new</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">external</span> <span class="n">administrative</span> <span class="n">distance</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-of-changing-ad-for-rip">
+<h2>example of changing AD for rip<a class="headerlink" href="#example-of-changing-ad-for-rip" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example that shows two routers, R1 and R2, connected through Ethernet. The loopback interfaces of the routers are also advertised with RIP and IGRP on both the routers.
+You can observe that the IGRP routes are preferred over the RIP routes in the routing table because the administrative distance is 100.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
+
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+
+<span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">subnets</span>
+<span class="n">C</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">I</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span> <span class="p">[</span><span class="mi">100</span><span class="o">/</span><span class="mi">1600</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.200</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">01</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">C</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Loopback0</span>
+
+<span class="n">R2</span><span class="c1">#show ip route</span>
+
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+
+<span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">subnets</span>
+<span class="n">C</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">C</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Loopback0</span>
+<span class="n">I</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">100</span><span class="o">/</span><span class="mi">1600</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.100</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>In order to enable the router to prefer RIP routes to IGRP, configure the distance command on R1 like this:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router rip</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#distance 90</span>
+</pre></div>
+</div>
+<p>Now look at the routing table. The routing table shows that the router prefers the RIP routes. The router learns RIP routes with an administrative distance of 90, although the default is 120.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The new administrative distance value is relevant only to the routing process of a single router (in this case R1). R2 still has IGRP routes in the routing table.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
+
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+
+<span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">subnets</span>
+<span class="n">C</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">R</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">1</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.200</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">C</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Loopback0</span>
+
+<span class="n">R2</span><span class="c1">#show ip route</span>
+
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+
+<span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">subnets</span>
+<span class="n">C</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">C</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Loopback0</span>
+<span class="n">I</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">100</span><span class="o">/</span><span class="mi">1600</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.100</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">33</span><span class="p">,</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are no general guidelines to assign administrative distances because each network has varied requirements. You must determine a reasonable matrix of administrative distances for the network as a whole. Similarly, a directly connected route with an AD of 0 takes precedence over a static route with an AD of 1.</p>
+</div>
+</div>
+<div class="section" id="other-applications-of-a-d">
+<h2>Other applications of A.D.<a class="headerlink" href="#other-applications-of-a-d" title="Permalink to this headline">¶</a></h2>
+<p>One common reason to change the administrative distance of a route is when you use <em>Static Routes to backup an existing IGP route</em>.
+This is normally used to bring up a backup link when the primary fails.</p>
+<p>For example, assume that you use the routing table from R1. However, in this case,
+there is also an ISDN line that you can use as a backup if the primary connection fails. Here is an example of a Floating Static for this route:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>ip route 10.0.0.0 255.0.0.0 Dialer 1 250
+!--- Note: The Administrative Distance is set to 250.
+</pre></div>
+</div>
+<p>If the Ethernet interfaces fail, or if you manually bring down the Ethernet interfaces, the floating static route is installed into the routing table. All traffic destined for the 10.0.0.0/8 network is then routed out of the Dialer 1 interface and over the backup link.
+The routing table appears similar to this after the failure:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+<span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">subnets</span>
+<span class="n">C</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
+<span class="n">S</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Dialer1</span>
+<span class="n">C</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Loopback0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="directly-connected-n-remote-network-routes">
+<h2>Directly Connected n Remote Network Routes<a class="headerlink" href="#directly-connected-n-remote-network-routes" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="docutils">
+<dt>Directly connected routes</dt>
+<dd>These routes come from the active router interfaces. Routers add a directly connected route when an interface is configured with an IP address and is activated.</dd>
+<dt>Remote routes</dt>
+<dd>These are remote networks connected to other routers. Routes to these networks can either be statically configured or dynamically learned through dynamic routing protocols.</dd>
+</dl>
+</div></blockquote>
+<p>The sources of the routing table entries are identified by a <em>code</em>. The code identifies how the route was learned. For instance, common codes include:</p>
+<blockquote>
+<div><ul class="simple">
+<li>L - Identifies the address assigned to a router’s interface. This allows the router to efficiently determine when it receives a packet for the interface instead of being forwarded.</li>
+<li>C - Identifies a directly connected network.</li>
+<li>S - Identifies a static route created to reach a specific network.</li>
+<li>D - Identifies a dynamically learned network from another router using EIGRP.</li>
+<li>O - Identifies a dynamically learned network from another router using the OSPF routing protocol.</li>
+</ul>
+</div></blockquote>
+<p>D 10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0</p>
+<blockquote>
+<div><ul class="simple">
+<li>Route source - Identifies how the route was learned.</li>
+<li>Destination network - Identifies the address of the remote network.</li>
+<li>Administrative distance - Identifies the trustworthiness of the route source. Lower values indicate preferred route source.</li>
+<li>Metric - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.</li>
+<li>Next-hop - Identifies the IPv4 address of the next router to forward the packet to.</li>
+<li>Route timestamp - Identifies how much time has passed since the route was learned.</li>
+<li>Outgoing interface - Identifies the exit interface to use to forward a packet toward the final destination.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="the-ip-routing-process">
+<h2>The IP routing process<a class="headerlink" href="#the-ip-routing-process" title="Permalink to this headline">¶</a></h2>
+<p>IP routing example using two hosts and one router</p>
+<p>User on Host_A pinged Host_B’s IP address. Routing doesn’t get any simpler than this, but it still involves a lot of steps, so let’s work through them now:</p>
+<ol class="arabic">
+<li><p class="first">Internet Control Message Protocol (ICMP) creates an echo request payload, which is simply the alphabet in the data field.</p>
+</li>
+<li><p class="first">ICMP hands that payload to Internet Protocol (IP), which then creates a packet. At a minimum, this packet contains an IP source address, an IP destination address, and a Protocol field with 01h. Don’t forget that Cisco likes to use 0x in front of hex characters, so this could also look like 0x01. This tells the receiving host to whom it should hand the payload when the destination is reached—in this example, ICMP.</p>
+</li>
+<li><p class="first">Once the packet is created, IP determines whether the destination IP address is on the local network or a remote one.</p>
+</li>
+<li><p class="first">Since IP has determined that this is a remote request, the packet must be sent to the default gateway so it can be routed to the remote network. The Registry in Windows is parsed to find the configured default gateway.</p>
+</li>
+<li><p class="first">The default gateway of Host_A is configured to 172.16.10.1. For this packet to be sent to the default gateway, the hardware address of the router’s interface Ethernet 0, which is configured with the IP address of 172.16.10.1, must be known. Why? So the packet can be handed down to the Data Link layer, framed, and sent to the router’s interface that’s connected to the 172.16.10.0 network. Because hosts communicate only via hardware addresses on the local LAN, it’s important to recognize that for Host_A to communicate to Host_B, it has to send packets to the Media Access Control (MAC) address of the default gateway on the local network. MAC addresses are always local on the LAN and never go through and past a router.</p>
+</li>
+<li><p class="first">Next, the Address Resolution Protocol (ARP) cache of the host is checked to see if the IP address of the default gateway has already been resolved to a hardware address. If it has, the packet is then free to be handed to the Data Link layer for framing. Remember that the hardware destination address is also handed down with that packet.</p>
+</li>
+<li><p class="first">If the hardware address isn’t already in the ARP cache of the host, an ARP broadcast will be sent out onto the local network to search for the 172.16.10.1 hardware address. The router then responds to the request and provides the hardware address of Ethernet 0, and the host caches this address.</p>
+</li>
+<li><p class="first">Once the packet and destination hardware address are handed to the Data Link layer, the LAN driver is used to provide media access via the type of LAN being used, which is Ethernet in this case. A frame is then generated, encapsulating the packet with control information. Within that frame are the hardware destination and source addresses plus, in this case, an Ether-Type field, which identifies the specific Network layer protocol that handed the packet to the Data Link layer. In this instance, it’s IP. At the end of the frame is something called a Frame Check Sequence (FCS) field that houses the result of the cyclic redundancy check (CRC). The frame would look something like what I’ve detailed in Figure 9.3. It contains Host A’s hardware (MAC) address and the destination hardware address of the default gateway. It does not include the remote host’s MAC address—remember that!</p>
+</li>
+<li><p class="first">Once the frame is completed, it’s handed down to the Physical layer to be put on the physical medium (in this example, twisted-pair wire) one bit at a time.</p>
+</li>
+<li><p class="first">Every device in the collision domain receives these bits and builds the frame. They each run a CRC and check the answer in the FCS field. If the answers don’t match, the frame is discarded:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>* If the CRC matches, then the hardware destination address is checked to see if it matches (which, in this example, is the router’s interface Ethernet 0).
+* If it’s a match, then the Ether-Type field is checked to find the protocol used at the Network layer.
+</pre></div>
+</div>
+</li>
+<li><p class="first">The packet is pulled from the frame, and what is left of the frame is discarded. The packet is handed to the protocol listed in the Ether-Type field—it’s given to IP.</p>
+</li>
+<li><p class="first">IP receives the packet and checks the IP destination address. Since the packet’s destination address doesn’t match any of the addresses configured on the receiving router itself, the router will look up the destination IP network address in its routing table.</p>
+</li>
+<li><p class="first">The routing table must have an entry for the network 172.16.20.0 or the packet will be discarded immediately and an ICMP message will be sent back to the originating device with a destination network unreachable message.</p>
+</li>
+<li><p class="first">If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Lab_A</span><span class="o">&gt;</span><span class="n">sh</span> <span class="n">ip</span> <span class="n">route</span>
+    <span class="n">C</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">10.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span>    <span class="n">Ethernet0</span>
+    <span class="n">L</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
+    <span class="n">C</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span>    <span class="n">Ethernet1</span>
+    <span class="n">L</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet1</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The router packet-switches the packet to the Ethernet 1 buffer.</p>
+</li>
+<li><p class="first">The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache. If the hardware address of Host_B has already been resolved and is in the router’s ARP cache, then the packet and the hardware address will be handed down to the Data Link layer to be framed.let’s take a look at the ARP cache on the Lab_A router by using the show ip arp command</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Lab_A</span><span class="c1">#sh ip arp</span>
+<span class="n">Protocol</span>  <span class="n">Address</span>     <span class="n">Age</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span> <span class="n">Hardware</span> <span class="n">Addr</span>  <span class="n">Type</span>   <span class="n">Interface</span>
+<span class="n">Internet</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.1</span>   <span class="o">-</span>     <span class="mi">00</span><span class="n">d0</span><span class="o">.</span><span class="mi">58</span><span class="n">ad</span><span class="o">.</span><span class="mi">05</span><span class="n">f4</span>  <span class="n">ARPA</span>   <span class="n">Ethernet1</span>
+<span class="n">Internet</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.2</span>   <span class="mi">3</span>     <span class="mf">0030.9492</span><span class="o">.</span><span class="n">a5dd</span>  <span class="n">ARPA</span>   <span class="n">Ethernet1</span>
+<span class="n">Internet</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">10.1</span>   <span class="o">-</span>     <span class="mi">00</span><span class="n">d0</span><span class="o">.</span><span class="mi">58</span><span class="n">ad</span><span class="o">.</span><span class="mi">06</span><span class="n">aa</span>  <span class="n">ARPA</span>   <span class="n">Ethernet0</span>
+<span class="n">Internet</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">10.2</span>  <span class="mi">12</span>     <span class="mf">0030.9492</span><span class="o">.</span><span class="n">a4ac</span>  <span class="n">ARPA</span>   <span class="n">Ethernet0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Now if the hardware address hasn’t already been resolved, the router will send an ARP request out E1 looking for the 172.16.20.2 hardware address. Host_B responds with its hardware address, and the packet and destination hardware addresses are then both sent to the Data Link layer for framing.</li>
+</ul>
+</li>
+<li><p class="first">The Data Link layer creates a frame with the destination and source hardware addresses, Ether-Type field, and FCS field at the end. The frame is then handed to the Physical layer to be sent out on the physical medium one bit at a time.</p>
+</li>
+<li><p class="first">Host_B receives the frame and immediately runs a CRC. If the result matches the information in the FCS field, the hardware destination address will then be checked next. If the host finds a match, the Ether-Type field is then checked to determine the protocol that the packet should be handed to at the Network layer—IP in this example.</p>
+</li>
+<li><p class="first">At the Network layer, IP receives the packet and runs a CRC on the IP header. If that passes, IP then checks the destination address. Since a match has finally been made, the Protocol field is checked to find out to whom the payload should be given.</p>
+</li>
+<li><p class="first">The payload is handed to ICMP, which understands that this is an echo request. ICMP responds to this by immediately discarding the packet and generating a new payload as an echo reply.</p>
+</li>
+<li><p class="first">A packet is then created including the source and destination addresses, Protocol field, and payload. The destination device is now Host_A.</p>
+</li>
+<li><p class="first">IP then checks to see whether the destination IP address is a device on the local LAN or on a remote network. Since the destination device is on a remote network, the packet needs to be sent to the default gateway.</p>
+</li>
+<li><p class="first">The default gateway IP address is found in the Registry of the Windows device, and the ARP cache is checked to see if the hardware address has already been resolved from an IP address.</p>
+</li>
+<li><p class="first">Once the hardware address of the default gateway is found, the packet and destination hardware addresses are handed down to the Data Link layer for framing.</p>
+</li>
+<li><p class="first">The Data Link layer frames the packet of information and includes the following in the header</p>
+<blockquote>
+<div><ul class="simple">
+<li>The destination and source hardware addresses</li>
+<li>The Ether-Type field with 0x0800 (IP) in it</li>
+<li>The FCS field with the CRC result in tow</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">The frame is now handed down to the Physical layer to be sent out over the network medium one bit at a time.</p>
+</li>
+<li><p class="first">The router’s Ethernet 1 interface receives the bits and builds a frame. The CRC is run, and the FCS field is checked to make sure the answers match.</p>
+</li>
+<li><p class="first">Once the CRC is found to be okay, the hardware destination address is checked. Since the router’s interface is a match, the packet is pulled from the frame and the Ether-Type field is checked to determine which protocol the packet should be delivered to at the Network layer.</p>
+</li>
+<li><p class="first">The protocol is determined to be IP, so it gets the packet. IP runs a CRC check on the IP header first and then checks the destination IP address</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">IP does not run a complete CRC as the Data Link layer does—it only checks the header for errors.</p>
+</div>
+</li>
+<li><p class="first">Since the IP destination address doesn’t match any of the router’s interfaces, the routing table is checked to see whether it has a route to 172.16.10.0. If it doesn’t have a route over to the destination network, the packet will be discarded immediately. I want to take a minute to point out that this is exactly where the source of confusion begins for a lot of administrators because when a ping fails, most people think the packet never reached the destination host. But as we see here, that’s not always the case. All it takes for this to happen is for even just one of the remote routers to lack a route back to the originating host’s network and— poof!—the packet is dropped on the return trip, not on its way to the host!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Just a quick note to mention that when (and if) the packet is lost on the way back to the originating host, you will typically see a request timed-out message because it is an unknown error. If the error occurs because of a known issue, such as if a route is not in the routing table on the way to the destination device, you will see a destination unreachable message. This should help you determine if the problem occurred on the way to the destination or on the way back.</p>
+</div>
+</li>
+<li><p class="first">In this case, the router happens to know how to get to network 172.16.10.0—the exit interface is Ethernet 0—so the packet is switched to interface Ethernet 0.</p>
+</li>
+<li><p class="first">The router then checks the ARP cache to determine whether the hardware address for 172.16.10.2 has already been resolved.</p>
+</li>
+<li><p class="first">Since the hardware address to 172.16.10.2 is already cached from the originating trip to Host_B, the hardware address and packet are then handed to the Data Link layer.</p>
+</li>
+<li><p class="first">The Data Link layer builds a frame with the destination hardware address and source hardware address and then puts IP in the Ether-Type field. A CRC is run on the frame and the result is placed in the FCS field.</p>
+</li>
+<li><p class="first">The frame is then handed to the Physical layer to be sent out onto the local network one bit at a time.</p>
+</li>
+<li><p class="first">The destination host receives the frame, runs a CRC, checks the destination hardware address, then looks into the Ether-Type field to find out to whom to hand the packet.</p>
+</li>
+<li><p class="first">IP is the designated receiver, and after the packet is handed to IP at the Network layer, it checks the Protocol field for further direction. IP finds instructions to give the payload to ICMP, and ICMP determines the packet to be an ICMP echo reply.</p>
+</li>
+<li><p class="first">ICMP acknowledges that it has received the reply by sending an exclamation point (!) to the user interface. ICMP then attempts to send four more echo requests to the destination host.</p>
+</li>
+</ol>
+<p>The key point here is that if you had a much larger network, the process would be the same. It’s just that the larger the internetwork, the more hops the packet goes through before it finds the destination host.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It’s super-important to remember that when Host_A sends a packet to Host_B, the destination hardware address used is the default gateway’s Ethernet interface. Why? Because frames can’t be placed on remote networks—only local networks. So packets destined for remote networks must go through the default gateway.</p>
+</div>
+<p>To see which packet switching method your router interface is using, use the command show ip interface.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="staticRouting.html" class="btn btn-neutral float-right" title="Static Routes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="connect2console.html" class="btn btn-neutral" title="Connect to console" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'20170824',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

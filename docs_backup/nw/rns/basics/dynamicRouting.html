@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dynamic Routing &mdash; debian &amp; networking 20170824 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="../../../index.html"/>
+        <link rel="up" title="Routing/Switching" href="../routing_n_switching.html"/>
+        <link rel="next" title="switched networks" href="switchedNetworks.html"/>
+        <link rel="prev" title="Static Routes" href="staticRouting.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201708
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../routing_n_switching.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../routing_n_switching.html#basics">basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="routingConcepts.html">Routing Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="staticRouting.html">Static Routes</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Dynamic Routing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-routing-protocols-components">Dynamic Routing Protocols Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#static-routing-uses">Static Routing Uses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-routing-uses">Dynamic Routing Uses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ripv2">RIPv2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enable-disable">enable/disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-auto-summarization">disable auto summarization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-passive-interfaces">configure passive interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#propagate-a-default-route">propagate a default route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exercise-example">exercise example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remote-networks-in-routing-table">Remote Networks in Routing table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routing-table-terms">Routing table terms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#route-lookup-process">Route lookup process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-routing-table-entries">IPv6 Routing Table Entries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna-chapter-3">QnA Chapter 3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="switchedNetworks.html">switched networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switchConfiguration.html">Switch Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vlans.html">VLANS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="acl.html">ACLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dhcp.html">DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">debian & networking</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../routing_n_switching.html">Routing/Switching</a> &raquo;</li>
+        
+      <li>Dynamic Routing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/nw/rns/basics/dynamicRouting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dynamic-routing">
+<h1>Dynamic Routing<a class="headerlink" href="#dynamic-routing" title="Permalink to this headline">¶</a></h1>
+<p>Router metrics are metrics used by a router to make routing decisions. A metric is typically one of many fields in a routing table.</p>
+<p>Metrics are used to determine whether one route should be chosen over another. The routing table stores possible routes, while link-state or topological databases may store all other information as well. For example, Routing Information Protocol uses hopcount (number of hops) to determine the best possible route. The route will go in the direction of the gateway with the lowest metric. The direction with the lowest metric can be a default gateway.</p>
+<p>Router metrics can contain any number of values that help the router determine the best route among multiple routes to a destination. A router metric typically based on information like <strong>path length, bandwidth, load, hop count, path cost, delay, maximum transmission unit (MTU), reliability and communications cost</strong>.</p>
+<div class="section" id="dynamic-routing-protocols-components">
+<h2>Dynamic Routing Protocols Components<a class="headerlink" href="#dynamic-routing-protocols-components" title="Permalink to this headline">¶</a></h2>
+<p>Routing protocols are used to facilitate the exchange of routing information between routers. A routing protocol is a set of processes, algorithms, and messages that are used to exchange routing information and populate the routing table with the routing protocol’s choice of best paths. The purpose of dynamic routing protocols includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Discovery of remote networks</li>
+<li>Maintaining up-to-date routing information</li>
+<li>Choosing the best path to destination networks</li>
+<li>Ability to find a new best path if the current path is no longer available</li>
+</ul>
+</div></blockquote>
+<p>The main components of dynamic routing protocols include:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Data structures - Routing protocols typically use tables or databases for its operations. This information is kept in RAM.</li>
+<li>Routing protocol messages - Routing protocols use various types of messages to discover neighboring routers, exchange routing information, and other tasks to learn and maintain accurate information about the network.</li>
+<li>Algorithm - An algorithm is a finite list of steps used to accomplish a task. Routing protocols use algorithms for facilitating routing information and for best path determination.</li>
+</ul>
+</div></blockquote>
+<p>Routing protocols allow routers to dynamically share information about remote networks and automatically offer this information to their own routing tables.</p>
+<p>Routing protocols determine the best path, or route, to each network. That route is then offered to the routing table. The route will be installed in the routing table is there is not another routing source with a lower administrative distance. For example, a static route with an administrative distance of 1 will have precedence over the same network learned by a dynamic routing protocol. A primary benefit of dynamic routing protocols is that routers exchange routing information when there is a topology change. This exchange allows routers to automatically learn about new networks and also to find alternate paths when there is a link failure to a current network.</p>
+</div>
+<div class="section" id="static-routing-uses">
+<h2>Static Routing Uses<a class="headerlink" href="#static-routing-uses" title="Permalink to this headline">¶</a></h2>
+<p>Static routing has several primary uses, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.</li>
+<li>Routing to and from a stub network, which is a network with only one default route out and no knowledge of any remote networks.</li>
+<li>Accessing a single default route (which is used to represent a path to any network that does not have a more specific match with another route in the routing table).</li>
+</ul>
+</div></blockquote>
+<div class="section" id="pros-static">
+<h3>Pros static<a class="headerlink" href="#pros-static" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Predictability: route to destination is always the same.</li>
+<li>Network bandwidth overhead / no extra cpu,ram resources needed: Static routing has zero overhead, whereas all dynamic routing protocols have some degree of overhead. For example, on a network with 200 segments, the router will send updates from each interface every 30 seconds, and those updates are about 3KB of data. Over the course of a day, this traffic adds up.</li>
+<li>Easy to configure: This issue is relative, depending on the size of your network. Although small networks are easy to configure, as a network grows, applying changes to all the routers can become a big task.</li>
+<li>Very secure, No advertisements are sent.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cons-static">
+<h3>Cons static<a class="headerlink" href="#cons-static" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Lack of scalability: For the 200 segment network mentioned previously, which possibly contains 200 routers, you could be dealing with thousands of routing table entries. Manually calculating all those routes and keeping them up-to-date would be a Herculean task and very prone to error. Even if you implement a good network-addressing design that allows for route summarization, you are still left with an overwhelming number of routes to manage.</li>
+<li>Large network implementation: When working with a network of 200 routers, the task of updating one route can become a complex task, especially if you update the routes in the wrong order. In that case, you could lose access to a large section of the network until someone visits that router with a rollover cable or connects from another area of the network.</li>
+<li>No redundancy: Dynamic routing protocols can update routing tables in the event of device or interface failure, so if there are multiple possible paths, these protocols will continue to allow data flow. Static routes do not allow for this automatic failover or redundant paths, so if you have a failure, you must manually adjust routes to move data through an alternative path.</li>
+</ul>
+</div></blockquote>
+<p>Dynamic routing is the best choice for large networks like the one shown.</p>
+</div>
+</div>
+<div class="section" id="dynamic-routing-uses">
+<h2>Dynamic Routing Uses<a class="headerlink" href="#dynamic-routing-uses" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pros-dynamic">
+<h3>Pros Dynamic<a class="headerlink" href="#pros-dynamic" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Suitable in all topologies where multiple routers are required</li>
+<li>Generally independent of the network size</li>
+<li>Automatically addapts topology to reroute traffic if possible</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cons-dynamic">
+<h3>Cons Dynamic<a class="headerlink" href="#cons-dynamic" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Can be more complex to implement</li>
+<li>Less secure. Additional config settings are required to secure.</li>
+<li>Route depends on the current topology.</li>
+<li>Requires additional CPU, RAM, and link bandwidth.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="ripv2">
+<h2>RIPv2<a class="headerlink" href="#ripv2" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="enable-disable">
+<h2>enable/disable<a class="headerlink" href="#enable-disable" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="c1"># conf t</span>
+    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
+</pre></div>
+</div>
+<div class="section" id="verify-rip-routing">
+<h3>verify rip routing<a class="headerlink" href="#verify-rip-routing" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
+<span class="n">R1</span><span class="c1"># show ip protocols | section Default</span>
+<span class="n">R1</span><span class="c1"># show ip route | begin Gateway</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="disable-auto-summarization">
+<h2>disable auto summarization<a class="headerlink" href="#disable-auto-summarization" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
+    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">R1</span><span class="c1"># show ip protocols | section Automatic</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>auto-summary = classful, no auto-summary = you can see /25 routes = classless, don’t confuse with summarization. If you want a summary address you can apply the following on the <strong>outgoing interface you want de summary address advertised</strong></p>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">summary</span><span class="o">-</span><span class="n">address</span> <span class="n">rip</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">252.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configure-passive-interfaces">
+<h2>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.</p>
+<img alt="../../../_images/configure_passive_ifs_on_R1.png" src="../../../_images/configure_passive_ifs_on_R1.png" />
+<p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Wasted Bandwidth - Bandwidth is used to transport unnecessary updates. Because RIP updates are either broadcasted or multicasted, switches also forward the updates out all ports.</li>
+<li>Wasted Resources - All devices on the LAN must process the update up to the transport layers, at which point the devices will discard the update.</li>
+<li>Security Risk - Advertising updates on a broadcast network is a security risk. RIP updates can be intercepted with packet sniffing software. Routing updates can be modified and sent back to the router, corrupting the routing table with false metrics that misdirect traffic.</li>
+</ul>
+</div></blockquote>
+<p>Use the <strong>passive-interface</strong> router configuration command to prevent the transmission of routing updates through a router interface, <em>but still allow that network to be advertised to other routers</em>. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">on</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">R2</span><span class="c1">#</span>
+<span class="o">*</span><span class="n">Mar</span> <span class="mi">10</span> <span class="mi">16</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mf">32.391</span><span class="p">:</span> <span class="o">%</span><span class="n">SYS</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">CONFIG_I</span><span class="p">:</span> <span class="n">Configured</span> <span class="kn">from</span> <span class="nn">console</span> <span class="n">by</span> <span class="n">console</span>
+<span class="n">Verify</span> <span class="n">the</span> <span class="n">RIP</span> <span class="n">protocol</span> <span class="n">settings</span> <span class="n">on</span> <span class="n">R2</span><span class="o">.</span>
+<span class="n">R2</span><span class="c1"># show ip protocols</span>
+
+<span class="o">***</span> <span class="n">IP</span> <span class="n">Routing</span> <span class="ow">is</span> <span class="n">NSF</span> <span class="n">aware</span> <span class="o">***</span>
+
+<span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;rip&quot;</span>
+  <span class="n">Outgoing</span> <span class="n">update</span> <span class="nb">filter</span> <span class="nb">list</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">interfaces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Incoming</span> <span class="n">update</span> <span class="nb">filter</span> <span class="nb">list</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">interfaces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Sending</span> <span class="n">updates</span> <span class="n">every</span> <span class="mi">30</span> <span class="n">seconds</span><span class="p">,</span> <span class="nb">next</span> <span class="n">due</span> <span class="ow">in</span> <span class="mi">17</span> <span class="n">seconds</span>
+  <span class="n">Invalid</span> <span class="n">after</span> <span class="mi">180</span> <span class="n">seconds</span><span class="p">,</span> <span class="n">hold</span> <span class="n">down</span> <span class="mi">180</span><span class="p">,</span> <span class="n">flushed</span> <span class="n">after</span> <span class="mi">240</span>
+  <span class="n">Redistributing</span><span class="p">:</span> <span class="n">rip</span>
+  <span class="n">Default</span> <span class="n">version</span> <span class="n">control</span><span class="p">:</span> <span class="n">send</span> <span class="n">version</span> <span class="mi">2</span><span class="p">,</span> <span class="n">receive</span> <span class="n">version</span> <span class="mi">2</span>
+    <span class="n">Interface</span>             <span class="n">Send</span>  <span class="n">Recv</span>  <span class="n">Triggered</span> <span class="n">RIP</span>  <span class="n">Key</span><span class="o">-</span><span class="n">chain</span>
+    <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>           <span class="mi">2</span>     <span class="mi">2</span>
+    <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>           <span class="mi">2</span>     <span class="mi">2</span>
+  <span class="n">Automatic</span> <span class="n">network</span> <span class="n">summarization</span> <span class="ow">is</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">effect</span>
+  <span class="n">Maximum</span> <span class="n">path</span><span class="p">:</span> <span class="mi">4</span>
+  <span class="n">Routing</span> <span class="k">for</span> <span class="n">Networks</span><span class="p">:</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">2.0</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">3.0</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">4.0</span>
+  <span class="n">Passive</span> <span class="n">Interface</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+  <span class="n">Routing</span> <span class="n">Information</span> <span class="n">Sources</span><span class="p">:</span>
+    <span class="n">Gateway</span>         <span class="n">Distance</span>      <span class="n">Last</span> <span class="n">Update</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">2.1</span>          <span class="mi">120</span>      <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">24</span>
+    <span class="n">Gateway</span>         <span class="n">Distance</span>      <span class="n">Last</span> <span class="n">Update</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">4.1</span>          <span class="mi">120</span>      <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">23</span>
+  <span class="n">Distance</span><span class="p">:</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">R2</span><span class="c1">#</span>
+
+<span class="n">You</span> <span class="n">are</span> <span class="n">now</span> <span class="n">logged</span> <span class="n">into</span> <span class="n">R3</span><span class="o">.</span> <span class="n">Configure</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">to</span> <span class="n">be</span> <span class="n">the</span> <span class="n">default</span> <span class="n">setting</span><span class="o">.</span> <span class="n">Remove</span> <span class="n">the</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">setting</span> <span class="kn">from</span> <span class="nn">S0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface default</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no passive-interface s0/0/1</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">R3</span><span class="c1">#</span>
+<span class="o">*</span><span class="n">Mar</span> <span class="mi">10</span> <span class="mi">16</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mf">28.899</span><span class="p">:</span> <span class="o">%</span><span class="n">SYS</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">CONFIG_I</span><span class="p">:</span> <span class="n">Configured</span> <span class="kn">from</span> <span class="nn">console</span> <span class="n">by</span> <span class="n">console</span>
+<span class="n">Verify</span> <span class="n">the</span> <span class="n">RIP</span> <span class="n">protocol</span> <span class="n">settings</span> <span class="n">on</span> <span class="n">R3</span><span class="o">.</span>
+<span class="n">R3</span><span class="c1"># show ip protocols</span>
+<span class="o">***</span> <span class="n">IP</span> <span class="n">Routing</span> <span class="ow">is</span> <span class="n">NSF</span> <span class="n">aware</span> <span class="o">***</span>
+
+<span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;rip&quot;</span>
+  <span class="n">Outgoing</span> <span class="n">update</span> <span class="nb">filter</span> <span class="nb">list</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">interfaces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Incoming</span> <span class="n">update</span> <span class="nb">filter</span> <span class="nb">list</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">interfaces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Sending</span> <span class="n">updates</span> <span class="n">every</span> <span class="mi">30</span> <span class="n">seconds</span><span class="p">,</span> <span class="nb">next</span> <span class="n">due</span> <span class="ow">in</span> <span class="mi">15</span> <span class="n">seconds</span>
+  <span class="n">Invalid</span> <span class="n">after</span> <span class="mi">180</span> <span class="n">seconds</span><span class="p">,</span> <span class="n">hold</span> <span class="n">down</span> <span class="mi">180</span><span class="p">,</span> <span class="n">flushed</span> <span class="n">after</span> <span class="mi">240</span>
+  <span class="n">Redistributing</span><span class="p">:</span> <span class="n">rip</span>
+  <span class="n">Default</span> <span class="n">version</span> <span class="n">control</span><span class="p">:</span> <span class="n">send</span> <span class="n">version</span> <span class="mi">2</span><span class="p">,</span> <span class="n">receive</span> <span class="n">version</span> <span class="mi">2</span>
+    <span class="n">Interface</span>             <span class="n">Send</span>  <span class="n">Recv</span>  <span class="n">Triggered</span> <span class="n">RIP</span>  <span class="n">Key</span><span class="o">-</span><span class="n">chain</span>
+    <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>           <span class="mi">2</span>     <span class="mi">2</span>
+  <span class="n">Automatic</span> <span class="n">network</span> <span class="n">summarization</span> <span class="ow">is</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">effect</span>
+  <span class="n">Maximum</span> <span class="n">path</span><span class="p">:</span> <span class="mi">4</span>
+  <span class="n">Routing</span> <span class="k">for</span> <span class="n">Networks</span><span class="p">:</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">4.0</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">5.0</span>
+  <span class="n">Passive</span> <span class="n">Interface</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">Embedded</span><span class="o">-</span><span class="n">Service</span><span class="o">-</span><span class="n">Engine0</span><span class="o">/</span><span class="mi">0</span>
+    <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+    <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span>
+    <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">3</span>
+    <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+    <span class="n">RG</span><span class="o">-</span><span class="n">AR</span><span class="o">-</span><span class="n">IF</span><span class="o">-</span><span class="n">INPUT1</span>
+  <span class="n">Routing</span> <span class="n">Information</span> <span class="n">Sources</span><span class="p">:</span>
+    <span class="n">Gateway</span>         <span class="n">Distance</span>      <span class="n">Last</span> <span class="n">Update</span>
+    <span class="mf">192.168</span><span class="o">.</span><span class="mf">4.2</span>          <span class="mi">120</span>      <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">23</span>
+  <span class="n">Distance</span><span class="p">:</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">R3</span><span class="c1">#</span>
+</pre></div>
+</div>
+<p>There is no need for R1, R2, and R3 to forward RIP updates out of their LAN interfaces. The configuration in Figure 2 identifies the R1 G0/0 interface as passive. <em>The show ip protocols command is then used to verify that the Gigabit Ethernet interface was passive.</em>
+.. note:: Notice that the G0/0 interface is no longer listed as sending or receiving version 2 updates, but instead is now listed under the Passive Interface(s) section. Also notice that the network 192.168.1.0 is still listed under Routing for Networks, which means that this network is still included as a route entry in RIP updates that are sent to R2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All routing protocols support the passive-interface command.</p>
+</div>
+<p>configure the LAN interface as a passive interface on R2 and R3.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+
+<span class="n">Verify</span> <span class="n">the</span> <span class="n">RIP</span> <span class="n">protocol</span> <span class="n">settings</span> <span class="n">on</span> <span class="n">R2</span>
+<span class="n">R2</span><span class="c1"># show ip protocols</span>
+
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface default</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no passive-interface s0/0/1</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+
+<span class="n">Verify</span> <span class="n">the</span> <span class="n">RIP</span> <span class="n">protocol</span> <span class="n">settings</span> <span class="n">on</span> <span class="n">R3</span>
+<span class="n">R3</span><span class="c1"># show ip protocols</span>
+</pre></div>
+</div>
+<p>As an alternative, all interfaces can be made passive using the passive-interface default command. Interfaces that should not be passive can be re-enabled using the no passive-interface command.</p>
+</div>
+<div class="section" id="propagate-a-default-route">
+<h2>propagate a default route<a class="headerlink" href="#propagate-a-default-route" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/propagate_default_route.png" src="../../../_images/propagate_default_route.png" />
+<p>To propagate a default route in RIP, the edge router must be configured with:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A default static route using the ip route 0.0.0.0 0.0.0.0 command.</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>The <strong>default-information originate</strong> router configuration command. This instructs R1 to originate default information, by propagating the static default route in RIP updates.</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># default-information originate</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+</pre></div>
+</div>
+<p>Example above configures a fully-specified default static route to the service provider and then the route is propagated by RIP. Notice that R1 now has a Gateway of Last Resort and default route installed in its routing table.</p>
+</div>
+<div class="section" id="exercise-example">
+<h2>exercise example<a class="headerlink" href="#exercise-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span>a router that is connected to an isp
+------------------------------------
+hostname R1
+!
+ip cef
+no ipv6 cef
+!
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 192.168.2.1 255.255.255.0
+ clock rate 2000000
+!
+interface Serial0/0/0
+ ip address 192.168.2.1 255.255.255.0
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 209.165.200.225 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ passive-interface GigabitEthernet0/0
+ network 192.168.1.0
+ network 192.168.2.0
+ default-information originate
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/1
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="remote-networks-in-routing-table">
+<h2>Remote Networks in Routing table<a class="headerlink" href="#remote-networks-in-routing-table" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/RemoteNetworkEntries.png" src="../../../_images/RemoteNetworkEntries.png" />
+<ul class="simple">
+<li>Route Source: ids how route was learned</li>
+<li>Dest Network: ids address of the remote network</li>
+<li>Administrative Distance: ids <em>trustworthiness</em> of route source</li>
+<li>Metric: ids value assigned to reach remote NW. Lower is better</li>
+<li>Next hop: ids ipv4 address of next router to forward packet to</li>
+<li>route timestamp: ids from when the route was last heard</li>
+<li>Outgoing interface: ids exit interface to use to forward packet to final destination</li>
+</ul>
+<img alt="../../../_images/RemoteNetworkEntriesExercise.png" src="../../../_images/RemoteNetworkEntriesExercise.png" />
+</div>
+<div class="section" id="routing-table-terms">
+<h2>Routing table terms<a class="headerlink" href="#routing-table-terms" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><dl class="first docutils">
+<dt>Ultimate route:</dt>
+<dd><p class="first last">has next-hop ip and/or exit interface</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Level 1 route:</dt>
+<dd><dl class="first last docutils">
+<dt>a route with a subnet mask <em>equal or less than classful mask</em> of the network address</dt>
+<dd><ul class="first last">
+<li><p class="first">Network route - <em>equal</em> to that of classful mask</p>
+</li>
+<li><p class="first">Supernet route - <em>less</em> than classful mask, eg summary address</p>
+</li>
+<li><p class="first">Default route - static route with the address 0.0.0.0/0</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">source of Level 1 route = D.C. network, static, or dynamic routing protocol</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">level 1 route are also ultimate routes</p>
+</div>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><p class="first">Level 1 parent route: Level 1 network route (=mask) that is subnetted:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L1 parent route = never an ultimate route e.g. 172.16.0.0/16 #of subnets, #different masks</p>
+</div>
+</li>
+<li><p class="first">Level 2 child routes aka <strong>subnet</strong> route: subnet of a <em>classful network address</em>:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L1 parent route contains L2 child routes</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">no L1 parent = it ain’t no L2 child</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="42%" />
+<col width="58%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="4">172.16.0.0</td>
+<td>172.16.1.0/24</td>
+</tr>
+<tr class="row-even"><td>172.16.2.0/24</td>
+</tr>
+<tr class="row-odd"><td>172.16.3.0/24</td>
+</tr>
+<tr class="row-even"><td>172.16.4.0/28</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">209.165.200.0</td>
+<td>209.165.200.224/30</td>
+</tr>
+<tr class="row-even"><td>209.165.200.228/30</td>
+</tr>
+<tr class="row-odd"><td>209.165.200.232/30</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="route-lookup-process">
+<h2>Route lookup process<a class="headerlink" href="#route-lookup-process" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>if a level 1 ultimate route (exit|nhop) = forward</li>
+<li>if lvl 1 parent route (equal to snmask &amp; never and no exit|nhop) then<ul>
+<li>check if match with level 2 child (subnet) route (=bigger than nwmask)</li>
+</ul>
+</li>
+<li>continue searching lvl 1 supernet routes (=less than nwmask) for match including default route if there is one</li>
+<li>sorry no match, drop it like it’s hot</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A route referencing only a next-hop IP address and not an exit interface, must be resolved to a route with an exit interface, if Cisco Express Forwarding (CEF) is not being used. Without CEF, a recursive lookup is performed on the next-hop IP address until the route is resolved to an exit interface. CEF is enabled by default.</p>
+</div>
+</div>
+<div class="section" id="ipv6-routing-table-entries">
+<h2>IPv6 Routing Table Entries<a class="headerlink" href="#ipv6-routing-table-entries" title="Permalink to this headline">¶</a></h2>
+<p>reference topology</p>
+<img alt="../../../_images/ipv6_routingtable_entries.png" src="../../../_images/ipv6_routingtable_entries.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because IPv6 is classless by design, all routes are effectively <strong>L1 ultimate routes</strong>. There is no L1 parent or L2 child routes</p>
+</div>
+<p>R1,2,3 in full mesh topology. All routers have redundant paths to various networks.
+R2 is the edge router to the ISP, however a default static route is not being advertised
+EIGRP is cfgd on all of them</p>
+<p>Directly connected routes on R1 = show ipv6 route –&gt; C and L</p>
+<img alt="../../../_images/routingtable_ipv6.png" src="../../../_images/routingtable_ipv6.png" />
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">RIP configuration on a router should contain network statements for connected networks only. Remote networks are learned from routing updates from other routers.</p>
+</div>
+</div>
+<div class="section" id="qna-chapter-3">
+<h2>QnA Chapter 3<a class="headerlink" href="#qna-chapter-3" title="Permalink to this headline">¶</a></h2>
+<p>What is a purpose of the network command when configuring RIPv2 as the routing protocol?</p>
+<p>V  It identifies the interfaces that belong to a specified network.</p>
+<p>X  It specifies the remote network that can now be reached.</p>
+<blockquote>
+<div><p>It immediately advertises the specified network to neighbor routers with a classful mask.</p>
+<p>It populates the routing table with the network entry.</p>
+</div></blockquote>
+<p>The network command is used to advertise the directly connected networks of a router. It enables RIP on the interfaces that belong to the specified network.</p>
+<p>The command being entered by the engineer will cause RIPv2 to activate on the interface for the 192.168.10.0 network. <strong>If RIPv1 is configured, the router will send only version 1 updates, but will listen for both version 1 and version 2 updates. If RIPv2 is configured, the router will send and listen to only version 2 updates.</strong></p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="switchedNetworks.html" class="btn btn-neutral float-right" title="switched networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="staticRouting.html" class="btn btn-neutral" title="Static Routes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'20170824',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

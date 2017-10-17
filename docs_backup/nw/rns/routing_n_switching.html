@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Routing/Switching &mdash; debian &amp; networking 20170824 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="../../index.html"/>
+        <link rel="next" title="Connect to console" href="basics/connect2console.html"/>
+        <link rel="prev" title="Welcome to Patrick’s documentation!" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201708
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Routing/Switching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basics">basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="basics/connect2console.html">Connect to console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/routingConcepts.html">Routing Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/staticRouting.html">Static Routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/dynamicRouting.html">Dynamic Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/switchedNetworks.html">switched networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/switchConfiguration.html">Switch Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/vlans.html">VLANS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/acl.html">ACLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/dhcp.html">DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/nat.html">NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics/lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../storage/storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rest.html">reStructuredText Primer</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">debian & networking</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Routing/Switching</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/nw/rns/routing_n_switching.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="routing-switching">
+<h1>Routing/Switching<a class="headerlink" href="#routing-switching" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basics">
+<h2>basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics/connect2console.html">Connect to console</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/connect2console.html#minicom">minicom</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/routingConcepts.html">Routing Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#basic-concepts">basic concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#router-s-3-packet-forwarding-mechanisms">Router’s 3 packet-forwarding mechanisms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#loopback-interfaces">Loopback interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#configure-loopback-interface">configure loopback interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#filtering-parameters">Filtering parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#history-commands">History commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#show-command-examples">Show command examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#arp-neighbor-advertisement-sollicitation">ARP - Neighbor Advertisement/Sollicitation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#mac-addresses-on-serial-interfaces">MAC addresses on Serial Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#packet-forwarding-decision-process">Packet Forwarding Decision Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#routing-best-path-selection">Routing BEST PATH selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#administrative-distance">ADMINISTRATIVE DISTANCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#changing-administrative-distance">Changing Administrative Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#example-of-changing-ad-for-rip">example of changing AD for rip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#other-applications-of-a-d">Other applications of A.D.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#directly-connected-n-remote-network-routes">Directly Connected n Remote Network Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/routingConcepts.html#the-ip-routing-process">The IP routing process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/staticRouting.html">Static Routes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#ipv4-syntax">ipv4 syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#when-to-use-static-routes">When to Use Static Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#default-static-route">Default static route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#summary-static-route">Summary static route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#floating-static-route">Floating static route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#fully-specified-static-route">Fully Specified Static Route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#ipv6-static-routing">ipv6 static routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#ipv6-default-static-route">ipv6 default static route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#verify-a-default-static-route">verify a default static route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#troubleshooting-a-missing-route">Troubleshooting a missing route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/staticRouting.html#solve-a-connectivity-problem">Solve a connectivity problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/dynamicRouting.html">Dynamic Routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#dynamic-routing-protocols-components">Dynamic Routing Protocols Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#static-routing-uses">Static Routing Uses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#dynamic-routing-uses">Dynamic Routing Uses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#ripv2">RIPv2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#enable-disable">enable/disable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#disable-auto-summarization">disable auto summarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#configure-passive-interfaces">configure passive interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#propagate-a-default-route">propagate a default route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#exercise-example">exercise example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#remote-networks-in-routing-table">Remote Networks in Routing table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#routing-table-terms">Routing table terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#route-lookup-process">Route lookup process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#ipv6-routing-table-entries">IPv6 Routing Table Entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dynamicRouting.html#qna-chapter-3">QnA Chapter 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/switchedNetworks.html">switched networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#elements-of-a-converged-network">elements of a converged network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#hierarchy-in-the-borderless-switched-network">Hierarchy in the Borderless Switched Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#access-layer">Access Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#distribution-layer">Distribution Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#core-layer">Core Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#considerations-switch">considerations switch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#store-n-forward-switching">store n forward switching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#cut-through-switching">Cut-Through Switching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#collision-domains">Collision domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchedNetworks.html#qna-ch4">QnA Ch4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/switchConfiguration.html">Switch Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#configure-boot-environment-variable">Configure BOOT Environment variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#switch-boot-sequence">Switch boot sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#recover-from-system-crash">Recover from System Crash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#configure-sw-management-ipv4">Configure Sw management ipv4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#setup-a-static-mac-address">Setup a static MAC address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#duplex-communication">Duplex communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#speed-auto-mdix">Speed/auto-MDIX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#verify-interface-status">Verify interface status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#ssh-switch-setup">SSH Switch Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#disable-unused-ports">Disable unused ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#port-security">Port Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/switchConfiguration.html#qna-chapter-5">QnA Chapter 5</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/vlans.html">VLANS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#vlan-benefits">VLAN Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#vlan-types">VLAN Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#voice-vlans">Voice VLANs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#vlan-trunks">VLAN Trunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#q-frame">802.1Q Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#native-vlans-802-1q-tagging">Native VLANS &amp; 802.1Q Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#voice-vlan-tagging">Voice VLAN Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#q-tagging">802.1Q tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#vlan-ranges">VLAN Ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#configuring-vlans">Configuring VLANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#deleting-vlans">deleting VLANs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#verifying-vlan-info">verifying VLAN info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#trunk-configuration">TRUNK Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#combination-exercise">combination exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#troubleshooting-vlans">Troubleshooting VLANS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#troubleshooting-trunks">Troubleshooting Trunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#troubleshooting-vlan-trunk-bullet-points">Troubleshooting vlan/trunk bullet points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#vlan-command-summary-table">VLAN Command Summary Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#inter-vlan-routing">Inter-VLAN Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#inter-vlan-routing-challenge">Inter-VLAN Routing Challenge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#skills-integration-challenge">Skills integration challenge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/vlans.html#qna-chapter-6">QnA Chapter 6</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/acl.html">ACLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#acl-operation">ACL operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#acl-wildcard-masking">ACL Wildcard Masking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#wildcard-mask-abbreviations">Wildcard Mask Abbreviations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#rules-for-applying-acls">Rules for applying ACLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#acl-placement">ACL Placement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#applying-standard-ipv4-acls-to-interface">Applying standard ipv4 ACLs to interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#named-standard-acls">Named Standard ACLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#exercises">exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#editing-numbered-acls">Editing Numbered ACLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#adding-a-line-to-nacl">adding a line to NACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#verifying-standard-acl-interfaces">verifying standard ACL interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#acl-vs-ip-acl">ACL VS IP ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#clearing-acl-statistics">Clearing ACL Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#accesss-class-command">Accesss-class command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#the-implicit-deny-any">The implicit Deny Any</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#the-order-of-aces-in-an-acl">The order of ACEs in an ACL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#sequencing-considerations-during-configuration">Sequencing considerations during configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#acl-and-routing-processes">ACL and Routing Processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#troubleshooting-std-ipv4-acls">Troubleshooting StD IPv4 ACLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#exercices">Exercices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/acl.html#ch7-qna">Ch7 QnA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/dhcp.html">DHCP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv4-message-format">DHCPv4 Message Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv4-discover-message">DHCPv4 Discover Message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv4-basic-server-configuration">DHCPv4 basic server configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#verifying-dhcpv4">Verifying DHCPv4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#configure-dhcpv4-relay">Configure DHCPv4 relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv4-exercises">DHCPv4 Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#configuring-a-router-as-dhcp-client">Configuring a Router as DHCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#troubleshooting-dhcp">Troubleshooting DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv4-troubleshooting-tasks">DHCPv4 Troubleshooting Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#slaac">SLAAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-operations">DHCPv6 Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-stateless-config">DHCPv6 Stateless Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-stateless-client">DHCPv6 Stateless Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#verify-stateless-dhcpv6">Verify Stateless dhcpv6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-stateful-config">DHCPv6 Stateful Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-stateful-client">DHCPv6 Stateful Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#verify-stateful-dhcpv6">Verify Stateful dhcpv6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#configure-dhcpv6-relay">Configure DHCPv6 relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-labs">DHCPv6 labs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-troubleshooting-tasks">DHCPv6 Troubleshooting Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#ch8-lab-troubleshooting-dhcpv6">Ch8 Lab Troubleshooting DHCPv6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#ch8-8-3-1-2-skills-integration-challenge-dhcpv4">Ch8 8.3.1.2 Skills Integration Challenge DHCPv4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#dhcpv6-conclusion">DHCPv6 conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#ch8-qna">Ch8 QnA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/dhcp.html#ch8-practice-exam">Ch8 practice exam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/nat.html">NAT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#nat-border">NAT Border</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#types-of-nat-addresses">Types of NAT Addresses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#nat-address-terminology">NAT Address Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#static-nat">Static NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#dynamic-nat">Dynamic NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#pat-aka-nat-overload">PAT aka NAT Overload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#nat-vs-pat">NAT vs PAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#nat-advantages">NAT Advantages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#nat-disadvantages">NAT Disadvantages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configuring-static-nat">Configuring Static NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#static-nat-process">Static NAT Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configure-static-nat-exercise">Configure Static NAT exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#dynamic-nat-operation">Dynamic NAT operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configuring-dynamic-nat">Configuring Dynamic NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#dynamic-nat-example">Dynamic NAT example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#dynamic-nat-process">Dynamic NAT process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#clearing-nat-translations">Clearing NAT Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configure-dynamic-nat-exercise">Configure Dynamic NAT exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configure-dynamic-static-nat-lab">Configure Dynamic &amp; Static NAT Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configuring-pat-nat-overload">Configuring PAT (NAT overload)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#pat-analysis">PAT analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#pt-implementing-static-dynamic-nat">PT Implementing Static &amp; Dynamic NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#configure-pat-nat-lab">Configure PAT NAT Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#port-forwarding">Port Forwarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#nat-for-ipv6">NAT for IPv6?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#ipv6-unique-local-address-ula">IPv6 Unique Local Address ULA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#id1">NAT for IPv6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#troubleshooting-nat">Troubleshooting NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#pt-troubleshooting-nat-ex1">PT Troubleshooting NAT ex1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#lab-troubleshooting-nat">LAB Troubleshooting NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#ch9-skills-integration-test-assignment">Ch9 Skills Integration Test - assignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#ch9-skills-integration-test-when-opened-with-pt-7-0-on-windos">Ch9 Skills Integration Test - when opened with PT 7.0 on windos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/nat.html#ch9-practice-exam">Ch9 practice exam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics/lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#cisco-discovery-protocol-operation">Cisco Discovery Protocol Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#cdp-exercise-10-1-1-4">cdp exercise 10.1.1.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#link-layer-discovery-protocol">Link Layer Discovery Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#ntp">NTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#ntp-stratum-labels">NTP Stratum Labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#verify-ntp-server-config">Verify NTP Server Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#syslog">Syslog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#syslog-intro">Syslog intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#syslog-rfcs">Syslog RFCs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#severity-level">Severity level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#adding-a-timestamp-to-syslog-messages">Adding a timestamp to Syslog Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#default-logging-service-settings">Default Logging Service Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#syslog-configuration">Syslog configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#verifying-syslog">Verifying Syslog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#pt-configure-syslog-ntp">PT Configure Syslog &amp; NTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#lab-configuring-syslog-ntp">LAB Configuring syslog &amp; NTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#router-file-systems">Router File Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#backing-up-and-restoring">Backing up and restoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#using-usb-ports">Using USB ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#password-recovery">Password Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#lab-managing-device-configuration-files">Lab - Managing Device Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#ios-15-system-image-packaging">IOS 15 System Image Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#ios-image-filenames">IOS Image Filenames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#boot-system-command">boot system command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#technology-packages-licenses">Technology Packages Licenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#licensing-proces">Licensing Proces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#ch10-skills-integration-challenge">Ch10 Skills Integration Challenge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics/lldpAndLicensing.html#ch10-practice-exam">Ch10 practice exam</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basics/connect2console.html" class="btn btn-neutral float-right" title="Connect to console" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../index.html" class="btn btn-neutral" title="Welcome to Patrick’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'20170824',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
