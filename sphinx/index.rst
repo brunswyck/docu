@@ -1,17 +1,19 @@
-.. REPLACE documentation master file, created by
-   sphinx-quickstart on Thu Aug 24 11:52:20 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Patrick's documentation!
 ===================================
 
 .. toctree::
-    :maxdepth: 2 
+    :maxdepth: 4
     :caption: Contents:
     :glob:
 
-    *
+    nw/rns/routing_n_switching
+    vim
+    commands
+    git
+    scripting
+    storage
+    rest
+     
 
 Indices and tables
 ==================

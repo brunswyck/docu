@@ -258,7 +258,7 @@ Visual mode is probably the shortest way here:
 + t: select till :
 + r (note space after r) replace selected region with spaces.
 
-change till come char
+change till some char
 ---------------------
 ``cf_`` or ``ct_``
 
@@ -434,7 +434,11 @@ For more help:
 :h :yank
 :h [range]
 
+copy/append files to another file
+---------------------------------
 
++ visually select the lines
++ type ``:!> filename.txt``
 
 
 replacing

@@ -1,0 +1,4 @@
+.. role:: strike
+   :class: strike
+.. role:: transparent
+   :class: transparent

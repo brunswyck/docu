@@ -36,7 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/>
-        <link rel="prev" title="Scripting" href="scripting.html"/> 
+        <link rel="next" title="BASH" href="commands.html"/>
+        <link rel="prev" title="Device Discovery Management &amp; Maintenance" href="nw/rns/basics/lldpAndLicensing.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,11 +92,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="cisco.html">Networking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
-<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/routing_n_switching.html">Routing/Switching</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">VIM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#workflow">workflow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#escape-or-not">Escape or not?</a></li>
@@ -114,7 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#exit-from-insert-mode-to-normal-mode">exit from insert mode to normal mode</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#up-until-next-char-word">up until next char/word</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#replace-all-chars-up-to-some-character">replace all chars up to some character</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#change-till-come-char">change till come char</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-till-some-char">change till some char</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#file-exploring">file exploring</a><ul>
@@ -126,6 +123,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#yank-line-on-line-x">yank line on line x</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#yank-lines-relative-numbers">yank lines relative numbers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#yank-lines-upwards">yank lines upwards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#copy-append-files-to-another-file">copy/append files to another file</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
@@ -153,6 +151,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Object vs Block</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
 </ul>
 
             
@@ -470,8 +473,8 @@ or view macros a b c <code class="docutils literal"><span class="pre">:reg</span
 <li>r (note space after r) replace selected region with spaces.</li>
 </ul>
 </div>
-<div class="section" id="change-till-come-char">
-<h4>change till come char<a class="headerlink" href="#change-till-come-char" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="change-till-some-char">
+<h4>change till some char<a class="headerlink" href="#change-till-some-char" title="Permalink to this headline">¶</a></h4>
 <p><code class="docutils literal"><span class="pre">cf_</span></code> or <code class="docutils literal"><span class="pre">ct_</span></code></p>
 </div>
 </div>
@@ -625,6 +628,13 @@ Plugin ‘scrooloose/nerdcommenter’</dd>
 <p>For more help:</p>
 <p>:h :yank
 :h [range]</p>
+</div>
+<div class="section" id="copy-append-files-to-another-file">
+<h4>copy/append files to another file<a class="headerlink" href="#copy-append-files-to-another-file" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>visually select the lines</li>
+<li>type <code class="docutils literal"><span class="pre">:!&gt;</span> <span class="pre">filename.txt</span></code></li>
+</ul>
 </div>
 </div>
 <div class="section" id="replacing">
@@ -794,8 +804,10 @@ turn off
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="commands.html" class="btn btn-neutral float-right" title="BASH" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="scripting.html" class="btn btn-neutral" title="Scripting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="nw/rns/basics/lldpAndLicensing.html" class="btn btn-neutral" title="Device Discovery Management &amp; Maintenance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

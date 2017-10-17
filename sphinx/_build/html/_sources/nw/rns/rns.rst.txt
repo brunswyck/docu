@@ -1,0 +1,25 @@
+#####################
+routing and switching
+#####################
+
+.. include:: basics/acl.rst
+  
+.. include:: basics/connect2console.rst
+  
+.. include:: basics/dhcp.rst
+
+.. include:: basics/dynamicRouting.rst
+
+.. include:: basics/lldpAndLicensing.rst
+
+.. include:: basics/nat.rst
+
+.. include:: basics/routingConcepts.rst
+
+.. include:: basics/staticRouting.rst
+
+.. include:: basics/switchConfiguration.rst
+
+.. include:: basics/switchedNetworks.rst
+
+.. include:: basics/vlans.rst

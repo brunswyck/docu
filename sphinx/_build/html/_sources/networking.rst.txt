@@ -1,0 +1,26 @@
+
+#####################
+routing and switching
+#####################
+
+.. include:: nw/rns/nw/rns/basics/acl.rst
+  
+.. include:: nw/rns/basics/connect2console.rst
+  
+.. include:: nw/rns/basics/dhcp.rst
+
+.. include:: nw/rns/basics/dynamicRouting.rst
+
+.. include:: nw/rns/basics/lldpAndLicensing.rst
+
+.. include:: nw/rns/basics/nat.rst
+
+.. include:: nw/rns/basics/routingConcepts.rst
+
+.. include:: nw/rns/basics/staticRouting.rst
+
+.. include:: nw/rns/basics/switchConfiguration.rst
+
+.. include:: nw/rns/basics/switchedNetworks.rst
+
+.. include:: nw/rns/basics/vlans.rst

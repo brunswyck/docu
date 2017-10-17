@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Object vs Block &mdash; debian &amp; networking 20170824 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="index.html"/>
+        <link rel="next" title="reStructuredText Primer" href="rest.html"/>
+        <link rel="prev" title="Scripting" href="scripting.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201708
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/routing_n_switching.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Object vs Block</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-block-storage">What is Block Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-object-storage">What is Object Storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">debian & networking</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Object vs Block</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/storage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="object-vs-block">
+<h1>Object vs Block<a class="headerlink" href="#object-vs-block" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Flexible and scalable data storage is a baseline requirement for most applications and services being developed with modern techniques and tools. Whether storing large or small amounts of images, videos, or blobs of text, application developers need a solution for the storage and retrieval of user-generated content, logs, backups, and so on.</p>
+<p>With today’s complex deployments, containers, and ephemeral infrastructure, the days of simply saving files to disk on a single server are gone. Cloud providers have developed services to fill the storage needs of modern application deployments, and they mostly fit into two categories: object storage, and block storage.</p>
+<p>Let’s take a look at both, and discuss the general advantages, disadvantages, and use cases for each.</p>
+<div class="section" id="what-is-block-storage">
+<h3>What is Block Storage<a class="headerlink" href="#what-is-block-storage" title="Permalink to this headline">¶</a></h3>
+<p>Block storage services are relatively simple and familiar. They provide a traditional block storage device — like a hard drive — over the network. Cloud providers often have products that can provision a block storage device of any size and attach it to your virtual machine.</p>
+<p>From there, you would treat it like a normal disk. You could format it with a filesystem and store files on it, combine multiple devices into a RAID array, or configure a database to write directly to the block device, avoiding filesystem overhead entirely. Additionally, network-attached block storage devices often have some unique advantages over normal hard drives:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You can easily take live snapshots of the entire device for backup purposes</li>
+<li>Block storage devices can be resized to accommodate growing needs</li>
+<li>You can easily detach and move block storage devices between machines</li>
+</ul>
+</div></blockquote>
+<p>This is a very flexible setup that can be useful for most any kind of application. Let’s summarize some advantages and disadvantages of the technology.</p>
+<p>Some advantages of block storage are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Block storage is a familiar paradigm. People and software understand and support files and filesystems almost universally</li>
+<li>Block devices are well supported. Every programming language can easily read and write files</li>
+<li>Filesystem permissions and access controls are familiar and well-understood</li>
+<li>Block storage devices provide low latency IO, so they are suitable for use by databases.</li>
+</ul>
+</div></blockquote>
+<p>The disadvantages of block storage are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Storage is tied to one server at a time</li>
+<li>Blocks and filesystems have limited metadata about the blobs of information they’re storing (creation date, owner, size). Any additional information about what you’re storing will have to be handled at the application and database level, which is additional complexity for a developer to worry about</li>
+<li>You need to pay for all the block storage space you’ve allocated, even if you’re not using it</li>
+<li>You can only access block storage through a running server</li>
+<li>Block storage needs more hands-on work and setup vs object storage (filesystem choices, permissions, versioning, backups, etc.)</li>
+</ul>
+</div></blockquote>
+<p>Because of its fast IO characteristics, block storage services are well suited for storing data in traditional databases. Additionally, many legacy applications that require normal filesystem storage will need to use a block storage device.</p>
+<p>If your cloud provider doesn’t offer a block storage service you can run your own using OpenStack Cinder, Ceph, or the built-in iSCSI service available on many NAS devices.</p>
+</div>
+<div class="section" id="what-is-object-storage">
+<h3>What is Object Storage<a class="headerlink" href="#what-is-object-storage" title="Permalink to this headline">¶</a></h3>
+<p>In the modern world of cloud computing, object storage is the storage and retrieval of unstructured blobs of data and metadata using an HTTP API. Instead of breaking files down into blocks to store it on disk using a filesystem, we deal with whole objects stored over the network. These objects could be an image file, logs, HTML files, or any self-contained blob of bytes. They are unstructured because there is no specific schema or format they need to follow.</p>
+<p>Object storage took off because it greatly simplified the developer experience. Because the API consists of standard HTTP requests, libraries were quickly developed for most programming languages. Saving a blob of data became as easy as an HTTP PUT request to the object store. Retrieving the file and metadata is a normal GET request. Further, most object storage services can also serve the files publicly to your users, removing the need to maintain a web server to host static assets.</p>
+<p>On top of that, object storage services charge only for the storage space you use (some also charge per HTTP request, and for transfer bandwidth). This is a boon for small developers, who can get world-class storage and hosting of assets at costs that scale with use.</p>
+<p>Object storage isn’t the right solution for every situation though. Let’s look at a summary of benefits and disadvantages.</p>
+<p>Some advantages of object storage are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A simple HTTP API, with clients available for all major operating systems and programming languages</li>
+<li>A cost structure that means you only pay for what you use</li>
+<li>Built-in public serving of static assets means one less server for you to run yourself</li>
+<li>Some object stores offer built-in CDN integration, which cache your assets around the globe to make downloads and page loads faster for your users</li>
+<li>Optional versioning means you can retrieve old versions of objects to recover from accidental overwrites of data</li>
+<li>Object storage services can easily scale from modest needs to really intense use-cases without the developer having to launch more resources or rearchitect to handle the load</li>
+<li>Using an object storage service means you don’t have to maintain hard drives and RAID arrays, as that’s handled by the service provider</li>
+<li>Being able to store chunks of metadata alongside your data blob can further simplify your application architecture</li>
+</ul>
+</div></blockquote>
+<p>Some disadvantages of object storage are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You can’t use object storage services to back a traditional database, due to the high latency of such services</li>
+<li>Object storage doesn’t allow you to alter just a piece of a data blob, you must read and write an entire object at once. This has some performance implications. For instance, on a filesystem, you can easily append a single line to the end of a log file. On an object storage system, you’d need to retrieve the object, add the new line, and write the entire object back. This makes object storage less ideal for data that changes very frequently</li>
+<li>Operating systems can’t easily mount an object store like a normal disk. There are some clients and adapters to help with this, but in general, using and browsing an object store is not as simple as flipping through directories in a file browser</li>
+</ul>
+</div></blockquote>
+<p>Because of these properties, object storage is useful for hosting static assets, saving user-generated content such as images and movies, storing backup files, and storing logs, for example.</p>
+<p>There are some self-hosted object storage solutions, though you will give up some of the benefits of a hosted solution (such as not having to worry about hard drives and scaling issues). You could try Minio, a popular object storage server written in the Go language, or Ceph, or OpenStack Swift.
+Conclusion</p>
+<p>Choosing a storage solution can be a complex decision for developers. In this article we discussed the advantages and disadvantages of both block and object storage services. It’s likely that any sufficiently complex application will need both types of storage to cover all its needs.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rest.html" class="btn btn-neutral float-right" title="reStructuredText Primer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scripting.html" class="btn btn-neutral" title="Scripting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'20170824',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
