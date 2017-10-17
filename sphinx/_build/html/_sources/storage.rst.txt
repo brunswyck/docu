@@ -1,3 +1,5 @@
+.. include:: _static/global.rst
+
 ..
   * ``#`` with overline, for parts
   * ``*`` with overline, for chapters
@@ -8,13 +10,14 @@
 
 .. http://rest-sphinx-memo.readthedocs.io/en/latest/ReST.html
 
-###############
-Object vs Block
-###############
 
-************
+Object vs Block
+===============
+
+
 Introduction
-************
+------------
+
 
 Flexible and scalable data storage is a baseline requirement for most applications and services being developed with modern techniques and tools. Whether storing large or small amounts of images, videos, or blobs of text, application developers need a solution for the storage and retrieval of user-generated content, logs, backups, and so on.
 
@@ -23,7 +26,7 @@ With today's complex deployments, containers, and ephemeral infrastructure, the 
 Let's take a look at both, and discuss the general advantages, disadvantages, and use cases for each.
 
 What is Block Storage
-=====================
+---------------------
 
 Block storage services are relatively simple and familiar. They provide a traditional block storage device — like a hard drive — over the network. Cloud providers often have products that can provision a block storage device of any size and attach it to your virtual machine.
 
@@ -55,7 +58,7 @@ Because of its fast IO characteristics, block storage services are well suited f
 If your cloud provider doesn't offer a block storage service you can run your own using OpenStack Cinder, Ceph, or the built-in iSCSI service available on many NAS devices.
 
 What is Object Storage
-======================
+----------------------
 
 In the modern world of cloud computing, object storage is the storage and retrieval of unstructured blobs of data and metadata using an HTTP API. Instead of breaking files down into blocks to store it on disk using a filesystem, we deal with whole objects stored over the network. These objects could be an image file, logs, HTML files, or any self-contained blob of bytes. They are unstructured because there is no specific schema or format they need to follow.
 

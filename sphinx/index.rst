@@ -11,7 +11,7 @@ Welcome to Patrick's documentation!
     commands
     git
     scripting
-    storage
+    storage/storage.rst
     rest
      
 
