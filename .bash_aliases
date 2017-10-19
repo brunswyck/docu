@@ -1,3 +1,4 @@
+alias customcss_docu='vim ~/docu/sphinx/env/lib/python2.7/site-packages/sphinx_rtd_theme/static/css/custom.css'
 alias docuserver='cddocu;envdocu;sphinx-autobuild -b html -H 127.0.0.1 -p 6666 ./ _build/html/'
 alias sudo='sudo -E'
 alias ll='ls -hal --color=auto'
