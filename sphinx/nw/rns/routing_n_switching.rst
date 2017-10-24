@@ -22,3 +22,4 @@ basics
    basics/dhcp.rst
    basics/nat.rst
    basics/lldpAndLicensing.rst
+   basics/finals.rst

@@ -1,3 +1,5 @@
+.. include:: ../../../_static/global.rst
+
 
 Device Discovery Management & Maintenance
 =========================================
@@ -1813,6 +1815,11 @@ Ch10 practice exam
    + Answer -> :transparent:`to display device ID and other information about directly connected Cisco devices`
 
 #. Refer to the exhibit. Routers R1 and R2 are connected via a serial link. One router is configured as the NTP master, and the other is an NTP client. Which two pieces of information can be obtained from the partial output of the show ntp associations detail command on R2? (Choose two.)
+   
+   .. code::
+
+      R2# show ntp associations detail
+      192.168.1.2 configured, authenticated, our_master, sane, valid, stratum 3
 
    + Both routers are configured to use NTPv2
    + Router R1 is the master, and R2 is the client
@@ -2063,4 +2070,144 @@ Ch10 practice exam
    + The network administrator wants to verify Layer 2 connectivity
    + The network administrator wants to determine if connectivity can be established from a non-directly connected network
    + Answer :transparent:`The network administrator wants to verify Layer 2 connectivity`
+
+Ch10 Quiz
+---------
+
+#. A network engineer purchases, installs, and activates a license key on a Cisco 2911 ISR G2 router. What is the next step in the installation process?
+  
+   + Reload the router
+   + Register the license with Cisco 
+   + Backup the IOS to a TFTP server
+   + Backup the license key stored in flash memory
+   + Answer: :transparent:`Reload the router`
+
+#. How long is the evaluation license period for Cisco IOS Release 15.0 software packages?
+   
+   + 15  days
+   + 30  days
+   + 60  days
+   + 180 days
+   + Answer: :transparent:`Evaluation licenses are good for a 60 day period. After 60 days the evaluation license will automatically change to a Right-To-Use license.`
+
+#. A network administrator is asked to provide the UDI in order to obtain a license for the DATA technology package for the IOS 15.0 on a Cisco 1900 router. What is a UDI? 
+
+   + a combination of the product ID and the PAK number
+   + a combination of the product ID, the serial number, and the hardware version
+   + a combination of the PAK number and the serial number
+   + a combination of the serial number and the MAC address of Gi0/0
+   + Answer: :transparent:`In order to obtain a license for a technology package, the Unique Device Identifier is required along with the Product Activation Key (PAK). The UDI is a combination of the product ID (PID), the serial number (SN), and the hardware version (VID)`
+
+#. Which statement describes a syslog server characteristic?    
+ 
+   + In order for syslog messages to be viewed, a syslog server must be installed on a router in the network
+   + There are no freeware versions of syslog, only enterprise versions for purchase
+   + One advantage of viewing syslog messages on a syslog server is the ability to perform detailed searches through the data
+   + The only disadvantage of syslog is the inability to store the messages in a database
+   + Answer: :transparent:`In order for syslog messages to be viewed, a syslog server must be installed on a computer in the network. There are several freeware and shareware versions of syslog, as well as enterprise versions for purchase. Network administrators can easily navigate the large amount of data that is compiled on a syslog server. One advantage of viewing syslog messages on a syslog server is the ability to perform granular searches through the data. A syslog server is a database of informational messages that are received from network devices.`
+
+#. Which technology allows syslog messages to be filtered to different devices based on event importance?
+
+   + syslog service timestamps
+   + syslog severity levels
+   + syslog facilities
+   + syslog service identifiers
+   + Answer: :transparent:`Syslog severity levels provide the ability for an administrator to filter out log messages. Syslog service timestamps provide the capability for log messages to be time-stamped. Syslog facilities and service identifiers provide administrators with an event identification and categorization system.`
+
+#. An administrator issued the following commands on router R1:
+
+   .. code::
+   
+      R1(config)# logging 192.168.10.2
+      R1(config)# logging trap 5
+
+   What conclusion can be drawn from this configuration? 
+ 
+   + The only messages that appear on the syslog server are those with severity level of 4 or lower
+   + Messages with severity level of 6 or higher appear only on the router console output
+   + The only messages that appear on the syslog server are those with severity level of 5
+   + Messages with severity level of 5 or higher appear on the router console output and are sent to the syslog server
+   + Answer: :transparent:`When these commands are issued, the only messages that appear on the syslog server are those with severity level of 5 or lower. The messages with severity level of 6 or higher appear on the router console output, but do not appear on the syslog server output because the logging trap command limits by severity level the syslog messages that are sent to the syslog server`
+
+#. Fill in the blank. Use a number
+ 
+   + The syslog protocol uses UDP port :transparent:`514` to send event notification messages across IP networks to event message collectors
+
+#. network administrator wants to configure a router so that only a specific interface will send and receive CDP information. Which two configuration steps will accomplish this? (Choose two.)
+ 
+   + Router(config-if)# cdp run
+   + Router(config)# no cdp run
+   + Router(config-if)# cdp transmit
+     Router(config-if)# cdp receive
+   + Router(config)# no cdp enable
+   + Router(config-if)# cdp enable
+   + Answer: :transparent:`R(config)#no cdp run && R(config-if)#cdp enable`
+     info: :transparent:`DP should be used carefully. It is frequently necessary to control which interfaces are running CDP. A good way to do this is to disable CDP in global configuration mode with the no cdp run command, and then to configure specific interfaces with the cdp enable command. CDP is configured on an interface with a single command for both sending and receiving advertisements. LLDP allows configuration of either the send or receive functions with separate transmit and receive commands
+
+#. Which Cisco IOS 15 technology package would be needed to implement voice over IP? 
+ 
+   + data9
+   + ipbasek9
+   + securityk9
+   + uck9
+   + Answer: :transparent:`uck9 - The uck9 package is for Cisco Unified Communications, which includes support for voice over IP and video`
+
+#. Refer to the exhibit. What two statements describe the NTP status of the router? (Choose two.)
+
+   .. code::
+
+      Router# show ntp status
+      Clock is synchronized, stratum 3, reference is 192.168.1.1
+      nominal freq is 250.0000 Hz, actual freq is 250.0000 Hz, precision is 2**24
+      reference time is DA278091.83EB7490 (12:09:53.515 UTC Fri Dec 25 2015)
+      clock offset is -1.5326 msec, root delay is 13.90 msec
+      root dispersion is 7941.16 msec, peer dispersion is 0.76 msec
+      loopfilter state is 'CTRL' (Normal Controlled Loop), drift is -0.000000130 s/s
+      system poll interval is 64, last update was 117 sec ago.
+ 
+   + The router is serving as an authoritative time source
+   + The router is serving as a time source for the device at 192.168.1.1
+   + The router is attached to a stratum 2 device
+   + The IP address of the time source for the router is 192.168.1.1
+   + The software clock for the router must be configured with the set clock command so that NTP will function properly
+   + Answer: :transparent:`The router is attached to a stratum 2 device`
+   + Answer: :transparent:`The IP address of the time source for the router is 192.168.1.1`
+   + info: :transparent:`The show ntp status command displays information about how NTP is operating on the device. The output shows that the router clock is synchronized with the NTP server with the address of 192.168.1.1. NTP is hierarchical. The router is a stratum 3 device, therefore it's time source is a stratum 2 device. Authoritative time sources in the NTP system are located at stratum 0`
+
+#. Which technology via the syslog protocol enhances real-time debugging by displaying the date and time associated with each monitored event?    
+ 
+   + syslog facilities
+   + syslog severity levels
+   + syslog service timestamps
+   + syslog service identifiers
+   + Answer: :transparent:`syslog service timestamps`
+   + info: :transparent:`Syslog service timestamps provide the ability for log messages to be time-stamped. Syslog severity levels provide the ability for an administrator to filter out log messages. Syslog facilities and service identifiers provide administrators with an event identification and categorization system`
+
+
+#. An administrator wants to send log messages for all severity levels from a router to its console. Which procedure should the administrator follow to accomplish this?     
+ 
+   + The administrator must issue the ``logging console`` command on the router
+   + The messages cannot be viewed on a router console. A syslog server must be installed on a workstation in order to view these messages
+   + The administrator must issue the ``logging trap 7`` command on the router
+   + The administrator needs to do nothing, because Cisco routers send log messages for all severity levels to the console by default
+   + Answer: :transparent:`The administrator needs to do nothing, because Cisco routers send log messages for all severity levels to the console by default`
+
+#. What information can be gathered about a neighbor device from the ``show cdp neighbors detail`` command that cannot be found with the ``show cdp neighbors`` command? 
+ 
+   + the platform that is used by the neighbor
+   + the IP address of the neighbor
+   + the capabilities of the neighbor
+   + the hostname of the neighbor
+   + Answer: :transparent:`the IP address of the neighbor`
+   + info: :transparent:`The show cdp neighbors detail command will display the IP address of the neighbor. The show cdp neighbors command displays the platform, capabilities, and name of neighbors, but does not specify IP addresses`
+
+#. What is the factory default setting for the configuration register on Cisco routers?
+ 
+   + 0x2142
+   + 0x2102
+   + 0x4102
+   + 0x4124
+   + Answer: :transparent:`0x2102`
+   + Info: This can be seen by executing ``R# show version``
+
 
