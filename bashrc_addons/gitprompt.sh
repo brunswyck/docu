@@ -10,9 +10,12 @@
 # Modified by me, using ideas from comments on those gists.
 #
 # License: MIT, unless the authors of those two gists object :)
-
 git_repo() {
-    git remote -v | awk -F'[:/]' 'NR==1 { print $(NF-1)":"$(NF)}'| cut -d ' ' -f 1
+    inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
+
+    if [ "$inside_git_repo" ]; then
+	    git remote -v | awk -F'[:/]' 'NR==1 { print $(NF-1)":"$(NF)}'| cut -d ' ' -f 1
+    fi
 }
 
 git_branch() {

@@ -19,3 +19,7 @@ alias history="history | awk '{\$1=\"\";print substr(\$0,2)}'"
 alias installhistory="cat /var/log/apt/history.log | grep 'apt-get install'"
 alias cdpdf2txt="cd $HOME/Downloads/firefox_dlds/pdf2txt"
 alias cddisplay="cd $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/"
+alias ll='ls -lah --color'
+alias uppen='sudo apt-get update;sudo apt-get upgrade;sudo apt-get autoclean'
+alias vpnconnect='sudo openvpn --config /home/patrick/utils/vpncli/configs/ch-06.protonvpn.com.udp1194.ovpn &'
+alias vpnconnectUSA="sudo openvpn --config /home/patrick/utils/vpncli/configs/us-06.protonvpn.com.udp1194.ovpn"
