@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore the following
 *~
 .vim/.swp/
@@ -65,5 +66,4 @@ utils
 .oracle_jre_usage/ 
 
 # Except for the themes directories
-
 

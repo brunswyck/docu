@@ -1,0 +1,1494 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CCNA &mdash; debian &amp; networking 20170824 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="debian &amp; networking 20170824 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201708
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cisco.html">CCNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands.html">Frequently Used Command Keeper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vim.html">VIM</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">debian & networking</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>CCNA</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/backup/cisco.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ccna">
+<h1>CCNA<a class="headerlink" href="#ccna" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="networking-fundamentals">
+<h2>Networking Fundamentals<a class="headerlink" href="#networking-fundamentals" title="Permalink to this headline">¶</a></h2>
+<p>Add fundamentals content here</p>
+</div>
+<div class="section" id="routing-and-switching-fundamentals">
+<h2>Routing and Switching Fundamentals<a class="headerlink" href="#routing-and-switching-fundamentals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="chapter-1-routing-concepts">
+<h3>Chapter 1 Routing Concepts<a class="headerlink" href="#chapter-1-routing-concepts" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="basic-concepts">
+<h4>basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>RAM</dt>
+<dd>Running IOS
+Running config file
+IP routing tables, ARP tables, CDP info
+Packet buffer</dd>
+<dt>ROM</dt>
+<dd>Bootup instructions (System Bootstrap)
+Basic diagnostic software (POST)
+Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
+<dt>NVRAM</dt>
+<dd>Startup config file</dd>
+<dt>FLASH</dt>
+<dd>IOS</dd>
+</dl>
+<p>view their size via:</p>
+<div class="highlight-rest"><div class="highlight"><pre><span></span>show version
+</pre></div>
+</div>
+<p>bootup process lookup for ios</p>
+<blockquote>
+<div><ul class="simple">
+<li>flash memory</li>
+<li>TFTP server</li>
+<li>ROM</li>
+</ul>
+</div></blockquote>
+<p>to change this order, change configuration register</p>
+</div></blockquote>
+</div>
+<div class="section" id="router-s-3-packet-forwarding-mechanisms">
+<h4>Router’s 3 packet-forwarding mechanisms<a class="headerlink" href="#router-s-3-packet-forwarding-mechanisms" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>Process Switching</dt>
+<dd>An older packet forwarding mechanism still available for Cisco routers. When a packet arrives on an interface, it is forwarded to the control plane where the CPU matches the destination address with an entry in its routing table, and then determines the exit interface and forwards the packet. It is important to understand that the router does this for every packet, even if the destination is the same for a stream of packets. This process-switching mechanism is very slow and rarely implemented in modern networks.</dd>
+<dt>Fast switching</dt>
+<dd>This is a common packet forwarding mechanism which uses a fast-switching cache to store next-hop information. When a packet arrives on an interface, it is forwarded to the control plane where the CPU searches for a match in the fast-switching cache. If it is not there, it is process-switched and forwarded to the exit interface. The flow information for the packet is also stored in the fast-switching cache. If another packet going to the same destination arrives on an interface, the next-hop information in the cache is re-used without CPU intervention.</dd>
+<dt>Cisco Express Forwarding (CEF)</dt>
+<dd>CEF is the most recent and preferred Cisco IOS packet-forwarding mechanism. Like fast switching, CEF builds a Forwarding Information Base (FIB), and an adjacency table. However, the table entries are not packet-triggered like fast switching but change-triggered such as when something changes in the network topology. Therefore, when a network has converged, the FIB and adjacency tables contain all the information a router would have to consider when forwarding a packet. The FIB contains pre-computed reverse lookups, next hop information for routes including the interface and Layer 2 information. Cisco Express Forwarding is the fastest forwarding mechanism and the preferred choice on Cisco routers.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="loopback-interfaces">
+<h4>Loopback interfaces<a class="headerlink" href="#loopback-interfaces" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div>Multiple loopback interfaces can be enabled on a router. The IPv4 address for each loopback interface must be unique and unused by any other interface.</div></blockquote>
+</div>
+<div class="section" id="configure-loopback-interface">
+<h4>configure loopback interface<a class="headerlink" href="#configure-loopback-interface" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Router(config)# interface loopback 0
+Router(config-if)# ip address 10.0.0.1 255.255.255.0
+Router(config-if)# exit
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering-parameters">
+<h4>Filtering parameters<a class="headerlink" href="#filtering-parameters" title="Permalink to this headline">¶</a></h4>
+<p>Used after the pipe are:</p>
+<dl class="docutils">
+<dt>section</dt>
+<dd>Shows entire section that starts with the filtering expression
+.. highlight::
+R1# show running-config | section line vty</dd>
+<dt>include</dt>
+<dd>Includes all output lines that match the filtering expression
+.. highlight::
+R1# show ip interface brief | include up</dd>
+<dt>exclude</dt>
+<dd>Excludes all output lines that match the filtering expression
+.. highlight::
+R1# show ip interface brief | exclude unassigned</dd>
+<dt>begin</dt>
+<dd>hows all the output lines from a certain point, starting with the line that matches the filtering expression
+.. highlight::
+R1# show ip route | begin Gateway
+R1# show running-config | begin line</dd>
+</dl>
+</div>
+<div class="section" id="history-commands">
+<h4>History commands<a class="headerlink" href="#history-commands" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>set/show history</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>R1# terminal history size 200
+R1# show history
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="show-command-examples">
+<h4>Show command examples<a class="headerlink" href="#show-command-examples" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>show interfaces</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>TA(config)#do show interfaces
+GigabitEthernet0/0 is up, line protocol is up (connected)
+OB Hardware is CN Gigabit Ethernet, address is 0004.9ae8.b901 (bia 0004.9ae8.b901)
+Description: Link RTA G0/0 to SW1 G0/1
+Internet address is 10.10.10.1/24
+MTU 1500 bytes, BW 1000000 Kbit, DLY 10 usec,
+   reliability 255/255, txload 1/255, rxload 1/255
+Encapsulation ARPA, loopback not set
+Keepalive set (10 sec)
+Full-duplex, 100Mb/s, media type is RJ45
+output flow-control is unsupported, input flow-control is unsupported
+ARP type: ARPA, ARP Timeout 04:00:00,
+Last input 00:00:08, output 00:00:05, output hang never
+Last clearing of &quot;show interface&quot; counters never
+Input queue: 0/75/0 (size/max/drops); Total output drops: 0
+Queueing strategy: fifo
+Output queue :0/40 (size/max)
+5 minute input rate 0 bits/sec, 0 packets/sec
+5 minute output rate 0 bits/sec, 0 packets/sec
+   0 packets input, 0 bytes, 0 no buffer
+   Received 0 broadcasts, 0 runts, 0 giants, 0 throttles
+   0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+   0 watchdog, 1017 multicast, 0 pause input
+   0 input packets with dribble condition detected
+   0 packets output, 0 bytes, 0 underruns
+   0 output errors, 0 collisions, 2 interface resets
+   0 unknown protocol drops
+   0 babbles, 0 late collision, 0 deferred
+   0 lost carrier, 0 no carrier
+   0 output buffer failures, 0 output buffers swapped out
+</pre></div>
+</div>
+</dd>
+<dt>show ip interface</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>SW1#show ip interface
+Vlan1 is up, line protocol is up
+  Internet address is 10.10.10.2/24
+  Broadcast address is 255.255.255.255
+  Address determined by setup command
+  MTU is 1500 bytes
+  Helper address is not set
+  Directed broadcast forwarding is disabled
+  Outgoing access list is not set
+  Inbound  access list is not set
+  Proxy ARP is enabled
+  Local Proxy ARP is disabled
+  Security level is default
+  Split horizon is enabled
+  ICMP redirects are always sent
+  ICMP unreachables are always sent
+  ICMP mask replies are never sent
+  IP fast switching is disabled
+  IP fast switching on the same interface is disabled
+  IP Null turbo vector
+  IP multicast fast switching is disabled
+  IP multicast distributed fast switching is disabled
+  IP route-cache flags are None
+  Router Discovery is disabled
+  IP output packet accounting is disabled
+  IP access violation accounting is disabled
+  TCP/IP header compression is disabled
+  RTP/IP header compression is disabled
+  Probe proxy name replies are disabled
+  Policy routing is disabled
+  Network address translation is disable
+  WCCP Redirect outbound is disabled
+  WCCP Redirect inbound is disabled
+  WCCP Redirect exclude is disabled
+  BGP Policy Mapping is disabled
+</pre></div>
+</div>
+</dd>
+<dt>show ip int brief</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip int brief
+ Interface              IP-Address      OK? Method Status                Protocol
+ GigabitEthernet0/0     10.10.10.1      YES manual up                    up
+ GigabitEthernet0/1     10.10.20.1      YES manual up                    up
+ Vlan1                  unassigned      YES unset  administratively down down
+</pre></div>
+</div>
+</dd>
+<dt>show ip interface</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip interface
+ GigabitEthernet0/0 is up, line protocol is up (connected)
+   Internet address is 10.10.10.1/24
+   Broadcast address is 255.255.255.255
+   Address determined by setup command
+   MTU is 1500 bytes
+   Helper address is not set
+   Directed broadcast forwarding is disabled
+   Outgoing access list is not set
+   Inbound  access list is not set
+   Proxy ARP is enabled
+   Security level is default
+   Split horizon is enabled
+   ICMP redirects are always sent
+   ICMP unreachables are always sent
+   ICMP mask replies are never sent
+   IP fast switching is disabled
+   IP fast switching on the same interface is disabled
+   IP Flow switching is disabled
+   IP Fast switching turbo vector
+   IP multicast fast switching is disabled
+   IP multicast distributed fast switching is disabled
+   Router Discovery is disabled
+   IP output packet accounting is disabled
+   IP access violation accounting is disabled
+   TCP/IP header compression is disabled
+   RTP/IP header compression is disabled
+   Probe proxy name replies are disabled
+   Policy routing is disabled
+   Network address translation is disabled
+   BGP Policy Mapping is disabled
+   Input features: MCI Check
+   WCCP Redirect outbound is disabled
+   WCCP Redirect inbound is disabled
+   WCCP Redirect exclude is disabled
+ GigabitEthernet0/1 is up, line protocol is up (connected)
+   Internet address is 10.10.20.1/24
+   Broadcast address is 255.255.255.255
+   Address determined by setup command
+   MTU is 1500 bytes
+   Helper address is not set
+   Directed broadcast forwarding is disabled
+   Outgoing access list is not set
+   Inbound  access list is not set
+   Proxy ARP is enabled
+   Security level is default
+   Split horizon is enabled
+   ICMP redirects are always sent
+   ICMP unreachables are always sent
+   ICMP mask replies are never sent
+   IP fast switching is disabled
+   IP fast switching on the same interface is disabled
+   IP Flow switching is disabled
+   IP Fast switching turbo vector
+   IP multicast fast switching is disabled
+   IP multicast distributed fast switching is disabled
+   Router Discovery is disabled
+   IP output packet accounting is disabled
+   IP access violation accounting is disabled
+   TCP/IP header compression is disabled
+   RTP/IP header compression is disabled
+   Probe proxy name replies are disabled
+   Policy routing is disabled
+   Network address translation is disabled
+   BGP Policy Mapping is disabled
+   Input features: MCI Check
+   WCCP Redirect outbound is disabled
+   WCCP Redirect inbound is disabled
+   WCCP Redirect exclude is disabled
+ Vlan1 is administratively down, line protocol is down
+   Internet protocol processing disabled
+</pre></div>
+</div>
+</dd>
+<dt>show ip route</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       <span class="m">*</span> - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+<span class="gh">--</span>
+<span class="gh">Gateway of last resort is not set</span>
+<span class="gh">--</span>
+     10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+C       10.10.10.0/24 is directly connected, GigabitEthernet0/0
+L       10.10.10.1/32 is directly connected, GigabitEthernet0/0
+C       10.10.20.0/24 is directly connected, GigabitEthernet0/1
+L       10.10.20.1/32 is directly connected, GigabitEthernet0/1
+</pre></div>
+</div>
+</dd>
+<dt>show ip route connected</dt>
+<dd><div class="code first last highlight-rest"><div class="highlight"><pre><span></span>RTA(config)#do show ip route connected
+ C   10.10.10.0/24  is directly connected, GigabitEthernet0/0
+ C   10.10.20.0/24  is directly connected, GigabitEthernet0/1
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="arp-neighbor-advertisement-sollicitation">
+<h4>ARP - Neighbor Advertisement/Sollicitation<a class="headerlink" href="#arp-neighbor-advertisement-sollicitation" title="Permalink to this headline">¶</a></h4>
+<p>A similar process is used for IPv6 packets. Instead of the ARP process, IPv6 address resolution uses ICMPv6 Neighbor Solicitation and Neighbor Advertisement messages. IPv6-to-MAC address mapping are kept in a table similar to the ARP cache, called the neighbor cache.</p>
+</div>
+<div class="section" id="mac-addresses-on-serial-interfaces">
+<h4>MAC addresses on Serial Interfaces<a class="headerlink" href="#mac-addresses-on-serial-interfaces" title="Permalink to this headline">¶</a></h4>
+<p>When the interface is a point-to-point (P2P) serial connection, the router encapsulates the IPv4 packet into the proper data link frame format used by the exit interface (HDLC, PPP, etc.). Because there are no MAC addresses on serial interfaces, R2 sets the data link destination address to an equivalent of a broadcast.
+The router does not need to know any info about the destination L2 address, so the router just sends the frame out the corresponding serial interface. No source address is required on a P2P serial connection</p>
+<p>HDLC frames can be transmitted over synchronous or asynchronous serial communication links. Those links have no mechanism to mark the beginning or end of a frame, so the beginning and end of each frame has to be identified. This is done by using a frame delimiter, or flag, which is a unique sequence of bits that is guaranteed not to be seen inside a frame.
+This sequence is ‘01111110’, or, in hexadecimal notation, 0x7E. Each frame begins and ends with a frame delimiter. A frame delimiter at the end of a frame may also mark the start of the next frame.
+A sequence of 7 or more consecutive 1-bits within a frame will cause the frame to be aborted.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="0%" />
+<col width="11%" />
+<col width="13%" />
+<col width="15%" />
+<col width="31%" />
+<col width="5%" />
+<col width="13%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Flag 7E</td>
+<td colspan="2">Address</td>
+<td>Control</td>
+<td>Protocol</td>
+<td>Data</td>
+<td>FCS</td>
+<td>Flag 7E</td>
+</tr>
+<tr class="row-even"><td>8 bits</td>
+<td colspan="2">8 bits</td>
+<td>8 bits</td>
+<td>16 bits</td>
+<td>~ length 0 or x*8</td>
+<td>16b</td>
+<td>8 bits</td>
+</tr>
+</tbody>
+</table>
+<p>The Address field is used to specify the type of packet contained in the cHDLC frame; 0x0F for Unicast and 0x8F for Broadcast packets.
+The Control field is always set to zero (0x00).
+The Protocol Code field is used to specify the protocol type encapsulated within the cHDLC frame (e.g. 0x0800 for Internet Protocol).</p>
+</div>
+<div class="section" id="packet-forwarding-decision-process">
+<h4>Packet Forwarding Decision Process<a class="headerlink" href="#packet-forwarding-decision-process" title="Permalink to this headline">¶</a></h4>
+<p>Directly Connected Interface?
+Yes -&gt; Check ARP cache (ARP request if necessary) and forward to host on local subnet
+Remote Network? Yes -&gt; Encapsulate the frame and forward out of the exit interface to the next hop
+else Gateway of last resort or drop</p>
+</div>
+<div class="section" id="routing-best-path-selection">
+<h4>Routing BEST PATH selection<a class="headerlink" href="#routing-best-path-selection" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt>RIP</dt>
+<dd>Routing Information Protocol - Hop count</dd>
+<dt>OSPF</dt>
+<dd>Open Shortest Path First     - Cisco’s cost based on CUMULATIVE bandwidth from source to destination</dd>
+<dt>EIGRP</dt>
+<dd>Enhanced Interior Gateway Routing Protocol - Bandwidth, delay, load, reliability (bladder)</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">two or more paths with identical metrics = LOAD BALANCING</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Equal cost load balancing can be cfd to use both dynamic routing protocols and static routes ONLY EIGRP support UNEQUAL COST LOAD BALANCING</p>
+</div>
+</div>
+<div class="section" id="administrative-distance">
+<h4>ADMINISTRATIVE DISTANCE<a class="headerlink" href="#administrative-distance" title="Permalink to this headline">¶</a></h4>
+<p>For example, if both RIP and EIGRP are configured on a router, both routing protocols may learn of the same destination network.
+However, each routing protocol may decide on a different path to reach the destination based on that routing protocol’s metrics.
+RIP chooses a path based on hop count, whereas EIGRP chooses a path based on its composite metric. How does the router know which route to use?</p>
+<p>Cisco IOS uses what is known as the administrative distance (AD) to determine the route to install into the IP routing table.
+The AD represents the “trustworthiness” of the route; the lower the AD,
+the more trustworthy the route source. For example, a static route has an AD of 1,
+whereas an EIGRP-discovered route has an AD of 90.
+Given two separate routes to the same destination, the router chooses the route with the lowest AD.
+When a router has the choice of a static route and an EIGRP route, the static route takes precedence.</p>
+<blockquote>
+<div><p>Default Distance Value Table</p>
+<p>This table lists the administrative distance default values of the protocols that Cisco supports:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="63%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Routing Protocol</th>
+<th class="head">Administrative distance</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Directly connected interface</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>Static route out an interface</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>Static route to next-hop address</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>DMNR - Dynamic Mobile Network Routing</td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td>EIGRP summary route</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>External BGP</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>Internal EIGRP</td>
+<td>90</td>
+</tr>
+<tr class="row-odd"><td>IGRP</td>
+<td>100</td>
+</tr>
+<tr class="row-even"><td>OSPF</td>
+<td>110</td>
+</tr>
+<tr class="row-odd"><td>IS-IS</td>
+<td>115</td>
+</tr>
+<tr class="row-even"><td>Routing Information Protocol (RIP)</td>
+<td>120</td>
+</tr>
+<tr class="row-odd"><td>Exterior Gateway Protocol (EGP)</td>
+<td>140</td>
+</tr>
+<tr class="row-even"><td>On Demand Routing (ODR)</td>
+<td>160</td>
+</tr>
+<tr class="row-odd"><td>External EIGRP</td>
+<td>170</td>
+</tr>
+<tr class="row-even"><td>Internal BGP</td>
+<td>200</td>
+</tr>
+<tr class="row-odd"><td>Next Hop Resolution Protocol (NHRP)</td>
+<td>250</td>
+</tr>
+<tr class="row-even"><td>Floating Static Route (ex. DHCP-learned)</td>
+<td>254</td>
+</tr>
+<tr class="row-odd"><td>Unknown (Others)</td>
+<td>255</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the administrative distance is 255, the router does not believe the source of that route and does not install the route in the routing table.
+Since IOS 12.2, the administrative distance of a static route with an exit interface is 1.
+Only the interface itself has an administrative distance of 0, since a route cannot have a distance of less than 1.
+Directly connected routes have an administrative distance of 0.</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="changing-administrative-distance">
+<h4>Changing Administrative Distance<a class="headerlink" href="#changing-administrative-distance" title="Permalink to this headline">¶</a></h4>
+<p>When you use <em>route redistribution</em>, occasionally you need to modify the administrative distance of a protocol so that it takes precedence.
+For example, if you want the router to select RIP-learned routes (default value 120) rather than IGRP-learned routes (default value 100)
+to the same destination, you must increase the administrative distance for IGRP to 120+,
+or decrease the administrative distance of RIP to a value less than 100.</p>
+<p>You can modify the administrative distance of a protocol through the distance command in the routing process subconfiguration mode.
+This command specifies that the administrative distance is assigned to the routes learned from a particular routing protocol.
+You need to use this procedure generally when you migrate the network from one routing protocol to another,
+and the latter has a higher administrative distance. However, a change in the administrative distance <em>can lead to routing loops and black holes</em>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">use caution if you change the administrative distance.</p>
+</div>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)#router eigrp 10
+R1(config-router)#distance eigrp xx yy
+
+where xx representes the new value of internal administrative distance and yy representes the new value of the external administrative distance.
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-of-changing-ad-for-rip">
+<h4>example of changing AD for rip<a class="headerlink" href="#example-of-changing-ad-for-rip" title="Permalink to this headline">¶</a></h4>
+<p>Here is an example that shows two routers, R1 and R2, connected through Ethernet. The loopback interfaces of the routers are also advertised with RIP and IGRP on both the routers.
+You can observe that the IGRP routes are preferred over the RIP routes in the routing table because the administrative distance is 100.</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1#show ip route
+
+Gateway of last resort is not set
+
+172.16.0.0/24 is subnetted, 1 subnets
+C 172.16.1.0 is directly connected, Ethernet0
+I 10.0.0.0/8 [100/1600] via 172.16.1.200, 00:00:01, Ethernet0
+C 192.168.1.0/24 is directly connected, Loopback0
+
+R2#show ip route
+
+Gateway of last resort is not set
+
+172.16.0.0/24 is subnetted, 1 subnets
+C 172.16.1.0 is directly connected, Ethernet0
+C 10.0.0.0/8 is directly connected, Loopback0
+I 192.168.1.0/24 [100/1600] via 172.16.1.100, 00:00:33,
+</pre></div>
+</div>
+<p>In order to enable the router to prefer RIP routes to IGRP, configure the distance command on R1 like this:</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)#router rip
+R1(config-router)#distance 90
+</pre></div>
+</div>
+<p>Now look at the routing table. The routing table shows that the router prefers the RIP routes. The router learns RIP routes with an administrative distance of 90, although the default is 120.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The new administrative distance value is relevant only to the routing process of a single router (in this case R1). R2 still has IGRP routes in the routing table.</p>
+</div>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1#show ip route
+
+Gateway of last resort is not set
+
+172.16.0.0/24 is subnetted, 1 subnets
+C 172.16.1.0 is directly connected, Ethernet0
+R 10.0.0.0/8 [90/1] via 172.16.1.200, 00:00:16, Ethernet0
+C 192.168.1.0/24 is directly connected, Loopback0
+
+R2#show ip route
+
+Gateway of last resort is not set
+
+172.16.0.0/24 is subnetted, 1 subnets
+C 172.16.1.0 is directly connected, Ethernet0
+C 10.0.0.0/8 is directly connected, Loopback0
+I 192.168.1.0/24 [100/1600] via 172.16.1.100, 00:00:33,
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are no general guidelines to assign administrative distances because each network has varied requirements. You must determine a reasonable matrix of administrative distances for the network as a whole. Similarly, a directly connected route with an AD of 0 takes precedence over a static route with an AD of 1.</p>
+</div>
+</div>
+<div class="section" id="other-applications-of-a-d">
+<h4>Other applications of A.D.<a class="headerlink" href="#other-applications-of-a-d" title="Permalink to this headline">¶</a></h4>
+<p>One common reason to change the administrative distance of a route is when you use <em>Static Routes to backup an existing IGP route</em>.
+This is normally used to bring up a backup link when the primary fails.</p>
+<p>For example, assume that you use the routing table from R1. However, in this case,
+there is also an ISDN line that you can use as a backup if the primary connection fails. Here is an example of a Floating Static for this route:</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 10.0.0.0 255.0.0.0 Dialer 1 250
+!--- Note: The Administrative Distance is set to 250.
+</pre></div>
+</div>
+<p>If the Ethernet interfaces fail, or if you manually bring down the Ethernet interfaces, the floating static route is installed into the routing table. All traffic destined for the 10.0.0.0/8 network is then routed out of the Dialer 1 interface and over the backup link.
+The routing table appears similar to this after the failure:</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1#show ip route
+Gateway of last resort is not set
+172.16.0.0/24 is subnetted, 1 subnets
+C 172.16.1.0 is directly connected, Ethernet0
+S 10.0.0.0/8 is directly connected, Dialer1
+C 192.168.1.0/24 is directly connected, Loopback0
+</pre></div>
+</div>
+</div>
+<div class="section" id="directly-connected-n-remote-network-routes">
+<h4>Directly Connected n Remote Network Routes<a class="headerlink" href="#directly-connected-n-remote-network-routes" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>Directly connected routes</dt>
+<dd>These routes come from the active router interfaces. Routers add a directly connected route when an interface is configured with an IP address and is activated.</dd>
+<dt>Remote routes</dt>
+<dd>These are remote networks connected to other routers. Routes to these networks can either be statically configured or dynamically learned through dynamic routing protocols.</dd>
+</dl>
+</div></blockquote>
+<p>The sources of the routing table entries are identified by a <em>code</em>. The code identifies how the route was learned. For instance, common codes include:</p>
+<blockquote>
+<div><ul class="simple">
+<li>L - Identifies the address assigned to a router’s interface. This allows the router to efficiently determine when it receives a packet for the interface instead of being forwarded.</li>
+<li>C - Identifies a directly connected network.</li>
+<li>S - Identifies a static route created to reach a specific network.</li>
+<li>D - Identifies a dynamically learned network from another router using EIGRP.</li>
+<li>O - Identifies a dynamically learned network from another router using the OSPF routing protocol.</li>
+</ul>
+</div></blockquote>
+<p>D 10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0</p>
+<blockquote>
+<div><ul class="simple">
+<li>Route source - Identifies how the route was learned.</li>
+<li>Destination network - Identifies the address of the remote network.</li>
+<li>Administrative distance - Identifies the trustworthiness of the route source. Lower values indicate preferred route source.</li>
+<li>Metric - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.</li>
+<li>Next-hop - Identifies the IPv4 address of the next router to forward the packet to.</li>
+<li>Route timestamp - Identifies how much time has passed since the route was learned.</li>
+<li>Outgoing interface - Identifies the exit interface to use to forward a packet toward the final destination.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="the-ip-routing-process">
+<h4>The IP routing process<a class="headerlink" href="#the-ip-routing-process" title="Permalink to this headline">¶</a></h4>
+<p>IP routing example using two hosts and one router</p>
+<p>User on Host_A pinged Host_B’s IP address. Routing doesn’t get any simpler than this, but it still involves a lot of steps, so let’s work through them now:</p>
+<ol class="arabic">
+<li><p class="first">Internet Control Message Protocol (ICMP) creates an echo request payload, which is simply the alphabet in the data field.</p>
+</li>
+<li><p class="first">ICMP hands that payload to Internet Protocol (IP), which then creates a packet. At a minimum, this packet contains an IP source address, an IP destination address, and a Protocol field with 01h. Don’t forget that Cisco likes to use 0x in front of hex characters, so this could also look like 0x01. This tells the receiving host to whom it should hand the payload when the destination is reached—in this example, ICMP.</p>
+</li>
+<li><p class="first">Once the packet is created, IP determines whether the destination IP address is on the local network or a remote one.</p>
+</li>
+<li><p class="first">Since IP has determined that this is a remote request, the packet must be sent to the default gateway so it can be routed to the remote network. The Registry in Windows is parsed to find the configured default gateway.</p>
+</li>
+<li><p class="first">The default gateway of Host_A is configured to 172.16.10.1. For this packet to be sent to the default gateway, the hardware address of the router’s interface Ethernet 0, which is configured with the IP address of 172.16.10.1, must be known. Why? So the packet can be handed down to the Data Link layer, framed, and sent to the router’s interface that’s connected to the 172.16.10.0 network. Because hosts communicate only via hardware addresses on the local LAN, it’s important to recognize that for Host_A to communicate to Host_B, it has to send packets to the Media Access Control (MAC) address of the default gateway on the local network. MAC addresses are always local on the LAN and never go through and past a router.</p>
+</li>
+<li><p class="first">Next, the Address Resolution Protocol (ARP) cache of the host is checked to see if the IP address of the default gateway has already been resolved to a hardware address. If it has, the packet is then free to be handed to the Data Link layer for framing. Remember that the hardware destination address is also handed down with that packet.</p>
+</li>
+<li><p class="first">If the hardware address isn’t already in the ARP cache of the host, an ARP broadcast will be sent out onto the local network to search for the 172.16.10.1 hardware address. The router then responds to the request and provides the hardware address of Ethernet 0, and the host caches this address.</p>
+</li>
+<li><p class="first">Once the packet and destination hardware address are handed to the Data Link layer, the LAN driver is used to provide media access via the type of LAN being used, which is Ethernet in this case. A frame is then generated, encapsulating the packet with control information. Within that frame are the hardware destination and source addresses plus, in this case, an Ether-Type field, which identifies the specific Network layer protocol that handed the packet to the Data Link layer. In this instance, it’s IP. At the end of the frame is something called a Frame Check Sequence (FCS) field that houses the result of the cyclic redundancy check (CRC). The frame would look something like what I’ve detailed in Figure 9.3. It contains Host A’s hardware (MAC) address and the destination hardware address of the default gateway. It does not include the remote host’s MAC address—remember that!</p>
+</li>
+<li><p class="first">Once the frame is completed, it’s handed down to the Physical layer to be put on the physical medium (in this example, twisted-pair wire) one bit at a time.</p>
+</li>
+<li><p class="first">Every device in the collision domain receives these bits and builds the frame. They each run a CRC and check the answer in the FCS field. If the answers don’t match, the frame is discarded:</p>
+<div class="highlight-rest"><div class="highlight"><pre><span></span><span class="m">*</span> If the CRC matches, then the hardware destination address is checked to see if it matches (which, in this example, is the router’s interface Ethernet 0).
+<span class="m">*</span> If it’s a match, then the Ether-Type field is checked to find the protocol used at the Network layer.
+</pre></div>
+</div>
+</li>
+<li><p class="first">The packet is pulled from the frame, and what is left of the frame is discarded. The packet is handed to the protocol listed in the Ether-Type field—it’s given to IP.</p>
+</li>
+<li><p class="first">IP receives the packet and checks the IP destination address. Since the packet’s destination address doesn’t match any of the addresses configured on the receiving router itself, the router will look up the destination IP network address in its routing table.</p>
+</li>
+<li><p class="first">The routing table must have an entry for the network 172.16.20.0 or the packet will be discarded immediately and an ICMP message will be sent back to the originating device with a destination network unreachable message.</p>
+</li>
+<li><p class="first">If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Lab_A&gt;sh ip route
+    C       172.16.10.0 is directly connected,    Ethernet0
+    L       172.16.10.1/32 is directly connected, Ethernet0
+    C       172.16.20.0 is directly connected,    Ethernet1
+    L       172.16.20.1/32 is directly connected, Ethernet1
+</pre></div>
+</div>
+</li>
+<li><p class="first">The router packet-switches the packet to the Ethernet 1 buffer.</p>
+</li>
+<li><p class="first">The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache. If the hardware address of Host_B has already been resolved and is in the router’s ARP cache, then the packet and the hardware address will be handed down to the Data Link layer to be framed.let’s take a look at the ARP cache on the Lab_A router by using the show ip arp command</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Lab_A#sh ip arp
+Protocol  Address     Age(min) Hardware Addr  Type   Interface
+Internet  172.16.20.1   -     00d0.58ad.05f4  ARPA   Ethernet1
+Internet  172.16.20.2   3     0030.9492.a5dd  ARPA   Ethernet1
+Internet  172.16.10.1   -     00d0.58ad.06aa  ARPA   Ethernet0
+Internet  172.16.10.2  12     0030.9492.a4ac  ARPA   Ethernet0
+</pre></div>
+</div>
+<ul class="simple">
+<li>Now if the hardware address hasn’t already been resolved, the router will send an ARP request out E1 looking for the 172.16.20.2 hardware address. Host_B responds with its hardware address, and the packet and destination hardware addresses are then both sent to the Data Link layer for framing.</li>
+</ul>
+</li>
+<li><p class="first">The Data Link layer creates a frame with the destination and source hardware addresses, Ether-Type field, and FCS field at the end. The frame is then handed to the Physical layer to be sent out on the physical medium one bit at a time.</p>
+</li>
+<li><p class="first">Host_B receives the frame and immediately runs a CRC. If the result matches the information in the FCS field, the hardware destination address will then be checked next. If the host finds a match, the Ether-Type field is then checked to determine the protocol that the packet should be handed to at the Network layer—IP in this example.</p>
+</li>
+<li><p class="first">At the Network layer, IP receives the packet and runs a CRC on the IP header. If that passes, IP then checks the destination address. Since a match has finally been made, the Protocol field is checked to find out to whom the payload should be given.</p>
+</li>
+<li><p class="first">The payload is handed to ICMP, which understands that this is an echo request. ICMP responds to this by immediately discarding the packet and generating a new payload as an echo reply.</p>
+</li>
+<li><p class="first">A packet is then created including the source and destination addresses, Protocol field, and payload. The destination device is now Host_A.</p>
+</li>
+<li><p class="first">IP then checks to see whether the destination IP address is a device on the local LAN or on a remote network. Since the destination device is on a remote network, the packet needs to be sent to the default gateway.</p>
+</li>
+<li><p class="first">The default gateway IP address is found in the Registry of the Windows device, and the ARP cache is checked to see if the hardware address has already been resolved from an IP address.</p>
+</li>
+<li><p class="first">Once the hardware address of the default gateway is found, the packet and destination hardware addresses are handed down to the Data Link layer for framing.</p>
+</li>
+<li><p class="first">The Data Link layer frames the packet of information and includes the following in the header</p>
+<blockquote>
+<div><ul class="simple">
+<li>The destination and source hardware addresses</li>
+<li>The Ether-Type field with 0x0800 (IP) in it</li>
+<li>The FCS field with the CRC result in tow</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">The frame is now handed down to the Physical layer to be sent out over the network medium one bit at a time.</p>
+</li>
+<li><p class="first">The router’s Ethernet 1 interface receives the bits and builds a frame. The CRC is run, and the FCS field is checked to make sure the answers match.</p>
+</li>
+<li><p class="first">Once the CRC is found to be okay, the hardware destination address is checked. Since the router’s interface is a match, the packet is pulled from the frame and the Ether-Type field is checked to determine which protocol the packet should be delivered to at the Network layer.</p>
+</li>
+<li><p class="first">The protocol is determined to be IP, so it gets the packet. IP runs a CRC check on the IP header first and then checks the destination IP address</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">IP does not run a complete CRC as the Data Link layer does—it only checks the header for errors.</p>
+</div>
+</li>
+<li><p class="first">Since the IP destination address doesn’t match any of the router’s interfaces, the routing table is checked to see whether it has a route to 172.16.10.0. If it doesn’t have a route over to the destination network, the packet will be discarded immediately. I want to take a minute to point out that this is exactly where the source of confusion begins for a lot of administrators because when a ping fails, most people think the packet never reached the destination host. But as we see here, that’s not always the case. All it takes for this to happen is for even just one of the remote routers to lack a route back to the originating host’s network and— poof!—the packet is dropped on the return trip, not on its way to the host!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Just a quick note to mention that when (and if) the packet is lost on the way back to the originating host, you will typically see a request timed-out message because it is an unknown error. If the error occurs because of a known issue, such as if a route is not in the routing table on the way to the destination device, you will see a destination unreachable message. This should help you determine if the problem occurred on the way to the destination or on the way back.</p>
+</div>
+</li>
+<li><p class="first">In this case, the router happens to know how to get to network 172.16.10.0—the exit interface is Ethernet 0—so the packet is switched to interface Ethernet 0.</p>
+</li>
+<li><p class="first">The router then checks the ARP cache to determine whether the hardware address for 172.16.10.2 has already been resolved.</p>
+</li>
+<li><p class="first">Since the hardware address to 172.16.10.2 is already cached from the originating trip to Host_B, the hardware address and packet are then handed to the Data Link layer.</p>
+</li>
+<li><p class="first">The Data Link layer builds a frame with the destination hardware address and source hardware address and then puts IP in the Ether-Type field. A CRC is run on the frame and the result is placed in the FCS field.</p>
+</li>
+<li><p class="first">The frame is then handed to the Physical layer to be sent out onto the local network one bit at a time.</p>
+</li>
+<li><p class="first">The destination host receives the frame, runs a CRC, checks the destination hardware address, then looks into the Ether-Type field to find out to whom to hand the packet.</p>
+</li>
+<li><p class="first">IP is the designated receiver, and after the packet is handed to IP at the Network layer, it checks the Protocol field for further direction. IP finds instructions to give the payload to ICMP, and ICMP determines the packet to be an ICMP echo reply.</p>
+</li>
+<li><p class="first">ICMP acknowledges that it has received the reply by sending an exclamation point (!) to the user interface. ICMP then attempts to send four more echo requests to the destination host.</p>
+</li>
+</ol>
+<p>The key point here is that if you had a much larger network, the process would be the same. It’s just that the larger the internetwork, the more hops the packet goes through before it finds the destination host.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It’s super-important to remember that when Host_A sends a packet to Host_B, the destination hardware address used is the default gateway’s Ethernet interface. Why? Because frames can’t be placed on remote networks—only local networks. So packets destined for remote networks must go through the default gateway.</p>
+</div>
+<p>To see which packet switching method your router interface is using, use the command show ip interface.</p>
+</div>
+</div>
+<div class="section" id="chapter-2-static-routes">
+<h3>Chapter 2 Static Routes<a class="headerlink" href="#chapter-2-static-routes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ipv4-syntax">
+<h4>ipv4 syntax<a class="headerlink" href="#ipv4-syntax" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Router(config)# ip route network mask { next-hop-ip | exit-intf }
+</pre></div>
+</div>
+<p>A static route is identified in the routing table with the code ‘S’.</p>
+<p>To configure an IPv4 default static route, use the following command:</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Router(config)# ip route 0.0.0.0 0.0.0.0 { exit-intf | next-hop-ip }
+</pre></div>
+</div>
+</div>
+<div class="section" id="combination-of-exit-interface-and-next-hop">
+<h4>combination of exit interface and next hop<a class="headerlink" href="#combination-of-exit-interface-and-next-hop" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R2(config)# ip route 192.168.2.0 255.255.255.0 s0/0/1 192.168.1.1
+</pre></div>
+</div>
+</div>
+<div class="section" id="when-to-use-static-routes">
+<h4>When to Use Static Routes<a class="headerlink" href="#when-to-use-static-routes" title="Permalink to this headline">¶</a></h4>
+<p>Static routing has three primary uses:</p>
+<blockquote>
+<div><p># Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.
+# Routing to and from stub networks. A STUB NETWORK is a network accessed by a single route, and the router has ONLY ONE NEIGHBOR.
+# Using a single default route to represent a path to any network that does not have a more specific match with another route in the routing table.</p>
+<p>benefits:</p>
+<ul class="simple">
+<li>Are not advertised over the network, resulting in better security</li>
+<li>Use less bandwidth than dynamic routing protocols</li>
+<li>Use known paths to send data</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Default routes are used to send traffic to any destination beyond the next upstream router.</p>
+</div>
+<dl class="docutils">
+<dt>Use static routes to…</dt>
+<dd><ul class="first last simple">
+<li>Connect to a specific network</li>
+<li>Connect a stub router</li>
+<li>Summarize routing table entries</li>
+<li>Create a backup route</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="default-static-route">
+<h4>Default static route<a class="headerlink" href="#default-static-route" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 0.0.0.0 0.0.0.0 nexthopip | exitif
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Default static routes are used when no other routes in the routing table match the packet destination IP address. In other words, when a more specific match does not exist. A common use is when connecting a company’s edge router to the ISP network. When a router has only one other router to which it is connected. In this situation, the router is known as a stub router.</p>
+</div>
+</div>
+<div class="section" id="summary-static-route">
+<h4>Summary static route<a class="headerlink" href="#summary-static-route" title="Permalink to this headline">¶</a></h4>
+<p>Representing multiple networks</p>
+<p>172.20.0.0/16
+172.21.0.0/16
+172.22.0.0/16
+172.23.0.0/16
+as 172.20.0.0/14</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 172.20.0.0 255.252.0.0 nexthopip | exitif
+</pre></div>
+</div>
+</div>
+<div class="section" id="floating-static-route">
+<h4>Floating static route<a class="headerlink" href="#floating-static-route" title="Permalink to this headline">¶</a></h4>
+<p>Another type of static route is a floating static route.
+Floating static routes are static routes that are <strong>used to provide a backup path to a primary static or dynamic route, in the event of a link failure.</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The floating static route is only used when the primary route is not available.</p>
+</div>
+<p>To accomplish this, the floating static route is configured with a <strong>higher administrative distance than the primary route</strong>.
+The administrative distance represents the trustworthiness of a route.
+If multiple paths to the destination exist, the router will choose the path with the lowest administrative distance.</p>
+<p>The next hop can be identified by an IP address, exit interface, or both. How the destination is specified creates one of the three following route types:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Next-hop route</dt>
+<dd>Only the next-hop IP address is specified</dd>
+<dt>Directly connected static route</dt>
+<dd>Only the router exit interface is specified</dd>
+<dt>Fully specified static route</dt>
+<dd>The next-hop IP address and exit interface are specified</dd>
+</dl>
+</div></blockquote>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ip route 172.16.1.0 255.255.255.0 G0/1 172.16.2.2
+</pre></div>
+</div>
+</div>
+<div class="section" id="fully-specified-static-route">
+<h4>Fully Specified Static Route<a class="headerlink" href="#fully-specified-static-route" title="Permalink to this headline">¶</a></h4>
+<p>In a fully specified static route, <strong>both the exit interface and the next-hop IP</strong> address are specified.
+This is another type of static route that is <em>used in older IOSs, prior to CEF.</em></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This form of static route is used when the exit interface is a multi-access interface and it is necessary to explicitly identify the next hop.</p>
+</div>
+<p>The next hop must be directly connected to the specified exit interface.</p>
+<div class="section" id="example">
+<h5>example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-html"><div class="highlight"><pre><span></span>                             PC2
+                              |
+                              |_
+             172.16.1.0/24   |__|
+                               |
+                               |
+                           G0/0|.1
+                              _|__
+                             (_R2_)
+                     S0/0/0 /.2 .2\ S0/0/1
+                           /       \ DCE
+             172.16.2.0/24/         \/\
+                         /             \  192.168.1.0/24
+                      .1/               \.1
+          __           /__S0/0/0  S0/0/1_\        __
+PC1------|__|---------(_R1_) DCE      (_R3_)-----|__|----PC3
+                 G0/0  .1           .1 G0/0
+
+       172.16.3.0/24                  192.168.2.0/24
+</pre></div>
+</div>
+<p>Suppose that the network link between R1 and R2 is an Ethernet link and that the GigabitEthernet 0/1 interface of R1 is connected to that network,
+as shown in Figure 1. CEF is not enabled.
+To eliminate the recursive lookup,(map a next hop ip to what interface that is = if CEF not enabled)
+a directly connected static route can be implemented using the following command:</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ip route 192.168.2.0 255.255.255.0 GigabitEthernet 0/1
+</pre></div>
+</div>
+<p>However, this may cause unexpected or inconsistent results. The difference between an Ethernet multi-access network and a point-to-point serial network is that a point-to-point serial network has only one other device on that network, the router at the other end of the link. With Ethernet networks, there may be many different devices sharing the same multi-access network, including hosts and even multiple routers. By only designating the Ethernet exit interface in the static route, the router will not have sufficient information to determine which device is the next-hop device.</p>
+<p>R1 knows that the packet needs to be encapsulated in an Ethernet frame and sent out the GigabitEthernet 0/1 interface. However, R1 does not know the next-hop IPv4 address; therefore, it cannot determine the destination MAC address for the Ethernet frame.</p>
+<p>Depending upon the topology and the configurations on other routers, this static route may or may not work. It is recommended that when the exit interface is an Ethernet network, that a fully specified static route is used, including both the exit interface and the next-hop address.</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R3(config)# ip route 172.16.1.0 255.255.255.0 s0/0/1 192.168.1.2
+</pre></div>
+</div>
+<p>As shown in Figure 2, when forwarding packets to R2, the exit interface is GigabitEthernet 0/1 and the next-hop IPv4 address is 172.16.2.2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">With the use of CEF, a fully specified static route is no longer necessary. A static route using a next-hop address should be used.</p>
+</div>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ip route 0.0.0.0 0.0.0.0 172.16.2.2
+
+R1#show ip route static
+
+
+R1(config)#do show ip route static
+     172.31.0.0/16 is variably subnetted, 7 subnets, 5 masks
+S       172.31.0.0/24 [1/0] via 172.31.1.193
+S       172.31.1.128/26 [1/0] via 172.31.1.193
+S       172.31.1.196/30 [1/0] via 172.31.1.193
+
+R2(config)#ip route 172.31.1.0 255.255.255.128 S0/0/0
+%Default route without gateway, if not a point-to-point interface, may impact performance
+
+R2#show ip route ?
+  WORD       Network to display information about or hostname
+  bgp        Border Gateway Protocol (BGP)
+  connected  Connected
+  eigrp      Enhanced Interior Routing Protocol (EIGRP)
+  ospf       Open Shortest Path First (OSPF)
+  rip        Routing Information Protocol (RIP)
+  static     Static routes
+  summary    Summary of all routes
+  <span class="o">|</span>          Output Modifiers
+  &lt;cr&gt;
+
+R2#show ip route connected
+ C   172.31.0.0/24  is directly connected, GigabitEthernet0/0
+ C   172.31.1.192/30  is directly connected, Serial0/0/0
+ C   172.31.1.196/30  is directly connected, Serial0/0/1
+
+
+R3(config)#ip route 0.0.0.0 0.0.0.0 Serial 0/0/1
+%Default route without gateway, if not a point-to-point interface, may impact performance
+R3(config)#
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ipv6-static-routing">
+<h4>ipv6 static routing<a class="headerlink" href="#ipv6-static-routing" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ipv6 unicast-routing
+R1(config)# show ipv6 route
+
+R1#ping ipv6 2001.DB8:ACAD:4::2
+R1(config)# ipv6 route 2001.DB8:ACAD:2::/64 2001.DB8:ACAD:4::2
+
+R1(config)# show ipv6 route
+</pre></div>
+</div>
+<p>As with IPv4, before any packet is forwarded by the router, the routing table process must resolve the route to determine the exit interface to use to forward the packet. The route resolvability process will vary depending upon the type of forwarding mechanism being used by the router. CEF (Cisco Express Forwarding) is the default behavior on most platforms running IOS 12.0 or later.</p>
+<p>When a packet is destined for the 2001:DB8:ACAD:3::/64 network, R1:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Looks for a match in the routing table and finds that it has to forward the packets to the next-hop IPv6 address 2001:DB8:ACAD:4::2. Every route that references only a next-hop IPv6 address and does not reference an exit interface must have the next-hop IPv6 address resolved using another route in the routing table with an exit interface.</li>
+<li>R1 must now determine how to reach 2001:DB8:ACAD:4::2; therefore, it searches a second time looking for a match. In this case, the IPv6 address matches the route for the directly connected network 2001:DB8:ACAD:4::/64 with the exit interface Serial 0/0/0. This lookup tells the routing table process that this packet is forwarded out of that interface.</li>
+</ol>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Therefore, it actually takes two routing table lookup processes to forward any packet to the 2001:DB8:ACAD:3::/64 network. When the router has to perform multiple lookups in the routing table before forwarding a packet, it is performing a process known as a recursive lookup.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A recursive static IPv6 route is valid (that is, it is a candidate for insertion in the routing table) only when the specified next hop resolves, either directly or indirectly, to a valid exit interface.</p>
+</div>
+</div>
+<div class="section" id="ipv6-default-static-route">
+<h4>ipv6 default static route<a class="headerlink" href="#ipv6-default-static-route" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-html"><div class="highlight"><pre><span></span>                            PC2
+                             |
+                             |_
+     2001:db8:acad:2::/64   |__|
+                              |
+                              |
+                          G0/0|:1
+                             _|__
+                            (_R2_)
+                    S0/0/0 /2 :2\ S0/0/1
+                          /       \ DCE
+                         /         \/\
+   2001:db8:acad:4::/64 /             \  2001:db8:acad:5::/64
+                     :1/               \:1
+         __           /__S0/0/0  S0/0/1_\        __
+PC1-----|__|---------(_R1_) DCE      (_R3_)-----|__|----PC3
+                G0/0  :1           :1 G0/0
+
+   2001:db8:acad:1::/64             2001:db8:acad:3::/64
+</pre></div>
+</div>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ipv6 route ::/0 s0/0/0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The ‘S’ signifies that the route source is a static route. Unlike the IPv4 static route, there is no asterisk (*) or Gateway of Last Resort explicitly identified.</p>
+</div>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>ipv6 route ipv6-prefix/prefix-length {ipv6-address|interface-type interface-number}
+-
+R2(config)# ipv6 route 2001:0DB8:ACAD:1::/64 2001:0DB8:ACAD:3::1
+R2(config)# ipv6 route 2001:0DB8:ACAD:2::/64 s0/0/0
+</pre></div>
+</div>
+<p>Router is only connected to R2 = stub router = default static route</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)#ipv6 route ::/0 2001:DB8:ACAD:4::2
+</pre></div>
+</div>
+</div>
+<div class="section" id="verify-a-default-static-route">
+<h4>verify a default static route<a class="headerlink" href="#verify-a-default-static-route" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1# show ipv6 route static
+
+R1# ping 2001:DB8:ACAD:4::2 source 2001:DB8:ACAD:1::2
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting-a-missing-route">
+<h4>Troubleshooting a missing route<a class="headerlink" href="#troubleshooting-a-missing-route" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ping</li>
+<li>traceroute</li>
+<li>show ip route</li>
+<li>show ip interface brief</li>
+<li>show cdp neighbors detail</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="solve-a-connectivity-problem">
+<h4>Solve a connectivity problem<a class="headerlink" href="#solve-a-connectivity-problem" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ping 192.168.2.1 source g0/0</li>
+<li>traceroute 192.168.2.1</li>
+<li>show ip route | begin Gateway</li>
+<li>show running-config | section ip route</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In a recursive static route, only the next-hop IPv6 address is specified. As a consequence, the router must perform a recursive route table lookup to find an exit interface associated with the network of the IPv6 address.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To test a floating static route, take down the main route/link in order to see whether the backup link appears in the routing table.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a static route is to be configured via the next-hop IP address, the IP address of the interface of the next router in the path to the destination is used.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>An example of a floating static route used in conjunction with the EIGRP routing protocol would be as follows.</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ip route 192.168.10.0 255.255.255.0 95
+</pre></div>
+</div>
+<p class="last">Notice the extra number at the end of the static route. This route only appears in the routing table if the EIGRP-learned route with an administrative distance of 90 went down. That floating static route cannot appear in the routing table when a route with a better administrative distance exists.</p>
+</div>
+</div>
+</div>
+<div class="section" id="chapter-3-dynamic-routing">
+<h3>Chapter 3 Dynamic Routing<a class="headerlink" href="#chapter-3-dynamic-routing" title="Permalink to this headline">¶</a></h3>
+<p>Router metrics are metrics used by a router to make routing decisions. A metric is typically one of many fields in a routing table.</p>
+<p>Metrics are used to determine whether one route should be chosen over another. The routing table stores possible routes, while link-state or topological databases may store all other information as well. For example, Routing Information Protocol uses hopcount (number of hops) to determine the best possible route. The route will go in the direction of the gateway with the lowest metric. The direction with the lowest metric can be a default gateway.</p>
+<p>Router metrics can contain any number of values that help the router determine the best route among multiple routes to a destination. A router metric typically based on information like <strong>path length, bandwidth, load, hop count, path cost, delay, maximum transmission unit (MTU), reliability and communications cost</strong>.</p>
+<div class="section" id="dynamic-routing-protocols-components">
+<h4>Dynamic Routing Protocols Components<a class="headerlink" href="#dynamic-routing-protocols-components" title="Permalink to this headline">¶</a></h4>
+<p>Routing protocols are used to facilitate the exchange of routing information between routers. A routing protocol is a set of processes, algorithms, and messages that are used to exchange routing information and populate the routing table with the routing protocol’s choice of best paths. The purpose of dynamic routing protocols includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Discovery of remote networks</li>
+<li>Maintaining up-to-date routing information</li>
+<li>Choosing the best path to destination networks</li>
+<li>Ability to find a new best path if the current path is no longer available</li>
+</ul>
+</div></blockquote>
+<p>The main components of dynamic routing protocols include:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Data structures - Routing protocols typically use tables or databases for its operations. This information is kept in RAM.</li>
+<li>Routing protocol messages - Routing protocols use various types of messages to discover neighboring routers, exchange routing information, and other tasks to learn and maintain accurate information about the network.</li>
+<li>Algorithm - An algorithm is a finite list of steps used to accomplish a task. Routing protocols use algorithms for facilitating routing information and for best path determination.</li>
+</ul>
+</div></blockquote>
+<p>Routing protocols allow routers to dynamically share information about remote networks and automatically offer this information to their own routing tables.</p>
+<p>Routing protocols determine the best path, or route, to each network. That route is then offered to the routing table. The route will be installed in the routing table is there is not another routing source with a lower administrative distance. For example, a static route with an administrative distance of 1 will have precedence over the same network learned by a dynamic routing protocol. A primary benefit of dynamic routing protocols is that routers exchange routing information when there is a topology change. This exchange allows routers to automatically learn about new networks and also to find alternate paths when there is a link failure to a current network.</p>
+</div>
+<div class="section" id="static-routing-uses">
+<h4>Static Routing Uses<a class="headerlink" href="#static-routing-uses" title="Permalink to this headline">¶</a></h4>
+<p>Static routing has several primary uses, including:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.</li>
+<li>Routing to and from a stub network, which is a network with only one default route out and no knowledge of any remote networks.</li>
+<li>Accessing a single default route (which is used to represent a path to any network that does not have a more specific match with another route in the routing table).</li>
+</ul>
+</div></blockquote>
+<div class="section" id="pros-static">
+<h5>Pros static<a class="headerlink" href="#pros-static" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><ul class="simple">
+<li>Predictability: route to destination is always the same.</li>
+<li>Network bandwidth overhead / no extra cpu,ram resources needed: Static routing has zero overhead, whereas all dynamic routing protocols have some degree of overhead. For example, on a network with 200 segments, the router will send updates from each interface every 30 seconds, and those updates are about 3KB of data. Over the course of a day, this traffic adds up.</li>
+<li>Easy to configure: This issue is relative, depending on the size of your network. Although small networks are easy to configure, as a network grows, applying changes to all the routers can become a big task.</li>
+<li>Very secure, No advertisements are sent.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cons-static">
+<h5>Cons static<a class="headerlink" href="#cons-static" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><ul class="simple">
+<li>Lack of scalability: For the 200 segment network mentioned previously, which possibly contains 200 routers, you could be dealing with thousands of routing table entries. Manually calculating all those routes and keeping them up-to-date would be a Herculean task and very prone to error. Even if you implement a good network-addressing design that allows for route summarization, you are still left with an overwhelming number of routes to manage.</li>
+<li>Large network implementation: When working with a network of 200 routers, the task of updating one route can become a complex task, especially if you update the routes in the wrong order. In that case, you could lose access to a large section of the network until someone visits that router with a rollover cable or connects from another area of the network.</li>
+<li>No redundancy: Dynamic routing protocols can update routing tables in the event of device or interface failure, so if there are multiple possible paths, these protocols will continue to allow data flow. Static routes do not allow for this automatic failover or redundant paths, so if you have a failure, you must manually adjust routes to move data through an alternative path.</li>
+</ul>
+</div></blockquote>
+<p>Dynamic routing is the best choice for large networks like the one shown.</p>
+</div>
+</div>
+<div class="section" id="dynamic-routing-uses">
+<h4>Dynamic Routing Uses<a class="headerlink" href="#dynamic-routing-uses" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="pros-dynamic">
+<h5>Pros Dynamic<a class="headerlink" href="#pros-dynamic" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><ul class="simple">
+<li>Suitable in all topologies where multiple routers are required</li>
+<li>Generally independent of the network size</li>
+<li>Automatically addapts topology to reroute traffic if possible</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cons-dynamic">
+<h5>Cons Dynamic<a class="headerlink" href="#cons-dynamic" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><ul class="simple">
+<li>Can be more complex to implement</li>
+<li>Less secure. Additional config settings are required to secure.</li>
+<li>Route depends on the current topology.</li>
+<li>Requires additional CPU, RAM, and link bandwidth.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="ripv2">
+<h4>RIPv2<a class="headerlink" href="#ripv2" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="enable-disable">
+<h4>enable/disable<a class="headerlink" href="#enable-disable" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>    R1# conf t
+    R1(config)# router rip
+R1(config-router)# version 2
+</pre></div>
+</div>
+<div class="section" id="verify-rip-routing">
+<h5>verify rip routing<a class="headerlink" href="#verify-rip-routing" title="Permalink to this headline">¶</a></h5>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1# show ip protocols
+R1# show ip protocols | section Default
+R1# show ip route | begin Gateway
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="disable-auto-summarization">
+<h4>disable auto summarization<a class="headerlink" href="#disable-auto-summarization" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>    R1(config)# router rip
+    R1(config-router)# no auto-summary
+    R1(config-router)# end
+R1# show ip protocols | section Automatic
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-passive-interfaces">
+<h4>configure passive interfaces<a class="headerlink" href="#configure-passive-interfaces" title="Permalink to this headline">¶</a></h4>
+<p>By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIPenabled routers.</p>
+<img alt="../_images/configure_passive_ifs_on_R1.png" src="../_images/configure_passive_ifs_on_R1.png" />
+<p>For instance, refer to the topology above. RIP sends updates out of its G0/0 interface even though no RIP device exists on that LAN. R1 has no way of knowing this and, as a result, sends an update every 30 seconds. Sending out unneeded updates on a LAN impacts the network in three ways:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Wasted Bandwidth - Bandwidth is used to transport unnecessary updates. Because RIP updates are either broadcasted or multicasted, switches also forward the updates out all ports.</li>
+<li>Wasted Resources - All devices on the LAN must process the update up to the transport layers, at which point the devices will discard the update.</li>
+<li>Security Risk - Advertising updates on a broadcast network is a security risk. RIP updates can be intercepted with packet sniffing software. Routing updates can be modified and sent back to the router, corrupting the routing table with false metrics that misdirect traffic.</li>
+</ul>
+</div></blockquote>
+<p>Use the <strong>passive-interface</strong> router configuration command to prevent the transmission of routing updates through a router interface, <em>but still allow that network to be advertised to other routers</em>. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>Configure passive interface on G0/0 and return to privileged EXEC mode.
+R2(config)# router rip
+R2(config-router)# passive-interface g0/0
+R2(config-router)# end
+R2#
+*Mar 10 16:33:32.391: %SYS-5-CONFIG_I: Configured from console by console
+Verify the RIP protocol settings on R2.
+R2# show ip protocols
+
+<span class="gs">*** IP Routing is NSF aware **</span>*
+
+Routing Protocol is &quot;rip&quot;
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Sending updates every 30 seconds, next due in 17 seconds
+  Invalid after 180 seconds, hold down 180, flushed after 240
+  Redistributing: rip
+  Default version control: send version 2, receive version 2
+    Interface             Send  Recv  Triggered RIP  Key-chain
+    Serial0/0/0           2     2
+    Serial0/0/1           2     2
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    192.168.2.0
+    192.168.3.0
+    192.168.4.0
+  Passive Interface(s):
+    GigabitEthernet0/0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    192.168.2.1          120      00:00:24
+    Gateway         Distance      Last Update
+    192.168.4.1          120      00:00:23
+  Distance: (default is 120)
+R2#
+
+You are now logged into R3. Configure passive interface to be the default setting. Remove the passive interface setting from S0/0/1 and return to privileged EXEC mode.
+R3(config)# router rip
+R3(config-router)# passive-interface default
+R3(config-router)# no passive-interface s0/0/1
+R3(config-router)# end
+R3#
+*Mar 10 16:34:28.899: %SYS-5-CONFIG_I: Configured from console by console
+Verify the RIP protocol settings on R3.
+R3# show ip protocols
+<span class="gs">*** IP Routing is NSF aware **</span>*
+
+Routing Protocol is &quot;rip&quot;
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Sending updates every 30 seconds, next due in 15 seconds
+  Invalid after 180 seconds, hold down 180, flushed after 240
+  Redistributing: rip
+  Default version control: send version 2, receive version 2
+    Interface             Send  Recv  Triggered RIP  Key-chain
+    Serial0/0/1           2     2
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    192.168.4.0
+    192.168.5.0
+  Passive Interface(s):
+    Embedded-Service-Engine0/0
+    GigabitEthernet0/0
+    GigabitEthernet0/1
+    GigabitEthernet0/3
+    Serial0/0/0
+    RG-AR-IF-INPUT1
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    192.168.4.2          120      00:00:23
+  Distance: (default is 120)
+R3#
+</pre></div>
+</div>
+<p>There is no need for R1, R2, and R3 to forward RIP updates out of their LAN interfaces. The configuration in Figure 2 identifies the R1 G0/0 interface as passive. <em>The show ip protocols command is then used to verify that the Gigabit Ethernet interface was passive.</em>
+.. note:: Notice that the G0/0 interface is no longer listed as sending or receiving version 2 updates, but instead is now listed under the Passive Interface(s) section. Also notice that the network 192.168.1.0 is still listed under Routing for Networks, which means that this network is still included as a route entry in RIP updates that are sent to R2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All routing protocols support the passive-interface command.</p>
+</div>
+<p>configure the LAN interface as a passive interface on R2 and R3.</p>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R2(config)# router rip
+R2(config-router)# passive-interface g0/0
+R2(config-router)# end
+
+Verify the RIP protocol settings on R2
+R2# show ip protocols
+
+R3(config)# router rip
+R3(config-router)# passive-interface default
+R3(config-router)# no passive-interface s0/0/1
+R3(config-router)# end
+
+Verify the RIP protocol settings on R3
+R3# show ip protocols
+</pre></div>
+</div>
+<p>As an alternative, all interfaces can be made passive using the passive-interface default command. Interfaces that should not be passive can be re-enabled using the no passive-interface command.</p>
+</div>
+<div class="section" id="propagate-a-default-route">
+<h4>propagate a default route<a class="headerlink" href="#propagate-a-default-route" title="Permalink to this headline">¶</a></h4>
+<img alt="../_images/propagate_default_route.png" src="../_images/propagate_default_route.png" />
+<p>To propagate a default route in RIP, the edge router must be configured with:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A default static route using the ip route 0.0.0.0 0.0.0.0 command.</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>The <strong>default-information originate</strong> router configuration command. This instructs R1 to originate default information, by propagating the static default route in RIP updates.</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>R1(config)# ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226
+R1(config)# router rip
+R1(config-router)# default-information originate
+R1(config-router)# end
+</pre></div>
+</div>
+<p>Example above configures a fully-specified default static route to the service provider and then the route is propagated by RIP. Notice that R1 now has a Gateway of Last Resort and default route installed in its routing table.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'20170824',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
