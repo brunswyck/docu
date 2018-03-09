@@ -140,6 +140,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#eigrp-ipv6-routing-table">EIGRP IPv6 Routing Table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#eigrp-for-ipv6-lab-demo">EIGRP for IPv6 lab demo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quiz">Quiz</a></li>
 </ul>
 </li>
 </ul>
@@ -2127,6 +2128,159 @@ What address is used to indicate the neighbor in the adjacency messages?
 <span class="n">R</span><span class="c1"># show ip route 10.1.1.0</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="quiz">
+<h2>Quiz<a class="headerlink" href="#quiz" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Which multicast address does an EIGRP-enabled router use to send query packets?</p>
+<ul class="simple">
+<li>224.0.0.10   V</li>
+<li>224.0.0.9</li>
+<li>224.0.0.12</li>
+<li>224.0.0.5</li>
+</ul>
+</li>
+<li><p class="first">Which protocol number is used to indicate that an EIGRP packet is encapsulated in an IP packet?</p>
+<ul class="simple">
+<li>6</li>
+<li>17</li>
+<li>88  V</li>
+<li>89</li>
+</ul>
+</li>
+<li><p class="first">Match the types of EIGRP routes to the correct default administrative distances. (Not all options are used.)
+{110,90,5,170}</p>
+<ul class="simple">
+<li>summary  5</li>
+<li>internal 90</li>
+<li>external 170</li>
+</ul>
+</li>
+<li><p class="first">What operational feature is different for EIGRP for IPv6 compared to EIGRP for IPv4?</p>
+<ul class="simple">
+<li>DUAL algorithm calculations</li>
+<li>the type of value used for the Router ID</li>
+<li>neighbor discovery mechanisms</li>
+<li>the source and destination addresses used within the EIGRP messages V</li>
+</ul>
+</li>
+<li><p class="first">A network admin is verifying the EIGRP configuration. What conclusion can be drawn?</p>
+<img alt="../../../_images/6_eigrp_quiz1.png" src="../../../_images/6_eigrp_quiz1.png" />
+<ul class="simple">
+<li>Subnetted networks are included in route updates   V</li>
+<li>Metric weight values have been changed from their default values</li>
+<li>There are 90 internal networks and 170 external networks in the routing table</li>
+<li>Up to 4 paths to the same destination with different costs can be included in the routing table</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The entry “Automatic network summarization is not in effect” indicates that the command no auto-summary is entered, which means subnetted networks (from a major network) are included in route updates. The metric values keep the default values. The numbers 90 and 170 indicate the administrative distances. The routing table can contain up to 4 equal cost paths to a destination network because the maximum metric variance parameter is 1.</p>
+</div>
+</li>
+<li><p class="first">Which bandwidth value is used when calculating the EIGRP metric of a route?</p>
+<ul class="simple">
+<li>the fastest bandwidth of all interfaces on the router</li>
+<li>the slowest bandwidth of all interfaces on the router</li>
+<li>the fastest bandwidth of all outgoing interfaces between the source and destination</li>
+<li>the slowest bandwidth of all outgoing interfaces between the source and destination  V</li>
+</ul>
+</li>
+<li><p class="first">Which two protocols are allowed to be routed by EIGRP as a consequence of the PDM feature? (Choose two.)</p>
+<ul class="simple">
+<li>IPv4 V</li>
+<li>TCP</li>
+<li>IPv6 V</li>
+<li>UDP</li>
+<li>RTP</li>
+</ul>
+</li>
+<li><p class="first">Which destination address is used by EIGRP for IPv6 messages?</p>
+<ul class="simple">
+<li>the all-EIGRP-routers multicast address         V</li>
+<li>the IPv6 global unicast address of the neighbor</li>
+<li>the 32-bit router ID of the neighbor</li>
+<li>the unique local IPv6 address of the neighbor</li>
+</ul>
+</li>
+<li><p class="first">Which address will EIGRP for IPv6 use as the router ID?</p>
+<ul class="simple">
+<li>the highest link-local address that is configured on any enabled interface</li>
+<li>the highest interface MAC address</li>
+<li>the highest IPv4 address that is configured on any enabled interface V</li>
+<li>the highest IPv6 address that is configured on any enabled interface</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">EIGRP for IPv6 uses the same router ID as EIGRP for IPv4 uses. The 32-bit number can be configured with the router-id command or automatically assigned from the highest IPv4 address on an enabled interface.</p>
+</div>
+</li>
+<li><p class="first">In the command router eigrp 100, what does the value 100 represent?</p>
+<ul class="simple">
+<li>the autonomous system number  V</li>
+<li>the router ID</li>
+<li>the administrative distance</li>
+<li>the metric</li>
+</ul>
+</li>
+<li><p class="first">Which two values are included by default in the calculation of an EIGRP metric? (Choose two.)</p>
+<ul class="simple">
+<li>load</li>
+<li>delay       V</li>
+<li>reliability</li>
+<li>bandwidth   V</li>
+<li>hop count</li>
+</ul>
+</li>
+<li><p class="first">What does the value 2816 represent in the output display?</p>
+<img alt="../../../_images/6_eigrp_quiz2.png" src="../../../_images/6_eigrp_quiz2.png" />
+<ul class="simple">
+<li>feasible distance</li>
+<li>shortest distance</li>
+<li>reported distance  V</li>
+<li>administrative distance</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The value 2816 in (2170112/2816) is the “reported distance,” the metric of the neighbor router (192.168.1.6) to reach the destination network. The value 2170112 is the feasible metric cost to reach the destination network.</p>
+</div>
+</li>
+<li><p class="first">What address and wild card mask can be used to enable EIGRP for only the subnet 192.168.100.192 255.255.255.192?</p>
+<ul class="simple">
+<li>192.168.100.192 0.0.0.7</li>
+<li>192.168.100.192 0.0.0.15</li>
+<li>192.168.100.192 0.0.0.63   V</li>
+<li>192.168.100.192 0.0.0.127</li>
+</ul>
+</li>
+<li><p class="first">What two conditions will result in an EIGRP route going into the active state? (Choose two.)</p>
+<ul class="simple">
+<li>One neighbor has not met the feasibility condition</li>
+<li>The router is not sending queries</li>
+<li>The successor is down    V</li>
+<li>There is no feasible successor V</li>
+<li>The network has been recalculated</li>
+</ul>
+</li>
+<li><p class="first">Match the EIGRP packet type to the function. (Not all options are used.)</p>
+<ol class="loweralpha simple">
+<li>used to confirm the reliable delivery of a packet</li>
+<li>used to form an EIGRP neighbor relationship</li>
+<li>used to search for an alternate path</li>
+<li>used to distribute routing information</li>
+<li>used in response to an EIGRP-enabled router searching for a network</li>
+</ol>
+<ul class="simple">
+<li>hello -&gt; b</li>
+<li>update -&gt; d</li>
+<li>acknowledgment -&gt; a</li>
+<li>reply -&gt; e</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">EIGRP update packets are used to propagate routing information to other routers. EIGRP hello packets are used to form and maintain neighbor relationships between EIGRP-enabled routers. EIGRP acknowledgment packets are used when reliable delivery is used and a confirmation needs to be returned. EIGRP reply packets are used in response to a query packet, which searches for a route to a specific destination network.</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 
