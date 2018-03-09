@@ -99,7 +99,11 @@
 <li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GIT</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#workflow">workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#show-current-config">show current config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#show-current-config">show current config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#changed-gitignore-but-folder-still-in-commit">changed gitignore but folder still in commit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#force-local-changes-on-remote-master-with-no-merge">force local changes on remote master with no merge</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -178,6 +182,25 @@
 <div class="section" id="show-current-config">
 <h3>show current config<a class="headerlink" href="#show-current-config" title="Permalink to this headline">¶</a></h3>
 <p>git remote show origin</p>
+<div class="section" id="changed-gitignore-but-folder-still-in-commit">
+<h4>changed gitignore but folder still in commit<a class="headerlink" href="#changed-gitignore-but-folder-still-in-commit" title="Permalink to this headline">¶</a></h4>
+<p>you added eg the folder env/ to your .gitignore file but when checking git status you see git still wants to commit all env/lib/… files
+You can fix that by removing the folder from cache:</p>
+<div class="code highlight-rest notranslate"><div class="highlight"><pre><span></span>git rm -r --cached bin
+</pre></div>
+</div>
+</div>
+<div class="section" id="force-local-changes-on-remote-master-with-no-merge">
+<h4>force local changes on remote master with no merge<a class="headerlink" href="#force-local-changes-on-remote-master-with-no-merge" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest notranslate"><div class="highlight"><pre><span></span>git push -f &lt;remote&gt; &lt;branch&gt;
+git push -f origin master
+</pre></div>
+</div>
+<p>Force pushing with a “lease” allows the force push to fail if there are new commits on the remote that you didn’t expect (technically, if you haven’t fetched them into your remote-tracking branch yet), which is useful if you don’t want to accidentally overwrite someone else’s commits that you didn’t even know about yet, and you just want to overwrite your own:</p>
+<div class="code highlight-rest notranslate"><div class="highlight"><pre><span></span>git push &lt;remote&gt; &lt;branch&gt; --force-with-lease
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
