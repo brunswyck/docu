@@ -11,6 +11,12 @@
 EIGRP
 =====
 
+
+AD Values table
+---------------
+
+.. image:: ../../../_static/img/Administrative-Distance.png
+
 RFC link https://www.rfc-editor.org/rfc/rfc7868.txt
 
 In Cisco IOS Release 15.0(1)M, Cisco introduced a new EIGRP configuration option called named EIGRP. Named EIGRP enables the configuration of EIGRP for both IPv4 and IPv6 under a single configuration mode. This helps eliminate configuration complexity that occurs when configuring EIGRP for both IPv4 and IPv6. Named EIGRP is beyond the scope of this course.
@@ -1860,3 +1866,4 @@ Disable automatic summarizationThe topology contains discontiguous networks. The
    
    R# show ipv6 eigrp neighbors
    R# show ip eigrp topology 10.1.1.0 255.255.255.0 
+   R# show ip route 10.1.1.0

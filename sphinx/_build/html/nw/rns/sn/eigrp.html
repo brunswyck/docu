@@ -104,6 +104,7 @@
 <li class="toctree-l3"><a class="reference internal" href="etherchannel_hsrp.html">Etherchannel - HSRP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dynamic_routing.html">Dynamic Routing</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">EIGRP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ad-values-table">AD Values table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#features-of-eigrp">Features of EIGRP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#eigrp-protocol-dependent-modules-pdms">EIGRP Protocol-Dependent Modules PDMs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reliable-transport-protocol">Reliable Transport Protocol</a></li>
@@ -221,6 +222,9 @@
             
   <div class="section" id="eigrp">
 <h1>EIGRP<a class="headerlink" href="#eigrp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ad-values-table">
+<h2>AD Values table<a class="headerlink" href="#ad-values-table" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/Administrative-Distance.png" src="../../../_images/Administrative-Distance.png" />
 <p>RFC link <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc7868.txt">https://www.rfc-editor.org/rfc/rfc7868.txt</a></p>
 <p>In Cisco IOS Release 15.0(1)M, Cisco introduced a new EIGRP configuration option called named EIGRP. Named EIGRP enables the configuration of EIGRP for both IPv4 and IPv6 under a single configuration mode. This helps eliminate configuration complexity that occurs when configuring EIGRP for both IPv4 and IPv6. Named EIGRP is beyond the scope of this course.</p>
 <p>EIGRP was designed as a network layer independent routing protocol. Because of this design, EIGRP cannot use the services of UDP or TCP. Instead, EIGRP uses the <code class="docutils literal notranslate"><span class="pre">Reliable</span> <span class="pre">Transport</span> <span class="pre">Protocol</span> <span class="pre">(RTP)</span></code> for the delivery and reception of EIGRP packets</p>
@@ -239,6 +243,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <div class="section" id="features-of-eigrp">
 <h2>Features of EIGRP<a class="headerlink" href="#features-of-eigrp" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -2119,6 +2124,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 
 <span class="n">R</span><span class="c1"># show ipv6 eigrp neighbors</span>
 <span class="n">R</span><span class="c1"># show ip eigrp topology 10.1.1.0 255.255.255.0</span>
+<span class="n">R</span><span class="c1"># show ip route 10.1.1.0</span>
 </pre></div>
 </div>
 </div>
