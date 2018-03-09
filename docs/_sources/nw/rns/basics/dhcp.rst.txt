@@ -1,3 +1,5 @@
+.. include:: ../../../_static/global.rst
+
 
 DHCP
 ====

@@ -36,9 +36,11 @@
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="debian &amp; networking 20171017 documentation" href="../../../index.html"/>
-        <link rel="up" title="Routing/Switching" href="../routing_n_switching.html"/>
+        <link rel="up" title="basics" href="inhoud.html"/>
         <link rel="next" title="Static Routes" href="staticRouting.html"/>
-        <link rel="prev" title="Connect to console" href="connect2console.html"/> 
+        <link rel="prev" title="Connect to console" href="connect2console.html"/>
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -93,8 +95,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../routing_n_switching.html">Routing/Switching</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../routing_n_switching.html#basics">basics</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">basics</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Routing Concepts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#basic-concepts">basic concepts</a></li>
@@ -125,8 +127,10 @@
 <li class="toctree-l3"><a class="reference internal" href="dhcp.html">DHCP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="finals.html">routing n switching basics finals</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../sn/inhoud.html">scaling networks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
@@ -135,6 +139,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trading.html">Trading</a></li>
 </ul>
 
             
@@ -179,7 +184,9 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../routing_n_switching.html">Routing/Switching</a> &raquo;</li>
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+          <li><a href="inhoud.html">basics</a> &raquo;</li>
         
       <li>Routing Concepts</li>
     
@@ -221,7 +228,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <dd>IOS</dd>
 </dl>
 <p>view their size via:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">version</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">version</span>
 </pre></div>
 </div>
 <p>bootup process lookup for ios</p>
@@ -255,7 +262,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div>
 <div class="section" id="configure-loopback-interface">
 <h2>configure loopback interface<a class="headerlink" href="#configure-loopback-interface" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface loopback 0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface loopback 0</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.0.0.1 255.255.255.0</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
 </pre></div>
@@ -267,25 +274,25 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <dl class="docutils">
 <dt>section</dt>
 <dd><p class="first">Shows entire section that starts with the filtering expression</p>
-<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show running-config | section line vty</span>
+<div class="last highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">R1# show running-config | section line vty</span>
 </pre></div>
 </div>
 </dd>
 <dt>include</dt>
 <dd><p class="first">Includes all output lines that match the filtering expression</p>
-<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | include up</span>
+<div class="last highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | include up</span>
 </pre></div>
 </div>
 </dd>
 <dt>exclude</dt>
 <dd><p class="first">Excludes all output lines that match the filtering expression</p>
-<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | exclude unassigned</span>
+<div class="last highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">R1# show ip interface brief | exclude unassigned</span>
 </pre></div>
 </div>
 </dd>
 <dt>begin</dt>
 <dd><p class="first">hows all the output lines from a certain point, starting with the line that matches the filtering expression</p>
-<div class="last highlight-console"><div class="highlight"><pre><span></span><span class="go">R1# show ip route | begin Gateway</span>
+<div class="last highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">R1# show ip route | begin Gateway</span>
 <span class="go">R1# show running-config | begin line</span>
 </pre></div>
 </div>
@@ -296,7 +303,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <h2>History commands<a class="headerlink" href="#history-commands" title="Permalink to this headline">¶</a></h2>
 <p>set/show history</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># terminal history size 200</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># terminal history size 200</span>
 <span class="n">R1</span><span class="c1"># show history</span>
 </pre></div>
 </div>
@@ -306,7 +313,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 <h2>Show command examples<a class="headerlink" href="#show-command-examples" title="Permalink to this headline">¶</a></h2>
 <p>show interfaces</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">TA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show interfaces</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show interfaces</span>
 <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
 <span class="n">OB</span> <span class="n">Hardware</span> <span class="ow">is</span> <span class="n">CN</span> <span class="n">Gigabit</span> <span class="n">Ethernet</span><span class="p">,</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">0004.9</span><span class="n">ae8</span><span class="o">.</span><span class="n">b901</span> <span class="p">(</span><span class="n">bia</span> <span class="mf">0004.9</span><span class="n">ae8</span><span class="o">.</span><span class="n">b901</span><span class="p">)</span>
 <span class="n">Description</span><span class="p">:</span> <span class="n">Link</span> <span class="n">RTA</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="n">to</span> <span class="n">SW1</span> <span class="n">G0</span><span class="o">/</span><span class="mi">1</span>
@@ -341,7 +348,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div></blockquote>
 <p>show ip interface</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">SW1</span><span class="c1">#show ip interface</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SW1</span><span class="c1">#show ip interface</span>
 <span class="n">Vlan1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
   <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.2</span><span class="o">/</span><span class="mi">24</span>
   <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
@@ -381,7 +388,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div></blockquote>
 <p>show ip int brief</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span>RTA(config)#do show ip int brief
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>RTA(config)#do show ip int brief
  Interface              IP-Address      OK? Method Status                Protocol
  GigabitEthernet0/0     10.10.10.1      YES manual up                    up
  GigabitEthernet0/1     10.10.20.1      YES manual up                    up
@@ -391,7 +398,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div></blockquote>
 <p>show ip interface</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip interface</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip interface</span>
  <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
    <span class="n">Internet</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">24</span>
    <span class="n">Broadcast</span> <span class="n">address</span> <span class="ow">is</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.255</span>
@@ -467,7 +474,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div></blockquote>
 <p>show ip route</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route</span>
 <span class="n">Codes</span><span class="p">:</span> <span class="n">L</span> <span class="o">-</span> <span class="n">local</span><span class="p">,</span> <span class="n">C</span> <span class="o">-</span> <span class="n">connected</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">static</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">RIP</span><span class="p">,</span> <span class="n">M</span> <span class="o">-</span> <span class="n">mobile</span><span class="p">,</span> <span class="n">B</span> <span class="o">-</span> <span class="n">BGP</span>
        <span class="n">D</span> <span class="o">-</span> <span class="n">EIGRP</span><span class="p">,</span> <span class="n">EX</span> <span class="o">-</span> <span class="n">EIGRP</span> <span class="n">external</span><span class="p">,</span> <span class="n">O</span> <span class="o">-</span> <span class="n">OSPF</span><span class="p">,</span> <span class="n">IA</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">inter</span> <span class="n">area</span>
        <span class="n">N1</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">external</span> <span class="nb">type</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N2</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">external</span> <span class="nb">type</span> <span class="mi">2</span>
@@ -488,7 +495,7 @@ Limited IOS in case router cannot load full featured IOS(ROMMON)</dd>
 </div></blockquote>
 <p>show ip route connected</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route connected</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RTA</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route connected</span>
  <span class="n">C</span>   <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
  <span class="n">C</span>   <span class="mf">10.10</span><span class="o">.</span><span class="mf">20.0</span><span class="o">/</span><span class="mi">24</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span>
 </pre></div>
@@ -670,7 +677,7 @@ and the latter has a higher administrative distance. However, a change in the ad
 <p class="first admonition-title">Warning</p>
 <p class="last">use caution if you change the administrative distance.</p>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router eigrp 10</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router eigrp 10</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#distance eigrp xx yy</span>
 
 <span class="n">where</span> <span class="n">xx</span> <span class="n">representes</span> <span class="n">the</span> <span class="n">new</span> <span class="n">value</span> <span class="n">of</span> <span class="n">internal</span> <span class="n">administrative</span> <span class="n">distance</span> <span class="ow">and</span> <span class="n">yy</span> <span class="n">representes</span> <span class="n">the</span> <span class="n">new</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">external</span> <span class="n">administrative</span> <span class="n">distance</span><span class="o">.</span>
@@ -681,7 +688,7 @@ and the latter has a higher administrative distance. However, a change in the ad
 <h2>example of changing AD for rip<a class="headerlink" href="#example-of-changing-ad-for-rip" title="Permalink to this headline">¶</a></h2>
 <p>Here is an example that shows two routers, R1 and R2, connected through Ethernet. The loopback interfaces of the routers are also advertised with RIP and IGRP on both the routers.
 You can observe that the IGRP routes are preferred over the RIP routes in the routing table because the administrative distance is 100.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
 
 <span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
 
@@ -701,7 +708,7 @@ You can observe that the IGRP routes are preferred over the RIP routes in the ro
 </pre></div>
 </div>
 <p>In order to enable the router to prefer RIP routes to IGRP, configure the distance command on R1 like this:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router rip</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#router rip</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#distance 90</span>
 </pre></div>
 </div>
@@ -710,7 +717,7 @@ You can observe that the IGRP routes are preferred over the RIP routes in the ro
 <p class="first admonition-title">Note</p>
 <p class="last">The new administrative distance value is relevant only to the routing process of a single router (in this case R1). R2 still has IGRP routes in the routing table.</p>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
 
 <span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
 
@@ -740,13 +747,13 @@ You can observe that the IGRP routes are preferred over the RIP routes in the ro
 This is normally used to bring up a backup link when the primary fails.</p>
 <p>For example, assume that you use the routing table from R1. However, in this case,
 there is also an ISDN line that you can use as a backup if the primary connection fails. Here is an example of a Floating Static for this route:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>ip route 10.0.0.0 255.0.0.0 Dialer 1 250
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>ip route 10.0.0.0 255.0.0.0 Dialer 1 250
 !--- Note: The Administrative Distance is set to 250.
 </pre></div>
 </div>
 <p>If the Ethernet interfaces fail, or if you manually bring down the Ethernet interfaces, the floating static route is installed into the routing table. All traffic destined for the 10.0.0.0/8 network is then routed out of the Dialer 1 interface and over the backup link.
 The routing table appears similar to this after the failure:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip route</span>
 <span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">set</span>
 <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">1</span> <span class="n">subnets</span>
 <span class="n">C</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
@@ -812,7 +819,7 @@ The routing table appears similar to this after the failure:</p>
 <li><p class="first">Once the frame is completed, it’s handed down to the Physical layer to be put on the physical medium (in this example, twisted-pair wire) one bit at a time.</p>
 </li>
 <li><p class="first">Every device in the collision domain receives these bits and builds the frame. They each run a CRC and check the answer in the FCS field. If the answers don’t match, the frame is discarded:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>* If the CRC matches, then the hardware destination address is checked to see if it matches (which, in this example, is the router’s interface Ethernet 0).
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>* If the CRC matches, then the hardware destination address is checked to see if it matches (which, in this example, is the router’s interface Ethernet 0).
 * If it’s a match, then the Ether-Type field is checked to find the protocol used at the Network layer.
 </pre></div>
 </div>
@@ -824,7 +831,7 @@ The routing table appears similar to this after the failure:</p>
 <li><p class="first">The routing table must have an entry for the network 172.16.20.0 or the packet will be discarded immediately and an ICMP message will be sent back to the originating device with a destination network unreachable message.</p>
 </li>
 <li><p class="first">If the router does find an entry for the destination network in its table, the packet is switched to the exit interface—in this example, interface Ethernet 1. The following output displays the Lab_A router’s routing table. The C means “directly connected.” No routing protocols are needed in this network since all networks (all two of them) are directly connected</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Lab_A</span><span class="o">&gt;</span><span class="n">sh</span> <span class="n">ip</span> <span class="n">route</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Lab_A</span><span class="o">&gt;</span><span class="n">sh</span> <span class="n">ip</span> <span class="n">route</span>
     <span class="n">C</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">10.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span>    <span class="n">Ethernet0</span>
     <span class="n">L</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">10.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Ethernet0</span>
     <span class="n">C</span>       <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.0</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span>    <span class="n">Ethernet1</span>
@@ -835,7 +842,7 @@ The routing table appears similar to this after the failure:</p>
 <li><p class="first">The router packet-switches the packet to the Ethernet 1 buffer.</p>
 </li>
 <li><p class="first">The Ethernet 1 buffer needs to know the hardware address of the destination host and first checks the ARP cache. If the hardware address of Host_B has already been resolved and is in the router’s ARP cache, then the packet and the hardware address will be handed down to the Data Link layer to be framed.let’s take a look at the ARP cache on the Lab_A router by using the show ip arp command</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Lab_A</span><span class="c1">#sh ip arp</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Lab_A</span><span class="c1">#sh ip arp</span>
 <span class="n">Protocol</span>  <span class="n">Address</span>     <span class="n">Age</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span> <span class="n">Hardware</span> <span class="n">Addr</span>  <span class="n">Type</span>   <span class="n">Interface</span>
 <span class="n">Internet</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.1</span>   <span class="o">-</span>     <span class="mi">00</span><span class="n">d0</span><span class="o">.</span><span class="mi">58</span><span class="n">ad</span><span class="o">.</span><span class="mi">05</span><span class="n">f4</span>  <span class="n">ARPA</span>   <span class="n">Ethernet1</span>
 <span class="n">Internet</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">20.2</span>   <span class="mi">3</span>     <span class="mf">0030.9492</span><span class="o">.</span><span class="n">a5dd</span>  <span class="n">ARPA</span>   <span class="n">Ethernet1</span>

@@ -36,9 +36,11 @@
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="debian &amp; networking 20171017 documentation" href="../../../index.html"/>
-        <link rel="up" title="Routing/Switching" href="../routing_n_switching.html"/>
+        <link rel="up" title="basics" href="inhoud.html"/>
         <link rel="next" title="NAT" href="nat.html"/>
-        <link rel="prev" title="ACLs" href="acl.html"/> 
+        <link rel="prev" title="ACLs" href="acl.html"/>
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -93,8 +95,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../routing_n_switching.html">Routing/Switching</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../routing_n_switching.html#basics">basics</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">basics</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
 <li class="toctree-l3"><a class="reference internal" href="routingConcepts.html">Routing Concepts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="staticRouting.html">Static Routes</a></li>
@@ -133,8 +135,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="finals.html">routing n switching basics finals</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../sn/inhoud.html">scaling networks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
@@ -143,6 +147,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trading.html">Trading</a></li>
 </ul>
 
             
@@ -187,7 +192,9 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../routing_n_switching.html">Routing/Switching</a> &raquo;</li>
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+          <li><a href="inhoud.html">basics</a> &raquo;</li>
         
       <li>DHCP</li>
     
@@ -264,7 +271,7 @@
 </div>
 <div class="section" id="dhcpv4-basic-server-configuration">
 <h2>DHCPv4 basic server configuration<a class="headerlink" href="#dhcpv4-basic-server-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">step</span> <span class="mi">1</span> <span class="n">excluding</span> <span class="n">addresses</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">step</span> <span class="mi">1</span> <span class="n">excluding</span> <span class="n">addresses</span>
 <span class="o">--------------------------</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 192.168.10.1 192.168.10.9</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 192.168.10.254</span>
@@ -295,12 +302,12 @@
 <span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># netbios-name-server 192.168.x.x addr2..addr8</span>
 </pre></div>
 </div>
-<p>disable DHCPv4 with the <code class="docutils literal"><span class="pre">no</span> <span class="pre">service</span> <span class="pre">dhcp</span></code> global config mode command</p>
+<p>disable DHCPv4 with the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">service</span> <span class="pre">dhcp</span></code> global config mode command</p>
 </div>
 <div class="section" id="verifying-dhcpv4">
 <h2>Verifying DHCPv4<a class="headerlink" href="#verifying-dhcpv4" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">show</span> <span class="pre">running-config</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="o">&gt;</span> <span class="n">show</span> <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">server</span> <span class="n">statistics</span>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">running-config</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="o">&gt;</span> <span class="n">show</span> <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">server</span> <span class="n">statistics</span>
 <span class="o">--------------------------------------</span>
 <span class="n">Memory</span> <span class="n">usage</span>          <span class="mi">40392</span>
 <span class="n">Address</span> <span class="n">pools</span>         <span class="mi">3</span>
@@ -347,7 +354,7 @@
 </pre></div>
 </div>
 <p>show dhcp lease information on debian</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@debian:~[brunswyck:docu.git master|!?]$ cat /var/lib/dhcp/dhclient.leases
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@debian:~[brunswyck:docu.git master|!?]$ cat /var/lib/dhcp/dhclient.leases
 lease {
   interface &quot;eno2&quot;;
   fixed-address 192.168.111.116;
@@ -367,7 +374,7 @@ lease {
 </div>
 <div class="section" id="configure-dhcpv4-relay">
 <h2>Configure DHCPv4 relay<a class="headerlink" href="#configure-dhcpv4-relay" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip helper-address 192.168.11.6</span>
 <span class="n">confirm</span> <span class="k">with</span>
 <span class="n">R1</span><span class="c1"># show ip interface g0/0</span>
@@ -458,7 +465,7 @@ lease {
 </tbody>
 </table>
 </div></blockquote>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">basic</span> <span class="n">config</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">basic</span> <span class="n">config</span>
 <span class="o">------------</span>
 <span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
 <span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
@@ -474,7 +481,7 @@ lease {
 <span class="n">login</span>
 </pre></div>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">RIPv2</span> <span class="k">for</span> <span class="n">R1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">RIPv2</span> <span class="k">for</span> <span class="n">R1</span>
 <span class="o">----------------------</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
@@ -523,7 +530,7 @@ lease {
 <span class="n">R2</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># lease 2</span>
 </pre></div>
 </div>
-<p>verify with <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">binding</span></code> &amp; <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">statistics</span></code> &amp; <code class="docutils literal"><span class="pre">show</span> <span class="pre">run</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
+<p>verify with <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">binding</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">statistics</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">run</span> <span class="pre">|</span> <span class="pre">section</span> <span class="pre">dhcp</span></code></p>
 </div>
 <div class="section" id="lab-basic-dhcpv4-on-a-switch">
 <h3>8.1.2.5 lab - basic dhcpv4 on a switch<a class="headerlink" href="#lab-basic-dhcpv4-on-a-switch" title="Permalink to this headline">¶</a></h3>
@@ -569,7 +576,7 @@ lease {
 </tbody>
 </table>
 <p>display SDM preference on S1</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1">#show sdm prefer</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1">#show sdm prefer</span>
 <span class="n">The</span> <span class="n">current</span> <span class="n">template</span> <span class="ow">is</span> <span class="s2">&quot;default&quot;</span> <span class="n">template</span><span class="o">.</span>
 <span class="n">The</span> <span class="n">selected</span> <span class="n">template</span> <span class="n">optimizes</span> <span class="n">the</span> <span class="n">resources</span> <span class="ow">in</span>
 <span class="n">the</span> <span class="n">switch</span> <span class="n">to</span> <span class="n">support</span> <span class="n">this</span> <span class="n">level</span> <span class="n">of</span> <span class="n">features</span> <span class="k">for</span>
@@ -581,7 +588,7 @@ lease {
 </pre></div>
 </div>
 <p>change SDM preference to lanbase-routing</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># sdm prefer lanbase-routing</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># sdm prefer lanbase-routing</span>
 <span class="n">Changes</span> <span class="n">to</span> <span class="n">the</span> <span class="n">running</span> <span class="n">SDM</span> <span class="n">preferences</span> <span class="n">have</span> <span class="n">been</span> <span class="n">stored</span><span class="p">,</span> <span class="n">but</span> <span class="n">cannot</span> <span class="n">take</span> <span class="n">effect</span>
 <span class="n">until</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">reload</span><span class="o">.</span>
 <span class="n">Use</span> <span class="s1">&#39;show sdm prefer&#39;</span> <span class="n">to</span> <span class="n">see</span> <span class="n">what</span> <span class="n">SDM</span> <span class="n">preference</span> <span class="ow">is</span> <span class="n">currently</span> <span class="n">active</span><span class="o">.</span>
@@ -619,7 +626,7 @@ lease {
 <li>Assign a lease time of 3 days</li>
 <li>Save the running configuration to the startup configuration file</li>
 </ol>
-<p>Enable IP routing on S1 <code class="docutils literal"><span class="pre">S1(config)#</span> <span class="pre">ip</span> <span class="pre">routing</span></code>
+<p>Enable IP routing on S1 <code class="docutils literal notranslate"><span class="pre">S1(config)#</span> <span class="pre">ip</span> <span class="pre">routing</span></code>
 Verify inter-VLAN connectivity</p>
 </div>
 <div class="section" id="assign-static-routes">
@@ -632,7 +639,7 @@ Verify inter-VLAN connectivity</p>
 <li>From PC-A, is it possible to ping R1? From PC-A, is it possible to ping Lo0?</li>
 </ol>
 <p>Configure DHCPv4</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.1.1 192.168.1.10</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.1.1 192.168.1.10</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp pool DHCP1</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># network 192.168.1.0 255.255.255.0</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1"># default-router 192.168.1.1</span>
@@ -641,7 +648,7 @@ Verify inter-VLAN connectivity</p>
 </pre></div>
 </div>
 <p>Configure DHCPv4 for Multiple VLANs</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/6</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/6</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 2</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp excluded-address 192.168.2.1 192.168.2.10</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip dhcp pool DHCP2</span>
@@ -652,7 +659,7 @@ Verify inter-VLAN connectivity</p>
 </pre></div>
 </div>
 <p>Enable IP Routing</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip routing</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip routing</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 192.168.1.10</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 192.168.2.0 255.255.255.0 g0/1</span>
 </pre></div>
@@ -749,7 +756,7 @@ Verify inter-VLAN connectivity</p>
 </table>
 <ul>
 <li><p class="first">Configure R2 to exclude first 10 addresses from R1 and R3 LANs. All others should be available in the DHCP address pool</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="o">&gt;</span><span class="n">enable</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="o">&gt;</span><span class="n">enable</span>
 <span class="n">R2</span><span class="c1">#conf t</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp ?</span>
  <span class="n">excluded</span><span class="o">-</span><span class="n">address</span>  <span class="n">Prevent</span> <span class="n">DHCP</span> <span class="kn">from</span> <span class="nn">assigning</span> <span class="n">certain</span> <span class="n">addresses</span>
@@ -780,7 +787,7 @@ Verify inter-VLAN connectivity</p>
 </li>
 <li><p class="first">Configure R1 and R3 as a DHCP relay agent.
 Okay so lets check if R2 can reach these LANs first:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>check interfaces
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>check interfaces
 ----------------
 R2#show ip int brief
 Interface              IP-Address      OK? Method Status                Protocol
@@ -847,7 +854,7 @@ R3(config-if)#ip helper-address 10.2.2.2
 </div>
 </li>
 <li><p class="first">Verify DHCP</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip dhcp binding</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip dhcp binding</span>
 <span class="o">-----------------------</span>
 <span class="n">IP</span> <span class="n">address</span>       <span class="n">Client</span><span class="o">-</span><span class="n">ID</span><span class="o">/</span>              <span class="n">Lease</span> <span class="n">expiration</span>        <span class="n">Type</span>
                  <span class="n">Hardware</span> <span class="n">address</span>
@@ -888,8 +895,8 @@ R3(config-if)#ip helper-address 10.2.2.2
 </div>
 <div class="section" id="configuring-a-router-as-dhcp-client">
 <h2>Configuring a Router as DHCP Client<a class="headerlink" href="#configuring-a-router-as-dhcp-client" title="Permalink to this headline">¶</a></h2>
-<p>To configure an Ethernet interface as a DHCP client, use the <code class="docutils literal"><span class="pre">ip</span> <span class="pre">address</span> <span class="pre">dhcp</span></code> interface configuration mode command.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<p>To configure an Ethernet interface as a DHCP client, use the <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">address</span> <span class="pre">dhcp</span></code> interface configuration mode command.</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address dhcp</span>
 <span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
 <span class="n">SOHO</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
@@ -909,24 +916,24 @@ R3(config-if)#ip helper-address 10.2.2.2
 <h3>DHCP Service<a class="headerlink" href="#dhcp-service" title="Permalink to this headline">¶</a></h3>
 <img alt="../../../_images/dhcp-client-server-cisco-routers.png" src="../../../_images/dhcp-client-server-cisco-routers.png" />
 <p>Let’s verify by checking if the interfaces are up and running:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>DHCPClient#show ip interface brief
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>DHCPClient#show ip interface brief
 Interface                  IP-Address      OK? Method Status                Protocol
 FastEthernet0/0            unassigned      YES DHCP   up                   up
 </pre></div>
 </div>
 <p>First I’ll verify if the interface on the DHCP client is up/up and that it has been configured for DHCP, this is indeed the case. Let’s check the DHCP server:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>DHCPServer#show ip interface brief
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>DHCPServer#show ip interface brief
 Interface                  IP-Address      OK? Method Status                Protocol
 FastEthernet0/0            192.168.12.2    YES manual up                   up
 </pre></div>
 </div>
 <p>I also want to make sure the interface on the DHCP server is up/up and that it has an IP address. This looks fine to me. Let’s start by looking at the DHCP client:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1">#debug dhcp detail</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1">#debug dhcp detail</span>
 <span class="n">DHCP</span> <span class="n">client</span> <span class="n">activity</span> <span class="n">debugging</span> <span class="ow">is</span> <span class="n">on</span> <span class="p">(</span><span class="n">detailed</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>I want to be absolutely sure that the client is not the issue I can enable debug dhcp detail to see if the DHCP client is sending DHCP discover messages. Here’s what we see:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1"># Hostname: DHCPClient</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1"># Hostname: DHCPClient</span>
 <span class="n">DHCP</span><span class="p">:</span> <span class="n">new</span> <span class="n">entry</span><span class="o">.</span> <span class="n">add</span> <span class="n">to</span> <span class="n">queue</span><span class="p">,</span> <span class="n">interface</span> <span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">0</span>
 <span class="s1">&#39;DHCP: SDiscover attempt # 1 for entry:&#39;</span>
 <span class="n">Temp</span> <span class="n">IP</span> <span class="n">addr</span><span class="p">:</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>  <span class="k">for</span> <span class="n">peer</span> <span class="n">on</span> <span class="n">Interface</span><span class="p">:</span> <span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">0</span>
@@ -941,7 +948,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </pre></div>
 </div>
 <p>You’ll see some debug output like above. This proves that my DHCP client is sending DHCP Discover messages; the client doesn’t seem to be the problem here. Let’s check the DHCP server:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip dhcp pool</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip dhcp pool</span>
 
 <span class="n">Pool</span> <span class="n">MYPOOL</span> <span class="p">:</span>
  <span class="n">Utilization</span> <span class="n">mark</span> <span class="p">(</span><span class="n">high</span><span class="o">/</span><span class="n">low</span><span class="p">)</span>    <span class="p">:</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">0</span>
@@ -955,7 +962,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </pre></div>
 </div>
 <p>We’ll use the show ip dhcp pool command to check if there is a DHCP pool. You can see that we do have a DHCP pool called “MYPOOL” and it’s configured for the 192.168.12.0 /24 subnet. This is looking fine to me. Let’s find out if the DHCP server is doing anything:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip dhcp server statistics</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip dhcp server statistics</span>
 <span class="n">Memory</span> <span class="n">usage</span>         <span class="mi">8754</span>
 <span class="n">Address</span> <span class="n">pools</span>        <span class="mi">1</span>
 <span class="n">Database</span> <span class="n">agents</span>      <span class="mi">0</span>
@@ -981,20 +988,20 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </pre></div>
 </div>
 <p>We can use show ip dhcp server statistics to see if the DHCP server is doing anything. You can see that it’s not doing anything…what could this mean? Take a look below:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip sockets</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip sockets</span>
 <span class="n">Proto</span>    <span class="n">Remote</span>      <span class="n">Port</span>      <span class="n">Local</span>       <span class="n">Port</span>  <span class="n">In</span> <span class="n">Out</span> <span class="n">Stat</span> <span class="n">TTY</span> <span class="n">OutputIF</span>
 </pre></div>
 </div>
 <p>This is a command you probably don’t see every day. Show ip sockets shows us on which ports the router is listening. As you can see it’s not listening on any ports…if I don’t see port 67 here (DHCP) it means that the DHCP service has been disabled. Let’s enable it:</p>
-<p><code class="docutils literal"><span class="pre">DHCPServer(config)#service</span> <span class="pre">dhcp</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">DHCPServer(config)#service</span> <span class="pre">dhcp</span></code></p>
 <p>Let’s enable the service. Take a look at the sockets again:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip sockets</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPServer</span><span class="c1">#show ip sockets</span>
 <span class="n">Proto</span>    <span class="n">Remote</span>      <span class="n">Port</span>      <span class="n">Local</span>       <span class="n">Port</span>  <span class="n">In</span> <span class="n">Out</span> <span class="n">Stat</span> <span class="n">TTY</span> <span class="n">OutputIF</span>
  <span class="mi">17</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>             <span class="mi">0</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.2</span>       <span class="mi">67</span>   <span class="mi">0</span>   <span class="mi">0</span> <span class="mi">2211</span>   <span class="mi">0</span>
 </pre></div>
 </div>
 <p>That’s better! Now we see the router is listening on port 67, this means the DHCP service is active. After a few seconds, the client will receive an IP address:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1"># %DHCP-6-ADDRESS_ASSIGN: Interface FastEthernet0/0 assigned DHCP address 192.168.12.1, mask 255.255.255.0, hostname DHCPClient</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DHCPClient</span><span class="c1"># %DHCP-6-ADDRESS_ASSIGN: Interface FastEthernet0/0 assigned DHCP address 192.168.12.1, mask 255.255.255.0, hostname DHCPClient</span>
 </pre></div>
 </div>
 <p>As soon as the DHCP service is running you can see the client receives an IP address through DHCP…problem solved!</p>
@@ -1006,14 +1013,14 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Resolve address conflicts</dt>
-<dd><p class="first">The <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">conflict</span></code> command displays all address conflicts recorded by the DHCPv4 server, as shown in Figure 2. The server uses the ping command to detect clients. The client uses Address Resolution Protocol (ARP) to detect conflicts. If an address conflict is detected, the address is removed from the pool and not assigned until an administrator resolves the conflict.</p>
+<dd><p class="first">The <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">conflict</span></code> command displays all address conflicts recorded by the DHCPv4 server, as shown in Figure 2. The server uses the ping command to detect clients. The client uses Address Resolution Protocol (ARP) to detect conflicts. If an address conflict is detected, the address is removed from the pool and not assigned until an administrator resolves the conflict.</p>
 <p class="last">This output displays IP addresses that have conflicts with the DHCP server. It shows the detection method and detection time for conflicting IP addresses that the DHCP server has offered.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Verify physical connectivity</dt>
-<dd><p class="first last">use the <code class="docutils literal"><span class="pre">show</span> <span class="pre">interfaces</span> <span class="pre">interface</span></code> command to confirm that the router interface acting as the default gateway for the client is operational. If the state of the interface is anything other than up, the port does not pass traffic, including DHCP client requests.</p>
+<dd><p class="first last">use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">interfaces</span> <span class="pre">interface</span></code> command to confirm that the router interface acting as the default gateway for the client is operational. If the state of the interface is anything other than up, the port does not pass traffic, including DHCP client requests.</p>
 </dd>
 </dl>
 </li>
@@ -1025,7 +1032,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </li>
 <li><dl class="first docutils">
 <dt>Verify switch port configuration</dt>
-<dd><p class="first">If the DHCPv4 client is unable to obtain an IPv4 address from the DHCPv4 server on startup, attempt to obtain an IPv4 address from the DHCPv4 server by manually forcing the client to send a DHCPv4 request. In linux that is <code class="docutils literal"><span class="pre">dhclient</span> <span class="pre">-4</span></code></p>
+<dd><p class="first">If the DHCPv4 client is unable to obtain an IPv4 address from the DHCPv4 server on startup, attempt to obtain an IPv4 address from the DHCPv4 server by manually forcing the client to send a DHCPv4 request. In linux that is <code class="docutils literal notranslate"><span class="pre">dhclient</span> <span class="pre">-4</span></code></p>
 <div class="last admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">if there is a switch between the client and the DHCPv4 server, and the client is unable to obtain the DHCP configuration, switch port configuration issues may be the cause. These causes may include issues from trunking and channeling, STP, and RSTP. PortFast and edge port configurations resolve the most common DHCPv4 client issues that occur with an initial installation of a Cisco switch.</p>
@@ -1041,7 +1048,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </li>
 </ol>
 <p>Verify Router DHCPv4 Configuration</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show running-config | section interface GigabitEthernet0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show running-config | section interface GigabitEthernet0/0</span>
 <span class="n">interface</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
  <span class="n">ip</span> <span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.1</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
  <span class="n">ip</span> <span class="n">helper</span><span class="o">-</span><span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">11.6</span>
@@ -1052,7 +1059,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </pre></div>
 </div>
 <p>Debug DHCPv4 using router debug commands</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 100 permit udp any any eq 67</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 100 permit udp any any eq 67</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 100 permit udp any any eq 68</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># end</span>
 <span class="n">R1</span><span class="c1"># debug ip packet 100</span>
@@ -1069,11 +1076,11 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 <span class="n">DHCPD</span><span class="p">:</span> <span class="n">returned</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.10</span> <span class="n">to</span> <span class="n">address</span> <span class="n">pool</span> <span class="n">LAN</span><span class="o">-</span><span class="n">POOL</span><span class="o">-</span><span class="mi">1</span>
 </pre></div>
 </div>
-<p>The extended ACL is used with the <code class="docutils literal"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">packet</span></code> command to display only DHCPv4 messages.</p>
+<p>The extended ACL is used with the <code class="docutils literal notranslate"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">packet</span></code> command to display only DHCPv4 messages.</p>
 <p>The output in the figure shows that the router is receiving DHCP requests from the client. The source IP address is 0.0.0.0 because the client does not yet have an IP address. The destination is 255.255.255.255 because the DHCP discovery message from the client is sent as a broadcast. This output only shows a summary of the packet and not the DHCPv4 message itself. Nevertheless, the router did receive a broadcast packet with the source and destination IP and UDP ports that are correct for DHCPv4. The complete debug output shows all the packets in the DHCPv4 communications between the DHCPv4 server and client.</p>
-<p>Another useful command for troubleshooting DHCPv4 operation is the <code class="docutils literal"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">events</span></code> command. This command reports server events, like address assignments and database updates.</p>
+<p>Another useful command for troubleshooting DHCPv4 operation is the <code class="docutils literal notranslate"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">events</span></code> command. This command reports server events, like address assignments and database updates.</p>
 <p>The DHCP assignment conflict indicates there may be an issue with the excluded-address statement on the DHCP server configuration on R2.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">Mar</span>  <span class="mi">5</span> <span class="mi">06</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">16.939</span><span class="p">:</span> <span class="n">DHCPD</span><span class="p">:</span> <span class="n">Sending</span> <span class="n">notification</span> <span class="n">of</span> <span class="n">DISCOVER</span><span class="p">:</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">Mar</span>  <span class="mi">5</span> <span class="mi">06</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">16.939</span><span class="p">:</span> <span class="n">DHCPD</span><span class="p">:</span> <span class="n">Sending</span> <span class="n">notification</span> <span class="n">of</span> <span class="n">DISCOVER</span><span class="p">:</span>
 <span class="o">*</span><span class="n">Mar</span>  <span class="mi">5</span> <span class="mi">06</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">16.939</span><span class="p">:</span> <span class="n">DHCPD</span><span class="p">:</span> <span class="n">htype</span> <span class="mi">1</span> <span class="n">chaddr</span> <span class="mf">0050.56</span><span class="n">be</span><span class="o">.</span><span class="mi">768</span><span class="n">c</span>
 <span class="o">*</span><span class="n">Mar</span>  <span class="mi">5</span> <span class="mi">06</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">16.939</span><span class="p">:</span> <span class="n">DHCPD</span><span class="p">:</span> <span class="n">circuit</span> <span class="nb">id</span> <span class="mi">00000000</span>
 <span class="o">*</span><span class="n">Mar</span>  <span class="mi">5</span> <span class="mi">06</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">16.939</span><span class="p">:</span> <span class="n">DHCPD</span><span class="p">:</span> <span class="n">Seeing</span> <span class="k">if</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">internally</span> <span class="n">specified</span> <span class="n">pool</span> <span class="n">class</span><span class="p">:</span>
@@ -1111,7 +1118,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 <span class="o">&lt;</span><span class="n">output</span> <span class="n">omitted</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#</span>
 <span class="n">show</span> <span class="n">run</span> <span class="o">|</span> <span class="n">section</span> <span class="n">dhcp</span>
 <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">excluded</span><span class="o">-</span><span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">11.1</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">11.9</span>
 <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">excluded</span><span class="o">-</span><span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.1</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.9</span>
@@ -1159,7 +1166,7 @@ FastEthernet0/0            192.168.12.2    YES manual up                   up
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">a router must have IPv6 routing enabled before it can send RA messages <code class="docutils literal"><span class="pre">Router(config)#</span> <span class="pre">ipv6</span> <span class="pre">unicast-routing</span></code></p>
+<p class="last">a router must have IPv6 routing enabled before it can send RA messages <code class="docutils literal notranslate"><span class="pre">Router(config)#</span> <span class="pre">ipv6</span> <span class="pre">unicast-routing</span></code></p>
 </div>
 </li>
 <li><dl class="first docutils">
@@ -1229,7 +1236,7 @@ There are 2 ways PC1 can create its own unique IID</p>
 <dl class="docutils">
 <dt>RA messages are configured on an individual interface of a router</dt>
 <dd><p class="first">To <strong>re-enable an interface for SLAAC</strong> that might have been set to another option, the M and O flags need to be reset to their initial values of 0. This is done using the following interface configuration mode commands:</p>
-<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no ipv6 nd managed-config-flag</span>
+<div class="code last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no ipv6 nd managed-config-flag</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no ipv6 nd other-config-flag</span>
 </pre></div>
 </div>
@@ -1269,18 +1276,18 @@ There are 2 ways PC1 can create its own unique IID</p>
 <h2>DHCPv6 Stateless Config<a class="headerlink" href="#dhcpv6-stateless-config" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Enable IPv6 Routing</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure a DHCPv6 Pool</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 dhcp pool STUDENT-POOL</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 dhcp pool STUDENT-POOL</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1">#</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure Pool Parameters</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># dns-server dns-server-address</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># dns-server dns-server-address</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># domain-name domain-name</span>
 </pre></div>
 </div>
@@ -1290,12 +1297,12 @@ There are 2 ways PC1 can create its own unique IID</p>
 </div>
 </li>
 <li><p class="first">Configure DHCPv6 Interface</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Gi0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Gi0/0</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 dhcp server STUDENT-POOL</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 nd other-config-flag</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">STUDENT-POOL</span></code> binds the DHCPv6 pool to the interface. The router responds to stateless DHCPv6 requests on this interface with the information contained in the pool. The O flag needs to be changed from 0 to 1 using the interface command <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">other-config-flag</span></code>. RA messages sent on this interface indicate that additional information is available from a stateless DHCPv6 server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">STUDENT-POOL</span></code> binds the DHCPv6 pool to the interface. The router responds to stateless DHCPv6 requests on this interface with the information contained in the pool. The O flag needs to be changed from 0 to 1 using the interface command <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">other-config-flag</span></code>. RA messages sent on this interface indicate that additional information is available from a stateless DHCPv6 server.</p>
 </li>
 </ol>
 <p>Example, R3 is configured as a client to help verify the stateless DHCPv6 operations.</p>
@@ -1303,27 +1310,27 @@ There are 2 ways PC1 can create its own unique IID</p>
 </div>
 <div class="section" id="dhcpv6-stateless-client">
 <h2>DHCPv6 Stateless Client<a class="headerlink" href="#dhcpv6-stateless-client" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 enable</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 address autoconfig</span>
 </pre></div>
 </div>
-<p>The client router needs an IPv6 link-local address on the interface to send and receive IPv6 messages, such as RS messages and DHCPv6 messages. The link-local address of a router is created automatically when IPv6 is enabled on the interface. This can happen when a global unicast address is configured on the interface or by using the ipv6 enable command. <code class="docutils literal"><span class="pre">After</span> <span class="pre">the</span> <span class="pre">router</span> <span class="pre">receives</span> <span class="pre">a</span> <span class="pre">link-local</span> <span class="pre">address,</span> <span class="pre">it</span> <span class="pre">can</span> <span class="pre">participate</span> <span class="pre">in</span> <span class="pre">IPv6</span> <span class="pre">neighbor</span> <span class="pre">discovery</span></code>.</p>
+<p>The client router needs an IPv6 link-local address on the interface to send and receive IPv6 messages, such as RS messages and DHCPv6 messages. The link-local address of a router is created automatically when IPv6 is enabled on the interface. This can happen when a global unicast address is configured on the interface or by using the ipv6 enable command. <code class="docutils literal notranslate"><span class="pre">After</span> <span class="pre">the</span> <span class="pre">router</span> <span class="pre">receives</span> <span class="pre">a</span> <span class="pre">link-local</span> <span class="pre">address,</span> <span class="pre">it</span> <span class="pre">can</span> <span class="pre">participate</span> <span class="pre">in</span> <span class="pre">IPv6</span> <span class="pre">neighbor</span> <span class="pre">discovery</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">the ipv6 enable command is used because the router does not yet have a global unicast address.</p>
 </div>
-<p>The <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">autoconfig</span></code> command enables automatic configuration of IPv6 addressing using SLAAC. By assumption, the server router is configured for stateless DHCPv6 so it sends an RA message to inform the client router to use stateless DHCPv6 to obtain DNS information.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">autoconfig</span></code> command enables automatic configuration of IPv6 addressing using SLAAC. By assumption, the server router is configured for stateless DHCPv6 so it sends an RA message to inform the client router to use stateless DHCPv6 to obtain DNS information.</p>
 </div>
 <div class="section" id="verify-stateless-dhcpv6">
 <h2>Verify Stateless dhcpv6<a class="headerlink" href="#verify-stateless-dhcpv6" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>server</dt>
-<dd><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span></code></dd>
 <dt>client</dt>
 <dd><ul class="first last simple">
-<li><code class="docutils literal"><span class="pre">R3#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">Gi0/1</span></code></li>
-<li><code class="docutils literal"><span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code>
+<li><code class="docutils literal notranslate"><span class="pre">R3#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">Gi0/1</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code>
 The debug output displays all the DHCPv6 messages sent between the client and the server including the DNS server and domain name options that were configured on the server.</li>
 </ul>
 </dd>
@@ -1337,7 +1344,7 @@ The debug output displays all the DHCPv6 messages sent between the client and th
 <h2>DHCPv6 Stateful Config<a class="headerlink" href="#dhcpv6-stateful-config" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Enable IPv6 Routing</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1346,13 +1353,13 @@ The debug output displays all the DHCPv6 messages sent between the client and th
 </div>
 </li>
 <li><p class="first">Configure a DHCPv6 Pool</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 dhcp pool IPV6-STATEFUL</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 dhcp pool IPV6-STATEFUL</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1">#</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure Pool Parameters</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># address prefix prefix/length [lifetime {valid-lifetime preferred-lifetime | infinite}]</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># address prefix prefix/length [lifetime {valid-lifetime preferred-lifetime | infinite}]</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># address prefix 2001:db8:cafe:1::/64 lifetime infinite</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># dns-server 2001:db8:cafe:aaaa::5</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">dhcpv6</span><span class="p">)</span><span class="c1"># domain-name example.com</span>
@@ -1365,35 +1372,35 @@ The debug output displays all the DHCPv6 messages sent between the client and th
 </div>
 </li>
 <li><p class="first">Configure DHCPv6 Interface</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Gi0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Gi0/0</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 dhcp server IPV6-STATEFUL</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 nd MANAGED-config-flag</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">The</span> <span class="pre">M</span> <span class="pre">flag</span> <span class="pre">needs</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">changed</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1</span> <span class="pre">using</span> <span class="pre">the</span> <span class="pre">interface</span> <span class="pre">command</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">managed-config-flag.</span> <span class="pre">This</span> <span class="pre">informs</span> <span class="pre">the</span> <span class="pre">device</span> <span class="pre">not</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">SLAAC</span> <span class="pre">but</span> <span class="pre">to</span> <span class="pre">obtain</span> <span class="pre">IPv6</span> <span class="pre">addressing</span> <span class="pre">and</span> <span class="pre">all</span> <span class="pre">configuration</span> <span class="pre">parameters</span> <span class="pre">from</span> <span class="pre">a</span> <span class="pre">stateful</span> <span class="pre">DHCPv6</span> <span class="pre">server</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">M</span> <span class="pre">flag</span> <span class="pre">needs</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">changed</span> <span class="pre">from</span> <span class="pre">0</span> <span class="pre">to</span> <span class="pre">1</span> <span class="pre">using</span> <span class="pre">the</span> <span class="pre">interface</span> <span class="pre">command</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">managed-config-flag.</span> <span class="pre">This</span> <span class="pre">informs</span> <span class="pre">the</span> <span class="pre">device</span> <span class="pre">not</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">SLAAC</span> <span class="pre">but</span> <span class="pre">to</span> <span class="pre">obtain</span> <span class="pre">IPv6</span> <span class="pre">addressing</span> <span class="pre">and</span> <span class="pre">all</span> <span class="pre">configuration</span> <span class="pre">parameters</span> <span class="pre">from</span> <span class="pre">a</span> <span class="pre">stateful</span> <span class="pre">DHCPv6</span> <span class="pre">server</span></code></p>
 </li>
 </ol>
 </div>
 <div class="section" id="dhcpv6-stateful-client">
 <h2>DHCPv6 Stateful Client<a class="headerlink" href="#dhcpv6-stateful-client" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 enable</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 address dhcp</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">enable</span></code> interface configuration mode command allows the client router to receive an IPv6 link-local address on the interface to send RS messages and participate in DHCPv6</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">enable</span></code> interface configuration mode command allows the client router to receive an IPv6 link-local address on the interface to send RS messages and participate in DHCPv6</p>
 </div>
 <div class="section" id="verify-stateful-dhcpv6">
 <h2>Verify Stateful dhcpv6<a class="headerlink" href="#verify-stateful-dhcpv6" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>server</dt>
-<dd><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span></code>
-<code class="docutils literal"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">binding</span></code>
+<dd><code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">binding</span></code>
 displays the automatic binding between the link-local address of the client and the address assigned by the server. FE80::32F7:DFF:FE25:2DE1 is the link-local address of the client. In this example, this is the G0/1 interface of R3. This address is bound to the IPv6 global unicast address, 2001:DB8:CAFE:1:5844:47B2:2603:C171, which was assigned by R1, the DHCPv6 server. This information is maintained by a stateful DHCPv6 server and NOT by a stateless DHCPv6 server.</dd>
 <dt>client</dt>
 <dd><ul class="first last simple">
-<li><code class="docutils literal"><span class="pre">R3#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">Gi0/1</span></code></li>
-<li><code class="docutils literal"><span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code>
+<li><code class="docutils literal notranslate"><span class="pre">R3#</span> <span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">Gi0/1</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code>
 The debug output displays all the DHCPv6 messages sent between the client and the server including the DNS server and domain name options that were configured on the server.</li>
 </ul>
 </dd>
@@ -1403,7 +1410,7 @@ The debug output displays all the DHCPv6 messages sent between the client and th
 <h2>Configure DHCPv6 relay<a class="headerlink" href="#configure-dhcpv6-relay" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/Ch8_dhcpv6_relay_agent.png" src="../../../_images/Ch8_dhcpv6_relay_agent.png" />
 <p>DHCPv6 messages from clients are sent to the IPv6 multicast address <strong>FF02::1:2. All_DHCPv6_Relay_Agents_and_Servers address</strong>. This address has link-local scope which means routers do not forward these messages. The router must be configured as a DHCPv6 relay agent to enable the DHCPv6 client and server to communicate.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 dhcp relay destination 2001:db8:cafe:1::6</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
 <span class="n">R1</span><span class="c1"># show ipv6 interface g0/0</span>
@@ -1415,9 +1422,9 @@ The debug output displays all the DHCPv6 messages sent between the client and th
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">DHCPv6 relay agent is configured using the <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">relay</span> <span class="pre">destination</span></code> command. This command is configured on the interface facing the DHCPv6 client using the address of the DHCPv6 server as the destination.</p>
+<p class="last">DHCPv6 relay agent is configured using the <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">relay</span> <span class="pre">destination</span></code> command. This command is configured on the interface facing the DHCPv6 client using the address of the DHCPv6 server as the destination.</p>
 </div>
-<p>The <code class="docutils literal"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">interface</span></code> command verifies the G0/0 interface is in relay mode with 2001:DB8:CAFE:1::6 configured as the DHCPv6 server.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">interface</span></code> command verifies the G0/0 interface is in relay mode with 2001:DB8:CAFE:1::6 configured as the DHCPv6 server.</p>
 <dl class="docutils">
 <dt>The dynamic assignment of IPv6 global unicast addresses can be configured in three ways:</dt>
 <dd><ul class="first last simple">
@@ -1437,7 +1444,7 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 <p class="first admonition-title">Note</p>
 <p class="last">The default bias template (used by the Switch Database Manager (SDM)) does not provide IPv6 address capabilities. Verify that SDM is using either the dual-ipv4-and-ipv6 template or the lanbase-routing template. The new template will be used after reboot even if the config is not saved</p>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show sdm prefer</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show sdm prefer</span>
 
 <span class="n">assign</span> <span class="n">the</span> <span class="n">dual</span><span class="o">-</span><span class="n">ipv4</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">ipv6</span> <span class="n">template</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span> <span class="n">sdm</span> <span class="n">template</span><span class="p">:</span>
 
@@ -1449,10 +1456,10 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">wireshark filter to see only ipv6 RA messages <code class="docutils literal"><span class="pre">ipv6.dst==ff02::1</span></code></p>
+<p class="last">wireshark filter to see only ipv6 RA messages <code class="docutils literal notranslate"><span class="pre">ipv6.dst==ff02::1</span></code></p>
 </div>
 <p>Use the show ipv6 interface g0/1 command to verify that G0/1 is part of the All-router multicast group (FF02::2). RA messages are not sent out G0/1 without that group assignment.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 interface g0/1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 interface g0/1</span>
 <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
   <span class="n">IPv6</span> <span class="ow">is</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">1</span>
   <span class="n">No</span> <span class="n">Virtual</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span><span class="p">(</span><span class="n">es</span><span class="p">):</span>
@@ -1477,13 +1484,13 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 </pre></div>
 </div>
 <p>Use the ipv6 address autoconfig command on VLAN 1 to obtain an IPv6 address through SLAAC</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface vlan 1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface vlan 1</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 address autoconfig</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
 </pre></div>
 </div>
-<p>Use the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span></code> command to verify that SLAAC provided a unicast address to VLAN1 on S1.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show ipv6 interface</span>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span></code> command to verify that SLAAC provided a unicast address to VLAN1 on S1.</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show ipv6 interface</span>
 <span class="n">Vlan1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
   <span class="n">IPv6</span> <span class="ow">is</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">FE80</span><span class="p">::</span><span class="n">ED9</span><span class="p">:</span><span class="mi">96</span><span class="n">FF</span><span class="p">:</span><span class="n">FEE8</span><span class="p">:</span><span class="mi">8</span><span class="n">A40</span>
   <span class="n">No</span> <span class="n">Virtual</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span><span class="p">(</span><span class="n">es</span><span class="p">):</span>
@@ -1509,30 +1516,30 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 <ol class="loweralpha simple">
 <li><dl class="first docutils">
 <dt>Create an IPv6 DHCP pool.</dt>
-<dd><code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span> <span class="pre">IPV6POOL-A</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">R1(config)#</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span> <span class="pre">IPV6POOL-A</span></code></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Assign a domain name to the pool.</dt>
-<dd><code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">domain-name</span> <span class="pre">ccna-statelessDHCPv6.com</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">domain-name</span> <span class="pre">ccna-statelessDHCPv6.com</span></code></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Assign a DNS server address.</dt>
-<dd><code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">dns-server</span> <span class="pre">2001:db8:acad:a::abcd</span></code>
-<code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">exit</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">dns-server</span> <span class="pre">2001:db8:acad:a::abcd</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">exit</span></code></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Assign the DHCPv6 pool to the interface.</dt>
-<dd><code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">interface</span> <span class="pre">g0/1</span></code>
-<code class="docutils literal"><span class="pre">R1(config-if)#</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">IPV6POOL-A</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">R1(config)#</span> <span class="pre">interface</span> <span class="pre">g0/1</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1(config-if)#</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">IPV6POOL-A</span></code></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Set the DHCPv6 network discovery (ND) other-config-flag.</dt>
-<dd><code class="docutils literal"><span class="pre">R1(config-if)#</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">other-config-flag</span></code>
-<code class="docutils literal"><span class="pre">R1(config-if)#</span> <span class="pre">end</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">R1(config-if)#</span> <span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">other-config-flag</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1(config-if)#</span> <span class="pre">end</span></code></dd>
 </dl>
 </li>
 </ol>
@@ -1540,21 +1547,21 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 <ol class="loweralpha">
 <li><dl class="first docutils">
 <dt>Add the network prefix to the pool</dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span> <span class="pre">IPV6POOL-A</span></code>
-<code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">address</span> <span class="pre">prefix</span> <span class="pre">2001:db8:acad:a::/64</span></code></p>
+<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">R1(config)#</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">pool</span> <span class="pre">IPV6POOL-A</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">address</span> <span class="pre">prefix</span> <span class="pre">2001:db8:acad:a::/64</span></code></p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Change domain name to ccna-statefulDHCPv6.com</dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">no</span> <span class="pre">domain-name</span> <span class="pre">ccna-statelessDHCPv6.com</span></code>
-<code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">domain-name</span> <span class="pre">ccna-statefulDHCPv6.com</span></code>
-<code class="docutils literal"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">end</span></code></p>
+<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">no</span> <span class="pre">domain-name</span> <span class="pre">ccna-statelessDHCPv6.com</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">domain-name</span> <span class="pre">ccna-statefulDHCPv6.com</span></code>
+<code class="docutils literal notranslate"><span class="pre">R1(config-dhcpv6)#</span> <span class="pre">end</span></code></p>
 </dd>
 </dl>
 </li>
 <li><p class="first">Verify DHCPv6 pool settings</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 dhcp pool</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 dhcp pool</span>
 <span class="n">DHCPv6</span> <span class="n">pool</span><span class="p">:</span> <span class="n">IPV6POOL</span><span class="o">-</span><span class="n">A</span>
   <span class="n">Address</span> <span class="n">allocation</span> <span class="n">prefix</span><span class="p">:</span> <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">ACAD</span><span class="p">:</span><span class="n">A</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span> <span class="n">valid</span> <span class="mi">172800</span> <span class="n">preferred</span> <span class="mi">86400</span> <span class="p">(</span><span class="mi">0</span> <span class="ow">in</span> <span class="n">use</span><span class="p">,</span> <span class="mi">0</span> <span class="n">conflicts</span><span class="p">)</span>
   <span class="n">DNS</span> <span class="n">server</span><span class="p">:</span> <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">ACAD</span><span class="p">:</span><span class="n">A</span><span class="p">::</span><span class="n">ABCD</span>
@@ -1565,7 +1572,7 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 </li>
 <li><dl class="first docutils">
 <dt>Enter debug mode to verify the stateful DHCPv6 address assignment</dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code>
+<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code>
 ``  IPv6 DHCP debugging is on (detailed)``</p>
 </dd>
 </dl>
@@ -1576,7 +1583,7 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 <p class="first admonition-title">Note</p>
 <p class="last">Shutting down the G0/1 interface before making changes ensures that an RA message is sent when the interface is activated.</p>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># shutdown</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 nd managed-config-flag</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
@@ -1586,7 +1593,7 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 <dl class="docutils">
 <dt>Enable interface F0/6 on S1</dt>
 <dd><p class="first">Now that R1 is configured for stateful dhcpv6 you can reconnect PC-A to the nw by activating f0/6 on s1</p>
-<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/6</span>
+<div class="code last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/6</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
 </pre></div>
@@ -1594,7 +1601,7 @@ Determination of how hosts obtain their dynamic IPv6 addressing information is d
 </dd>
 </dl>
 <p>verify</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 dhcp pool</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 dhcp pool</span>
 <span class="n">DHCPv6</span> <span class="n">pool</span><span class="p">:</span> <span class="n">IPV6POOL</span><span class="o">-</span><span class="n">A</span>
   <span class="n">Address</span> <span class="n">allocation</span> <span class="n">prefix</span><span class="p">:</span> <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">ACAD</span><span class="p">:</span><span class="n">A</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span> <span class="n">valid</span> <span class="mi">172800</span> <span class="n">preferred</span> <span class="mi">86400</span> <span class="p">(</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">use</span><span class="p">,</span> <span class="mi">0</span> <span class="n">conflicts</span><span class="p">)</span>
   <span class="n">DNS</span> <span class="n">server</span><span class="p">:</span> <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">ACAD</span><span class="p">:</span><span class="n">A</span><span class="p">::</span><span class="n">ABCD</span>
@@ -1623,13 +1630,13 @@ Cisco recommends Stateless DHCPv6 when implementing and deploying IPv6 networks 
 <ol class="arabic">
 <li><dl class="first docutils">
 <dt>Resolve address conflicts</dt>
-<dd><p class="first last">The <code class="docutils literal"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">conflict</span></code> command displays all address conflicts recorded by the stateful DHCPv6 server. If an address conflict is detected, the client typically removes the address and generates a new address using either SLAAC or stateful DHCPv6.</p>
+<dd><p class="first last">The <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">conflict</span></code> command displays all address conflicts recorded by the stateful DHCPv6 server. If an address conflict is detected, the client typically removes the address and generates a new address using either SLAAC or stateful DHCPv6.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Verify allocation method</dt>
-<dd><p class="first last">the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">g0/0</span></code> command can be used to verify the method of address allocation indicated in the RA message as indicated by the settings of the M and O flags. This information is displayed in the last lines of the output. If a client is not receiving its IPv6 address information from a stateful DHCPv6 server, it could be due to incorrect M and O flags in the RA message.</p>
+<dd><p class="first last">the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">interface</span> <span class="pre">g0/0</span></code> command can be used to verify the method of address allocation indicated in the RA message as indicated by the settings of the M and O flags. This information is displayed in the last lines of the output. If a client is not receiving its IPv6 address information from a stateful DHCPv6 server, it could be due to incorrect M and O flags in the RA message.</p>
 </dd>
 </dl>
 </li>
@@ -1642,7 +1649,7 @@ Cisco recommends Stateless DHCPv6 when implementing and deploying IPv6 networks 
 <li><dl class="first docutils">
 <dt>Verify switch port configuration</dt>
 <dd><p class="first">If the DHCPv6 client is unable to obtain information from a DHCPv6 server, verify that the switch port is enabled and is operating correctly.
-In linux do a manual <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">dhclient</span> <span class="pre">-6</span></code></p>
+In linux do a manual <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dhclient</span> <span class="pre">-6</span></code></p>
 <div class="last admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If there is a switch between the client and the DHCPv6 server, and the client is unable to obtain the DHCP configuration, switch port configuration issues may be the cause. These causes may include issues related to trunking, channeling, or spanning tree. <strong>PortFast and edge port</strong> configurations resolve the most common DHCPv6 client issues that occur with an initial installation of a Cisco switch.</p>
@@ -1652,14 +1659,14 @@ In linux do a manual <code class="docutils literal"><span class="pre">sudo</span
 </li>
 <li><dl class="first docutils">
 <dt>Test DHCPv6 Operation on the same subnet or VLAN</dt>
-<dd><p class="first last">If the stateless or stateful DHCPv6 server is functioning correctly, but is on a different IPv6 network or VLAN than the client, the problem may be with the DHCPv6 relay agent. The <strong>client facing interface</strong> on the router must be configured with the <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">relay</span> <span class="pre">destination</span></code> command.</p>
+<dd><p class="first last">If the stateless or stateful DHCPv6 server is functioning correctly, but is on a different IPv6 network or VLAN than the client, the problem may be with the DHCPv6 relay agent. The <strong>client facing interface</strong> on the router must be configured with the <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">relay</span> <span class="pre">destination</span></code> command.</p>
 </dd>
 </dl>
 </li>
 </ol>
 <img alt="../../../_images/verify_router_dhcpv6_config1.png" src="../../../_images/verify_router_dhcpv6_config1.png" />
 <img alt="../../../_images/verify_router_dhcpv6_config2.png" src="../../../_images/verify_router_dhcpv6_config2.png" />
-<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">debug</span> <span class="pre">ipv6</span> <span class="pre">dhcp</span> <span class="pre">detail</span></code></p>
 </div>
 <div class="section" id="ch8-lab-troubleshooting-dhcpv6">
 <h2>Ch8 Lab Troubleshooting DHCPv6<a class="headerlink" href="#ch8-lab-troubleshooting-dhcpv6" title="Permalink to this headline">¶</a></h2>
@@ -1705,11 +1712,11 @@ In linux do a manual <code class="docutils literal"><span class="pre">sudo</span
 <h3>Part 1 Build NW and configure basic settings<a class="headerlink" href="#part-1-build-nw-and-configure-basic-settings" title="Permalink to this headline">¶</a></h3>
 <p>cable as show in topology, intitialize and reload the router n switch
 .. code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show sdm prefer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show sdm prefer</span>
 </pre></div>
 </div>
 <p>Follow this configuration to assign the dual-ipv4-and-ipv6 template as the default SDM template:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># config t</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># config t</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># sdm prefer dual-ipv4-and-ipv6 default</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># end</span>
 <span class="n">S1</span><span class="c1"># reload</span>
@@ -1736,7 +1743,7 @@ In linux do a manual <code class="docutils literal"><span class="pre">sudo</span
 <li>Configure logging synchronous to prevent console messages from interrupting command entry.</li>
 </ol>
 <p>Load the IPv6 configuration to R1</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">ccna</span><span class="o">-</span><span class="n">lab</span><span class="o">.</span><span class="n">com</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">ccna</span><span class="o">-</span><span class="n">lab</span><span class="o">.</span><span class="n">com</span>
 <span class="n">ipv6</span> <span class="n">dhcp</span> <span class="n">pool</span> <span class="n">IPV6POOL</span><span class="o">-</span><span class="n">A</span>
  <span class="n">dns</span><span class="o">-</span><span class="n">server</span> <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">ACAD</span><span class="p">:</span><span class="n">CAFE</span><span class="p">::</span><span class="n">A</span>
  <span class="n">domain</span><span class="o">-</span><span class="n">name</span> <span class="n">ccna</span><span class="o">-</span><span class="n">lab</span><span class="o">.</span><span class="n">com</span>
@@ -1755,7 +1762,7 @@ In linux do a manual <code class="docutils literal"><span class="pre">sudo</span
 </pre></div>
 </div>
 <p>Load the IPv6 configuration to S1.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="nb">range</span> <span class="n">f0</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">24</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="nb">range</span> <span class="n">f0</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">24</span>
  <span class="n">shutdown</span>
 <span class="n">interface</span> <span class="nb">range</span> <span class="n">g0</span><span class="o">/</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span>
  <span class="n">shutdown</span>
@@ -1990,7 +1997,7 @@ Note: DHCP address assignments may take some time. Click Fast Forward Time to sp
 </ul>
 <p>Solution</p>
 <p>R1</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="o">&gt;</span><span class="n">en</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="o">&gt;</span><span class="n">en</span>
 <span class="n">R1</span><span class="c1">#conf t</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface G0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no shutdown</span>
@@ -2031,7 +2038,7 @@ Note: DHCP address assignments may take some time. Click Fast Forward Time to sp
 </pre></div>
 </div>
 <p>Configure R1 G0/1 as DHCP client</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface G0/1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface G0/1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip address dhcp</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no shutdown</span>
 <span class="o">%</span><span class="n">LINK</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">CHANGED</span><span class="p">:</span> <span class="n">Interface</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">up</span>
@@ -2040,7 +2047,7 @@ Note: DHCP address assignments may take some time. Click Fast Forward Time to sp
 </pre></div>
 </div>
 <p>Configure R1 as DHCPv4 server for each vlan</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 172.31.10.1 172.31.10.10</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp excluded-address 172.31.10.1 172.31.10.10</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip dhcp pool VLAN_10</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#network 172.31.10.0 255.255.255.224</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">dhcp</span><span class="o">-</span><span class="n">config</span><span class="p">)</span><span class="c1">#dns-server 209.165.201.14</span>
@@ -2070,7 +2077,7 @@ Note: DHCP address assignments may take some time. Click Fast Forward Time to sp
 </pre></div>
 </div>
 <p>Create VLANs on S2 and assign VLANs to respective ports</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface range fastEthernet 0/1 - 4</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface range fastEthernet 0/1 - 4</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1">#switchport mode trunk</span>
 <span class="o">%</span><span class="n">LINEPROTO</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">UPDOWN</span><span class="p">:</span> <span class="n">Line</span> <span class="n">protocol</span> <span class="n">on</span> <span class="n">Interface</span> <span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">down</span>
 <span class="o">%</span><span class="n">LINEPROTO</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">UPDOWN</span><span class="p">:</span> <span class="n">Line</span> <span class="n">protocol</span> <span class="n">on</span> <span class="n">Interface</span> <span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">up</span>
@@ -2102,7 +2109,7 @@ Note: DHCP address assignments may take some time. Click Fast Forward Time to sp
 </pre></div>
 </div>
 <p>running config R1</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>R1&gt;en
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1&gt;en
 R1#show run
 Building configuration...
 
@@ -2228,7 +2235,7 @@ end
 </pre></div>
 </div>
 <p>switch2</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="c1">#show vlan brief</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="c1">#show vlan brief</span>
 
 <span class="n">VLAN</span> <span class="n">Name</span>                             <span class="n">Status</span>    <span class="n">Ports</span>
 <span class="o">----</span> <span class="o">--------------------------------</span> <span class="o">---------</span> <span class="o">-------------------------------</span>
@@ -2247,7 +2254,7 @@ end
 <span class="mi">1005</span> <span class="n">trnet</span><span class="o">-</span><span class="n">default</span>                    <span class="n">active</span>
 </pre></div>
 </div>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>S2#show running-config
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>S2#show running-config
 Building configuration...
 
 Current configuration : 2356 bytes
@@ -2383,7 +2390,7 @@ line vty 5 15
 </pre></div>
 </div>
 <p>Router1 DHCP show commands</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip dhcp ?</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show ip dhcp ?</span>
   <span class="n">binding</span>   <span class="n">DHCP</span> <span class="n">address</span> <span class="n">bindings</span>
   <span class="n">conflict</span>  <span class="n">DHCP</span> <span class="n">address</span> <span class="n">conflicts</span>
   <span class="n">pool</span>      <span class="n">DHCP</span> <span class="n">pools</span> <span class="n">information</span>
@@ -2515,7 +2522,7 @@ line vty 5 15
 .. note:: Because a DHCP client does not have a valid IPv4 address, it must use a broadcast IP address of 255.255.255.255 as the destination address to communicate with the DHCP server. The DHCPDISCOVER message sent by the client is the first message sent in order to make initial contact with a DHCP server.</dd>
 </dl>
 <p>An administrator has configured a DHCPv4 relay router and issued these commands</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.0.1.1 255.255.255.0</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
@@ -2524,7 +2531,7 @@ line vty 5 15
 </pre></div>
 </div>
 <p>The clients are not receiving IP parameters from the DHCPv4 server. What is a possible cause?
-The <code class="docutils literal"><span class="pre">ip</span> <span class="pre">helper-address</span> <span class="pre">server-ip</span></code> command is missing</p>
+The <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">helper-address</span> <span class="pre">server-ip</span></code> command is missing</p>
 <dl class="docutils">
 <dt>DHCPREQUEST</dt>
 <dd>What message does an IPv4 host use to reply when it receives a DHCPOFFER message from a DHCP server?
@@ -2550,7 +2557,7 @@ The client should automatically configure an IPv6 address and then contact a DHC
 <dd>The client may have received offers from multiple servers, and the broadcast serves to implicitly decline those other offers
 .. note:: During the initial DHCP exchange between a client and server, the client broadcasts a DHCPDISCOVER message looking for DHCP servers. Multiple servers may be configured to respond to this request with DHCPOFFER messages. The client will choose the lease from one of the servers by sending a DHCPREQUEST message. It sends this message as a broadcast so that the other DHCP servers that sent offers will know that their offers were declined and the corresponding address can go back into the pool</dd>
 <dt>An administrator is troubleshooting a DHCPv4 issue on a router. By issuing the debug ip dhcp …….. command, the administrator can watch, in real time, the IP address assignments that are performed by the router.</dt>
-<dd><code class="docutils literal"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">events</span></code></dd>
+<dd><code class="docutils literal notranslate"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">dhcp</span> <span class="pre">server</span> <span class="pre">events</span></code></dd>
 </dl>
 </div>
 <div class="section" id="ch8-practice-exam">
@@ -2611,7 +2618,7 @@ The client should automatically configure an IPv6 address and then contact a DHC
 </ul>
 </li>
 <li><p class="first">An administrator issues the commands</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address dhcp</span>
 </pre></div>
 </div>
@@ -2699,7 +2706,7 @@ The client should automatically configure an IPv6 address and then contact a DHC
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. Based on the output that is shown, what kind of IPv6 addressing is being configured?</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>R1# show running-config
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1# show running-config
 &lt;output omitted&gt;
 !
 ipv6 dhcp pool IPV6
@@ -2734,7 +2741,7 @@ interface FastEthernet0/0
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. A network administrator is implementing stateful DHCPv6 operation for the company. However, the clients are not using the prefix and prefix-length information that is configured in the DHCP pool. The administrator issues a show ipv6 interface command. What could be the cause of the problem?</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 interface gigabitBthernet 0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 interface gigabitBthernet 0/0</span>
 <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
   <span class="n">IPv6</span> <span class="ow">is</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">523</span><span class="n">D</span><span class="p">:</span><span class="n">E5FF</span><span class="p">:</span><span class="n">FEAA</span><span class="p">:</span><span class="n">COAO</span>
   <span class="n">No</span> <span class="n">Virtual</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span><span class="p">(</span><span class="n">es</span><span class="p">):</span>
@@ -2766,7 +2773,7 @@ interface FastEthernet0/0
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. A network administrator is implementing the stateless DHCPv6 operation for the company. Clients are configuring IPv6 addresses as expected. However, the clients are not getting the DNS server address and the domain name information configured in the DHCP pool. What could be the cause of the problem?</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># configure terminal</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># configure terminal</span>
 <span class="n">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span> <span class="n">End</span> <span class="k">with</span> <span class="n">CNTL</span><span class="o">/</span><span class="n">Z</span><span class="o">.</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 dhcp pool ACAD_NET</span>
@@ -2838,7 +2845,7 @@ Type a command to exclude the first fifteen useable IP addresses from a DHCPv4 a
 </li>
 <li><p class="first">Refer to the exhibit. What should be done to allow PC-A to receive an IPv6 address from the DHCPv6 server?</p>
 <img alt="../../../_images/Ch10_practice_exam_q1.png" src="../../../_images/Ch10_practice_exam_q1.png" />
-<div class="code highlight-default"><div class="highlight"><pre><span></span>RTR1# show running-config
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>RTR1# show running-config
 hostname RTR1
 !
 &lt;output omitted&gt;
@@ -2895,20 +2902,20 @@ Type a command to exclude the first fifteen useable IP addresses from a DHCPv4 a
 <ol class="arabic">
 <li><p class="first">Match the descriptions to the corresponding DHCPV6 servertype. (Not all options are used)</p>
 <ul class="simple">
-<li><span class="transparent">0</span> enabled in RA messages with the <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">other-config-flag</span></code> command</li>
+<li><span class="transparent">0</span> enabled in RA messages with the <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">nd</span> <span class="pre">other-config-flag</span></code> command</li>
 <li><span class="transparent">x</span> clients communicate with the DHCPV6 server by the use of RA messages</li>
 <li><span class="transparent">1</span> the M flag is set to 1 in RA messages</li>
-<li><span class="transparent">1</span> uses the <code class="docutils literal"><span class="pre">address</span></code> command to create a pool of addresses for clients</li>
+<li><span class="transparent">1</span> uses the <code class="docutils literal notranslate"><span class="pre">address</span></code> command to create a pool of addresses for clients</li>
 <li><span class="transparent">0</span> clients send only DHCPV6 INFORMATlON-REQUEST messages to the server</li>
-<li><span class="transparent">1</span> enabled on the client with the <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">dhcp</span></code> command</li>
-<li><span class="transparent">0</span> enabled on the client with the <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">autoconfig</span></code> command</li>
+<li><span class="transparent">1</span> enabled on the client with the <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">dhcp</span></code> command</li>
+<li><span class="transparent">0</span> enabled on the client with the <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">address</span> <span class="pre">autoconfig</span></code> command</li>
 <li>Stateless DHCPV6 = 0</li>
 <li>Stateful DHCPV6 = 1</li>
 <li>Neither = x</li>
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. A network administrator is implementing stateful DHCPv6 operation for the company. However, the clients are not using the prefix and prefix-length information that is configured in the DHCP pool. The administrator issues a show ipv6 interface command. What could be the cause of the problem?</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 interface gigabitEthernet 0/0</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 interface gigabitEthernet 0/0</span>
 <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span>
   <span class="n">IPv6</span> <span class="ow">is</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">523</span><span class="n">D</span><span class="p">:</span><span class="n">E5FF</span><span class="p">:</span><span class="n">FEAA</span><span class="p">:</span><span class="n">C0A0</span>
   <span class="n">No</span> <span class="n">Virtual</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span><span class="p">(</span><span class="n">es</span><span class="p">):</span>
@@ -2976,7 +2983,7 @@ Type a command to exclude the first fifteen useable IP addresses from a DHCPv4 a
 </ul>
 </li>
 <li><p class="first">Which set of commands will configure a router as a DHCP server that will assign IPv4 addresses to the 192.168.100.0/23 LAN while reserving the first 10 and the last addresses for static assignment?</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="mi">1</span> <span class="o">--</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="mi">1</span> <span class="o">--</span>
 <span class="n">dhcp</span> <span class="n">pool</span> <span class="n">LAN</span><span class="o">-</span><span class="n">POOL</span><span class="o">-</span><span class="mi">100</span>
 <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">excluded</span><span class="o">-</span><span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.9</span>
 <span class="n">ip</span> <span class="n">dhcp</span> <span class="n">excluded</span><span class="o">-</span><span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.254</span>

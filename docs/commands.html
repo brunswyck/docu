@@ -37,7 +37,9 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="debian &amp; networking 20171017 documentation" href="index.html"/>
         <link rel="next" title="GIT" href="git.html"/>
-        <link rel="prev" title="VIM" href="vim.html"/> 
+        <link rel="prev" title="VIM" href="vim.html"/>
+    <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
+
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -92,7 +94,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="nw/rns/routing_n_switching.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BASH</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#tips-and-tricks">Tips and Tricks</a><ul>
@@ -163,6 +165,7 @@
 <li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trading.html">Trading</a></li>
 </ul>
 
             
@@ -235,7 +238,7 @@
 <div class="section" id="ctrl-u-ctrl-y">
 <h4>ctrl-u &amp; ctrl-y<a class="headerlink" href="#ctrl-u-ctrl-y" title="Permalink to this headline">¶</a></h4>
 <p>when typing a long command you need to interrupt it bc you want to do something else first then:</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ctrl</span><span class="o">+</span><span class="n">e</span> <span class="c1"># go to end of cmd if you&#39;re not allready</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl</span><span class="o">+</span><span class="n">e</span> <span class="c1"># go to end of cmd if you&#39;re not allready</span>
 <span class="n">ctrl</span><span class="o">+</span><span class="n">u</span> <span class="c1"># get clean line</span>
 <span class="n">echo</span> <span class="s2">&quot;got to do this first&quot;</span> <span class="c1"># execute you&#39;re interrupting command</span>
 <span class="n">ctrl</span><span class="o">+</span><span class="n">y</span> <span class="c1"># now you are back at work on your last command :)</span>
@@ -248,7 +251,7 @@
 <h2>modify kernel settings<a class="headerlink" href="#modify-kernel-settings" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sysctl">
 <h3>sysctl<a class="headerlink" href="#sysctl" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sysctl</span> <span class="o">-</span><span class="n">a</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">ipv6</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sysctl</span> <span class="o">-</span><span class="n">a</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">ipv6</span>
 </pre></div>
 </div>
 </div>
@@ -259,7 +262,7 @@
 <h3>ip utility<a class="headerlink" href="#ip-utility" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="show-mac-table">
 <h4>show mac table<a class="headerlink" href="#show-mac-table" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ip</span> <span class="n">maddress</span> <span class="n">show</span> <span class="n">dev</span> <span class="n">enp0s25</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ip</span> <span class="n">maddress</span> <span class="n">show</span> <span class="n">dev</span> <span class="n">enp0s25</span>
 <span class="mi">2</span><span class="p">:</span>   <span class="n">enp0s25</span>
      <span class="n">link</span>  <span class="mi">01</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">01</span>
      <span class="n">link</span>  <span class="mi">33</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="n">fb</span>
@@ -277,7 +280,7 @@
 </div>
 <div class="section" id="show-neighbors">
 <h4>show neighbors<a class="headerlink" href="#show-neighbors" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">neigh</span> <span class="n">show</span> <span class="n">dev</span> <span class="n">enp0s25</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">neigh</span> <span class="n">show</span> <span class="n">dev</span> <span class="n">enp0s25</span>
 <span class="mf">172.31</span><span class="o">.</span><span class="mf">69.41</span>  <span class="n">FAILED</span>
 <span class="mf">172.31</span><span class="o">.</span><span class="mf">69.241</span>  <span class="n">FAILED</span>
 <span class="mf">172.31</span><span class="o">.</span><span class="mf">69.82</span>  <span class="n">FAILED</span>
@@ -318,7 +321,7 @@
 </div>
 <div class="section" id="watch-your-neighbors">
 <h4>watch your neighbors ;)<a class="headerlink" href="#watch-your-neighbors" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">watch</span> <span class="o">-</span><span class="n">n</span> <span class="mi">2</span> <span class="s2">&quot;ip neigh show dev enp0s25&quot;</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">watch</span> <span class="o">-</span><span class="n">n</span> <span class="mi">2</span> <span class="s2">&quot;ip neigh show dev enp0s25&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -330,7 +333,7 @@
 <h3>apt-utils<a class="headerlink" href="#apt-utils" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="apt-cache">
 <h4>apt-cache<a class="headerlink" href="#apt-cache" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">search</span> <span class="s1">&#39;PDF&#39;</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39; - .*PDF&#39;</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">search</span> <span class="s1">&#39;PDF&#39;</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39; - .*PDF&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -352,7 +355,7 @@
 </dl>
 <div class="section" id="install-from-different-repository">
 <h5>install from different repository<a class="headerlink" href="#install-from-different-repository" title="Permalink to this headline">¶</a></h5>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">t</span> <span class="n">unstable</span> <span class="n">flashplugin</span><span class="o">-</span><span class="n">nonfree</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">t</span> <span class="n">unstable</span> <span class="n">flashplugin</span><span class="o">-</span><span class="n">nonfree</span>
 </pre></div>
 </div>
 </div>
@@ -362,7 +365,7 @@
 <h3>aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="escaping-characters-for-aliases">
 <h4>escaping characters for aliases<a class="headerlink" href="#escaping-characters-for-aliases" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>read -d &#39;&#39; KICKASSCOMMAND &lt;&lt;&quot;EOF&quot;
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>read -d &#39;&#39; KICKASSCOMMAND &lt;&lt;&quot;EOF&quot;
 alias bustwickrclient=&quot;kill -n 9 \\$(ps -C wickr-me | awk &#39;BEGIN {RS=\\&quot;\\\\n\\&quot;; FS=\\&quot; \\&quot;} FNR==2 {print \\$1}&#39;)&quot;
 EOF
 echo $KICKASSCOMMAND
@@ -394,7 +397,7 @@ Printing Headings/info before actual AWK code output.</p>
 <p>Printing final results, after doing operations in main AWK block.
 Printing Completion/info after actual AWK code output.</p>
 <p>awk ‘BEGIN{awk initializing code}{actual AWK code}’ filename.txt</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">awk</span> <span class="s1">&#39;BEGIN{s=0}{s=s+$3}END{print s}&#39;</span> <span class="n">db</span><span class="o">.</span><span class="n">txt</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">awk</span> <span class="s1">&#39;BEGIN{s=0}{s=s+$3}END{print s}&#39;</span> <span class="n">db</span><span class="o">.</span><span class="n">txt</span>
 
 <span class="n">awk</span> <span class="s1">&#39;BEGIN{print &quot;######################noutput of filtered datan###########################&quot;;print &quot;NamesttotaltPPTtDoctxls&quot;}{printf &quot;</span><span class="si">%s</span><span class="s1">t</span><span class="si">%d</span><span class="s1">t</span><span class="si">%d</span><span class="s1">t</span><span class="si">%d</span><span class="s1">t</span><span class="si">%d</span><span class="s1">n&quot;, $1,$2,$3,$4,$5}END{print &quot;###########################nCompleted filtered datan###########################&quot;}&#39;</span> <span class="n">db</span><span class="o">.</span><span class="n">txt</span>
 
@@ -423,7 +426,7 @@ Printing Completion/info after actual AWK code output.</p>
 <h3>stripping | removing<a class="headerlink" href="#stripping-removing" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="remove-duplicate-lines">
 <h4>remove duplicate lines<a class="headerlink" href="#remove-duplicate-lines" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">awk</span> <span class="s1">&#39;!seen[$0]++&#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">awk</span> <span class="s1">&#39;!seen[$0]++&#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span>
 </pre></div>
 </div>
 </div>
@@ -435,7 +438,7 @@ Printing Completion/info after actual AWK code output.</p>
 <h3>removing files<a class="headerlink" href="#removing-files" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="remove-all-but-1">
 <h4>remove all but 1<a class="headerlink" href="#remove-all-but-1" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>files
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>files
 -----
 find . ! -name &#39;PacketTracer71_64bit_linux.tar.gz&#39; -type f -exec rm -f {} +
 
@@ -458,7 +461,7 @@ rm -- !(file.txt)
 <h3>finding stuff<a class="headerlink" href="#finding-stuff" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="include-files-ending-on-x-and-containing-y">
 <h4>include files ending on x and containing y<a class="headerlink" href="#include-files-ending-on-x-and-containing-y" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">r</span> <span class="o">--</span><span class="n">include</span> <span class="s1">&#39;*.list&#39;</span> <span class="s1">&#39;^deb &#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">r</span> <span class="o">--</span><span class="n">include</span> <span class="s1">&#39;*.list&#39;</span> <span class="s1">&#39;^deb &#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span>
 </pre></div>
 </div>
 </div>
@@ -470,7 +473,7 @@ rm -- !(file.txt)
 <h3>proces substitution<a class="headerlink" href="#proces-substitution" title="Permalink to this headline">¶</a></h3>
 <p>Ever wanted to diff the outputs of two commands quickly? Of course, you could redirect the output to a temporary file for both of them, and diff those files, like this:</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">local_etc_files</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">local_etc_files</span>
 <span class="n">find</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">remote</span><span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">remote_etc_files</span>
 <span class="n">diff</span> <span class="n">local_etc_files</span> <span class="n">remote_etc_files</span>
 <span class="n">rm</span> <span class="n">local_etc_files</span> <span class="n">remote_etc_files</span>
@@ -479,19 +482,19 @@ rm -- !(file.txt)
 </div></blockquote>
 <p>This would tell you the differences between which files are in /etc on the local computer and a remote one. It takes four lines, however. Using process substitution, we can do this is just a single line:</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">diff</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">find</span> <span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">find</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">remote</span><span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">find</span> <span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">find</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">remote</span><span class="o">/</span><span class="n">etc</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>What’s that &lt;(…) syntax? It means “run the command inside it, connect the output to a temporary pipe file and give that as an argument”. To understand this more thoroughly, try running this:</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">echo</span> <span class="n">test</span><span class="p">)</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">echo</span> <span class="n">test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Instead of printing “test”, this will print something like “/dev/fd/63”. You see now that the &lt;(…) part is actually replaced by a file. This file is a stream from which the output of the command inside &lt;(…) can be read, like this:</p>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">echo</span> <span class="n">test</span><span class="p">)</span>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">echo</span> <span class="n">test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>

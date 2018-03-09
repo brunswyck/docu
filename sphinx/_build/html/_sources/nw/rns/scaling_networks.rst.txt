@@ -1,0 +1,20 @@
+.. include:: ../../_static/global.rst
+
+#################
+Routing/Switching
+#################
+
+****************
+scaling networks
+****************
+
+.. toctree::
+   :maxdepth: 2
+   
+   sn/lan_design.rst
+   sn/scaling_vlans.rst
+   sn/stp.rst
+   sn/etherchannel_hsrp.rst
+   sn/dynamic_routing.rst
+   sn/eigrp.rst
+

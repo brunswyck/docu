@@ -1,0 +1,11 @@
+.. include:: ../../_static/global.rst
+
+#################
+Routing/Switching
+#################
+
+.. toctree::
+   :maxdepth: 2
+   
+   rns.rst
+   sn.rst

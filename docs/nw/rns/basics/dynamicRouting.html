@@ -36,9 +36,11 @@
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="debian &amp; networking 20171017 documentation" href="../../../index.html"/>
-        <link rel="up" title="Routing/Switching" href="../routing_n_switching.html"/>
+        <link rel="up" title="basics" href="inhoud.html"/>
         <link rel="next" title="switched networks" href="switchedNetworks.html"/>
-        <link rel="prev" title="Static Routes" href="staticRouting.html"/> 
+        <link rel="prev" title="Static Routes" href="staticRouting.html"/>
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -93,8 +95,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../routing_n_switching.html">Routing/Switching</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../routing_n_switching.html#basics">basics</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">basics</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
 <li class="toctree-l3"><a class="reference internal" href="routingConcepts.html">Routing Concepts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="staticRouting.html">Static Routes</a></li>
@@ -122,8 +124,10 @@
 <li class="toctree-l3"><a class="reference internal" href="dhcp.html">DHCP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="finals.html">routing n switching basics finals</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../sn/inhoud.html">scaling networks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
@@ -132,6 +136,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trading.html">Trading</a></li>
 </ul>
 
             
@@ -176,7 +181,9 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../routing_n_switching.html">Routing/Switching</a> &raquo;</li>
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+          <li><a href="inhoud.html">basics</a> &raquo;</li>
         
       <li>Dynamic Routing</li>
     
@@ -286,14 +293,14 @@
 </div>
 <div class="section" id="enable-disable">
 <h2>enable/disable<a class="headerlink" href="#enable-disable" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="c1"># conf t</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="c1"># conf t</span>
     <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
 </pre></div>
 </div>
 <div class="section" id="verify-rip-routing">
 <h3>verify rip routing<a class="headerlink" href="#verify-rip-routing" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
 <span class="n">R1</span><span class="c1"># show ip protocols | section Default</span>
 <span class="n">R1</span><span class="c1"># show ip route | begin Gateway</span>
 </pre></div>
@@ -302,7 +309,7 @@
 </div>
 <div class="section" id="disable-auto-summarization">
 <h2>disable auto summarization<a class="headerlink" href="#disable-auto-summarization" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
     <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
     <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
 <span class="n">R1</span><span class="c1"># show ip protocols | section Automatic</span>
@@ -311,7 +318,7 @@
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>auto-summary = classful, no auto-summary = you can see /25 routes = classless, don’t confuse with summarization. If you want a summary address you can apply the following on the <strong>outgoing interface you want de summary address advertised</strong></p>
-<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">summary</span><span class="o">-</span><span class="n">address</span> <span class="n">rip</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">252.0</span>
+<div class="code last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">summary</span><span class="o">-</span><span class="n">address</span> <span class="n">rip</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">252.0</span>
 </pre></div>
 </div>
 </div>
@@ -329,7 +336,7 @@
 </ul>
 </div></blockquote>
 <p>Use the <strong>passive-interface</strong> router configuration command to prevent the transmission of routing updates through a router interface, <em>but still allow that network to be advertised to other routers</em>. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">on</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">on</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
@@ -412,7 +419,7 @@
 <p class="last">All routing protocols support the passive-interface command.</p>
 </div>
 <p>configure the LAN interface as a passive interface on R2 and R3.</p>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
 
@@ -444,7 +451,7 @@
 </ul>
 </div></blockquote>
 </div></blockquote>
-<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226</span>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># default-information originate</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
@@ -455,7 +462,7 @@
 <div class="section" id="exercise-example">
 <h2>exercise example<a class="headerlink" href="#exercise-example" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><div class="code highlight-default"><div class="highlight"><pre><span></span>a router that is connected to an isp
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>a router that is connected to an isp
 ------------------------------------
 hostname R1
 !

@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>scaling networks &mdash; debian &amp; networking 20171017 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="debian &amp; networking 20171017 documentation" href="../../../index.html"/>
+        <link rel="up" title="Routing/Switching" href="../inhoud.html"/>
+        <link rel="next" title="LAN design" href="lan_design.html"/>
+        <link rel="prev" title="routing n switching basics finals" href="../basics/finals.html"/>
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201710
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../basics/inhoud.html">basics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scaling networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lan_design.html">LAN design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html">STP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="etherchannel_hsrp.html">Etherchannel - HSRP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_routing.html">Dynamic Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eigrp.html">EIGRP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trading.html">Trading</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">debian & networking</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+      <li>scaling networks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/nw/rns/sn/inhoud.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="scaling-networks">
+<h1>scaling networks<a class="headerlink" href="#scaling-networks" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lan_design.html">LAN design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lan_design.html#subsection">subsection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stp.html">STP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="etherchannel_hsrp.html">Etherchannel - HSRP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_routing.html">Dynamic Routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_routing.html#distance-vector-vs-link-state">Distance Vector vs Link State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_routing.html#building-the-spf-tree">Building the SPF_Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_routing.html#advantages-of-link-state-routing-protocols">Advantages of link-state routing protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_routing.html#disadvantages-of-link-state-protocols">Disadvantages of Link-State Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="eigrp.html">EIGRP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#features-of-eigrp">Features of EIGRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-protocol-dependent-modules-pdms">EIGRP Protocol-Dependent Modules PDMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#reliable-transport-protocol">Reliable Transport Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#packet-types">Packet Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#feasibility-condition">Feasibility Condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-msg-encapsulation">EIGRP msg Encapsulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-packet-header">EIGRP Packet Header</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-tlv-encoding-format">EIGRP TLV Encoding Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-generic-tlv-definitions">EIGRP Generic TLV Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-tlv-internal-routes">EIGRP TLV Internal routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-tlv-external-routes">EIGRP TLV External routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#autonomous-systems">Autonomous Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-router-id">EIGRP Router ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#passive-interface">Passive Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#show-ip-eigrp-neighbors-command">show ip eigrp neighbors command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#default-administrative-distances">Default Administrative Distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#exchanging-routing-updates">Exchanging Routing Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#updating-the-routing-table-ipv4">Updating the Routing Table IPv4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#interface-delay-values">Interface Delay Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-calculate-metric">EIGRP Calculate Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#bandwidth-configuration">Bandwidth configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#dual-concepts">DUAL Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#topology-table">Topology Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#dual-finite-state-machine">DUAL Finite State Machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#comparing-eigrp-for-ipv4-and-ipv6">Comparing EIGRP for IPv4 and IPv6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-ipv6-link-local-addresses">EIGRP IPv6 Link-Local addresses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-ipv6-configuration">EIGRP IPv6 configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#configuring-ipv6-link-locals">Configuring IPv6 Link-Locals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-ipv6-routing-process">EIGRP IPv6 Routing Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#enabling-eigrp-for-ipv6-if">Enabling EIGRP for IPv6 IF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#ipv6-nb-table">IPv6 NB Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-ipv6-routing-table">EIGRP IPv6 Routing Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#eigrp-for-ipv6-lab-demo">EIGRP for IPv6 lab demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eigrp.html#commands">Commands</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lan_design.html" class="btn btn-neutral float-right" title="LAN design" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../basics/finals.html" class="btn btn-neutral" title="routing n switching basics finals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'20171017',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -6,14 +6,14 @@ Welcome to Patrick's documentation!
     :caption: Contents:
     :glob:
 
-    nw/rns/routing_n_switching
+    nw/rns/inhoud
     vim
     commands
     git
     scripting
-    storage/storage.rst
+    storage/storage
     rest
-     
+    trading 
 
 Indices and tables
 ==================
