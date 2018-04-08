@@ -1,5 +1,5 @@
 .. include:: ../../../_static/global.rst 
-:%s///g
+
 ..
     # with overline, for parts
     * with overline, for chapters
@@ -271,7 +271,7 @@ Steps 1 and 2 are part of the planning process.
 1. Gather the network requirements and parameters - Gather the network requirements and parameters - This includes determining the number of host and network devices, the IP addressing scheme (if already implemented), the size of the routing domain, the size of the routing tables, the risk of topology changes, whether existing routers can support OSPF, and other network characteristics.
 
 2. Define the OSPF parameters
- Based on information gathered during Step 1, the network administrator must determine if single-area or multiarea OSPF is the preferred implementation. If multiarea OSPF is selected, there are several considerations the network administrator must take into account while determining the OSPF parameters, to include:
+   Based on information gathered during Step 1, the network administrator must determine if single-area or multiarea OSPF is the preferred implementation. If multiarea OSPF is selected, there are several considerations the network administrator must take into account while determining the OSPF parameters, to include:
 
     + IP addressing plan
        This governs how OSPF can be deployed and how well the OSPF deployment might scale. A detailed IP addressing plan, along with the IP subnetting information, must be created. A good IP addressing plan should enable the usage of OSPF multiarea design and summarization. This plan more easily scales the network, as well as optimizes OSPF behavior and the propagation of LSA.
@@ -318,39 +318,39 @@ OSPF Operational States
 
 .. image:: ../../../_static/img/8_ospf_states.png
 
- + Down State
-    - No Hello packets received = Down.
-    - Router sends Hello packets.
-    - Transition to Init state.
++ Down State
+   - No Hello packets received = Down.
+   - Router sends Hello packets.
+   - Transition to Init state.
 
- + Init State
-    - Hello packets are received from the neighbor.
-    - They contain the sending router’s Router ID.
-    - Transition to Two-Way state.
- 
- + 2way State
-	- When a router receives a Hello packet with its Router ID listed in the list of neighbors, the router transitions from the Init state to the Two-Way state.
-    - On Ethernet links, elect a DR, and a BDR.
-    - Transition to ExStart state.
-    
- + ExStart State
-    - Negotiate master / slave relationship and DBD packet sequence number.
-    - The master (one with highest router ID) initiates the DBD packet exchange.
- 
- + Exchange State
-    - Routers exchange DBD (Database Descriptor) packets.
-    - If additional router information is required then transition to Loading; otherwise, transition to the Full state.
-    
-    .. image:: ../../../_static/img/8_ospf_DBD_exchange.png
++ Init State
+   - Hello packets are received from the neighbor.
+   - They contain the sending router’s Router ID.
+   - Transition to Two-Way state.
 
-    - A DBD packet includes information about the LSA entry header that appears in the router’s LSDB. The entries can be about a link or about a network. Each LSA entry header includes information about the link-state type, the address of the advertising router, the link’s cost, and the sequence number. The router uses the sequence number to determine the newness of the received link-state information.
++ 2way State
+   - When a router receives a Hello packet with its Router ID listed in the list of neighbors, the router transitions from the Init state to the Two-Way state.
+   - On Ethernet links, elect a DR, and a BDR.
+   - Transition to ExStart state.
+   
++ ExStart State
+   - Negotiate master / slave relationship and DBD packet sequence number.
+   - The master (one with highest router ID) initiates the DBD packet exchange.
 
- + Loading State
-    - LSRs and LSUs are used to gain additional route information.
-    - Routes are processed using the SPF algorithm.
-    - Transition to the Full state.
++ Exchange State
+   - Routers exchange DBD (Database Descriptor) packets.
+   - If additional router information is required then transition to Loading; otherwise, transition to the Full state.
+   
+   .. image:: ../../../_static/img/8_ospf_DBD_exchange.png
 
- + Full State
+   - A DBD packet includes information about the LSA entry header that appears in the router’s LSDB. The entries can be about a link or about a network. Each LSA entry header includes information about the link-state type, the address of the advertising router, the link’s cost, and the sequence number. The router uses the sequence number to determine the newness of the received link-state information.
+
++ Loading State
+   - LSRs and LSUs are used to gain additional route information.
+   - Routes are processed using the SPF algorithm.
+   - Transition to the Full state.
+
++ Full State
     - Routers have converged
 
 .. warning:: The normal state for an OSPF router is usually FULL. If a router is stuck in another state, it is an indication that there are problems in forming adjacencies. The only exception to this is the 2-WAY state, which is normal in a multiaccess broadcast network. In multiaccess networks, DROTHERs only form FULL adjacencies with the DR and BDR. However, DROTHERs will still form a 2-WAY neighbor adjacency with any DROTHERs that join the network. 
@@ -435,10 +435,11 @@ Router ID order of precedence
 -----------------------------
 
 Router ID configured?    →	Use that
-  ↓
+| ↓
 IPv4 loopback configured →  Use that
-  ↓
-Use highest active IPv4 address
+| ↓
+Use highest active IPv4 address 
+
 
 .. note:: the routing device configured with the highest priority is elected the DR. Assuming there is no priority configured, or there is a tie, then the router with the highest router ID is elected the DR. The routing device with the second highest router ID is elected the BDR.
 

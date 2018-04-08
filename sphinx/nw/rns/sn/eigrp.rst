@@ -2271,54 +2271,54 @@ default router config example
 
 .. code::
 
-conf t
-service password-encryption
-hostname R1 
-enable secret class
-no ip domain lookup
-ipv6 unicast-routing
-interface GigabitEthernet0/0
- ip address 192.168.1.1 255.255.255.0
- duplex auto
- speed auto
- ipv6 address FE80::1 link-local
- ipv6 address 2001:DB8:ACAD:A::1/64
- ipv6 eigrp 1
- no shutdown
-interface Serial0/0/0
- bandwidth 128
- ip address 192.168.21.1 255.255.255.252
- ipv6 address FE80::1 link-local
- ipv6 address 2001:DB8:ACAD:12::1/64
- ipv6 eigrp 1
- clock rate 128000
- no shutdown
-interface Serial0/0/1
- ip address 192.168.13.1 255.255.255.252
- ipv6 address FE80::1 link-local
- ipv6 address 2001:DB8:ACAD:31::1/64
- ipv6 eigrp 1
- no shutdown
-router eigrp 1
- network 192.168.1.0
- network 192.168.12.0 0.0.0.3
- network 192.168.13.0 0.0.0.3
- passive-interface GigabitEthernet0/0
- eigrp router-id 1.1.1.1
-ipv6 router eigrp 1
- passive-interface GigabitEthernet0/0  
- no shutdown
-banner motd @
- Unauthorized Access is Prohibited! @
-line con 0
- password cisco
- login
- logging synchronous
-line vty 0 4
- password cisco
- login
- transport input all
-end
+   conf t
+   service password-encryption
+   hostname R1 
+   enable secret class
+   no ip domain lookup
+   ipv6 unicast-routing
+   interface GigabitEthernet0/0
+    ip address 192.168.1.1 255.255.255.0
+    duplex auto
+    speed auto
+    ipv6 address FE80::1 link-local
+    ipv6 address 2001:DB8:ACAD:A::1/64
+    ipv6 eigrp 1
+    no shutdown
+   interface Serial0/0/0
+    bandwidth 128
+    ip address 192.168.21.1 255.255.255.252
+    ipv6 address FE80::1 link-local
+    ipv6 address 2001:DB8:ACAD:12::1/64
+    ipv6 eigrp 1
+    clock rate 128000
+    no shutdown
+   interface Serial0/0/1
+    ip address 192.168.13.1 255.255.255.252
+    ipv6 address FE80::1 link-local
+    ipv6 address 2001:DB8:ACAD:31::1/64
+    ipv6 eigrp 1
+    no shutdown
+   router eigrp 1
+    network 192.168.1.0
+    network 192.168.12.0 0.0.0.3
+    network 192.168.13.0 0.0.0.3
+    passive-interface GigabitEthernet0/0
+    eigrp router-id 1.1.1.1
+   ipv6 router eigrp 1
+    passive-interface GigabitEthernet0/0  
+    no shutdown
+   banner motd @
+    Unauthorized Access is Prohibited! @
+   line con 0
+    password cisco
+    login
+    logging synchronous
+   line vty 0 4
+    password cisco
+    login
+    transport input all
+   end
 
 
 Quiz

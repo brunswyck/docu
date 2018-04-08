@@ -2613,57 +2613,56 @@ Automatic summarization is causing inconsistent routing in a discontiguous netwo
 </div>
 <div class="section" id="default-router-config-example">
 <h2>default router config example<a class="headerlink" href="#default-router-config-example" title="Permalink to this headline">¶</a></h2>
-<p>conf t
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>conf t
 service password-encryption
 hostname R1
 enable secret class
 no ip domain lookup
 ipv6 unicast-routing
-interface GigabitEthernet0/0</p>
-<blockquote>
-<div>ip address 192.168.1.1 255.255.255.0
-duplex auto
-speed auto
-ipv6 address FE80::1 link-local
-ipv6 address 2001:DB8:ACAD:A::1/64
-ipv6 eigrp 1
-no shutdown</div></blockquote>
-<dl class="docutils">
-<dt>interface Serial0/0/0</dt>
-<dd>bandwidth 128
-ip address 192.168.21.1 255.255.255.252
-ipv6 address FE80::1 link-local
-ipv6 address 2001:DB8:ACAD:12::1/64
-ipv6 eigrp 1
-clock rate 128000
-no shutdown</dd>
-<dt>interface Serial0/0/1</dt>
-<dd>ip address 192.168.13.1 255.255.255.252
-ipv6 address FE80::1 link-local
-ipv6 address 2001:DB8:ACAD:31::1/64
-ipv6 eigrp 1
-no shutdown</dd>
-<dt>router eigrp 1</dt>
-<dd>network 192.168.1.0
-network 192.168.12.0 0.0.0.3
-network 192.168.13.0 0.0.0.3
-passive-interface GigabitEthernet0/0
-eigrp router-id 1.1.1.1</dd>
-<dt>ipv6 router eigrp 1</dt>
-<dd>passive-interface GigabitEthernet0/0
-no shutdown</dd>
-<dt>banner motd &#64;</dt>
-<dd>Unauthorized Access is Prohibited! &#64;</dd>
-<dt>line con 0</dt>
-<dd>password cisco
-login
-logging synchronous</dd>
-<dt>line vty 0 4</dt>
-<dd>password cisco
-login
-transport input all</dd>
-</dl>
-<p>end</p>
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:A::1/64
+ ipv6 eigrp 1
+ no shutdown
+interface Serial0/0/0
+ bandwidth 128
+ ip address 192.168.21.1 255.255.255.252
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:12::1/64
+ ipv6 eigrp 1
+ clock rate 128000
+ no shutdown
+interface Serial0/0/1
+ ip address 192.168.13.1 255.255.255.252
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:31::1/64
+ ipv6 eigrp 1
+ no shutdown
+router eigrp 1
+ network 192.168.1.0
+ network 192.168.12.0 0.0.0.3
+ network 192.168.13.0 0.0.0.3
+ passive-interface GigabitEthernet0/0
+ eigrp router-id 1.1.1.1
+ipv6 router eigrp 1
+ passive-interface GigabitEthernet0/0
+ no shutdown
+banner motd @
+ Unauthorized Access is Prohibited! @
+line con 0
+ password cisco
+ login
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+ transport input all
+end
+</pre></div>
+</div>
 </div>
 <div class="section" id="quiz">
 <h2>Quiz<a class="headerlink" href="#quiz" title="Permalink to this headline">¶</a></h2>

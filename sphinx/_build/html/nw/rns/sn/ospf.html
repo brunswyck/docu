@@ -208,16 +208,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>:%s///g
-..</p>
-<blockquote>
-<div># with overline, for parts
-* with overline, for chapters
-=, for sections
--, for subsections
-^, for subsubsections
-“, for paragraphs</div></blockquote>
-<div class="section" id="ospf">
+  <div class="section" id="ospf">
 <h1>OSPF<a class="headerlink" href="#ospf" title="Permalink to this headline">¶</a></h1>
 <p>AD = 110</p>
 <dl class="docutils">
@@ -517,12 +508,11 @@ External LSAs appear in the routing table marked as external type 1 (E1) or exte
 <div class="section" id="multiarea-ospf-implementation">
 <h2>Multiarea OSPF implementation<a class="headerlink" href="#multiarea-ospf-implementation" title="Permalink to this headline">¶</a></h2>
 <p>Steps 1 and 2 are part of the planning process.</p>
-<ol class="arabic simple">
-<li>Gather the network requirements and parameters - Gather the network requirements and parameters - This includes determining the number of host and network devices, the IP addressing scheme (if already implemented), the size of the routing domain, the size of the routing tables, the risk of topology changes, whether existing routers can support OSPF, and other network characteristics.</li>
-<li>Define the OSPF parameters</li>
-</ol>
-<blockquote>
-<div><p>Based on information gathered during Step 1, the network administrator must determine if single-area or multiarea OSPF is the preferred implementation. If multiarea OSPF is selected, there are several considerations the network administrator must take into account while determining the OSPF parameters, to include:</p>
+<ol class="arabic">
+<li><p class="first">Gather the network requirements and parameters - Gather the network requirements and parameters - This includes determining the number of host and network devices, the IP addressing scheme (if already implemented), the size of the routing domain, the size of the routing tables, the risk of topology changes, whether existing routers can support OSPF, and other network characteristics.</p>
+</li>
+<li><p class="first">Define the OSPF parameters
+Based on information gathered during Step 1, the network administrator must determine if single-area or multiarea OSPF is the preferred implementation. If multiarea OSPF is selected, there are several considerations the network administrator must take into account while determining the OSPF parameters, to include:</p>
 <blockquote>
 <div><ul class="simple">
 <li><dl class="first docutils">
@@ -542,10 +532,11 @@ External LSAs appear in the routing table marked as external type 1 (E1) or exte
 </li>
 </ul>
 </div></blockquote>
-</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>Configure the multiarea OSPF implementation based on the parameters.</li>
-<li>Verify the multiarea OSPF implementation based on the parameters.</li>
+</li>
+<li><p class="first">Configure the multiarea OSPF implementation based on the parameters.</p>
+</li>
+<li><p class="first">Verify the multiarea OSPF implementation based on the parameters.</p>
+</li>
 </ol>
 </div>
 <div class="section" id="asbr-s">
@@ -568,6 +559,79 @@ The router connected to the RIP process here</p>
 </div>
 <div class="section" id="ospf-operational-states">
 <h2>OSPF Operational States<a class="headerlink" href="#ospf-operational-states" title="Permalink to this headline">¶</a></h2>
+<img alt="nw/rns/sn/../../../_static/img/8_ospf_states.png" src="nw/rns/sn/../../../_static/img/8_ospf_states.png" />
+<ul>
+<li><dl class="first docutils">
+<dt>Down State</dt>
+<dd><ul class="first last simple">
+<li>No Hello packets received = Down.</li>
+<li>Router sends Hello packets.</li>
+<li>Transition to Init state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Init State</dt>
+<dd><ul class="first last simple">
+<li>Hello packets are received from the neighbor.</li>
+<li>They contain the sending router’s Router ID.</li>
+<li>Transition to Two-Way state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>2way State</dt>
+<dd><ul class="first last simple">
+<li>When a router receives a Hello packet with its Router ID listed in the list of neighbors, the router transitions from the Init state to the Two-Way state.</li>
+<li>On Ethernet links, elect a DR, and a BDR.</li>
+<li>Transition to ExStart state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ExStart State</dt>
+<dd><ul class="first last simple">
+<li>Negotiate master / slave relationship and DBD packet sequence number.</li>
+<li>The master (one with highest router ID) initiates the DBD packet exchange.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Exchange State</dt>
+<dd><ul class="first simple">
+<li>Routers exchange DBD (Database Descriptor) packets.</li>
+<li>If additional router information is required then transition to Loading; otherwise, transition to the Full state.</li>
+</ul>
+<img alt="../../../_images/8_ospf_DBD_exchange.png" src="../../../_images/8_ospf_DBD_exchange.png" />
+<ul class="last simple">
+<li>A DBD packet includes information about the LSA entry header that appears in the router’s LSDB. The entries can be about a link or about a network. Each LSA entry header includes information about the link-state type, the address of the advertising router, the link’s cost, and the sequence number. The router uses the sequence number to determine the newness of the received link-state information.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Loading State</dt>
+<dd><ul class="first last simple">
+<li>LSRs and LSUs are used to gain additional route information.</li>
+<li>Routes are processed using the SPF algorithm.</li>
+<li>Transition to the Full state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Full State</dt>
+<dd><ul class="first last simple">
+<li>Routers have converged</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">The normal state for an OSPF router is usually FULL. If a router is stuck in another state, it is an indication that there are problems in forming adjacencies. The only exception to this is the 2-WAY state, which is normal in a multiaccess broadcast network. In multiaccess networks, DROTHERs only form FULL adjacencies with the DR and BDR. However, DROTHERs will still form a 2-WAY neighbor adjacency with any DROTHERs that join the network.</p>
@@ -659,13 +723,11 @@ The router connected to the RIP process here</p>
 </div>
 <div class="section" id="router-id-order-of-precedence">
 <h2>Router ID order of precedence<a class="headerlink" href="#router-id-order-of-precedence" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Router ID configured?    →      Use that</dt>
-<dd>↓</dd>
-<dt>IPv4 loopback configured →  Use that</dt>
-<dd>↓</dd>
-</dl>
-<p>Use highest active IPv4 address</p>
+<p>Router ID configured?    →      Use that
+| ↓
+IPv4 loopback configured →  Use that
+| ↓
+Use highest active IPv4 address</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">the routing device configured with the highest priority is elected the DR. Assuming there is no priority configured, or there is a tie, then the router with the highest router ID is elected the DR. The routing device with the second highest router ID is elected the BDR.</p>
