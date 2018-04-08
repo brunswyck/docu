@@ -655,7 +655,7 @@ ospf show commands
 
 .. image:: ../../../_static/img/8_ospf_show_ip_protocols.png
 
-.. image:: ../../../_static/img/8_ospf_show_ip_int_brief.png
+.. image:: ../../../_static/img/8_ospf_show_ip_ospf_int_brief.png
 
 .. image:: ../../../_static/img/8_ospf_show_ip_route_ospf.png
 
