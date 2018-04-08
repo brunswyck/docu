@@ -13,4 +13,4 @@ scaling networks
    etherchannel_hsrp.rst
    dynamic_routing.rst
    eigrp.rst
-
+   ospf.rst

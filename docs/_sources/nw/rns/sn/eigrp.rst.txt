@@ -1830,6 +1830,391 @@ Reflection
 2. What are some advantages with using EIGRP as the routing protocol in your network?
 
 
+Summary Route Null0 IF
+----------------------
+
+A problem associated with automatic route summarization is that a summary address also advertises networks which are not available on the advertising router. For instance, R1 is advertising the summary address of 172.16.0.0/16 but it is really only connected to the 172.16.1.0/24, 172.16.2.0/24, and 172.16.3.0/30 subnets. Therefore, R1 may receive incoming packets to destinations that do not exist. This could be a problem if R1 had a default gateway configured, as it would in turn forward a request to a destination that does not exist.
+
+EIGRP avoids this problem by adding a network route for the classful network route to the routing table. This network entry routes packets to a Null interface. The Null0 interface, commonly known as "the bit bucket", is a virtual IOS interface that is a route to nowhere. Packets that match a route with a Null0 exit interface are discarded.
+
+
+Automatic summarization disabled
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   R3# show ip route eigrp 
+   
+    172.16.0.0/16 is variably subnetted, 3 subnets, 2 masks 
+   D 172.16.1.0/24 [90/2170112] via 192.168.10.5, 
+                   02:21:10, Serial0/0/0 
+   D 172.16.2.0/24 [90/3012096] via 192.168.10.9, 
+                   02:21:10, Serial0/0/1 
+   D 172.16.3.0/30 [90/41024000] via 192.168.10.9, 
+                   02:21:10, Serial0/0/1 
+                   [90/41024000] via 192.168.10.5, 
+                   02:21:10, Serial0/0/0 
+   R3#
+
+
+Automatic summarization enabled
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note:: it is recommended to disable the default of auto summary immediately
+
+image below is an example of R2 thinking it needs to do equal cost LB due to clasfull boundary summarization of 10.0.0.0/8 NWs on R1 and R3 who then advertize the summarized route to R2
+
+.. image:: ../../../_static/img/6_eigrp_autosumm_issue.png
+
+so to fix this you need to type router eigrp #as followed by ``Rx(router-config) no auto-summary``
+
+.. note:: null0 in the routing table shows auto summary is enabled
+
+.. image:: ../../../_static/img/6_eigrp_autosumm_issuefix.png
+
+.. code::
+
+   R1# show ip route 
+    
+     172.16.0.0/16 is variably subnetted, 6 subnets, 4 masks 
+   D  172.16.0.0/16 is a summary, 00:03:06, Null0 
+   C  172.16.1.0/24 is directly connected, GigabitEthernet0/0 
+   L  172.16.1.1/32 is directly connected, GigabitEthernet0/0 
+   D  172.16.2.0/24 [90/40512256] via 172.16.3.2, 00:02:52, Serial0/0/0 
+   C  172.16.3.0/30 is directly connected, Serial0/0/0 
+   L  172.16.3.1/32 is directly connected, Serial0/0/0 
+   D  192.168.1.0/24 [90/2170112] via 192.168.10.6, 00:02:51, Serial0/0/1 
+      192.168.10.0/24 is variably subnetted, 4 subnets, 3 masks 
+   D  192.168.10.0/24 is a summary, 00:02:52, Null0 
+   C  192.168.10.4/30 is directly connected, Serial0/0/1 
+   D  192.168.10.8/30 [90/3523840] via 192.168.10.6, 00:02:59, Serial0/0/1 
+   R1# 
+
+
+summary routes for 172.16.0.0/16 and 192.168.10.0/24 to Null0. If R1 receives a packet destined to a network that is advertised by the classful mask but does not exist, it will discard the packet and send a notification message back to the source.
+
+EIGRP for IPv4 automatically includes a Null0 summary route whenever the following conditions exist:
+ + Automatic summarization is enabled.
+
+ + There is at least one subnet that was learned via EIGRP.
+
+ + There are two or more network EIGRP router configuration mode commands.
+
+.. code::
+
+   R1# show ip route 
+    
+     172.16.0.0/16 is variably subnetted, 6 subnets, 4 masks 
+   D  172.16.0.0/16 is a summary, 00:03:06, Null0 
+   C  172.16.1.0/24 is directly connected, GigabitEthernet0/0 
+   L  172.16.1.1/32 is directly connected, GigabitEthernet0/0 
+   D  172.16.2.0/24 [90/40512256] via 172.16.3.2, 00:02:52, Serial0/0/0 
+   C  172.16.3.0/30 is directly connected, Serial0/0/0 
+   L  172.16.3.1/32 is directly connected, Serial0/0/0 
+   D  192.168.1.0/24 [90/2170112] via 192.168.10.6, 00:02:51, Serial0/0/1 
+      192.168.10.0/24 is variably subnetted, 4 subnets, 3 masks 
+   D  192.168.10.0/24 is a summary, 00:02:52, Null0 
+   C  192.168.10.4/30 is directly connected, Serial0/0/1 
+   D  192.168.10.8/30 [90/3523840] via 192.168.10.6, 00:02:59, Serial0/0/1 
+   R1# 
+
+
+Summarization Routing Loops
+---------------------------
+
+.. image:: ../../../_static/img/6_eigrp_routing_loop_summarization.png
+
+1. R1 has a default route, 0.0.0.0/0 via the ISP router.
+
+2. R1 sends a routing update to R2 containing the default route.
+
+3. R2 installs the default route from R1 in its IPv4 routing table.
+
+4. R2’s routing table contains the 172.16.1.0/24, 172.16.2.0/24, and 172.16.3.0/24 subnets in its routing table.
+
+5. R2 sends a summarized update to R1 for the 172.16.0.0/16 network.
+
+6. R1 installs the summarized route for 172.16.0.0/16 via R2.
+
+7. R1 receives a packet for 172.16.4.10. Because R1 has a route for 172.16.0.0/16 via R2, it forwards the packet to R2.
+
+8. R2 receives the packet with the destination address 172.16.4.10 from R1. The packet does not match any specific route so using the default route in its routing table R2 forwards the packet back to R1.
+
+9. The packet for 172.16.4.10 loops between R1 and R2 until the TTL expires and the packet is dropped.
+
+.. image:: ../../../_static/img/6_eigrp_null0_route_2_prevent_loop.png
+
+Even if R2 has a default route of 0.0.0.0/0 in its routing table, the Null0 route is a longer match.
+
+.. note:: The Null0 summary route is removed when autosummarization is disabled using the no auto-summary router configuration mode command.
+
+
+propagating a default route
+---------------------------
+
+.. image:: ../../../_static/img/6_eigrp_propagate_default_static.png
+
+.. code::
+
+   R2(config)# ip route 0.0.0.0 0.0.0.0 serial 0/1/0
+   R2(config)# router eigrp 1
+   R2(config-router)# redistribute static
+
+   verify with
+   R2# show ip protocols
+   Redistributing: static
+
+default routes ipv6
+-------------------
+
+.. image:: ../../../_static/img/6_eigrp_ipv6_defaults1.png
+
+.. code::
+
+   R2(config)# ipv6 route ::/0 serial 0/1/0
+   R2(config)# ipv6 router eigrp 2
+   R2(config-rtr)# redistribute static
+
+.. code::
+
+   R1# show ipv6 route
+   IPv6 Routing Table - default - 12 entries
+   Codes:  C - Connected, L - Local, S - Static,
+   	U - Per-user Static route
+   	B - BGP, R - RIP, I1 - ISIS L1, I2 - ISIS L2
+   	IA - ISIS interarea, IS - ISIS summary, D - EIGRP, EX - EIGRP external
+   	ND - ND Default, NDp - ND Prefix, DCE - Destination, NDr - Redirect
+   	O - OSPF Intra, OI - OSPF Inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+   	ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
+   EX ::/0 [170/3523840]
+   	via FE80::3, Serial0/0/1
+
+tuning bandwidth
+----------------
+
+Router(config-if)# ``ip bandwidth-percent eigrp as-number percent``
+Router(config-if)# ``ipv6 bandwidth-percent eigrp as-number percent``
+
+.. code::
+
+   R2(config)# interface serial 0/0/0        
+   R2(config-if)# ipv6 bandwidth-percent eigrp 2 40
+   R2(config-if)# 
+
+
+tuning hello n hold timers
+--------------------------
+
+default 1.544 Mbps = 60s hello 180s hold
+default greater    =  5s hello  15s hold
+
+.. code::
+
+   R1(config)# interface s0/0/0
+   R1(config-if)# ip hello-interval eigrp 1 50
+   R1(config-if)# ip hold-time eigrp 1 150
+   
+   R1(config)# inter serial 0/0/0
+   R1(config-if)# ipv6 hello-interval eigrp 2 50
+   R1(config-if)# ipv6 hold-time eigrp 2 150
+
+use the ``show ip eigrp interfaces detail`` command to view the hello interval and hold timer for EIGRP.
+
+R2# show ip eigrp interfaces detail
+
+
+load balancing
+--------------
+
+Cisco IOS, by default, allows load balancing using up to ``four equal-cost paths``; however, this can be modified. Using the maximum-paths router configuration mode command, ``up to 32 equal-cost routes can be kept in the routing table``
+
+
+Unequal-Cost Load Balancing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../../../_static/img/6_eigrp_variance_example.png
+
+.. note::  variance condition is met. However the link between R5 and R3 has an AD of 25 and that AD is bigger than the FS of 20 so this route cannot take part in the unequal cost load balancing!
+
+EIGRP for IPv4 and IPv6 can also balance traffic across multiple routes that have different metrics. This type of balancing is called unequal-cost load balancing.
+Setting a value using the ``variance`` command in router configuration mode enables EIGRP to install multiple loop-free routes with unequal cost in a local routing table.
+
+A route learned through EIGRP must meet two criteria to be installed in the local routing table:
+ The route must be loop-free, being either a feasible successor or having a reported distance that is less than the total distance.
+ The metric of the route must be lower than the metric of the best route (the successor) multiplied by the variance configured on the router.
+
+.. note:: if the variance is set to 1, only routes with the same metric as the successor are installed in the local routing table. If the variance is set to 2, any EIGRP-learned route with a metric less than 2 times the successor metric will be installed in the local routing table.
+
+.. note:: To control how trafﬁc is distributed among routes when there are multiple routes for the same destination network that have different costs, use the ``trafﬁc-share balanced`` command. Trafﬁc is then distributed proportionately to the ratio of the costs. 
+
+.. code::
+
+   R3(config-router)# maximum-paths 4
+
+   to see what maximum path is
+   R3# show ip protocols
+
+.. note:: maximum-paths 1 = LB is disabled
+
+.. note:: you will see 1 route with 2 via statements when load balancing in the routing table
+
+#. create a keychain
+   - group of possible keys
+#. Assign a key ID to each key (both sides need same combo)
+#. Configure a key string
+#. Optionally specify the duration the key is valid
+#. Enable MD5 authentication on the interface
+#. Specify what keychain the interface will use
+
+.. code::
+
+   R1(config)# key chain R1keychain
+   R1(config-keychain) key 1
+   both passphrase and key id will be hashed!
+   R1(config-keychain-key)# key-string password
+   R1(config-keychain-key)# interface S1/0
+   R1(config-if)# ip authentication mode eigrp 100 md5
+   R1(config-if)# ip authentication key-chain eigrp 100 R1keychain
+   repeat on R2 with same key 1 and passphrase password
+   
+   R1# show key chain
+   key-chain R1keychain:
+       key 1 -- text "password"
+           accept lifetime (always valid) - (always valid) [valid now] 
+           send lifetime (always valid) - (always valid) [valid now] 
+   
+
+
+exercise example for ipv4 No1
+-----------------------------
+
+.. image:: ../../../_static/img/6_eigrp_exercise_example_ipv4_1.png
+
++--------+--------------+---------------+-----------------+-----------------+
+| Device | Interface    | IP Address    | Subnet Mask     | Default Gateway |
++========+==============+===============+=================+=================+
+| R1     | G0/0         | 192.168.1.1   | 255.255.255.0   | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | S0/0/0 (DCE) | 192.168.12.1  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | S0/0/1       | 192.168.13.1  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo1          | 192.168.11.1  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo5          | 192.168.11.5  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo9          | 192.168.11.9  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo13         | 192.168.11.13 | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+| R2     | G0/0         | 192.168.2.1   | 255.255.255.0   | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | S0/0/0       | 192.168.12.2  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | S0/0/1 (DCE) | 192.168.23.1  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo1          | 192.168.22.1  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+| R3     | G0/0         | 192.168.3.1   | 255.255.255.0   | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | S0/0/0 (DCE) | 192.168.13.2  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | S0/0/1       | 192.168.23.2  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo1          | 192.168.33.1  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo5          | 192.168.33.5  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo9          | 192.168.33.9  | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+|        | Lo13         | 192.168.33.13 | 255.255.255.252 | N/A             |
++--------+--------------+---------------+-----------------+-----------------+
+| PC-A   | NIC          | 192.168.1.3   | 255.255.255.0   | 192.168.1.1     |
++--------+--------------+---------------+-----------------+-----------------+
+| PC-B   | NIC          | 192.168.2.3   | 255.255.255.0   | 192.168.2.1     |
++--------+--------------+---------------+-----------------+-----------------+
+| PC-C   | NIC          | 192.168.3.3   | 255.255.255.0   | 192.168.3.1     |
++--------+--------------+---------------+-----------------+-----------------+
+
+
+Objectives
+ 1. Build the Network and Configure Basic Device Settings
+ 2. Configure EIGRP and Verify Connectivity
+ 3. Configure EIGRP for Automatic Summarization
+ 4. Configure and Propagate a Default Static Route
+ 5. Fine-Tune EIGRP
+    + Configure bandwidth utilization for EIGRP 
+    + Configure the hello interval and hold timer for EIGRP
+
+.. note:: The bandwidth command only affect s the EIGRP metric calculation, not the actual bandwi dth of the serial link
+
+.. code::
+
+   Router R1
+   
+   R1(config)# router eigrp 1
+   R1(config-router)# network 192.168.1.0
+   R1(config-router)# network 192.168.12.0 0.0.0.3
+   R1(config-router)# network 192.168.13.0 0.0.0.3 
+   R1(config-router)# network 192.168.11.0 0.0.0.3 
+   R1(config-router)# network 192.168.11.4 0.0.0.3 
+   R1(config-router)# network 192.168.11.8 0.0.0.3 
+   R1(config-router)# network 192.168.11.12 0.0.0.3 
+   R1(config-router)# passive-interface g0/0
+   R1(config-router)# auto-summary
+   R1(config)# int s0/0/0
+   R1(config-if)# bandwidth 1024 
+   R1(config-if)# ip bandwidth-percent eigrp 1 75 
+   R1(config-if)# ip hello-interval eigrp 1 60
+   R1(config-if)# ip hold- time eigrp 1 180
+   R1(config-if)# int s0/0/1
+   R1(config-if)# bandwidth 64 
+   R1(config-if)# ip bandwidth-percent eigrp 1 40 
+   R1(config-if)# ip hello-interval eigrp 1 60
+   R1(config-if)# ip hold-time eigrp 1 180
+
+.. code:: 
+
+   Router R2
+   
+   R2(config)# router eigrp 1
+   R2(config-router)# network 192.168.2.0
+   R2(config-router)# network 192.168.12.0 0.0.0.3
+   R2(config-router)# network 192.168.23.0 0.0.0.3
+   R2(config-router)# passive-interface g0/0 
+   R2(config-router)# redistribute static
+   R2(config)# int s0/0/0
+   R2(config-if)# bandwidth 1024 
+   R2(config-if)# ip bandwidth-percent eigrp 1 75 
+   R2(config-if)# ip hello-interval eigrp 1 60
+   R2(config-if)# ip hold-time eigrp 1 180
+   R2(config-if)# int s0/0/1
+   R2(config-if)# ip hello-interval eigrp 1 60
+   R2(config-if)# ip hold-time eigrp 1 180
+
+.. code::
+
+   Router R3
+   
+   R3(config)# router eigrp 1
+   R3(config-router)# network 192.168.3.0
+   R3(config-router)# network 192.168.13.0 0.0.0.3
+   R3(config-router)# network 192.168.23.0 0.0.0.3 
+   R3(config-router)# network 192.168.33.0 0.0.0.3 
+   R3(config-router)# network 192.168.33.4 0.0.0.3 
+   R3(config-router)# network 192.168.33.8 0.0.0.3 
+   R3(config-router)# network 192.168.33.12 0.0.0.3
+   R3(config-router)# passive-interface g0/0 
+   R3(config-router)# auto-summary
+   R3(config)# int s0/0/0
+   R3(config-if)# bandwidth 64 
+   R3(config-if)# ip bandwidth-percent eigrp 1 40 
+   R3(config-if)# ip hello-interval eigrp 1 60
+   R3(config-if)# ip hold-time eigrp 1 180 
+   R3(config-if)# int s0/0/1
+   R3(config-if)# ip hello-interval eigrp 1 60
+   R3(config-if)# ip hold-time eigrp 1 180 
+
 
 
 Commands
@@ -1867,6 +2252,73 @@ Disable automatic summarizationThe topology contains discontiguous networks. The
    R# show ipv6 eigrp neighbors
    R# show ip eigrp topology 10.1.1.0 255.255.255.0 
    R# show ip route 10.1.1.0
+
+   R# show ip eigrp traffic
+
+   use the show ip eigrp interfaces detail command to view the hello interval and hold timer for EIGRP.
+
+   R2# show ip eigrp interfaces detail
+
+.. image:: ../../../_static/img/6_eigrp_troubleshooting.png
+
+Some issues that may cause a connectivity problem for EIGRP include:
+ Proper networks are not being advertised on remote routers.
+ An incorrectly-configured passive interface, or an ACL, is blocking advertisements of remote networks.
+ Automatic summarization is causing inconsistent routing in a discontiguous network.
+
+default router config example
+-----------------------------
+
+.. code::
+
+conf t
+service password-encryption
+hostname R1 
+enable secret class
+no ip domain lookup
+ipv6 unicast-routing
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:A::1/64
+ ipv6 eigrp 1
+ no shutdown
+interface Serial0/0/0
+ bandwidth 128
+ ip address 192.168.21.1 255.255.255.252
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:12::1/64
+ ipv6 eigrp 1
+ clock rate 128000
+ no shutdown
+interface Serial0/0/1
+ ip address 192.168.13.1 255.255.255.252
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:ACAD:31::1/64
+ ipv6 eigrp 1
+ no shutdown
+router eigrp 1
+ network 192.168.1.0
+ network 192.168.12.0 0.0.0.3
+ network 192.168.13.0 0.0.0.3
+ passive-interface GigabitEthernet0/0
+ eigrp router-id 1.1.1.1
+ipv6 router eigrp 1
+ passive-interface GigabitEthernet0/0  
+ no shutdown
+banner motd @
+ Unauthorized Access is Prohibited! @
+line con 0
+ password cisco
+ login
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+ transport input all
+end
 
 
 Quiz

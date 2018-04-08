@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="debian &amp; networking 20171017 documentation" href="../../../index.html"/>
         <link rel="up" title="scaling networks" href="inhoud.html"/>
-        <link rel="next" title="VIM" href="../../../vim.html"/>
+        <link rel="next" title="OSPF" href="ospf.html"/>
         <link rel="prev" title="Dynamic Routing" href="dynamic_routing.html"/>
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
@@ -139,10 +139,20 @@
 <li class="toctree-l4"><a class="reference internal" href="#ipv6-nb-table">IPv6 NB Table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#eigrp-ipv6-routing-table">EIGRP IPv6 Routing Table</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#eigrp-for-ipv6-lab-demo">EIGRP for IPv6 lab demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-route-null0-if">Summary Route Null0 IF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summarization-routing-loops">Summarization Routing Loops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#propagating-a-default-route">propagating a default route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-routes-ipv6">default routes ipv6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tuning-bandwidth">tuning bandwidth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tuning-hello-n-hold-timers">tuning hello n hold timers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-balancing">load balancing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exercise-example-for-ipv4-no1">exercise example for ipv4 No1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-router-config-example">default router config example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#quiz">Quiz</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ospf.html">OSPF</a></li>
 </ul>
 </li>
 </ul>
@@ -2091,6 +2101,465 @@ What address is used to indicate the neighbor in the adjacency messages?
 </ol>
 </div>
 </div>
+<div class="section" id="summary-route-null0-if">
+<h2>Summary Route Null0 IF<a class="headerlink" href="#summary-route-null0-if" title="Permalink to this headline">¶</a></h2>
+<p>A problem associated with automatic route summarization is that a summary address also advertises networks which are not available on the advertising router. For instance, R1 is advertising the summary address of 172.16.0.0/16 but it is really only connected to the 172.16.1.0/24, 172.16.2.0/24, and 172.16.3.0/30 subnets. Therefore, R1 may receive incoming packets to destinations that do not exist. This could be a problem if R1 had a default gateway configured, as it would in turn forward a request to a destination that does not exist.</p>
+<p>EIGRP avoids this problem by adding a network route for the classful network route to the routing table. This network entry routes packets to a Null interface. The Null0 interface, commonly known as “the bit bucket”, is a virtual IOS interface that is a route to nowhere. Packets that match a route with a Null0 exit interface are discarded.</p>
+<div class="section" id="automatic-summarization-disabled">
+<h3>Automatic summarization disabled<a class="headerlink" href="#automatic-summarization-disabled" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ip route eigrp</span>
+
+ <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">3</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">2</span> <span class="n">masks</span>
+<span class="n">D</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.5</span><span class="p">,</span>
+                <span class="mi">02</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">D</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">2.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">3012096</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.9</span><span class="p">,</span>
+                <span class="mi">02</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">D</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">30</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">41024000</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.9</span><span class="p">,</span>
+                <span class="mi">02</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+                <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">41024000</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.5</span><span class="p">,</span>
+                <span class="mi">02</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">R3</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="automatic-summarization-enabled">
+<h3>Automatic summarization enabled<a class="headerlink" href="#automatic-summarization-enabled" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">it is recommended to disable the default of auto summary immediately</p>
+</div>
+<p>image below is an example of R2 thinking it needs to do equal cost LB due to clasfull boundary summarization of 10.0.0.0/8 NWs on R1 and R3 who then advertize the summarized route to R2</p>
+<img alt="../../../_images/6_eigrp_autosumm_issue.png" src="../../../_images/6_eigrp_autosumm_issue.png" />
+<p>so to fix this you need to type router eigrp #as followed by <code class="docutils literal notranslate"><span class="pre">Rx(router-config)</span> <span class="pre">no</span> <span class="pre">auto-summary</span></code></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">null0 in the routing table shows auto summary is enabled</p>
+</div>
+<img alt="../../../_images/6_eigrp_autosumm_issuefix.png" src="../../../_images/6_eigrp_autosumm_issuefix.png" />
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
+
+  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">6</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">4</span> <span class="n">masks</span>
+<span class="n">D</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">summary</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">06</span><span class="p">,</span> <span class="n">Null0</span>
+<span class="n">C</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">L</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">D</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">2.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">40512256</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.2</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">52</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">C</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">30</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">L</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">D</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+   <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">4</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">3</span> <span class="n">masks</span>
+<span class="n">D</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">summary</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">52</span><span class="p">,</span> <span class="n">Null0</span>
+<span class="n">C</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.4</span><span class="o">/</span><span class="mi">30</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">D</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.8</span><span class="o">/</span><span class="mi">30</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">3523840</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">59</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">R1</span><span class="c1">#</span>
+</pre></div>
+</div>
+<p>summary routes for 172.16.0.0/16 and 192.168.10.0/24 to Null0. If R1 receives a packet destined to a network that is advertised by the classful mask but does not exist, it will discard the packet and send a notification message back to the source.</p>
+<dl class="docutils">
+<dt>EIGRP for IPv4 automatically includes a Null0 summary route whenever the following conditions exist:</dt>
+<dd><ul class="first last simple">
+<li>Automatic summarization is enabled.</li>
+<li>There is at least one subnet that was learned via EIGRP.</li>
+<li>There are two or more network EIGRP router configuration mode commands.</li>
+</ul>
+</dd>
+</dl>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
+
+  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">6</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">4</span> <span class="n">masks</span>
+<span class="n">D</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">summary</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">06</span><span class="p">,</span> <span class="n">Null0</span>
+<span class="n">C</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">L</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">D</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">2.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">40512256</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.2</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">52</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">C</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">30</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">L</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.1</span><span class="o">/</span><span class="mi">32</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">D</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+   <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">4</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">3</span> <span class="n">masks</span>
+<span class="n">D</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">summary</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">52</span><span class="p">,</span> <span class="n">Null0</span>
+<span class="n">C</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.4</span><span class="o">/</span><span class="mi">30</span> <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">D</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.8</span><span class="o">/</span><span class="mi">30</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">3523840</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">59</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">R1</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="summarization-routing-loops">
+<h2>Summarization Routing Loops<a class="headerlink" href="#summarization-routing-loops" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/6_eigrp_routing_loop_summarization.png" src="../../../_images/6_eigrp_routing_loop_summarization.png" />
+<ol class="arabic simple">
+<li>R1 has a default route, 0.0.0.0/0 via the ISP router.</li>
+<li>R1 sends a routing update to R2 containing the default route.</li>
+<li>R2 installs the default route from R1 in its IPv4 routing table.</li>
+<li>R2’s routing table contains the 172.16.1.0/24, 172.16.2.0/24, and 172.16.3.0/24 subnets in its routing table.</li>
+<li>R2 sends a summarized update to R1 for the 172.16.0.0/16 network.</li>
+<li>R1 installs the summarized route for 172.16.0.0/16 via R2.</li>
+<li>R1 receives a packet for 172.16.4.10. Because R1 has a route for 172.16.0.0/16 via R2, it forwards the packet to R2.</li>
+<li>R2 receives the packet with the destination address 172.16.4.10 from R1. The packet does not match any specific route so using the default route in its routing table R2 forwards the packet back to R1.</li>
+<li>The packet for 172.16.4.10 loops between R1 and R2 until the TTL expires and the packet is dropped.</li>
+</ol>
+<img alt="../../../_images/6_eigrp_null0_route_2_prevent_loop.png" src="../../../_images/6_eigrp_null0_route_2_prevent_loop.png" />
+<p>Even if R2 has a default route of 0.0.0.0/0 in its routing table, the Null0 route is a longer match.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Null0 summary route is removed when autosummarization is disabled using the no auto-summary router configuration mode command.</p>
+</div>
+</div>
+<div class="section" id="propagating-a-default-route">
+<h2>propagating a default route<a class="headerlink" href="#propagating-a-default-route" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/6_eigrp_propagate_default_static.png" src="../../../_images/6_eigrp_propagate_default_static.png" />
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 serial 0/1/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># redistribute static</span>
+
+<span class="n">verify</span> <span class="k">with</span>
+<span class="n">R2</span><span class="c1"># show ip protocols</span>
+<span class="n">Redistributing</span><span class="p">:</span> <span class="n">static</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="default-routes-ipv6">
+<h2>default routes ipv6<a class="headerlink" href="#default-routes-ipv6" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/6_eigrp_ipv6_defaults1.png" src="../../../_images/6_eigrp_ipv6_defaults1.png" />
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 serial 0/1/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 2</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># redistribute static</span>
+</pre></div>
+</div>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route</span>
+<span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Table</span> <span class="o">-</span> <span class="n">default</span> <span class="o">-</span> <span class="mi">12</span> <span class="n">entries</span>
+<span class="n">Codes</span><span class="p">:</span>  <span class="n">C</span> <span class="o">-</span> <span class="n">Connected</span><span class="p">,</span> <span class="n">L</span> <span class="o">-</span> <span class="n">Local</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">Static</span><span class="p">,</span>
+     <span class="n">U</span> <span class="o">-</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">Static</span> <span class="n">route</span>
+     <span class="n">B</span> <span class="o">-</span> <span class="n">BGP</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">RIP</span><span class="p">,</span> <span class="n">I1</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L1</span><span class="p">,</span> <span class="n">I2</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L2</span>
+     <span class="n">IA</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">interarea</span><span class="p">,</span> <span class="n">IS</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">summary</span><span class="p">,</span> <span class="n">D</span> <span class="o">-</span> <span class="n">EIGRP</span><span class="p">,</span> <span class="n">EX</span> <span class="o">-</span> <span class="n">EIGRP</span> <span class="n">external</span>
+     <span class="n">ND</span> <span class="o">-</span> <span class="n">ND</span> <span class="n">Default</span><span class="p">,</span> <span class="n">NDp</span> <span class="o">-</span> <span class="n">ND</span> <span class="n">Prefix</span><span class="p">,</span> <span class="n">DCE</span> <span class="o">-</span> <span class="n">Destination</span><span class="p">,</span> <span class="n">NDr</span> <span class="o">-</span> <span class="n">Redirect</span>
+     <span class="n">O</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">Intra</span><span class="p">,</span> <span class="n">OI</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">Inter</span><span class="p">,</span> <span class="n">OE1</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">ext</span> <span class="mi">1</span><span class="p">,</span> <span class="n">OE2</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">ext</span> <span class="mi">2</span>
+     <span class="n">ON1</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">ext</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ON2</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">ext</span> <span class="mi">2</span>
+<span class="n">EX</span> <span class="p">::</span><span class="o">/</span><span class="mi">0</span> <span class="p">[</span><span class="mi">170</span><span class="o">/</span><span class="mi">3523840</span><span class="p">]</span>
+     <span class="n">via</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tuning-bandwidth">
+<h2>tuning bandwidth<a class="headerlink" href="#tuning-bandwidth" title="Permalink to this headline">¶</a></h2>
+<p>Router(config-if)# <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">bandwidth-percent</span> <span class="pre">eigrp</span> <span class="pre">as-number</span> <span class="pre">percent</span></code>
+Router(config-if)# <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">bandwidth-percent</span> <span class="pre">eigrp</span> <span class="pre">as-number</span> <span class="pre">percent</span></code></p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial 0/0/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 bandwidth-percent eigrp 2 40</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tuning-hello-n-hold-timers">
+<h2>tuning hello n hold timers<a class="headerlink" href="#tuning-hello-n-hold-timers" title="Permalink to this headline">¶</a></h2>
+<p>default 1.544 Mbps = 60s hello 180s hold
+default greater    =  5s hello  15s hold</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s0/0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 50</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 150</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># inter serial 0/0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 hello-interval eigrp 2 50</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 hold-time eigrp 2 150</span>
+</pre></div>
+</div>
+<p>use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">eigrp</span> <span class="pre">interfaces</span> <span class="pre">detail</span></code> command to view the hello interval and hold timer for EIGRP.</p>
+<p>R2# show ip eigrp interfaces detail</p>
+</div>
+<div class="section" id="load-balancing">
+<h2>load balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline">¶</a></h2>
+<p>Cisco IOS, by default, allows load balancing using up to <code class="docutils literal notranslate"><span class="pre">four</span> <span class="pre">equal-cost</span> <span class="pre">paths</span></code>; however, this can be modified. Using the maximum-paths router configuration mode command, <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">to</span> <span class="pre">32</span> <span class="pre">equal-cost</span> <span class="pre">routes</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">kept</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">routing</span> <span class="pre">table</span></code></p>
+<div class="section" id="unequal-cost-load-balancing">
+<h3>Unequal-Cost Load Balancing<a class="headerlink" href="#unequal-cost-load-balancing" title="Permalink to this headline">¶</a></h3>
+<img alt="../../../_images/6_eigrp_variance_example.png" src="../../../_images/6_eigrp_variance_example.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">variance condition is met. However the link between R5 and R3 has an AD of 25 and that AD is bigger than the FS of 20 so this route cannot take part in the unequal cost load balancing!</p>
+</div>
+<p>EIGRP for IPv4 and IPv6 can also balance traffic across multiple routes that have different metrics. This type of balancing is called unequal-cost load balancing.
+Setting a value using the <code class="docutils literal notranslate"><span class="pre">variance</span></code> command in router configuration mode enables EIGRP to install multiple loop-free routes with unequal cost in a local routing table.</p>
+<dl class="docutils">
+<dt>A route learned through EIGRP must meet two criteria to be installed in the local routing table:</dt>
+<dd>The route must be loop-free, being either a feasible successor or having a reported distance that is less than the total distance.
+The metric of the route must be lower than the metric of the best route (the successor) multiplied by the variance configured on the router.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">if the variance is set to 1, only routes with the same metric as the successor are installed in the local routing table. If the variance is set to 2, any EIGRP-learned route with a metric less than 2 times the successor metric will be installed in the local routing table.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To control how trafﬁc is distributed among routes when there are multiple routes for the same destination network that have different costs, use the <code class="docutils literal notranslate"><span class="pre">trafﬁc-share</span> <span class="pre">balanced</span></code> command. Trafﬁc is then distributed proportionately to the ratio of the costs.</p>
+</div>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># maximum-paths 4</span>
+
+<span class="n">to</span> <span class="n">see</span> <span class="n">what</span> <span class="n">maximum</span> <span class="n">path</span> <span class="ow">is</span>
+<span class="n">R3</span><span class="c1"># show ip protocols</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">maximum-paths 1 = LB is disabled</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">you will see 1 route with 2 via statements when load balancing in the routing table</p>
+</div>
+<ol class="arabic simple">
+<li>create a keychain
+- group of possible keys</li>
+<li>Assign a key ID to each key (both sides need same combo)</li>
+<li>Configure a key string</li>
+<li>Optionally specify the duration the key is valid</li>
+<li>Enable MD5 authentication on the interface</li>
+<li>Specify what keychain the interface will use</li>
+</ol>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config)# key chain R1keychain
+R1(config-keychain) key 1
+both passphrase and key id will be hashed!
+R1(config-keychain-key)# key-string password
+R1(config-keychain-key)# interface S1/0
+R1(config-if)# ip authentication mode eigrp 100 md5
+R1(config-if)# ip authentication key-chain eigrp 100 R1keychain
+repeat on R2 with same key 1 and passphrase password
+
+R1# show key chain
+key-chain R1keychain:
+    key 1 -- text &quot;password&quot;
+        accept lifetime (always valid) - (always valid) [valid now]
+        send lifetime (always valid) - (always valid) [valid now]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="exercise-example-for-ipv4-no1">
+<h2>exercise example for ipv4 No1<a class="headerlink" href="#exercise-example-for-ipv4-no1" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/6_eigrp_exercise_example_ipv4_1.png" src="../../../_images/6_eigrp_exercise_example_ipv4_1.png" />
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="20%" />
+<col width="21%" />
+<col width="24%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Device</th>
+<th class="head">Interface</th>
+<th class="head">IP Address</th>
+<th class="head">Subnet Mask</th>
+<th class="head">Default Gateway</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>R1</td>
+<td>G0/0</td>
+<td>192.168.1.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/0 (DCE)</td>
+<td>192.168.12.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>192.168.13.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo1</td>
+<td>192.168.11.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Lo5</td>
+<td>192.168.11.5</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo9</td>
+<td>192.168.11.9</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Lo13</td>
+<td>192.168.11.13</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>R2</td>
+<td>G0/0</td>
+<td>192.168.2.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0</td>
+<td>192.168.12.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1 (DCE)</td>
+<td>192.168.23.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Lo1</td>
+<td>192.168.22.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>R3</td>
+<td>G0/0</td>
+<td>192.168.3.1</td>
+<td>255.255.255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>S0/0/0 (DCE)</td>
+<td>192.168.13.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>S0/0/1</td>
+<td>192.168.23.2</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Lo1</td>
+<td>192.168.33.1</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo5</td>
+<td>192.168.33.5</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>Lo9</td>
+<td>192.168.33.9</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>Lo13</td>
+<td>192.168.33.13</td>
+<td>255.255.255.252</td>
+<td>N/A</td>
+</tr>
+<tr class="row-even"><td>PC-A</td>
+<td>NIC</td>
+<td>192.168.1.3</td>
+<td>255.255.255.0</td>
+<td>192.168.1.1</td>
+</tr>
+<tr class="row-odd"><td>PC-B</td>
+<td>NIC</td>
+<td>192.168.2.3</td>
+<td>255.255.255.0</td>
+<td>192.168.2.1</td>
+</tr>
+<tr class="row-even"><td>PC-C</td>
+<td>NIC</td>
+<td>192.168.3.3</td>
+<td>255.255.255.0</td>
+<td>192.168.3.1</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Objectives</dt>
+<dd><ol class="first last arabic simple">
+<li>Build the Network and Configure Basic Device Settings</li>
+<li>Configure EIGRP and Verify Connectivity</li>
+<li>Configure EIGRP for Automatic Summarization</li>
+<li>Configure and Propagate a Default Static Route</li>
+<li>Fine-Tune EIGRP
++ Configure bandwidth utilization for EIGRP
++ Configure the hello interval and hold timer for EIGRP</li>
+</ol>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The bandwidth command only affect s the EIGRP metric calculation, not the actual bandwi dth of the serial link</p>
+</div>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R1</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.1.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.12.0 0.0.0.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.13.0 0.0.0.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.11.0 0.0.0.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.11.4 0.0.0.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.11.8 0.0.0.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.11.12 0.0.0.3</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># auto-summary</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int s0/0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># bandwidth 1024</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip bandwidth-percent eigrp 1 75</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 60</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold- time eigrp 1 180</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># int s0/0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># bandwidth 64</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip bandwidth-percent eigrp 1 40</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 60</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
+</pre></div>
+</div>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R2</span>
+
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.2.0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.12.0 0.0.0.3</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.23.0 0.0.0.3</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># redistribute static</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int s0/0/0</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># bandwidth 1024</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip bandwidth-percent eigrp 1 75</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 60</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># int s0/0/1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 60</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
+</pre></div>
+</div>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R3</span>
+
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.3.0</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.13.0 0.0.0.3</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.23.0 0.0.0.3</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.33.0 0.0.0.3</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.33.4 0.0.0.3</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.33.8 0.0.0.3</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.33.12 0.0.0.3</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># auto-summary</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int s0/0/0</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># bandwidth 64</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip bandwidth-percent eigrp 1 40</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 60</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># int s0/0/1</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 60</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
 <p>show ip eigrp topology</p>
@@ -2126,8 +2595,75 @@ What address is used to indicate the neighbor in the adjacency messages?
 <span class="n">R</span><span class="c1"># show ipv6 eigrp neighbors</span>
 <span class="n">R</span><span class="c1"># show ip eigrp topology 10.1.1.0 255.255.255.0</span>
 <span class="n">R</span><span class="c1"># show ip route 10.1.1.0</span>
+
+<span class="n">R</span><span class="c1"># show ip eigrp traffic</span>
+
+<span class="n">use</span> <span class="n">the</span> <span class="n">show</span> <span class="n">ip</span> <span class="n">eigrp</span> <span class="n">interfaces</span> <span class="n">detail</span> <span class="n">command</span> <span class="n">to</span> <span class="n">view</span> <span class="n">the</span> <span class="n">hello</span> <span class="n">interval</span> <span class="ow">and</span> <span class="n">hold</span> <span class="n">timer</span> <span class="k">for</span> <span class="n">EIGRP</span><span class="o">.</span>
+
+<span class="n">R2</span><span class="c1"># show ip eigrp interfaces detail</span>
 </pre></div>
 </div>
+<img alt="../../../_images/6_eigrp_troubleshooting.png" src="../../../_images/6_eigrp_troubleshooting.png" />
+<dl class="docutils">
+<dt>Some issues that may cause a connectivity problem for EIGRP include:</dt>
+<dd>Proper networks are not being advertised on remote routers.
+An incorrectly-configured passive interface, or an ACL, is blocking advertisements of remote networks.
+Automatic summarization is causing inconsistent routing in a discontiguous network.</dd>
+</dl>
+</div>
+<div class="section" id="default-router-config-example">
+<h2>default router config example<a class="headerlink" href="#default-router-config-example" title="Permalink to this headline">¶</a></h2>
+<p>conf t
+service password-encryption
+hostname R1
+enable secret class
+no ip domain lookup
+ipv6 unicast-routing
+interface GigabitEthernet0/0</p>
+<blockquote>
+<div>ip address 192.168.1.1 255.255.255.0
+duplex auto
+speed auto
+ipv6 address FE80::1 link-local
+ipv6 address 2001:DB8:ACAD:A::1/64
+ipv6 eigrp 1
+no shutdown</div></blockquote>
+<dl class="docutils">
+<dt>interface Serial0/0/0</dt>
+<dd>bandwidth 128
+ip address 192.168.21.1 255.255.255.252
+ipv6 address FE80::1 link-local
+ipv6 address 2001:DB8:ACAD:12::1/64
+ipv6 eigrp 1
+clock rate 128000
+no shutdown</dd>
+<dt>interface Serial0/0/1</dt>
+<dd>ip address 192.168.13.1 255.255.255.252
+ipv6 address FE80::1 link-local
+ipv6 address 2001:DB8:ACAD:31::1/64
+ipv6 eigrp 1
+no shutdown</dd>
+<dt>router eigrp 1</dt>
+<dd>network 192.168.1.0
+network 192.168.12.0 0.0.0.3
+network 192.168.13.0 0.0.0.3
+passive-interface GigabitEthernet0/0
+eigrp router-id 1.1.1.1</dd>
+<dt>ipv6 router eigrp 1</dt>
+<dd>passive-interface GigabitEthernet0/0
+no shutdown</dd>
+<dt>banner motd &#64;</dt>
+<dd>Unauthorized Access is Prohibited! &#64;</dd>
+<dt>line con 0</dt>
+<dd>password cisco
+login
+logging synchronous</dd>
+<dt>line vty 0 4</dt>
+<dd>password cisco
+login
+transport input all</dd>
+</dl>
+<p>end</p>
 </div>
 <div class="section" id="quiz">
 <h2>Quiz<a class="headerlink" href="#quiz" title="Permalink to this headline">¶</a></h2>
@@ -2294,7 +2830,7 @@ What address is used to indicate the neighbor in the adjacency messages?
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../../vim.html" class="btn btn-neutral float-right" title="VIM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ospf.html" class="btn btn-neutral float-right" title="OSPF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="dynamic_routing.html" class="btn btn-neutral" title="Dynamic Routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
