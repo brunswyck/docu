@@ -114,7 +114,85 @@ To manipulate the root-bridge election, assign a lower priority to the switch th
 RSTP
 ----
 
+.. image:: ../../../_static/img/3_stp_rstp_overview.png
+
+.. image:: ../../../_static/img/3_stp_rstp_overview.png
+
+
+RSTP Version 2 BPDU
+^^^^^^^^^^^^^^^^^^^
+
++--------------------------+-------------+
+| Field                    | Byte Length |
++==========================+=============+
+| Protocol ID=0x0000       | 2           |
++--------------------------+-------------+
+| Protocol Version ID=0x02 | 1           |
++--------------------------+-------------+
+| BPDU Type=0X02           | 1           |
++--------------------------+-------------+
+| Flags                    | 1           |
++--------------------------+-------------+
+| Root ID                  | 8           |
++--------------------------+-------------+
+| Root Path Cost           | 4           |
++--------------------------+-------------+
+| Bridge ID                | 8           |
++--------------------------+-------------+
+| Port ID                  | 2           |
++--------------------------+-------------+
+| Message Age              | 2           |
++--------------------------+-------------+
+| Max Age                  | 2           |
++--------------------------+-------------+
+| Hello Time               | 2           |
++--------------------------+-------------+
+| Forward Delay            | 2           |
++--------------------------+-------------+
+
+FLAG field
+^^^^^^^^^^
+
++--------------------------------+-----+
+| Field Bit                      | Bit |
++================================+=====+
+| Topology Change                | 0   |
++--------------------------------+-----+
+| Proposal                       | 1   |
++--------------------------------+-----+
+|                                |     |
++--------------------------------+-----+
+| Port Roles                     | 2-3 |
++--------------------------------+-----+
+| Unknown Port                   | 00  |
++--------------------------------+-----+
+| Alternate or Backup Port       | 01  |
++--------------------------------+-----+
+| Root Port                      | 10  |
++--------------------------------+-----+
+| Designated Port                | 11  |
++--------------------------------+-----+
+|                                |     |
++--------------------------------+-----+
+|                                |     |
+| Learning                       | 4   |
++--------------------------------+-----+
+| Forwarding                     | 5   |
++--------------------------------+-----+
+| Agreement                      | 6   |
++--------------------------------+-----+
+| Topology Change Acknowledgment | 7   |
++--------------------------------+-----+
+	
+
+- Bits 0 and 7 are used for topology change and acknowledgment. They are in the original 802.1D.
+- Bits 1 and 6 are used for the Proposal Agreement process (used for rapid convergence).
+- Bits 2 to 5 encode the role and state of the port.
+- Bits 4 and 5 are used to encode the port role using a 2-bit code.
+
+
 RSTP keeps the same BPDU format as the original IEEE 802.1D, except that the version field is set to 2 to indicate RSTP and the flags field uses all 8 bits.  
+
 .. note:: RSTP is able to actively confirm that a port can safely transition to the forwarding state without having to rely on a timer configuration.
 
 
@@ -128,6 +206,23 @@ An RSTP edge port is a switch port that is never intended to be connected to ano
 The RSTP edge port concept corresponds to the PVST+ PortFast feature. An edge port is directly connected to an end station and assumes that no switch device is connected to it. RSTP edge ports should immediately transition to the forwarding state, thereby skipping the time-consuming original 802.1D listening and learning port states.
 
 The Cisco RSTP implementation (Rapid PVST+) maintains the PortFast keyword, using the spanning-tree portfast command for edge port configuration. This makes the transition from STP to RSTP seamless.
+
+Port States
+-----------
+
++---------------------------------------------------------+----------+-----------+----------+------------+----------+
+| Operation Allowed                                       | Blocking | Listening | Learning | Forwarding | Disabled |
++=========================================================+==========+===========+==========+============+==========+
+| Can receive and process BPDUs                           | YES      | YES       | YES      | YES        | NO       |
++---------------------------------------------------------+----------+-----------+----------+------------+----------+
+| Can forward data frames received on interface           | NO       | NO        | NO       | YES        | NO       |
++---------------------------------------------------------+----------+-----------+----------+------------+----------+
+| Can forward data frames switched from another interface | NO       | NO        | NO       | YES        | NO       |
++---------------------------------------------------------+----------+-----------+----------+------------+----------+
+| Can learn MAC addresses                                 | NO       | NO        | YES      | YES        | NO       |
++---------------------------------------------------------+----------+-----------+----------+------------+----------+
+	
+	
 
 BPDU headers
 ============
@@ -252,6 +347,46 @@ Bridge Protocol Data Unit fields
  12. Forward Delay:    2 bytes in 1/256 secs
  13. Version 1 Length: 1 byte (0x00 no ver 1 protocol info present. RST, MST, SPT BPDU only)
  14. Version 3 Length: 2 bytes (MST, SPT BPDU only)
+
+Default Switch Configuration
+============================
+
++---------------------------------------------------------------------+--------------------------------------------+
+| Feature                                                             | Default Setting                            |
++=====================================================================+============================================+
+| Enable state                                                        | Enabled on VLAN 1                          |
++---------------------------------------------------------------------+--------------------------------------------+
+| Spanning-tree mode                                                  | PVST+ (Rapid PVST+ and MSTP are disabled.) |
++---------------------------------------------------------------------+--------------------------------------------+
+| Switch priority                                                     | 32768                                      |
++---------------------------------------------------------------------+--------------------------------------------+
+| Spanning-tree port priority (configurable on a per-interface basis) | 128                                        |
++---------------------------------------------------------------------+--------------------------------------------+
+| Spanning-tree port cost                                             | 1000 Mb/s: 4                               |
+|                                                                     | 100 Mb/s: 19                               |
+| (configurable on a per-interface basis)                             | 10 Mb/s: 100                               |
++---------------------------------------------------------------------+--------------------------------------------+
+| Spanning-tree VLAN port priority (configurable on a per-VLAN basis) | 128                                        |
++---------------------------------------------------------------------+--------------------------------------------+
+| Spanning-tree VLAN port cost                                        | 1000 Mb/s: 4                               |
+|                                                                     | 100 Mb/s: 19                               |
+| (configurable on a per-VLAN basis)                                  | 10 Mb/s: 100                               |
++---------------------------------------------------------------------+--------------------------------------------+
+| Spanning-tree timers                                                | Hello time: 2 seconds                      |
+|                                                                     | Forward-delay time: 15 seconds             |
+|                                                                     | Maximum-aging time: 20 seconds             |
+|                                                                     | Transmit hold count: 6 BPDUs               |
++---------------------------------------------------------------------+--------------------------------------------+
+	
+	
+Configuring Bridge ID
+=====================
+
+
+.. image:: ../../../_static/img/3_stp_configuring_bid1.png
+
+.. image:: ../../../_static/img/3_stp_configuring_bid2.png
+	
 
 Portfast n BPDU guard
 ======================
@@ -438,7 +573,7 @@ A switch stack can consist of up to nine Catalyst 3750 switches connected throug
    !
    interface GigabitEthernet2/0/2
    !
-   &lt;output omitted&gt;
+   ...
    !
    interface GigabitEthernet2/0/52
    !
@@ -454,7 +589,7 @@ A switch stack can consist of up to nine Catalyst 3750 switches connected throug
    !
    interface GigabitEthernet4/0/2
    !
-   output omitted
+   ...
    !
    interface GigabitEthernet4/0/52
    !
@@ -462,8 +597,11 @@ A switch stack can consist of up to nine Catalyst 3750 switches connected throug
 
 Switch stacks help to maintain or reduce the impact of diameter on STP reconvergence. In a switch stack, all switches use the same bridge ID for a given spanning-tree instance.
 
-diameter:
-ability to add more switches to a single STP instance without increasing the STP diameter. The diameter is the maximum number of switches that data must cross to connect any two switches. The IEEE recommends a maximum diameter of seven switches for the default STP timers. For example, in Figure 1 the diameter from S1-4 to S3-4 is nine switches. This design violates the IEEE recommendation.
+diameter
+--------
+The ability to add more switches to a single STP instance without increasing the STP diameter. The diameter is the maximum number of switches that data must cross to connect any two switches. 
+
+.. note:: The IEEE recommends a maximum diameter of seven switches for the default STP timers. For example, in Figure 1 the diameter from S1-4 to S3-4 is nine switches. This design violates the IEEE recommendation.
 
 - Hello Timer (2 seconds)
    The interval between BPDU updates.
