@@ -25,20 +25,12 @@
   
 
   
-  
     <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="debian &amp; networking 20171017 documentation" href="../../../index.html"/>
-        <link rel="up" title="scaling networks" href="inhoud.html"/>
-        <link rel="next" title="OSPF" href="ospf.html"/>
-        <link rel="prev" title="Dynamic Routing" href="dynamic_routing.html"/>
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="OSPF" href="ospf.html" />
+    <link rel="prev" title="Dynamic Routing" href="dynamic_routing.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
 
@@ -47,7 +39,7 @@
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -100,7 +92,17 @@
 <li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">scaling networks</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="lan_design.html">LAN design</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html">STP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html">Best Paths to Root Bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#protocols">PROTOCOLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#bpdu-headers">BPDU headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#default-switch-configuration">Default Switch Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#configuring-bridge-id">Configuring Bridge ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#portfast-n-bpdu-guard">Portfast n BPDU guard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#pvst-load-balancing">PVST+ Load Balancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#spanning-tree-mode">Spanning Tree Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#analyze-stp">ANALYZE STP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#stp-troubleshooting">STP troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html#switch-stacks">Switch stacks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="etherchannel_hsrp.html">Etherchannel - HSRP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dynamic_routing.html">Dynamic Routing</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">EIGRP</a><ul>
@@ -175,7 +177,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">debian & networking</a>
@@ -183,9 +185,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -2821,9 +2824,7 @@ end
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -2845,7 +2846,7 @@ end
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -2864,6 +2865,7 @@ end
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
             VERSION:'20171017',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -2881,14 +2883,13 @@ end
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
