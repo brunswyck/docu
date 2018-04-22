@@ -7,8 +7,11 @@
     ^, for subsubsections
     “, for paragraphs
 
+Spanning Tree Protocol
+======================
+
 Best Paths to Root Bridge
-=========================
+-------------------------
 
 example
 
@@ -55,13 +58,13 @@ Port Role Decisions
 
 .. image:: ../../../_static/img/3_stp_port_role_decisions.png
 
-Determine designated n alternate ports
+Determine designated & alternate ports
 --------------------------------------
 
 .. image:: ../../../_static/img/3_stp_designated_and_alternate.png
 
-PROTOCOLS
-=========
+STP Protocols
+-------------
 
 802.1D-1998
  The legacy standard for bridging and STP.
@@ -122,68 +125,34 @@ RSTP
 RSTP Version 2 BPDU
 ^^^^^^^^^^^^^^^^^^^
 
-+--------------------------+-------------+
-| Field                    | Byte Length |
-+==========================+=============+
-| Protocol ID=0x0000       | 2           |
-+--------------------------+-------------+
-| Protocol Version ID=0x02 | 1           |
-+--------------------------+-------------+
-| BPDU Type=0X02           | 1           |
-+--------------------------+-------------+
-| Flags                    | 1           |
-+--------------------------+-------------+
-| Root ID                  | 8           |
-+--------------------------+-------------+
-| Root Path Cost           | 4           |
-+--------------------------+-------------+
-| Bridge ID                | 8           |
-+--------------------------+-------------+
-| Port ID                  | 2           |
-+--------------------------+-------------+
-| Message Age              | 2           |
-+--------------------------+-------------+
-| Max Age                  | 2           |
-+--------------------------+-------------+
-| Hello Time               | 2           |
-+--------------------------+-------------+
-| Forward Delay            | 2           |
-+--------------------------+-------------+
++--------------------------+-------------+--------+--------------------------------+-----+
+| Field                    | Byte Length |        | Field Bit                      | Bit |
++==========================+=============+========+================================+=====+
+| Protocol ID=0x0000       | 2           |        | Topology Change                | 0   |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Protocol Version ID=0x02 | 1           |        | Proposal                       | 1   |
++--------------------------+-------------+--------+--------------------------------+-----+
+| BPDU Type=0X02           | 1           | FLAG   |                                |     |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Flags                    | 1           | -->    | Port Roles                     | 2-3 |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Root ID                  | 8           | FIELDS | Unknown Port                   | 00  |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Root Path Cost           | 4           |        | Alternate or Backup Port       | 01  |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Bridge ID                | 8           |        | Root Port                      | 10  |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Port ID                  | 2           |        | Designated Port                | 11  |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Message Age              | 2           |        | Learning                       | 4   |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Max Age                  | 2           |        | Forwarding                     | 5   |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Hello Time               | 2           |        | Agreement                      | 6   |
++--------------------------+-------------+--------+--------------------------------+-----+
+| Forward Delay            | 2           |        | Topology Change Acknowledgment | 7   |
++--------------------------+-------------+--------+--------------------------------+-----+
 
-FLAG field
-^^^^^^^^^^
-
-+--------------------------------+-----+
-| Field Bit                      | Bit |
-+================================+=====+
-| Topology Change                | 0   |
-+--------------------------------+-----+
-| Proposal                       | 1   |
-+--------------------------------+-----+
-|                                |     |
-+--------------------------------+-----+
-| Port Roles                     | 2-3 |
-+--------------------------------+-----+
-| Unknown Port                   | 00  |
-+--------------------------------+-----+
-| Alternate or Backup Port       | 01  |
-+--------------------------------+-----+
-| Root Port                      | 10  |
-+--------------------------------+-----+
-| Designated Port                | 11  |
-+--------------------------------+-----+
-|                                |     |
-+--------------------------------+-----+
-|                                |     |
-| Learning                       | 4   |
-+--------------------------------+-----+
-| Forwarding                     | 5   |
-+--------------------------------+-----+
-| Agreement                      | 6   |
-+--------------------------------+-----+
-| Topology Change Acknowledgment | 7   |
-+--------------------------------+-----+
-	
 
 - Bits 0 and 7 are used for topology change and acknowledgment. They are in the original 802.1D.
 - Bits 1 and 6 are used for the Proposal Agreement process (used for rapid convergence).
@@ -225,7 +194,7 @@ Port States
 	
 
 BPDU headers
-============
+------------
 
 .. image:: ../../../_static/img/3_stp_bpdu_headers.png
 
@@ -349,7 +318,7 @@ Bridge Protocol Data Unit fields
  14. Version 3 Length: 2 bytes (MST, SPT BPDU only)
 
 Default Switch Configuration
-============================
+----------------------------
 
 +---------------------------------------------------------------------+--------------------------------------------+
 | Feature                                                             | Default Setting                            |
@@ -380,7 +349,7 @@ Default Switch Configuration
 	
 	
 Configuring Bridge ID
-=====================
+---------------------
 
 
 .. image:: ../../../_static/img/3_stp_configuring_bid1.png
@@ -389,7 +358,7 @@ Configuring Bridge ID
 	
 
 Portfast n BPDU guard
-======================
+----------------------
 
 PortFast is a Cisco feature for PVST+ environments. When a switch port is configured with PortFast that port transitions from blocking to forwarding state immediately, bypassing the usual 802.1D STP transition states (the listening and learning states). You can use PortFast on access ports to allow these devices to connect to the network immediately, rather than waiting for IEEE 802.1D STP to converge on each VLAN.
 Without PortFast, a PC can send a DHCP request before the port is in forwarding state, denying the host from getting a usable IP address and other information. Because PortFast immediately changes the state to forwarding, the PC always gets a usable IP address
@@ -438,7 +407,7 @@ BPDU guard puts the port in an errdisabled (error-disabled) state on receipt of 
    
 
 PVST+ Load Balancing
-====================
+--------------------
 
 
 .. code::
@@ -494,7 +463,7 @@ PVST+ Load Balancing
 
 
 Spanning Tree Mode
-==================
+------------------
 
 When specifying an interface to configure, valid interfaces include physical ports, VLANs, and port channels. The VLAN ID range is 1 to 4094 when the enhanced software image (EI) is installed and 1 to 1005 when the standard software image (SI) is installed. The port-channel range is 1 to 6.
 
@@ -526,7 +495,7 @@ Configure Rapid PVST+
    S1#
 
 ANALYZE STP
-===========
+-----------
 
 +----------------------------+---------------------------------------------------------------------------------------+
 | command                    | goal                                                                                  |
@@ -543,7 +512,7 @@ ANALYZE STP
 +----------------------------+---------------------------------------------------------------------------------------+
 
 STP troubleshooting
-===================
+-------------------
 
 Remember that an Ethernet frame header does not include a TTL field, which means that any frame that enters a bridging loop continues to be forwarded by the switches indefinitely. The only exceptions are frames that have their destination address recorded in the MAC address table of the switches. These frames are simply forwarded to the port that is associated with the MAC address and do not enter a loop. However, any frame that is flooded by a switch enters the loop (Figure 2). This may include broadcasts, multicasts, and unicasts with a globally unknown destination MAC address.
 
@@ -552,7 +521,7 @@ In many cases, the earliest indication of this broadcast storm in progress is th
 The switches experience frequent MAC address table changes. If a loop exists, a switch may see a frame with a certain source MAC address coming in on one port and then see the another frame with the same source MAC address coming in on a different port a fraction of a second later. This will cause the switch to update the MAC address table twice for the same MAC address.
 
 Switch stacks
-=============
+-------------
 
 A switch stack can consist of up to nine Catalyst 3750 switches connected through their StackWise ports. One of the switches controls the operation of the stack and is called the stack master. The stack master and the other switches in the stack are stack members. Layer 2 and Layer 3 protocols present the entire switch stack as a single entity to the network.
 
@@ -597,8 +566,9 @@ A switch stack can consist of up to nine Catalyst 3750 switches connected throug
 
 Switch stacks help to maintain or reduce the impact of diameter on STP reconvergence. In a switch stack, all switches use the same bridge ID for a given spanning-tree instance.
 
-diameter
+Diameter
 --------
+
 The ability to add more switches to a single STP instance without increasing the STP diameter. The diameter is the maximum number of switches that data must cross to connect any two switches. 
 
 .. note:: The IEEE recommends a maximum diameter of seven switches for the default STP timers. For example, in Figure 1 the diameter from S1-4 to S3-4 is nine switches. This design violates the IEEE recommendation.

@@ -10,7 +10,7 @@ scaling networks
    lan_design.rst
    scaling_vlans.rst
    stp.rst
-   etherchannel_hsrp.rst
+   la_hsrp.rst
    dynamic_routing.rst
    eigrp.rst
    ospf.rst

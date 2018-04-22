@@ -187,6 +187,7 @@ mnemonics
 
 Movements
 =========
+
 jump to previous cursor locations
 ---------------------------------
 
@@ -261,6 +262,12 @@ Visual mode is probably the shortest way here:
 change till some char
 ---------------------
 ``cf_`` or ``ct_``
+
+strip html tags
+---------------
+
+`%s/<\_.\{-1,\}>//g`
+
 
 file exploring
 ==============

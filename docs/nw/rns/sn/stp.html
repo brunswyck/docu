@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Best Paths to Root Bridge &mdash; debian &amp; networking 20171017 documentation</title>
+  <title>Spanning Tree Protocol &mdash; debian &amp; networking 20171017 documentation</title>
   
 
   
@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Etherchannel - HSRP" href="etherchannel_hsrp.html" />
+    <link rel="next" title="Etherchannel - HSRP" href="la_hsrp.html" />
     <link rel="prev" title="Scaling VLANs" href="scaling_vlans.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
@@ -92,38 +92,33 @@
 <li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">scaling networks</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="lan_design.html">LAN design</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Best Paths to Root Bridge</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Spanning Tree Protocol</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#best-paths-to-root-bridge">Best Paths to Root Bridge</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#port-role-decisions">Port Role Decisions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#determine-designated-n-alternate-ports">Determine designated n alternate ports</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#protocols">PROTOCOLS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#determine-designated-alternate-ports">Determine designated &amp; alternate ports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stp-protocols">STP Protocols</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pvst">PVST+</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rstp">RSTP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#r-pvst">R.PVST+</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#port-states">Port States</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#bpdu-headers">BPDU headers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bpdu-headers">BPDU headers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#link-types">Link Types</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bridge-protocol-data-unit-fields">Bridge Protocol Data Unit fields</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#default-switch-configuration">Default Switch Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configuring-bridge-id">Configuring Bridge ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#portfast-n-bpdu-guard">Portfast n BPDU guard</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pvst-load-balancing">PVST+ Load Balancing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#spanning-tree-mode">Spanning Tree Mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#default-switch-configuration">Default Switch Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-bridge-id">Configuring Bridge ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#portfast-n-bpdu-guard">Portfast n BPDU guard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pvst-load-balancing">PVST+ Load Balancing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spanning-tree-mode">Spanning Tree Mode</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configure-rapid-pvst">Configure Rapid PVST+</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#analyze-stp">ANALYZE STP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stp-troubleshooting">STP troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#switch-stacks">Switch stacks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#diameter">Diameter</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#analyze-stp">ANALYZE STP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stp-troubleshooting">STP troubleshooting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#switch-stacks">Switch stacks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#diameter">diameter</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="etherchannel_hsrp.html">Etherchannel - HSRP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="la_hsrp.html">Etherchannel - HSRP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="la_hsrp.html#hsrp-states">HSRP States</a></li>
+<li class="toctree-l3"><a class="reference internal" href="la_hsrp.html#hsrp-configuration">HSRP Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dynamic_routing.html">Dynamic Routing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="eigrp.html">EIGRP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ospf.html">OSPF</a></li>
@@ -137,7 +132,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../trading.html">Trading</a></li>
 </ul>
 
             
@@ -187,7 +181,7 @@
         
           <li><a href="inhoud.html">scaling networks</a> &raquo;</li>
         
-      <li>Best Paths to Root Bridge</li>
+      <li>Spanning Tree Protocol</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -206,8 +200,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="best-paths-to-root-bridge">
-<h1>Best Paths to Root Bridge<a class="headerlink" href="#best-paths-to-root-bridge" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spanning-tree-protocol">
+<h1>Spanning Tree Protocol<a class="headerlink" href="#spanning-tree-protocol" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="best-paths-to-root-bridge">
+<h2>Best Paths to Root Bridge<a class="headerlink" href="#best-paths-to-root-bridge" title="Permalink to this headline">¶</a></h2>
 <p>example</p>
 <img alt="../../../_images/3_stp_best_paths.png" src="../../../_images/3_stp_best_paths.png" />
 <p>the internal root path cost from S2 to the root bridge S1 over path 1 is 19 (based on the IEEE-specified individual port cost) while the internal root path cost over path 2 is 38. Because path 1 has a lower overall path cost to the root bridge, it is the preferred path. STP configures the redundant path to be blocked, which prevents a loop from occurring.</p>
@@ -238,6 +234,7 @@
 <span class="n">F0</span><span class="o">/</span><span class="mi">2</span>         <span class="n">Desg</span>   <span class="n">FWD</span>   <span class="mi">19</span>           <span class="mf">128.2</span>     <span class="n">Edge</span> <span class="n">P2p</span>
 </pre></div>
 </div>
+</div>
 <div class="section" id="port-role-decisions">
 <h2>Port Role Decisions<a class="headerlink" href="#port-role-decisions" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
@@ -250,13 +247,12 @@
 </ol>
 <img alt="../../../_images/3_stp_port_role_decisions.png" src="../../../_images/3_stp_port_role_decisions.png" />
 </div>
-<div class="section" id="determine-designated-n-alternate-ports">
-<h2>Determine designated n alternate ports<a class="headerlink" href="#determine-designated-n-alternate-ports" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="determine-designated-alternate-ports">
+<h2>Determine designated &amp; alternate ports<a class="headerlink" href="#determine-designated-alternate-ports" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/3_stp_designated_and_alternate.png" src="../../../_images/3_stp_designated_and_alternate.png" />
 </div>
-</div>
-<div class="section" id="protocols">
-<h1>PROTOCOLS<a class="headerlink" href="#protocols" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="stp-protocols">
+<h2>STP Protocols<a class="headerlink" href="#stp-protocols" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>802.1D-1998</dt>
 <dd>The legacy standard for bridging and STP.</dd>
@@ -331,6 +327,7 @@
 </table>
 <p>(cisco = per vlan en higher resources ieee = all vlans until MSTP)
 Cisco switches running IOS 15.0 or later, run PVST+ by default. This version incorporates many of the specifications of IEEE 802.1D-2004, such as alternate ports in place of the former non-designated ports. However, the switches must be explicitly configured for rapid spanning tree mode in order to run the rapid spanning tree protocol</p>
+</div>
 <div class="section" id="pvst">
 <h2>PVST+<a class="headerlink" href="#pvst" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
@@ -348,104 +345,91 @@ Cisco switches running IOS 15.0 or later, run PVST+ by default. This version inc
 <h3>RSTP Version 2 BPDU<a class="headerlink" href="#rstp-version-2-bpdu" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
-<col width="67%" />
-<col width="33%" />
+<col width="31%" />
+<col width="15%" />
+<col width="10%" />
+<col width="38%" />
+<col width="6%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Field</th>
 <th class="head">Byte Length</th>
+<th class="head">&#160;</th>
+<th class="head">Field Bit</th>
+<th class="head">Bit</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>Protocol ID=0x0000</td>
 <td>2</td>
+<td>&#160;</td>
+<td>Topology Change</td>
+<td>0</td>
 </tr>
 <tr class="row-odd"><td>Protocol Version ID=0x02</td>
+<td>1</td>
+<td>&#160;</td>
+<td>Proposal</td>
 <td>1</td>
 </tr>
 <tr class="row-even"><td>BPDU Type=0X02</td>
 <td>1</td>
+<td>FLAG</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>Flags</td>
 <td>1</td>
+<td>–&gt;</td>
+<td>Port Roles</td>
+<td>2-3</td>
 </tr>
 <tr class="row-even"><td>Root ID</td>
 <td>8</td>
+<td>FIELDS</td>
+<td>Unknown Port</td>
+<td>00</td>
 </tr>
 <tr class="row-odd"><td>Root Path Cost</td>
 <td>4</td>
+<td>&#160;</td>
+<td>Alternate or Backup Port</td>
+<td>01</td>
 </tr>
 <tr class="row-even"><td>Bridge ID</td>
 <td>8</td>
+<td>&#160;</td>
+<td>Root Port</td>
+<td>10</td>
 </tr>
 <tr class="row-odd"><td>Port ID</td>
 <td>2</td>
+<td>&#160;</td>
+<td>Designated Port</td>
+<td>11</td>
 </tr>
 <tr class="row-even"><td>Message Age</td>
 <td>2</td>
+<td>&#160;</td>
+<td>Learning</td>
+<td>4</td>
 </tr>
 <tr class="row-odd"><td>Max Age</td>
 <td>2</td>
+<td>&#160;</td>
+<td>Forwarding</td>
+<td>5</td>
 </tr>
 <tr class="row-even"><td>Hello Time</td>
 <td>2</td>
+<td>&#160;</td>
+<td>Agreement</td>
+<td>6</td>
 </tr>
 <tr class="row-odd"><td>Forward Delay</td>
 <td>2</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="flag-field">
-<h3>FLAG field<a class="headerlink" href="#flag-field" title="Permalink to this headline">¶</a></h3>
-<table border="1" class="docutils">
-<colgroup>
-<col width="86%" />
-<col width="14%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Field Bit</th>
-<th class="head">Bit</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Topology Change</td>
-<td>0</td>
-</tr>
-<tr class="row-odd"><td>Proposal</td>
-<td>1</td>
-</tr>
-<tr class="row-even"><td>&#160;</td>
 <td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>Port Roles</td>
-<td>2-3</td>
-</tr>
-<tr class="row-even"><td>Unknown Port</td>
-<td>00</td>
-</tr>
-<tr class="row-odd"><td>Alternate or Backup Port</td>
-<td>01</td>
-</tr>
-<tr class="row-even"><td>Root Port</td>
-<td>10</td>
-</tr>
-<tr class="row-odd"><td>Designated Port</td>
-<td>11</td>
-</tr>
-<tr class="row-even"><td>&#160;</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>Learning</td>
-<td>4</td>
-</tr>
-<tr class="row-even"><td>Forwarding</td>
-<td>5</td>
-</tr>
-<tr class="row-odd"><td>Agreement</td>
-<td>6</td>
-</tr>
-<tr class="row-even"><td>Topology Change Acknowledgment</td>
+<td>Topology Change Acknowledgment</td>
 <td>7</td>
 </tr>
 </tbody>
@@ -522,11 +506,11 @@ Cisco switches running IOS 15.0 or later, run PVST+ by default. This version inc
 </tbody>
 </table>
 </div>
-</div>
 <div class="section" id="bpdu-headers">
-<h1>BPDU headers<a class="headerlink" href="#bpdu-headers" title="Permalink to this headline">¶</a></h1>
+<h2>BPDU headers<a class="headerlink" href="#bpdu-headers" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/3_stp_bpdu_headers.png" src="../../../_images/3_stp_bpdu_headers.png" />
 <p>source <a class="reference external" href="http://www.abdorefky.com/wp-content/uploads/2016/11/bpdu.png">http://www.abdorefky.com/wp-content/uploads/2016/11/bpdu.png</a></p>
+</div>
 <div class="section" id="link-types">
 <h2>Link Types<a class="headerlink" href="#link-types" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
@@ -643,9 +627,8 @@ Cisco switches running IOS 15.0 or later, run PVST+ by default. This version inc
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="default-switch-configuration">
-<h1>Default Switch Configuration<a class="headerlink" href="#default-switch-configuration" title="Permalink to this headline">¶</a></h1>
+<h2>Default Switch Configuration<a class="headerlink" href="#default-switch-configuration" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
 <col width="61%" />
@@ -696,12 +679,12 @@ Transmit hold count: 6 BPDUs</td>
 </table>
 </div>
 <div class="section" id="configuring-bridge-id">
-<h1>Configuring Bridge ID<a class="headerlink" href="#configuring-bridge-id" title="Permalink to this headline">¶</a></h1>
+<h2>Configuring Bridge ID<a class="headerlink" href="#configuring-bridge-id" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/3_stp_configuring_bid1.png" src="../../../_images/3_stp_configuring_bid1.png" />
 <img alt="../../../_images/3_stp_configuring_bid2.png" src="../../../_images/3_stp_configuring_bid2.png" />
 </div>
 <div class="section" id="portfast-n-bpdu-guard">
-<h1>Portfast n BPDU guard<a class="headerlink" href="#portfast-n-bpdu-guard" title="Permalink to this headline">¶</a></h1>
+<h2>Portfast n BPDU guard<a class="headerlink" href="#portfast-n-bpdu-guard" title="Permalink to this headline">¶</a></h2>
 <p>PortFast is a Cisco feature for PVST+ environments. When a switch port is configured with PortFast that port transitions from blocking to forwarding state immediately, bypassing the usual 802.1D STP transition states (the listening and learning states). You can use PortFast on access ports to allow these devices to connect to the network immediately, rather than waiting for IEEE 802.1D STP to converge on each VLAN.
 Without PortFast, a PC can send a DHCP request before the port is in forwarding state, denying the host from getting a usable IP address and other information. Because PortFast immediately changes the state to forwarding, the PC always gets a usable IP address</p>
 <p>BPDU guard puts the port in an errdisabled (error-disabled) state on receipt of a BPDU. This will effectively shut down the port. The BPDU guard feature provides a secure response to invalid configurations because you must manually put the interface back into service.</p>
@@ -744,7 +727,7 @@ spanning-tree vlan 20 priority 28672
 </div>
 </div>
 <div class="section" id="pvst-load-balancing">
-<h1>PVST+ Load Balancing<a class="headerlink" href="#pvst-load-balancing" title="Permalink to this headline">¶</a></h1>
+<h2>PVST+ Load Balancing<a class="headerlink" href="#pvst-load-balancing" title="Permalink to this headline">¶</a></h2>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">the</span> <span class="n">following</span> <span class="n">on</span> <span class="n">S3</span>
 
 <span class="n">VLAN</span> <span class="mi">20</span> <span class="k">as</span> <span class="n">primary</span> <span class="n">root</span>
@@ -797,8 +780,9 @@ spanning-tree vlan 20 priority 28672
 </div>
 </div>
 <div class="section" id="spanning-tree-mode">
-<h1>Spanning Tree Mode<a class="headerlink" href="#spanning-tree-mode" title="Permalink to this headline">¶</a></h1>
+<h2>Spanning Tree Mode<a class="headerlink" href="#spanning-tree-mode" title="Permalink to this headline">¶</a></h2>
 <p>When specifying an interface to configure, valid interfaces include physical ports, VLANs, and port channels. The VLAN ID range is 1 to 4094 when the enhanced software image (EI) is installed and 1 to 1005 when the standard software image (SI) is installed. The port-channel range is 1 to 6.</p>
+</div>
 <div class="section" id="configure-rapid-pvst">
 <h2>Configure Rapid PVST+<a class="headerlink" href="#configure-rapid-pvst" title="Permalink to this headline">¶</a></h2>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
@@ -826,9 +810,8 @@ S1#
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="analyze-stp">
-<h1>ANALYZE STP<a class="headerlink" href="#analyze-stp" title="Permalink to this headline">¶</a></h1>
+<h2>ANALYZE STP<a class="headerlink" href="#analyze-stp" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="docutils">
 <colgroup>
 <col width="24%" />
@@ -859,13 +842,13 @@ S1#
 </table>
 </div>
 <div class="section" id="stp-troubleshooting">
-<h1>STP troubleshooting<a class="headerlink" href="#stp-troubleshooting" title="Permalink to this headline">¶</a></h1>
+<h2>STP troubleshooting<a class="headerlink" href="#stp-troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>Remember that an Ethernet frame header does not include a TTL field, which means that any frame that enters a bridging loop continues to be forwarded by the switches indefinitely. The only exceptions are frames that have their destination address recorded in the MAC address table of the switches. These frames are simply forwarded to the port that is associated with the MAC address and do not enter a loop. However, any frame that is flooded by a switch enters the loop (Figure 2). This may include broadcasts, multicasts, and unicasts with a globally unknown destination MAC address.</p>
 <p>In many cases, the earliest indication of this broadcast storm in progress is that routers or Layer 3 switches are reporting control plane failures and that they are running at a high CPU load.</p>
 <p>The switches experience frequent MAC address table changes. If a loop exists, a switch may see a frame with a certain source MAC address coming in on one port and then see the another frame with the same source MAC address coming in on a different port a fraction of a second later. This will cause the switch to update the MAC address table twice for the same MAC address.</p>
 </div>
 <div class="section" id="switch-stacks">
-<h1>Switch stacks<a class="headerlink" href="#switch-stacks" title="Permalink to this headline">¶</a></h1>
+<h2>Switch stacks<a class="headerlink" href="#switch-stacks" title="Permalink to this headline">¶</a></h2>
 <p>A switch stack can consist of up to nine Catalyst 3750 switches connected through their StackWise ports. One of the switches controls the operation of the stack and is called the stack master. The stack master and the other switches in the stack are stack members. Layer 2 and Layer 3 protocols present the entire switch stack as a single entity to the network.</p>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Switch# show running-config | begin interface
 interface GigabitEthernet1/0/1
@@ -906,8 +889,9 @@ Switch#
 </pre></div>
 </div>
 <p>Switch stacks help to maintain or reduce the impact of diameter on STP reconvergence. In a switch stack, all switches use the same bridge ID for a given spanning-tree instance.</p>
+</div>
 <div class="section" id="diameter">
-<h2>diameter<a class="headerlink" href="#diameter" title="Permalink to this headline">¶</a></h2>
+<h2>Diameter<a class="headerlink" href="#diameter" title="Permalink to this headline">¶</a></h2>
 <p>The ability to add more switches to a single STP instance without increasing the STP diameter. The diameter is the maximum number of switches that data must cross to connect any two switches.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -949,7 +933,7 @@ Switch#
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="etherchannel_hsrp.html" class="btn btn-neutral float-right" title="Etherchannel - HSRP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="la_hsrp.html" class="btn btn-neutral float-right" title="Etherchannel - HSRP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="scaling_vlans.html" class="btn btn-neutral" title="Scaling VLANs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

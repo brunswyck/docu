@@ -107,6 +107,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#up-until-next-char-word">up until next char/word</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#replace-all-chars-up-to-some-character">replace all chars up to some character</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#change-till-some-char">change till some char</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#strip-html-tags">strip html tags</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#file-exploring">file exploring</a><ul>
@@ -147,7 +148,6 @@
 <li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trading.html">Trading</a></li>
 </ul>
 
             
@@ -469,6 +469,10 @@ or view macros a b c <code class="docutils literal notranslate"><span class="pre
 <div class="section" id="change-till-some-char">
 <h4>change till some char<a class="headerlink" href="#change-till-some-char" title="Permalink to this headline">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">cf_</span></code> or <code class="docutils literal notranslate"><span class="pre">ct_</span></code></p>
+</div>
+<div class="section" id="strip-html-tags">
+<h4>strip html tags<a class="headerlink" href="#strip-html-tags" title="Permalink to this headline">¶</a></h4>
+<p><cite>%s/&lt;_.{-1,}&gt;//g</cite></p>
 </div>
 </div>
 <div class="section" id="file-exploring">

@@ -13,7 +13,6 @@ Welcome to Patrick's documentation!
     scripting
     storage/storage
     rest
-    trading 
 
 Indices and tables
 ==================

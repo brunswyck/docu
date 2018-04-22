@@ -152,13 +152,19 @@
 <li class="toctree-l3"><a class="reference internal" href="#proces-substitution">proces substitution</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#system-configuration">system configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sudo">sudo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#run-commands-in-script-as-sudo">run commands in script as sudo</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trading.html">Trading</a></li>
 </ul>
 
             
@@ -493,6 +499,25 @@ rm -- !(file.txt)
 </div>
 </div></blockquote>
 <p>Now this does print “test”! Bash redirects the output of “echo test” to /dev/fd/&lt;something&gt;, gives the path of that file to cat, and cat reads the output of echo from that file. The shortened diff command above does the same, only for two slightly more complicated commands. This technique can be applied in any place where a temporary file is needed, but it does have a limitation. The temporary file can only be read once before it disappears. There’s no use in saving the name of the temporary file. If you need multiple accesses to the output of a program, use an old-fashioned temporary file or see if you can use pipes instead.</p>
+</div>
+</div>
+<div class="section" id="system-configuration">
+<h2>system configuration<a class="headerlink" href="#system-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sudo">
+<h3>sudo<a class="headerlink" href="#sudo" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="run-commands-in-script-as-sudo">
+<h4>run commands in script as sudo<a class="headerlink" href="#run-commands-in-script-as-sudo" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Always use the command visudo to edit the sudoers file to make sure you do not lock yourself out of the system – just in case you accidentally write something incorrect to the sudoers file. visudo will save your modified file to a temporary location and will only overwrite the real sudoers file if the modified file can be parsed without errors.</p>
+</div>
+<p><strong>Using /etc/sudoers.d instead of modifying /etc/sudoers</strong></p>
+<p>example for DHCP</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># User alias specification</span>
+<span class="n">User</span> <span class="n">alias</span> <span class="n">specification</span> <span class="n">User_Alias</span> <span class="n">DHCPUSERS</span> <span class="o">=</span> <span class="n">guru</span><span class="p">,</span> <span class="n">patrick</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>

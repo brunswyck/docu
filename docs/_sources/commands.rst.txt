@@ -5,8 +5,10 @@ BASH
 ***************
 Tips and Tricks
 ***************
+
 great shortcuts
 ===============
+
 ctrl-u & ctrl-y
 ---------------
 when typing a long command you need to interrupt it bc you want to do something else first then:
@@ -164,6 +166,7 @@ escaping characters for aliases
 ***
 AWK
 ***
+
 General Syntax
 ==============
 
@@ -266,6 +269,7 @@ include files ending on x and containing y
 *************
 substitutions
 *************
+
 proces substitution
 ===================
 Ever wanted to diff the outputs of two commands quickly? Of course, you could redirect the output to a temporary file for both of them, and diff those files, like this:
@@ -296,3 +300,26 @@ Instead of printing “test”, this will print something like “/dev/fd/63”.
     cat <(echo test)
 
 Now this does print “test”! Bash redirects the output of “echo test” to /dev/fd/<something>, gives the path of that file to cat, and cat reads the output of echo from that file. The shortened diff command above does the same, only for two slightly more complicated commands. This technique can be applied in any place where a temporary file is needed, but it does have a limitation. The temporary file can only be read once before it disappears. There’s no use in saving the name of the temporary file. If you need multiple accesses to the output of a program, use an old-fashioned temporary file or see if you can use pipes instead.
+
+********************
+system configuration
+********************
+
+sudo
+====
+
+run commands in script as sudo
+------------------------------
+
+
+.. note:: Always use the command visudo to edit the sudoers file to make sure you do not lock yourself out of the system – just in case you accidentally write something incorrect to the sudoers file. visudo will save your modified file to a temporary location and will only overwrite the real sudoers file if the modified file can be parsed without errors.
+
+**Using /etc/sudoers.d instead of modifying /etc/sudoers**
+
+
+example for DHCP
+
+::
+
+  # User alias specification
+  User alias specification User_Alias DHCPUSERS = guru, patrick
