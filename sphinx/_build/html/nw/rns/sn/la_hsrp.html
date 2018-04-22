@@ -590,9 +590,8 @@ verify HSRP: show standby</p>
 groups 0 to 255         0 to 4095
 MC 224.0.0.2            224.0.0.102 or FF02::66 to send hello packets
 0000.0C07.AC00-ACFF     0000.0C9F.F000-FFFF IPv4 and 0005.73A0.0000-0FFF for IPv6
-(last 2  #s = group)    (last 3 = group)</p>
-<blockquote>
-<div>support for MD5</div></blockquote>
+(last 2  #s = group)    (last 3 = group)
+support for MD5</p>
 </div>
 <div class="section" id="hsrp-preemption">
 <h2>HSRP Preemption<a class="headerlink" href="#hsrp-preemption" title="Permalink to this headline">¶</a></h2>
@@ -621,7 +620,7 @@ The router currently forwards packets that are sent to the group virtual MAC add
 </div>
 <div class="section" id="hsrp-configuration">
 <h1>HSRP Configuration<a class="headerlink" href="#hsrp-configuration" title="Permalink to this headline">¶</a></h1>
-<p>R1(config)# interface g0/1
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config)# interface g0/1
 R1(config-if)# ip address 172.16.10.2 255.255.255.0
 R1(config-if)# standby version 2
 R1(config-if)# standby 1 ip 172.16.10.1
@@ -633,12 +632,15 @@ R2(config)# interface g0/1
 R2(config-if)# ip address 172.16.10.3 255.255.255.0
 R2(config-if)# standby version 2
 R2(config-if)# standby 1 ip 172.16.10.1
-R2(config-if)# no shutdown</p>
-<p>R2 has been configured for HSRP group 10 with default priority, IP address 172.16.10.3, and virtual IP address 172.16.10.1. R1 is configured with the following:</p>
-<p>R1(config)# interface GigabitEthernet0/1
+R2(config-if)# no shutdown
+
+R2 has been configured for HSRP group 10 with default priority, IP address 172.16.10.3, and virtual IP address 172.16.10.1. R1 is configured with the following:
+
+R1(config)# interface GigabitEthernet0/1
 R1(config)# ip address 172.16.10.2 255.255.255.0
-R1(config)# no shutdown</p>
-<p>You are currently in interface configuration mode for GigabitEthernet 0/1.
+R1(config)# no shutdown
+
+You are currently in interface configuration mode for GigabitEthernet 0/1.
 Configure R1 as the HSRP active router using a priority of 150.
 Return to privileged EXEC mode and display the brief standby status.
 R1(config-if)# standby 10 ip 172.16.10.1
@@ -646,189 +648,144 @@ R1(config-if)# standby 10 priority 150
 %HSRP-6-STATECHANGE: GigabitEthernet0/1 Grp 10 state Speak -&gt; Standby
 %HSRP-6-STATECHANGE: GigabitEthernet0/1 Grp 10 state Standby -&gt; Active
 R1(config)# end
-R1# show standby brief</p>
-<blockquote>
-<div>P indicates configured to preempt.
-|</div></blockquote>
-<p>Interface   Grp  Pri P State   Active          Standby         Virtual IP
+R1# show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Gi0/1       10   150   Active  local           172.16.10.3     172.16.10.1
-You successfully configured and verified HSRP.</p>
-<p>R2# show standby
-GigabitEthernet0/1 - Group 1 (version 2)</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>State is Standby</dt>
-<dd>5 state changes, last state change 01:03:59</dd>
-</dl>
-<p>Virtual IP address is 172.16.10.1
-Active virtual MAC address is 0000.0c9f.f001</p>
-<blockquote>
-<div>Local virtual MAC address is 0000.0c9f.f001 (v2 default)</div></blockquote>
-<dl class="docutils">
-<dt>Hello time 3 sec, hold time 10 sec</dt>
-<dd>Next hello sent in 0.944 secs</dd>
-</dl>
-<p>Preemption disabled
-Active router is 172.16.10.2, priority 150 (expires in 8.160 sec)</p>
-<blockquote>
-<div>MAC address is fc99.4775.c3e1</div></blockquote>
-<p>Standby router is local
-Priority 100 (default 100)
-Group name is “hsrp-Gi0/1-1” (default)</p>
-</div></blockquote>
-<p>R2#</p>
-<p>Configure HSRP on R1
+You successfully configured and verified HSRP.
+
+R2# show standby
+GigabitEthernet0/1 - Group 1 (version 2)
+  State is Standby
+    5 state changes, last state change 01:03:59
+  Virtual IP address is 172.16.10.1
+  Active virtual MAC address is 0000.0c9f.f001
+    Local virtual MAC address is 0000.0c9f.f001 (v2 default)
+  Hello time 3 sec, hold time 10 sec
+    Next hello sent in 0.944 secs
+  Preemption disabled
+  Active router is 172.16.10.2, priority 150 (expires in 8.160 sec)
+    MAC address is fc99.4775.c3e1
+  Standby router is local
+  Priority 100 (default 100)
+  Group name is &quot;hsrp-Gi0/1-1&quot; (default)
+R2#
+
+Configure HSRP on R1
 R1(config)#
 interface g0/1
 R1(config-if)# standby version 2
 R1(config-if)# standby 1 ip 192.168.1.254
 R1(config-if)# standby 1 priority 150
-R1(config-if)# standby 1 preempt</p>
-<p>Configure HSRP on R3
+R1(config-if)# standby 1 preempt
+
+Configure HSRP on R3
 R3(config)# interface g0/1
 R3(config-if)# standby version 2
-R3(config-if)# standby 1 ip 192.168.1.254</p>
-<p>Verify HSRP by issuing the show standby command on R1 and R3</p>
-<p>R1# show standby
+R3(config-if)# standby 1 ip 192.168.1.254
+
+Verify HSRP by issuing the show standby command on R1 and R3
+
+R1# show standby
 GigabitEthernet0/1 - Group 1 (version 2)
-State is Active</p>
-<blockquote>
-<div>4 state changes, last state change 00:00:30</div></blockquote>
-<p>Virtual IP address is 192.168.1.254
-Active virtual MAC address is 0000.0c9f.f001</p>
-<blockquote>
-<div>Local virtual MAC address is 0000.0c9f.f001 (v2 default)</div></blockquote>
-<dl class="docutils">
-<dt>Hello time 3 sec, hold time 10 sec</dt>
-<dd>Next hello sent in 1.696 secs</dd>
-</dl>
-<p>Preemption enabled
+State is Active
+ 4 state changes, last state change 00:00:30
+Virtual IP address is 192.168.1.254
+Active virtual MAC address is 0000.0c9f.f001
+ Local virtual MAC address is 0000.0c9f.f001 (v2 default)
+Hello time 3 sec, hold time 10 sec
+ Next hello sent in 1.696 secs
+Preemption enabled
 Active router is local
 Standby router is 192.168.1.3, priority 100 (expires in 11.120 sec)
 Priority 150 (configured 150)
-Group name is “hsrp-Gi0/1-1” (default)</p>
-<p>R3# show standby
+Group name is &quot;hsrp-Gi0/1-1&quot; (default)
+
+R3# show standby
 GigabitEthernet0/1 - Group 1 (version 2)
-State is Standby</p>
-<blockquote>
-<div>4 state changes, last state change 00:02:29</div></blockquote>
-<p>Virtual IP address is 192.168.1.254
-Active virtual MAC address is 0000.0c9f.f001</p>
-<blockquote>
-<div>Local virtual MAC address is 0000.0c9f.f001 (v2 default)</div></blockquote>
-<dl class="docutils">
-<dt>Hello time 3 sec, hold time 10 sec</dt>
-<dd>Next hello sent in 0.720 secs</dd>
-</dl>
-<p>Preemption disabled
-Active router is 192.168.1.1, priority 150 (expires in 10.128 sec)</p>
-<blockquote>
-<div>MAC address is d48c.b5ce.a0c1</div></blockquote>
-<p>Standby router is local
+State is Standby
+ 4 state changes, last state change 00:02:29
+Virtual IP address is 192.168.1.254
+Active virtual MAC address is 0000.0c9f.f001
+ Local virtual MAC address is 0000.0c9f.f001 (v2 default)
+Hello time 3 sec, hold time 10 sec
+ Next hello sent in 0.720 secs
+Preemption disabled
+Active router is 192.168.1.1, priority 150 (expires in 10.128 sec)
+ MAC address is d48c.b5ce.a0c1
+Standby router is local
 Priority 100 (default 100)
-Group name is “hsrp-Gi0/1-1” (default)</p>
+Group name is &quot;hsrp-Gi0/1-1&quot; (default)
+</pre></div>
+</div>
 <div class="section" id="troubleshooting-hsrp-failure">
 <h2>Troubleshooting HSRP Failure<a class="headerlink" href="#troubleshooting-hsrp-failure" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>Failing to successfully elect the active router that controls the virtual IP for the group.</p>
-<p>Failure of the standby router to successfully keep track of the active router.</p>
-<p>Failing to determine when control of the virtual IP for the group should be handed over to another router.</p>
-<p>Failure of end devices to successfully configure the virtual IP address as the default gateway.</p>
-</div></blockquote>
-<p>Issue the debug command to view the HSRP hello packets.
-R2# debug standby packets
-Dec  2 15:20:12.347: HSRP: Gi0/1 Grp 1 Hello  in  172.16.10.2 Active  pri 150 vIP 172.16.10.1
-<a href="#id1"><span class="problematic" id="id2">*</span></a>Dec  2 15:20:12.643: HSRP: Gi0/1 Grp 1 Hello  out 172.16.10.3 Standby pri 100 vIP 172.16.10.1</p>
-<p>!!!!!!R1 is powered off!!!!!
-The preceeding message was received on R2. Issue the debug command to view the HSRP events as R2 assumes the role of active HSRP router for the 172.16.10.0/24 network.
-R2# debug standby terse
-HSRP:</p>
-<blockquote>
-<div><p>HSRP Errors debugging is on
-HSRP Events debugging is on</p>
-<blockquote>
-<div>(protocol, neighbor, redundancy, track, arp, interface)</div></blockquote>
-<dl class="docutils">
-<dt>HSRP Packets debugging is on</dt>
-<dd>(Coup, Resign)</dd>
-</dl>
-</div></blockquote>
-<p>R2#
-<a href="#id3"><span class="problematic" id="id4">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby: c/Active timer expired (172.16.10.2)
-<a href="#id5"><span class="problematic" id="id6">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Active router is local, was 172.16.10.2
-<a href="#id7"><span class="problematic" id="id8">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Nbr 172.16.10.2 no longer active for group 1 (Standby)
-<a href="#id9"><span class="problematic" id="id10">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Nbr 172.16.10.2 Was active or standby - start passive holddown
-<a href="#id11"><span class="problematic" id="id12">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby router is unknown, was local
-<a href="#id13"><span class="problematic" id="id14">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby -&gt; Active</p>
-<p>R2#
-You have successfully used debug commands to troubleshoot HSRP.</p>
+<ul class="simple">
+<li>Failing to successfully elect the active router that controls the virtual IP for the group.</li>
+<li>Failure of the standby router to successfully keep track of the active router.</li>
+<li>Failing to determine when control of the virtual IP for the group should be handed over to another router.</li>
+<li>Failure of end devices to successfully configure the virtual IP address as the default gateway.</li>
+</ul>
 </div>
 <div class="section" id="common-hsrp-configuration-issues">
 <h2>Common HSRP Configuration Issues<a class="headerlink" href="#common-hsrp-configuration-issues" title="Permalink to this headline">¶</a></h2>
-<p>The debug commands on the previous page illustrate the expected operation of HSRP. You can also use the debug commands to detect common configuration issues:</p>
-<blockquote>
-<div><p>The HSRP routers are not connected to the same network segment. Although this could be a physical layer issue, it could also be a VLAN subinterface configuration issue.</p>
-<p>The HSRP routers are not configured with IPv4 addresses from the same subnet. HSRP hello packets are local. They are not routed beyond the network segment. Therefore, a standby router would not know when the active router fails.</p>
-<p>The HSRP routers are not configured with the same virtual IPv4 address. The virtual IPv4 address is the default gateway for end devices.</p>
-<p>The HSRP routers are not configured with the same HSRP group number. This will cause each router to assume the active role.</p>
-<p>End devices are not configured with the correct default gateway address. Although not directly related to HSRP, configuring the DHCP server with one of the HSRP router’s real IP addresses would mean that end devices would only have connectivity to remote networks when that HSRP router is active.</p>
-</div></blockquote>
-<p>Because R1 is configured with the standby 1 preempt command, it initiates a coup and assumes the role of active router</p>
-<p>R1#
-<a href="#id15"><span class="problematic" id="id16">*</span></a>Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 Adv in, active 0  passive 1
-<a href="#id17"><span class="problematic" id="id18">*</span></a>Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 created
-<a href="#id19"><span class="problematic" id="id20">*</span></a>Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 is passive
-<a href="#id21"><span class="problematic" id="id22">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 Adv in, active 1  passive 1
-<a href="#id23"><span class="problematic" id="id24">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 is no longer passive
-<a href="#id25"><span class="problematic" id="id26">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 destroyed
-<a href="#id27"><span class="problematic" id="id28">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Coup   in  172.16.10.2 Listen   pri 150 vIP 172.16.10.1
-<a href="#id29"><span class="problematic" id="id30">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Active: j/Coup rcvd from higher  pri router (150/172.16.10.2)
-<a href="#id31"><span class="problematic" id="id32">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Active router is 172.16.10.2,  was local
-<a href="#id33"><span class="problematic" id="id34">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 created
-<a href="#id35"><span class="problematic" id="id36">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 active for group 1
-<a href="#id37"><span class="problematic" id="id38">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Active -&gt; Speak
-<a href="#id39"><span class="problematic" id="id40">*</span></a>Dec  2 18:01:32.443: %HSRP-5-STATECHANGE: GigabitEthernet0/1 Grp 1  state Active -&gt; Speak
-<a href="#id41"><span class="problematic" id="id42">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Redundancy “hsrp-Gi0/1-1”   state Active -&gt; Speak
-<a href="#id43"><span class="problematic" id="id44">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Removed 172.16.10.1 from ARP
-<a href="#id45"><span class="problematic" id="id46">*</span></a>Dec  2 18:01:32.443: HSRP: Gi0/1 IP Redundancy “hsrp-Gi0/1-1” update,  Active -&gt; Speak
-<a href="#id47"><span class="problematic" id="id48">*</span></a>Dec  2 18:01:43.771: HSRP: Gi0/1 Grp 1 Speak: d/Standby timer expired  (unknown)
-<a href="#id49"><span class="problematic" id="id50">*</span></a>Dec  2 18:01:43.771: HSRP: Gi0/1 Grp 1 Standby router is local
-<a href="#id51"><span class="problematic" id="id52">*</span></a>Dec  2 18:01:43.771: HSRP: Gi0/1 Grp 1 Speak -&gt; Standby</p>
-<p>Issue the debug command to view the HSRP hello packets.
+<ul class="simple">
+<li>The HSRP routers are not connected to the same network segment. Although this could be a physical layer issue, it could also be a VLAN subinterface configuration issue.</li>
+<li>The HSRP routers are not configured with IPv4 addresses from the same subnet. HSRP hello packets are local. They are not routed beyond the network segment. Therefore, a standby router would not know when the active router fails.</li>
+<li>The HSRP routers are not configured with the same virtual IPv4 address. The virtual IPv4 address is the default gateway for end devices.</li>
+<li>The HSRP routers are not configured with the same HSRP group number. This will cause each router to assume the active role.</li>
+<li>End devices are not configured with the correct default gateway address. Although not directly related to HSRP, configuring the DHCP server with one of the HSRP router’s real IP addresses would mean that end devices would only have connectivity to remote networks when that HSRP router is active.</li>
+<li>Because R1 is configured with the standby 1 preempt command, it initiates a coup and assumes the role of active route</li>
+</ul>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1#
+ Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 Adv in, active 0  passive 1
+ Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 created
+ Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 is passive
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 Adv in, active 1  passive 1
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 is no longer passive
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 destroyed
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Coup   in  172.16.10.2 Listen   pri 150 vIP 172.16.10.1
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Active: j/Coup rcvd from higher  pri router (150/172.16.10.2)
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Active router is 172.16.10.2,  was local
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 created
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Nbr 172.16.10.2 active for group 1
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Active -&gt; Speak
+ Dec  2 18:01:32.443: %HSRP-5-STATECHANGE: GigabitEthernet0/1 Grp 1  state Active -&gt; Speak
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Redundancy &quot;hsrp-Gi0/1-1&quot;   state Active -&gt; Speak
+ Dec  2 18:01:32.443: HSRP: Gi0/1 Grp 1 Removed 172.16.10.1 from ARP
+ Dec  2 18:01:32.443: HSRP: Gi0/1 IP Redundancy &quot;hsrp-Gi0/1-1&quot; update,  Active -&gt; Speak
+ Dec  2 18:01:43.771: HSRP: Gi0/1 Grp 1 Speak: d/Standby timer expired  (unknown)
+ Dec  2 18:01:43.771: HSRP: Gi0/1 Grp 1 Standby router is local
+ Dec  2 18:01:43.771: HSRP: Gi0/1 Grp 1 Speak -&gt; Standby
+
+
+Issue the debug command to view the HSRP hello packets.
+
 R2# debug standby packets
-Dec  2 15:20:12.347: HSRP: Gi0/1 Grp 1 Hello  in  172.16.10.2 Active  pri 150 vIP 172.16.10.1
-<a href="#id53"><span class="problematic" id="id54">*</span></a>Dec  2 15:20:12.643: HSRP: Gi0/1 Grp 1 Hello  out 172.16.10.3 Standby pri 100 vIP 172.16.10.1</p>
-<p>!!!!!!R1 is powered off!!!!!
+ Dec  2 15:20:12.347: HSRP: Gi0/1 Grp 1 Hello  in  172.16.10.2 Active  pri 150 vIP 172.16.10.1
+ Dec  2 15:20:12.643: HSRP: Gi0/1 Grp 1 Hello  out 172.16.10.3 Standby pri 100 vIP 172.16.10.1
+
+ !!!!!!R1 is powered off!!!!!
+
 The preceeding message was received on R2. Issue the debug command to view the HSRP events as R2 assumes the role of active HSRP router for the 172.16.10.0/24 network.
+
 R2# debug standby terse
-HSRP:</p>
-<blockquote>
-<div><p>HSRP Errors debugging is on
-HSRP Events debugging is on</p>
-<blockquote>
-<div>(protocol, neighbor, redundancy, track, arp, interface)</div></blockquote>
-<dl class="docutils">
-<dt>HSRP Packets debugging is on</dt>
-<dd>(Coup, Resign)</dd>
-</dl>
-</div></blockquote>
-<p>R2#
-<a href="#id55"><span class="problematic" id="id56">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby: c/Active timer expired (172.16.10.2)
-<a href="#id57"><span class="problematic" id="id58">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Active router is local, was 172.16.10.2
-<a href="#id59"><span class="problematic" id="id60">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Nbr 172.16.10.2 no longer active for group 1 (Standby)
-<a href="#id61"><span class="problematic" id="id62">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Nbr 172.16.10.2 Was active or standby - start passive holddown
-<a href="#id63"><span class="problematic" id="id64">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby router is unknown, was local
-<a href="#id65"><span class="problematic" id="id66">*</span></a>Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby -&gt; Active</p>
-<p>R2#
-You have successfully used debug commands to troubleshoot HSRP.</p>
-<p>use the debug commands to detect common configuration issues:</p>
-<blockquote>
-<div><p>The HSRP routers are not connected to the same network segment. Although this could be a physical layer issue, it could also be a VLAN subinterface configuration issue.</p>
-<p>The HSRP routers are not configured with IPv4 addresses from the same subnet. HSRP hello packets are local. They are not routed beyond the network segment. Therefore, a standby router would not know when the active router fails.</p>
-<p>The HSRP routers are not configured with the same virtual IPv4 address. The virtual IPv4 address is the default gateway for end devices.</p>
-<p>The HSRP routers are not configured with the same HSRP group number. This will cause each router to assume the active role.</p>
-<p>End devices are not configured with the correct default gateway address. Although not directly related to HSRP, configuring the DHCP server with one of the HSRP router’s real IP addresses would mean that end devices would only have connectivity to remote networks when that HSRP router is active.</p>
-</div></blockquote>
+HSRP:
+  HSRP Errors debugging is on
+  HSRP Events debugging is on
+    (protocol, neighbor, redundancy, track, arp, interface)
+  HSRP Packets debugging is on
+    (Coup, Resign)
+R2#
+ Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby: c/Active timer expired (172.16.10.2)
+ Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Active router is local, was 172.16.10.2
+ Dec  2 16:11:31.855: HSRP: Gi0/1 Nbr 172.16.10.2 no longer active for group 1 (Standby)
+ Dec  2 16:11:31.855: HSRP: Gi0/1 Nbr 172.16.10.2 Was active or standby - start passive holddown
+ Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby router is unknown, was local
+ Dec  2 16:11:31.855: HSRP: Gi0/1 Grp 1 Standby -&gt; Active
+</pre></div>
+</div>
 <p>EtherChannel must have the same speed, duplex setting, and VLAN information on all interfaces on the devices at both ends. Settings configured in the port channel interface configuration mode will also be applied to the individual interfaces in that EtherChannel. Settings configured on individual interfaces will not be applied to the EtherChannel or to the other interfaces in the EtherChannel.</p>
 </div>
 </div>
