@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Etherchannel - HSRP &mdash; debian &amp; networking 20171017 documentation</title>
+  <title>Etherchannel - Hot Standby Routing Protocol &mdash; debian &amp; networking 20171017 documentation</title>
   
 
   
@@ -93,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="lan_design.html">LAN design</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="stp.html">Spanning Tree Protocol</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Etherchannel - HSRP</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Etherchannel - Hot Standby Routing Protocol</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#restrictions">Restrictions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#port-aggregation-protocol-pagp">Port Aggregation Protocol PAgP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#lacp-802-3ad-now-802-1ax">LACP (802.3ad now 802.1AX)</a></li>
@@ -107,10 +107,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#hot-standby-router-protocol-hsrp">HOT STANDBY Router Protocol (HSRP)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gateway-load-balancing-protocol-glbp">Gateway Load Balancing Protocol (GLBP)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hsrp-preemption">HSRP Preemption</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#hsrp-states">HSRP States</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hsrp-configuration">HSRP Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hsrp-states">HSRP States</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hsrp-configuration">HSRP Configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#troubleshooting-hsrp-failure">Troubleshooting HSRP Failure</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#common-hsrp-configuration-issues">Common HSRP Configuration Issues</a></li>
 </ul>
@@ -177,7 +175,7 @@
         
           <li><a href="inhoud.html">scaling networks</a> &raquo;</li>
         
-      <li>Etherchannel - HSRP</li>
+      <li>Etherchannel - Hot Standby Routing Protocol</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -196,8 +194,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="etherchannel-hsrp">
-<h1>Etherchannel - HSRP<a class="headerlink" href="#etherchannel-hsrp" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="etherchannel-hot-standby-routing-protocol">
+<h1>Etherchannel - Hot Standby Routing Protocol<a class="headerlink" href="#etherchannel-hot-standby-routing-protocol" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="restrictions">
 <h2>Restrictions<a class="headerlink" href="#restrictions" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/4_la_hsrp_restrictions.png" src="../../../_images/4_la_hsrp_restrictions.png" />
@@ -601,9 +599,8 @@ support for MD5</p>
 <p>After power is restored, R1 comes back online. Because R1 has a higher priority and preemption is enabled, it will force a new election process. R1 will re-assume the role of the active router and R2 will fall back to the role of the standby router.</p>
 <p>Note: With preemption disabled, the router that boots up first will become the active router if there are no other routers online during the election process.</p>
 </div>
-</div>
 <div class="section" id="hsrp-states">
-<h1>HSRP States<a class="headerlink" href="#hsrp-states" title="Permalink to this headline">¶</a></h1>
+<h2>HSRP States<a class="headerlink" href="#hsrp-states" title="Permalink to this headline">¶</a></h2>
 <p>Initial
 This state is entered through a configuration change or when an interface first becomes available.</p>
 <p>Learn
@@ -619,7 +616,7 @@ The router currently forwards packets that are sent to the group virtual MAC add
 <p>The active and standby HSRP routers send hello packets to the HSRP group multicast address every 3 seconds, by default. The standby router will become active if it does not receive a hello message from the active router after 10 seconds. You can lower these timer settings to speed up the failover or preemption. However, to avoid increased CPU usage and unnecessary standby state changes, do not set the hello timer below 1 second or the hold timer below 4 seconds.</p>
 </div>
 <div class="section" id="hsrp-configuration">
-<h1>HSRP Configuration<a class="headerlink" href="#hsrp-configuration" title="Permalink to this headline">¶</a></h1>
+<h2>HSRP Configuration<a class="headerlink" href="#hsrp-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config)# interface g0/1
 R1(config-if)# ip address 172.16.10.2 255.255.255.0
 R1(config-if)# standby version 2
@@ -718,6 +715,7 @@ Standby router is local
 Priority 100 (default 100)
 Group name is &quot;hsrp-Gi0/1-1&quot; (default)
 </pre></div>
+</div>
 </div>
 <div class="section" id="troubleshooting-hsrp-failure">
 <h2>Troubleshooting HSRP Failure<a class="headerlink" href="#troubleshooting-hsrp-failure" title="Permalink to this headline">¶</a></h2>

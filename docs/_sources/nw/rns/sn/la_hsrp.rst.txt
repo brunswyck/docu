@@ -7,8 +7,8 @@
     ^, for subsubsections
     “, for paragraphs
 
-Etherchannel - HSRP
-===================
+Etherchannel - Hot Standby Routing Protocol
+===========================================
 
 Restrictions
 ------------
@@ -373,7 +373,7 @@ After power is restored, R1 comes back online. Because R1 has a higher priority 
 Note: With preemption disabled, the router that boots up first will become the active router if there are no other routers online during the election process.
 
 HSRP States
-===========
+-----------
 	
 Initial
 This state is entered through a configuration change or when an interface first becomes available.
@@ -396,7 +396,7 @@ The router currently forwards packets that are sent to the group virtual MAC add
 The active and standby HSRP routers send hello packets to the HSRP group multicast address every 3 seconds, by default. The standby router will become active if it does not receive a hello message from the active router after 10 seconds. You can lower these timer settings to speed up the failover or preemption. However, to avoid increased CPU usage and unnecessary standby state changes, do not set the hello timer below 1 second or the hold timer below 4 seconds.
 
 HSRP Configuration
-==================
+------------------
 
 .. code::
 
