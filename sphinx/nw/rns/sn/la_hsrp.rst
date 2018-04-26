@@ -333,10 +333,12 @@ Default Gateway Limitations
 
 VIRTUAL ROUTER
 --------------
+
 One way to prevent a single point of failure at the default gateway, is to implement a virtual router. To implement this type of router redundancy, multiple routers are configured to work together to present the illusion of a single router to the hosts on the LAN
 
 HOT STANDBY Router Protocol (HSRP)
 ----------------------------------
+
 group of routers - active and standby
 virtual ip and macs are shared between them
 verify HSRP: show standby
@@ -346,6 +348,7 @@ VRRP = standard protocol
 
 Gateway Load Balancing Protocol (GLBP)
 --------------------------------------
+
 Cisco-proprietary FHRP that protects data traffic from a failed router or circuit, like HSRP and VRRP, while also allowing load balancing (also called load sharing) between a group of redundant routers.
 
 GLBP for IPv6 - Cisco-proprietary FHRP providing the same functionality of GLBP, but in an IPv6 environment. GLBP for IPv6 provides automatic router backup for IPv6 hosts configured with a single default gateway on a LAN. Multiple first-hop routers on the LAN combine to offer a single virtual first-hop IPv6 router while sharing the IPv6 packet forwarding load.
