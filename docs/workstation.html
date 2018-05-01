@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>debian workstation &mdash; debian &amp; networking 20171017 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="reStructuredText Primer" href="rest.html" />
+    <link rel="prev" title="Design" href="storage/design/design.html" />
+    <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> debian & networking
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                201710
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">BASH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">debian workstation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-configuration">hardware configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#peripherals">peripherals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#logitech-unified-receiver">logitech unified receiver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">debian & networking</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>debian workstation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/workstation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="debian-workstation">
+<h1>debian workstation<a class="headerlink" href="#debian-workstation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hardware-configuration">
+<h2>hardware configuration<a class="headerlink" href="#hardware-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="peripherals">
+<h3>peripherals<a class="headerlink" href="#peripherals" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="logitech-unified-receiver">
+<h4>logitech unified receiver<a class="headerlink" href="#logitech-unified-receiver" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>check if receiver recognized
+----------------------------
+(env) patrick@stretch:~/docu/sphinx[brunswyck:docu.git master]$ sudo tail /var/log/kern.log
+May  1 20:41:58 stretch kernel: [1553347.282249] usb 1-1.2: USB disconnect, device number 91
+May  1 20:48:40 stretch kernel: [1553749.486417] thinkpad_acpi: EC reports that Thermal Table has changed
+May  1 20:49:50 stretch kernel: [1553819.183513] usb 1-1: new full-speed USB device number 92 using xhci_hcd
+May  1 20:49:50 stretch kernel: [1553819.325874] usb 1-1: New USB device found, idVendor=046d, idProduct=c52b
+May  1 20:49:50 stretch kernel: [1553819.325886] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+May  1 20:49:50 stretch kernel: [1553819.325892] usb 1-1: Product: USB Receiver
+May  1 20:49:50 stretch kernel: [1553819.325898] usb 1-1: Manufacturer: Logitech
+May  1 20:49:50 stretch kernel: [1553819.363318] logitech-djreceiver 0003:046D:C52B.01EF: hiddev0,hidraw2: USB HID v1.11 Device [Logitech USB Receiver] on usb-0000:00:14.0-1/input2
+May  1 20:49:50 stretch kernel: [1553819.495762] input: Logitech M510 as /devices/pci0000:00/0000:00:14.0/usb1/1-1/1-1:1.2/0003:046D:C52B.01EF/0003:046D:1025.01F0/input/input516
+May  1 20:49:50 stretch kernel: [1553819.496362] logitech-hidpp-device 0003:046D:1025.01F0: input,hidraw3: USB HID v1.11 Mouse [Logitech M510] on usb-0000:00:14.0-1:1
+
+install unified receiver manager
+--------------------------------
+(env) patrick@stretch:~/docu/sphinx[brunswyck:docu.git master]$ sudo apt-cache search solaar
+solaar - Logitech Unifying Receiver peripherals manager for Linux
+solaar-gnome3 - GNOME Shell/Unity integration for Solaar
+
+(env) patrick@stretch:~/docu/sphinx[brunswyck:docu.git master]$ sudo apt-get install solaar
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  python-pyudev
+Suggested packages:
+  python-gobject python-qt4 python-pyside.qtcore gir1.2-appindicator3-0.1 solaar-gnome3
+The following NEW packages will be installed:
+  python-pyudev solaar
+0 upgraded, 2 newly installed, 0 to remove and 24 not upgraded.
+Need to get 136 kB of archives.
+After this operation, 647 kB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+
+Get:1 http://ftp.be.debian.org/debian stable/main amd64 python-pyudev all 0.21.0-1 [40.2 kB]
+Get:2 http://ftp.be.debian.org/debian stable/main amd64 solaar all 0.9.2+dfsg-7 [95.9 kB]
+Fetched 136 kB in 0s (666 kB/s)
+Preconfiguring packages ...
+Selecting previously unselected package python-pyudev.
+(Reading database ... 219287 files and directories currently installed.)
+Preparing to unpack .../python-pyudev_0.21.0-1_all.deb ...
+Unpacking python-pyudev (0.21.0-1) ...
+Selecting previously unselected package solaar.
+Preparing to unpack .../solaar_0.9.2+dfsg-7_all.deb ...
+Unpacking solaar (0.9.2+dfsg-7) ...
+Setting up python-pyudev (0.21.0-1) ...
+Processing triggers for mime-support (3.60) ...
+Processing triggers for desktop-file-utils (0.23-1) ...
+Processing triggers for man-db (2.7.6.1-2) ...
+Processing triggers for gnome-menus (3.13.3-9) ...
+Setting up solaar (0.9.2+dfsg-7) ...
+Processing triggers for hicolor-icon-theme (0.15-1) ...
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rest.html" class="btn btn-neutral float-right" title="reStructuredText Primer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="storage/design/design.html" class="btn btn-neutral" title="Design" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Patrick Brunswyck.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'20171017',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

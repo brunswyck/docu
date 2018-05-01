@@ -12,6 +12,7 @@ Welcome to Patrick's documentation!
     git
     scripting
     storage/storage
+    workstation
     rest
 
 Indices and tables
