@@ -210,7 +210,9 @@ cli equivalent
 
    redshift -l 50.85045:4.34878 -t 5700:3600 -g 0.8 -m randr -v
       
-   
+
+more information: http://jonls.dk/redshift/
+
 brightness controller
 ---------------------
 
@@ -225,4 +227,4 @@ install and run
    ~/github/projects$ git clone https://github.com/LordAmit/Brightness.git
 
    ~/github/projects$ python2.7 Brightness/src/init.py 
-  
+ 
