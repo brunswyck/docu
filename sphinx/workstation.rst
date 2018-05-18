@@ -192,18 +192,23 @@ you need to set latitude:longitude first in a configuration file
 
    patrick@stretch:~$ vim ~/.config/redshift.conf
       
-   patrick@stretch:~$ cat ~/.config/redshift.conf
    [redshift]
-   temp-day=5700
+   temp-day=6500
    temp-night=3600
-   gamma=0.8
    adjustment-method=randr
    location-provider=manual
+   brightness-day=1
+   brightness-night=0.5
+   gamma-day=1.2:1.2:1.0
+   gamma-night=0.7:0.7:0.6
    
    [manual]
    lat=50.85045
    lon=4.34878
- 
+   
+   [randr]
+   screen=0
+
 cli equivalent
 
 .. code::

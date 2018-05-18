@@ -13,6 +13,7 @@ Welcome to Patrick's documentation!
     scripting
     storage/storage
     workstation
+    server
     rest
 
 Indices and tables
