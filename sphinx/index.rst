@@ -14,6 +14,7 @@ Welcome to Patrick's documentation!
     storage/storage
     workstation
     server
+    cheatsheets
     rest
 
 Indices and tables

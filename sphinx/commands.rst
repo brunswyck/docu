@@ -323,3 +323,20 @@ example for DHCP
 
   # User alias specification
   User alias specification User_Alias DHCPUSERS = guru, patrick
+
+*********************
+system administration
+*********************
+
+git
+===
+
+reset your remote git
+---------------------
+
+.. code::
+
+   git remote -v 
+   git remote remove origin 
+   git remote add origin git@github.com:user/repo.git  
+   
