@@ -6,15 +6,15 @@ Welcome to Patrick's documentation!
     :caption: Contents:
     :glob:
 
+    cheatsheets
     nw/rns/inhoud
+    server
+    workstation
     vim
     commands
     git
     scripting
     storage/storage
-    workstation
-    server
-    cheatsheets
     rest
 
 Indices and tables
