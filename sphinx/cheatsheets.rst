@@ -9,17 +9,11 @@ screen sessions
 tmux shortcuts & cheatsheet
 ===========================
 
-start new:
-
-::
-
-   tmux
-
 start new with session name:
 
 ::
 
-   tmux new -s myname
+   tmux new -s patrick
 
 attach:
 
@@ -31,7 +25,7 @@ attach to named:
 
 ::
 
-   tmux a -t myname
+   tmux a -t patrick
 
 list sessions:
 
@@ -43,16 +37,18 @@ kill session:
 
 ::
 
-   tmux kill-session -t myname
+   tmux kill-session -t patrick
 
 Kill all the tmux sessions:
 
 ::
 
+   tmux kill-server 	Destroy all sessions and kill all processes
+   or
    tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill
 
-In tmux, hit the prefix ``ctrl+b`` (my modified prefix is ctrl+a) and
-then:
+
+In tmux, hit the prefix ``ctrl+b`` and then:
 
 Sessions
 --------
@@ -95,29 +91,10 @@ Panes (splits)
    <prefix> } (Move the current pane right)
    <prefix> z toggle pane zoom
 
-Sync Panes
-----------
 
-You can do this by switching to the appropriate window, typing your Tmux
-prefix (commonly Ctrl-B or Ctrl-A) and then a colon to bring up a Tmux
-command line, and typing:
+.. note:: prefix + alt+arrow = resize active pane
 
-::
-
-   :setw synchronize-panes
-
-You can optionally add on or off to specify which state you want;
-otherwise the option is simply toggled. This option is specific to one
-window, so it won’t change the way your other sessions or windows
-operate. When you’re done, toggle it off again by repeating the command.
-`tip source`_
-
-Resizing Panes
---------------
-
-You can also resize panes if you don’t like the layout defaults. I
-personally rarely need to do this, though it’s handy to know how. Here
-is the basic syntax to resize panes:
+Here is the basic syntax to resize panes:
 
 ::
 
@@ -139,11 +116,42 @@ Pressing PREFIX [ places us in Copy mode. We can then use our movement
 keys to move our cursor around the screen. By default, the arrow keys
 work. we set our configuration file to u
 
-.. _tip source: http://blog.sanctum.geek.nz/sync-tmux-panes/
+source: http://blog.sanctum.geek.nz/sync-tmux-panes/
 
-**********************
-second section here
-**********************
+
+Create a tmux Configuration File
+--------------------------------
+
+As you get comfortable with tmux, you may want to change some of the defaults. Using a text editor, create a configuration file in your user’s home directory:
+
+~/.tmux.conf
+
+.. code::
+
+   # Uncomment the lines with the options you want to activate (by deleting the preceding "#")
+
+   # Allow mouse interaction
+   # set-option -g mouse on
+
+   # Change prefix key to CTRL+A. "C-" stands for CTRL, "M-" stands for ALT key
+   # set-option -g prefix C-a
+   # unbind-key C-b
+   # bind-key C-a send-prefix
+
+   # Display CPU load average for the last 1,5 and 15 minutes, in the status bar
+   set -g status-right "#(cut -d ' ' -f -3 /proc/loadavg) %H:%M %d-%b-%y"
+
+When you have saved your changes to this file, load the new configuration. Enter the tmux command mode by pressing Prefix then :, then use the following command:
+
+::
+
+   source-file ~/.tmux.conf
+
+With the mouse option enabled you can use the pointer to interact with tmux panes, windows and status bar. For example you can click on a window name in the status bar to switch to it or you can click and drag a pane line to resize it.
+
+***************
+some other tool
+***************
 
 display
 =======

@@ -317,12 +317,20 @@ see current network settings for KVM
    ----------------------------------------------------------
    default              inactive   no            yes
 
+
+
 Change network in virsh
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code::
 
    patrick@lab:~$ sudo vim /root/bridged.xml
+    <network> 
+      <name>br0</name> 
+      <forward mode="bridge"/> 
+      <bridge name="br0"/> 
+    </network>
+
    patrick@lab:~$ sudo virsh net-define --file /root/bridged.xml
    Network br0 defined from /root/bridged.xml
    
@@ -343,13 +351,43 @@ Change network in virsh
    patrick@lab:/var/lib/libvirt$ virsh pool-dumpxml default | grep -i path
     <path>/mnt/store/kvm</path>
 
-    
+Change default images location
+------------------------------
+
+the default location is /var/libvirt/images
+I want it to be /mnt/store/images
+
+.. code::
+
+   virsh # pool-edit --pool default
+   
+   <pool type='dir'> 
+     <name>default</name> 
+     <uuid>f430f78f-82a0-4844-a769-f3b758fd508f</uuid> 
+     <capacity unit='bytes'>0</capacity> 
+     <allocation unit='bytes'>0</allocation> 
+     <available unit='bytes'>0</available> 
+     <source> 
+     </source> 
+     <target> 
+       <path>/mnt/store/kvm/images</path> 
+       <permissions> 
+         <mode>0711</mode> 
+         <owner>0</owner> 
+         <group>0</group> 
+       </permissions> 
+     </target> 
+   </pool>
+   
 
 Create VM via CLI
 -----------------
 
 First you need to know what your os name is for the virt-install command
 For that you can use the following package
+
+Read the man for more information https://linux.die.net/man/1/virt-install
+
 
 .. code::
 
@@ -378,5 +416,186 @@ the names for debian:
 
 virt-install command
 --------------------
+
+.. code::
+
+   patrick@lab:/var/lib/libvirt/boot$ sudo virt-install --virt-type=kvm \
+   --name stretch-amd64 \
+   --os-variant debiantesting \
+   --location /mnt/store/kvm/images/debian-testing-amd64-netinst.iso \
+   --memory 8192 \
+   --disk pool=default,size=100,format=qcow2 \
+   --vcpus=2,maxvcpus=4 --cpu host \
+   --check disk_size=off \
+   --network=network=br0 \
+   --extra-args console=ttyS0 --graphics none
+
+using virt-builder to create a vm
+---------------------------------
+
+.. code::
+
+   sudo virt-builder ubuntu-18.04 --size=150G --format qcow2 -o /mnt/store/kvm/images/gns3server.qcow2 --hostname gns3 --network --timezone Europe/Brussels --attach /mnt/store/kvm/images/ubuntu-18.04-live-server-amd64.iso
+
+run guest installed as sudo
+---------------------------
+
+.. code::
+
+   export LIBVIRT_DEFAULT_URI=qemu:///system
+
+does the trick
+
+launch vm
+---------
+
+.. code::
+
+   virsh # destroy --domain debian9.4 --graceful 
+
+   sudo qemu-img info /var/lib/libvirt/images/debian9.4.qcow2 
+   image: /var/lib/libvirt/images/debian9.4.qcow2
+   file format: qcow2
+   virtual size: 75G (80530636800 bytes)
+   disk size: 73G
+   cluster_size: 65536
+   Format specific information:
+       compat: 1.1
+       lazy refcounts: true
+       refcount bits: 16
+       corrupt: false
+   
+   resize qemu
+   sudo qemu-img resize /var/lib/libvirt/images/debian9.4.qcow2 +100G
+   Image resized
+
+   now expand filesystem to new available space. I'll do this with virt-resize. You need to install the libguestfs-tools package for that
+
+.. code::
+
+   sudo apt-get install libguestfs-tools
+
+   sudo cp /var/lib/libvirt/images/debian9.4.qcow2 /var/lib/libvirt/images/debian9.4-original.qcow2
+
+   patrick@lab:/var/lib/libvirt/images$ sudo virt-resize --expand /dev/vda1 debian9.4-original.qcow2 debian9.4.qcow2 
+   [sudo] password for patrick: 
+   [   0.0] Examining debian9.4-original.qcow2
+    100% ⟦▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒⟧ --:--
+   **********
+   
+   Summary of changes:
+   
+   /dev/sda1: This partition will be resized from 67.0G to 167.0G.  The 
+   filesystem ext4 on /dev/sda1 will be expanded using the ‘resize2fs’ 
+   method.
+   
+   /dev/sda2: This partition will be left alone.
+   
+   **********
+   [   9.1] Setting up initial partition table on debian9.4.qcow2
+   [  10.6] Copying /dev/sda1
+    100% ⟦▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒⟧ 00:00
+   [ 337.7] Copying /dev/sda2
+    100% ⟦▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒⟧ --:--
+   [ 376.7] Expanding /dev/sda1 using the ‘resize2fs’ method
+   
+   Resize operation completed with no errors.  Before deleting the old disk, 
+   carefully check that the resized disk boots and works correctly.
+  
+let's boot her up and check
+
+.. code::
+
+   virsh # start debian9.4 --console
+
+   patrick@ethnode:~$ sudo lsblk 
+   NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+   sr0     11:0    1 1024M  0 rom  
+   vda    254:0    0  175G  0 disk 
+   ├─vda1 254:1    0  167G  0 part /
+   ├─vda2 254:2    0    1K  0 part 
+   └─vda5 254:5    0    8G  0 part [SWAP]
+   patrick@ethnode:~$ 
+   patrick@ethnode:~$ ethergo 
+   INFO [05-25|09:45:50] Maximum peer count                       ETH=25 LES=0 total=25
+   INFO [05-25|09:45:50] Starting peer-to-peer node               instance=Geth/v1.8.9-unstable-55b579e0/linux-amd64/go1.10.1
+   INFO [05-25|09:45:50] Allocated cache and file handles         database=/home/patrick/.ethereum/geth/chaindata cache=3072 handles=512
+   INFO [05-25|09:46:05] Initialised chain configuration          config="{ChainID: 1 Homestead: 1150000 DAO: 1920000 DAOSupport: true EIP150: 2463000 EIP155: 2675000 EIP158: 2675000 Byzantium: 4370000 Constantinople: <nil> Engine: ethash}"
+   INFO [05-25|09:46:05] Disk storage enabled for ethash caches   dir=/home/patrick/.ethereum/geth/ethash count=3
+   INFO [05-25|09:46:05] Disk storage enabled for ethash DAGs     dir=/home/patrick/.ethash               count=2
+   INFO [05-25|09:46:05] Initialising Ethereum protocol           versions="[63 62]" network=1
+   INFO [05-25|09:46:05] Loaded most recent local header          number=5258315 hash=b9e4f9…023c47 td=3054687488633471122397
+   INFO [05-25|09:46:05] Loaded most recent local full block      number=0       hash=d4e567…cb8fa3 td=17179869184
+
+mission accomplished!  
+
+
+see domains as user and connect to console
+------------------------------------------
+
+.. code::
+
+   patrick@lab:~$ export LIBVIRT_DEFAULT_URI=qemu:///system
+   patrick@lab:~$ virsh
+   Welcome to virsh, the virtualization interactive terminal.
+   
+   Type:  'help' for help with commands
+          'quit' to quit
+   
+   virsh # list --all
+    Id    Name                           State
+   ----------------------------------------------------
+    2     gns3                           running
+    -     debian9.4                      shut off
+   
+   virsh # console --domain debian9.4
+   error: The domain is not running
+   
+   virsh # start --domain debian9.4 
+   Domain debian9.4 started
+   
+   virsh # console debian9.4
+   Connected to domain debian9.4
+   Escape character is ^]
+   
+   Debian GNU/Linux buster/sid ethnode ttyS0
+   
+   ethnode login: 
+
+adjust sources.list
+-------------------
+
+.. code::
+
+   $ cat /etc/apt/sources.list
+   deb http://deb.debian.org/debian buster main contrib non-free
+   deb-src http://deb.debian.org/debian buster main contrib non-free
+   
+   deb http://deb.debian.org/debian buster-updates main contrib non-free
+   deb-src http://deb.debian.org/debian buster-updates main contrib non-free
+   
+   deb http://security.debian.org/debian-security/ buster/updates main contrib non-free
+   deb-src http://security.debian.org/debian-security/ buster/updates main contrib non-free
+
+
+install basic packages
+----------------------
+
+.. code::
+
+   apt-get update
+   apt-get install sudo vim git locate
+
+add your user to the sudo group
+-------------------------------
+
+.. code::
+
+   usermod -aG sudo patrick
+   su patrick
+
+
+transfer your ssh key to the server
+-----------------------------------
 
 
