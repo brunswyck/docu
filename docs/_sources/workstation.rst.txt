@@ -1,6 +1,6 @@
-##################
-debian workstation
-##################
+###########
+workstation
+###########
 
 **********************
 hardware configuration
@@ -67,4 +67,184 @@ logitech unified receiver
    Processing triggers for gnome-menus (3.13.3-9) ...
    Setting up solaar (0.9.2+dfsg-7) ...
    Processing triggers for hicolor-icon-theme (0.15-1) ...
+
+**********************
+software configuration
+**********************
+apt-get
+=======
+
+force apt-get to use ipv4
+-------------------------
+
+::
+
+  Add -o Acquire::ForceIPv4=true when running apt-get.
+
+If you want to make the setting persistent just create /etc/apt/apt.conf.d/99force-ipv4 and put Acquire::ForceIPv4 "true"; in it:
+
+::
+
+  echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
+
+display
+=======
+
+redshift
+---------
+
+change display color profile following the sun
+
+packages
+^^^^^^^^
+
+.. code::
+
+   sudo apt-cache search redshift
+   gnome-shell-extension-redshift - redshift extension for GNOME Shell
+   plasma-applet-redshift-control - Adjusts the color temperature of your screen
+   gtk-redshift - transitional dummy package
+   redshift - Adjusts the color temperature of your screen
+   redshift-gtk - Adjusts the color temperature of your screen with GTK+ integration
    
+
+.. code::
+
+   sudo apt-get install redshift redshift-gtk
+
+help
+^^^^
+
+.. code::
+
+   redshift -h
+   
+   Usage: redshift -l LAT:LON -t DAY:NIGHT [OPTIONS...]
+   
+   Set color temperature of display according to time of day.
+   
+     -h     Display this help message
+     -v     Verbose output
+     -V     Show program version
+  
+     -b DAY:NIGHT   Screen brightness to apply (between 0.1 and 1.0)
+     -c FILE    Load settings from specified configuration file
+     -g R:G:B   Additional gamma correction to apply
+     -l LAT:LON Your current location
+     -l PROVIDER    Select provider for automatic location updates
+            (Type `list' to see available providers)
+     -m METHOD  Method to use to set color temperature
+            (Type `list' to see available methods)
+     -o     One shot mode (do not continuously adjust color temperature)
+     -O TEMP    One shot manual mode (set color temperature)
+     -p     Print mode (only print parameters and exit)
+     -x     Reset mode (remove adjustment from screen)
+     -r     Disable temperature transitions
+     -t DAY:NIGHT   Color temperature to set at daytime/night
+   
+   The neutral temperature is 6500K. Using this value will not
+   change the color temperature of the display. Setting the
+   color temperature to a value higher than this results in
+   more blue light, and setting a lower value will result in
+   more red light.
+   
+   Default values:
+   
+     Daytime temperature: 5500K
+     Night temperature: 3500K
+
+   CONFIGURATION FILE
+          A configuration file with the name `redshift.conf' can optionally be placed in `~/.config/'. The file has standard INI format. General program options are
+          placed  under  the `redshift' header, while options for location providers and adjustment methods are placed under a header with the name of that provider
+          or method. General options are:
+   
+          temp-day = integer
+                 Daytime temperature
+   
+          temp-night = integer
+                 Night temperature
+   
+          transition = 0 or 1
+                 Disable or enable transitions
+   
+          brightness-day = 0.1-1.0
+                 Screen brightness at daytime
+   
+          brightness-night = 0.1-1.0
+                 Screen brightness at night
+   
+          elevation-high = decimal
+                 The solar elevation for the transition to daytime
+   
+          elevation-low = decimal
+                 The solar elevation for the transition to night
+   
+          gamma = R:G:B
+              Gamma adjustment to apply (day and night)
+
+          gamma-day = R:G:B
+                 Gamma adjustment to apply at daytime
+   
+          gamma-night = R:G:B
+                 Gamma adjustment to apply at night
+   
+          adjustment-method = name
+                 Select adjustment method. Options for the adjustment method can be given under the configuration file heading of the same name.
+   
+          location-provider = name
+                 Select location provider. Options for the location provider can be given under the configuration file heading of the same name.
+   
+          Options for location providers and adjustment methods can be found in the help output of the providers and methods.
+   
+      Please report bugs to <https://github.com/jonls/redshift/issues>
+   
+configure
+^^^^^^^^^
+   
+you need to set latitude:longitude first in a configuration file
+   
+.. code::
+
+   patrick@stretch:~$ vim ~/.config/redshift.conf
+      
+   [redshift]
+   temp-day=6500
+   temp-night=3600
+   adjustment-method=randr
+   location-provider=manual
+   brightness-day=1
+   brightness-night=0.5
+   gamma-day=1.2:1.2:1.0
+   gamma-night=0.7:0.7:0.6
+   
+   [manual]
+   lat=50.85045
+   lon=4.34878
+   
+   [randr]
+   screen=0
+
+cli equivalent
+
+.. code::
+
+   redshift -l 50.85045:4.34878 -t 5700:3600 -g 0.8 -m randr -v
+      
+
+more information: http://jonls.dk/redshift/
+
+brightness controller
+---------------------
+
+manually change display parameters with gui tool
+
+install and run
+^^^^^^^^^^^^^^^
+
+.. code::
+
+   ~/github/projects$ sudo apt-get install python-pyside
+   ~/github/projects$ git clone https://github.com/LordAmit/Brightness.git
+
+   ~/github/projects$ python2.7 Brightness/src/init.py 
+ 

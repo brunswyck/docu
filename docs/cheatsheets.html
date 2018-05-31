@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cheatsheets &mdash; docu patrick a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> docu patrick
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workstation.html">workstation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">docu patrick</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>cheatsheets</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cheatsheets.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cheatsheets">
+<h1>cheatsheets<a class="headerlink" href="#cheatsheets" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="screen-sessions">
+<h2>screen sessions<a class="headerlink" href="#screen-sessions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tmux-shortcuts-cheatsheet">
+<h3>tmux shortcuts &amp; cheatsheet<a class="headerlink" href="#tmux-shortcuts-cheatsheet" title="Permalink to this headline">¶</a></h3>
+<p>start new with session name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">new</span> <span class="o">-</span><span class="n">s</span> <span class="n">patrick</span>
+</pre></div>
+</div>
+<p>attach:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">a</span>  <span class="c1">#  (or at, or attach)</span>
+</pre></div>
+</div>
+<p>attach to named:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">a</span> <span class="o">-</span><span class="n">t</span> <span class="n">patrick</span>
+</pre></div>
+</div>
+<p>list sessions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">ls</span>
+</pre></div>
+</div>
+<p>kill session:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">kill</span><span class="o">-</span><span class="n">session</span> <span class="o">-</span><span class="n">t</span> <span class="n">patrick</span>
+</pre></div>
+</div>
+<p>Kill all the tmux sessions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">kill</span><span class="o">-</span><span class="n">server</span>     <span class="n">Destroy</span> <span class="nb">all</span> <span class="n">sessions</span> <span class="ow">and</span> <span class="n">kill</span> <span class="nb">all</span> <span class="n">processes</span>
+<span class="ow">or</span>
+<span class="n">tmux</span> <span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="p">:</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="o">.</span> <span class="o">-</span><span class="n">f1</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{print substr($1, 0, length($1)-1)}&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">kill</span>
+</pre></div>
+</div>
+<p>In tmux, hit the prefix <code class="docutils literal notranslate"><span class="pre">ctrl+b</span></code> and then:</p>
+<div class="section" id="sessions">
+<h4>Sessions<a class="headerlink" href="#sessions" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:new&lt;CR&gt;  new session
+s  list sessions
+$  name session
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows-tabs">
+<h4>Windows (tabs)<a class="headerlink" href="#windows-tabs" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c</span>  <span class="n">create</span> <span class="n">window</span>
+<span class="n">w</span>  <span class="nb">list</span> <span class="n">windows</span>
+<span class="n">n</span>  <span class="nb">next</span> <span class="n">window</span>
+<span class="n">p</span>  <span class="n">previous</span> <span class="n">window</span>
+<span class="n">f</span>  <span class="n">find</span> <span class="n">window</span>
+<span class="p">,</span>  <span class="n">name</span> <span class="n">window</span>
+<span class="o">&amp;</span>  <span class="n">kill</span> <span class="n">window</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="panes-splits">
+<h4>Panes (splits)<a class="headerlink" href="#panes-splits" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>%  vertical split
+&quot;  horizontal split
+
+o  swap panes
+q  show pane numbers
+x  kill pane
++  break pane into window (e.g. to select text by mouse to copy)
+-  restore pane from window
+⍽  space - toggle between layouts
+&lt;prefix&gt; q (Show pane numbers, when the numbers show up type the key to goto that pane)
+&lt;prefix&gt; { (Move the current pane left)
+&lt;prefix&gt; } (Move the current pane right)
+&lt;prefix&gt; z toggle pane zoom
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">prefix + alt+arrow = resize active pane</p>
+</div>
+<p>Here is the basic syntax to resize panes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">D</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">down</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">U</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">upward</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">L</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">left</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">R</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">right</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">D</span> <span class="mi">20</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">down</span> <span class="n">by</span> <span class="mi">20</span> <span class="n">cells</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">U</span> <span class="mi">20</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">upward</span> <span class="n">by</span> <span class="mi">20</span> <span class="n">cells</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">L</span> <span class="mi">20</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">left</span> <span class="n">by</span> <span class="mi">20</span> <span class="n">cells</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">R</span> <span class="mi">20</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">current</span> <span class="n">pane</span> <span class="n">right</span> <span class="n">by</span> <span class="mi">20</span> <span class="n">cells</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">t</span> <span class="mi">2</span> <span class="mi">20</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">pane</span> <span class="k">with</span> <span class="n">the</span> <span class="nb">id</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">down</span> <span class="n">by</span> <span class="mi">20</span> <span class="n">cells</span><span class="p">)</span>
+<span class="n">PREFIX</span> <span class="p">:</span> <span class="n">resize</span><span class="o">-</span><span class="n">pane</span> <span class="o">-</span><span class="n">t</span> <span class="o">-</span><span class="n">L</span> <span class="mi">20</span> <span class="p">(</span><span class="n">Resizes</span> <span class="n">the</span> <span class="n">pane</span> <span class="k">with</span> <span class="n">the</span> <span class="nb">id</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">left</span> <span class="n">by</span> <span class="mi">20</span> <span class="n">cells</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="copy-mode">
+<h4>Copy mode:<a class="headerlink" href="#copy-mode" title="Permalink to this headline">¶</a></h4>
+<p>Pressing PREFIX [ places us in Copy mode. We can then use our movement
+keys to move our cursor around the screen. By default, the arrow keys
+work. we set our configuration file to u</p>
+<p>source: <a class="reference external" href="http://blog.sanctum.geek.nz/sync-tmux-panes/">http://blog.sanctum.geek.nz/sync-tmux-panes/</a></p>
+</div>
+<div class="section" id="create-a-tmux-configuration-file">
+<h4>Create a tmux Configuration File<a class="headerlink" href="#create-a-tmux-configuration-file" title="Permalink to this headline">¶</a></h4>
+<p>As you get comfortable with tmux, you may want to change some of the defaults. Using a text editor, create a configuration file in your user’s home directory:</p>
+<p>~/.tmux.conf</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Uncomment the lines with the options you want to activate (by deleting the preceding &quot;#&quot;)</span>
+
+<span class="c1"># Allow mouse interaction</span>
+<span class="c1"># set-option -g mouse on</span>
+
+<span class="c1"># Change prefix key to CTRL+A. &quot;C-&quot; stands for CTRL, &quot;M-&quot; stands for ALT key</span>
+<span class="c1"># set-option -g prefix C-a</span>
+<span class="c1"># unbind-key C-b</span>
+<span class="c1"># bind-key C-a send-prefix</span>
+
+<span class="c1"># Display CPU load average for the last 1,5 and 15 minutes, in the status bar</span>
+<span class="nb">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span> <span class="s2">&quot;#(cut -d &#39; &#39; -f -3 /proc/loadavg) %H:%M </span><span class="si">%d</span><span class="s2">-%b-%y&quot;</span>
+</pre></div>
+</div>
+<p>When you have saved your changes to this file, load the new configuration. Enter the tmux command mode by pressing Prefix then :, then use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span><span class="o">-</span><span class="n">file</span> <span class="o">~/.</span><span class="n">tmux</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>With the mouse option enabled you can use the pointer to interact with tmux panes, windows and status bar. For example you can click on a window name in the status bar to switch to it or you can click and drag a pane line to resize it.</p>
+</div>
+</div>
+</div>
+<div class="section" id="some-other-tool">
+<h2>some other tool<a class="headerlink" href="#some-other-tool" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="display">
+<h3>display<a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="test">
+<h4>test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h4>
+<p>change display color profile following the sun</p>
+<div class="section" id="subtest">
+<h5>subtest<a class="headerlink" href="#subtest" title="Permalink to this headline">¶</a></h5>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, patrick.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'a',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/js/custom.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

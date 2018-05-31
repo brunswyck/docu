@@ -2141,8 +2141,9 @@ Ch10 Quiz
      Router(config-if)# cdp receive
    + Router(config)# no cdp enable
    + Router(config-if)# cdp enable
-   + Answer: :transparent:`R(config)#no cdp run && R(config-if)#cdp enable`
-     info: :transparent:`DP should be used carefully. It is frequently necessary to control which interfaces are running CDP. A good way to do this is to disable CDP in global configuration mode with the no cdp run command, and then to configure specific interfaces with the cdp enable command. CDP is configured on an interface with a single command for both sending and receiving advertisements. LLDP allows configuration of either the send or receive functions with separate transmit and receive commands
+   + Answer: :transparent: `R(config)#no cdp run && R(config-if)#cdp enable`
+
+     info: :transparent: `CDP should be used carefully. It is frequently necessary to control which interfaces are running CDP. A good way to do this is to disable CDP in global configuration mode with the no cdp run command, and then to configure specific interfaces with the cdp enable command. CDP is configured on an interface with a single command for both sending and receiving advertisements. LLDP allows configuration of either the send or receive functions with separate transmit and receive commands`
 
 #. Which Cisco IOS 15 technology package would be needed to implement voice over IP? 
  

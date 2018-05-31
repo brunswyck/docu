@@ -1,6 +1,6 @@
-##################
-debian workstation
-##################
+###########
+workstation
+###########
 
 **********************
 hardware configuration
@@ -71,6 +71,21 @@ logitech unified receiver
 **********************
 software configuration
 **********************
+apt-get
+=======
+
+force apt-get to use ipv4
+-------------------------
+
+::
+
+  Add -o Acquire::ForceIPv4=true when running apt-get.
+
+If you want to make the setting persistent just create /etc/apt/apt.conf.d/99force-ipv4 and put Acquire::ForceIPv4 "true"; in it:
+
+::
+
+  echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
 
 display
 =======

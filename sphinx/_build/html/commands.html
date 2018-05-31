@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>BASH &mdash; debian &amp; networking 20171017 documentation</title>
+  <title>commands &mdash; docu patrick a documentation</title>
   
 
   
@@ -29,10 +29,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="GIT" href="git.html" />
-    <link rel="prev" title="VIM" href="vim.html" />
     <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
-
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -51,7 +48,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> debian & networking
+            <a href="index.html" class="icon icon-home"> docu patrick
           
 
           
@@ -61,7 +58,7 @@
             
             
               <div class="version">
-                201710
+                0.0.1
               </div>
             
           
@@ -86,85 +83,13 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workstation.html">workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">BASH</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#tips-and-tricks">Tips and Tricks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#great-shortcuts">great shortcuts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#ctrl-u-ctrl-y">ctrl-u &amp; ctrl-y</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#modify-kernel-settings">modify kernel settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sysctl">sysctl</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#networking">networking</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ip-utility">ip utility</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#show-mac-table">show mac table</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#show-neighbors">show neighbors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#watch-your-neighbors">watch your neighbors ;)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#package-management">Package Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#apt-utils">apt-utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#apt-cache">apt-cache</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#apt-get">apt-get</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#aliases">aliases</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#escaping-characters-for-aliases">escaping characters for aliases</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#awk">AWK</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#general-syntax">General Syntax</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#begin-and-end">BEGIN and END</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#seperators">Seperators</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#stripping-removing">stripping | removing</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#remove-duplicate-lines">remove duplicate lines</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#find">find</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#removing-files">removing files</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#remove-all-but-1">remove all but 1</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#grep">grep</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#finding-stuff">finding stuff</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#include-files-ending-on-x-and-containing-y">include files ending on x and containing y</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#substitutions">substitutions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#proces-substitution">proces substitution</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#system-configuration">system configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sudo">sudo</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#run-commands-in-script-as-sudo">run commands in script as sudo</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest.html">reStructuredText Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
 </ul>
 
             
@@ -179,7 +104,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">debian & networking</a>
+          <a href="index.html">docu patrick</a>
         
       </nav>
 
@@ -210,7 +135,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>BASH</li>
+      <li>commands</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -229,8 +154,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="bash">
-<h1>BASH<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="commands">
+<h1>commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="tips-and-tricks">
 <h2>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="great-shortcuts">
@@ -520,6 +445,20 @@ rm -- !(file.txt)
 </div>
 </div>
 </div>
+<div class="section" id="system-administration">
+<h2>system administration<a class="headerlink" href="#system-administration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="git">
+<h3>git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="reset-your-remote-git">
+<h4>reset your remote git<a class="headerlink" href="#reset-your-remote-git" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">remove</span> <span class="n">origin</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">user</span><span class="o">/</span><span class="n">repo</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -528,21 +467,12 @@ rm -- !(file.txt)
           </div>
           <footer>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="git.html" class="btn btn-neutral float-right" title="GIT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="vim.html" class="btn btn-neutral" title="VIM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Patrick Brunswyck.
+        &copy; Copyright 2018, patrick.
 
     </p>
   </div>
@@ -564,7 +494,7 @@ rm -- !(file.txt)
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'20171017',
+            VERSION:'a',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -575,6 +505,7 @@ rm -- !(file.txt)
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/js/custom.js"></script>
 
   
 
@@ -585,9 +516,7 @@ rm -- !(file.txt)
 
   <script type="text/javascript">
       jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Dynamic Routing &mdash; debian &amp; networking 20171017 documentation</title>
+  <title>Dynamic Routing &mdash; docu patrick a documentation</title>
   
 
   
@@ -30,9 +30,8 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="EIGRP" href="eigrp.html" />
-    <link rel="prev" title="Etherchannel - HSRP" href="etherchannel_hsrp.html" />
+    <link rel="prev" title="Etherchannel - Hot Standby Routing Protocol" href="la_hsrp.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
-
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -51,7 +50,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> debian & networking
+            <a href="../../../index.html" class="icon icon-home"> docu patrick
           
 
           
@@ -61,7 +60,7 @@
             
             
               <div class="version">
-                201710
+                0.0.1
               </div>
             
           
@@ -87,23 +86,18 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../basics/inhoud.html">basics</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">scaling networks</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="lan_design.html">LAN design</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html">Best Paths to Root Bridge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#protocols">PROTOCOLS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#bpdu-headers">BPDU headers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#default-switch-configuration">Default Switch Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#configuring-bridge-id">Configuring Bridge ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#portfast-n-bpdu-guard">Portfast n BPDU guard</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#pvst-load-balancing">PVST+ Load Balancing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#spanning-tree-mode">Spanning Tree Mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#analyze-stp">ANALYZE STP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#stp-troubleshooting">STP troubleshooting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stp.html#switch-stacks">Switch stacks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="etherchannel_hsrp.html">Etherchannel - HSRP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html">Spanning Tree Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="la_hsrp.html">Etherchannel - Hot Standby Routing Protocol</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Dynamic Routing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#distance-vector-vs-link-state">Distance Vector vs Link State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#building-the-spf-tree">Building the SPF_Tree</a></li>
@@ -115,15 +109,9 @@
 <li class="toctree-l3"><a class="reference internal" href="ospf.html">OSPF</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">BASH</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../rest.html">reStructuredText Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../trading.html">Trading</a></li>
 </ul>
 
             
@@ -138,7 +126,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">debian & networking</a>
+          <a href="../../../index.html">docu patrick</a>
         
       </nav>
 
@@ -333,19 +321,32 @@ Link-state routing protocols are also known as shortest path first protocols and
 <td>no</td>
 <td>no</td>
 </tr>
+<tr class="row-odd"><td>RIPv2</td>
+<td><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">rfc:</th><td class="field-body"><cite>2453</cite></td>
+</tr>
 </tbody>
 </table>
-<div class="line-block">
-<div class="line">RIP      | :rfc: <cite>1058</cite> | hop count | 520  | udp  | 224.0.0.9 | bx   | no   | no            | no             |</div>
-</div>
-<blockquote>
-<div>BDLR                                    BW,Delay,Load,Reliability</div></blockquote>
-<p>AD                                                      120
+</td>
+<td>hop count</td>
+<td>520</td>
+<td>udp</td>
+<td>224.0.0.9</td>
+<td>mc</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>BDLR | BW | Delay | Load | Reliability |</p>
+<p>AD  120
 metric          15 hops                 15 hops
-updates         255.255.255.255         224.0.0.9                       224.0.0.10</p>
-<blockquote>
-<div>90 seconds</div></blockquote>
-<p>VLSM            X                       V
+updates         255.255.255.255         224.0.0.9                       224.0.0.10 90 seconds
+VLSM            X                       V
 CIDR            X                       V
 Summarization   X                       V
 Authentication  X                       V</p>
@@ -437,7 +438,7 @@ R1(config-t)# clear ip ospf process</p>
         <a href="eigrp.html" class="btn btn-neutral float-right" title="EIGRP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="etherchannel_hsrp.html" class="btn btn-neutral" title="Etherchannel - HSRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="la_hsrp.html" class="btn btn-neutral" title="Etherchannel - Hot Standby Routing Protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -446,7 +447,7 @@ R1(config-t)# clear ip ospf process</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Patrick Brunswyck.
+        &copy; Copyright 2018, patrick.
 
     </p>
   </div>
@@ -468,7 +469,7 @@ R1(config-t)# clear ip ospf process</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'20171017',
+            VERSION:'a',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -479,6 +480,7 @@ R1(config-t)# clear ip ospf process</p>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
 
   
 
@@ -489,9 +491,7 @@ R1(config-t)# clear ip ospf process</p>
 
   <script type="text/javascript">
       jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 

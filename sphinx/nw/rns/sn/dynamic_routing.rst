@@ -60,12 +60,13 @@ RFC's for routing protocols
 | RIP      | :rfc: `1058` | hop count | 520  | udp  | 224.0.0.9 | bx   | no   | no            | no             |
 +----------+--------------+-----------+------+------+-----------+------+------+---------------+----------------+
 | RIPv2    | :rfc: `2453` | hop count | 520  | udp  | 224.0.0.9 | mc   | yes  | yes           | yes            |
++----------+--------------+-----------+------+------+-----------+------+------+---------------+----------------+
 
-				BDLR					BW,Delay,Load,Reliability
-AD							120
+BDLR | BW | Delay | Load | Reliability |
+
+AD  120
 metric		15 hops			15 hops
-updates		255.255.255.255 	224.0.0.9			224.0.0.10
-									90 seconds
+updates		255.255.255.255 	224.0.0.9			224.0.0.10 90 seconds
 VLSM		X			V
 CIDR		X			V
 Summarization	X			V

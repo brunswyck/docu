@@ -3,8 +3,8 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = REPLACE
+SPHINXBUILD   = sphinx-build
+SPHINXPROJ    = docupatrick
 SOURCEDIR     = .
 BUILDDIR      = _build
 
