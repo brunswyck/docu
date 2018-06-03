@@ -10,6 +10,7 @@ Welcome to docu patrick's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   diagrams
    cumulocity
    server
    workstation

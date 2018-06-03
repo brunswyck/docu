@@ -149,18 +149,150 @@ When you have saved your changes to this file, load the new configuration. Enter
 
 With the mouse option enabled you can use the pointer to interact with tmux panes, windows and status bar. For example you can click on a window name in the status bar to switch to it or you can click and drag a pane line to resize it.
 
-***************
-some other tool
-***************
+*************
+Network Tools
+*************
 
-display
+TCPdump
 =======
 
-test
-----
+cli options
+-----------
 
-change display color profile following the sun
++------------------+-------------------------------------------------------+
+| option           | explanation                                           |
++==================+=======================================================+
+| -A               | Print frame payload in ASCII                          |
++------------------+-------------------------------------------------------+
+| -c <count>       | Exit after capturing count packets                    |
++------------------+-------------------------------------------------------+
+| -D               | List available interfaces                             |
++------------------+-------------------------------------------------------+
+| -E               | Decrypt IPSEC traffic by providing an encryption key. |
++------------------+-------------------------------------------------------+
+| -e               | Print link-level headers                              |
++------------------+-------------------------------------------------------+
+| -F <file>        | Use file as the filter expression                     |
++------------------+-------------------------------------------------------+
+| -G <n>           | Rotate the dump file every n seconds                  |
++------------------+-------------------------------------------------------+
+| -i <iface> (any) | Specifies the capture interface                       |
++------------------+-------------------------------------------------------+
+| -K               | Don't verify TCP checksums                            |
++------------------+-------------------------------------------------------+
+| -L               | List data link types for the interface                |
++------------------+-------------------------------------------------------+
+| -n               | Don't convert addresses to names                      |
++------------------+-------------------------------------------------------+
+| -nn              | Don't convert addresses or port names                 |
++------------------+-------------------------------------------------------+
+| -p               | Don't capture in promiscuous mode                     |
++------------------+-------------------------------------------------------+
+| -q               | Quiet                                                 |
++------------------+-------------------------------------------------------+
+| -r <file>        | Read packets from file                                |
++------------------+-------------------------------------------------------+
+| -s <len>         | Capture up to len bytes per packet                    |
++------------------+-------------------------------------------------------+
+| -S               | Print absolute TCP sequence numbers                   |
++------------------+-------------------------------------------------------+
+| -t               | human readable timestamp                              |
++------------------+-------------------------------------------------------+
+| -v[v[v]]         | Print more verbose output                             |
++------------------+-------------------------------------------------------+
+| -w <file>        | Write captured packets to file                        |
++------------------+-------------------------------------------------------+
+| -x               | Print frame payload in hex                            |
++------------------+-------------------------------------------------------+
+| -X               | Print frame payload in hex and ASCII                  |
++------------------+-------------------------------------------------------+
+| -XX              | same but also show ethernet header                    |
++------------------+-------------------------------------------------------+
+| -y <type>        | Specify the data link type                            |
++------------------+-------------------------------------------------------+
+| -Z <user>        | Drop privileges from root to user                     |
++------------------+-------------------------------------------------------+
 
-subtest
-^^^^^^^
+capture filters
+---------------
+
++-------------------------------------------+---------------------------------------------------------------+
+| filter                                    | explanation                                                   |
++===========================================+===============================================================+
+| [src\|dst] host <host>                    | Matches a host as the IP source, destination, or either       |
++-------------------------------------------+---------------------------------------------------------------+
+| ether [src\|dst] host <ehost>             | Matches a host as the Ethernet source, destination, or either |
++-------------------------------------------+---------------------------------------------------------------+
+| gateway host <host>                       | Matches packets which used host as a gateway                  |
++-------------------------------------------+---------------------------------------------------------------+
+| [src\|dst] net <network>/<len>            | Matches packets to or from an endpoint residing in network    |
++-------------------------------------------+---------------------------------------------------------------+
+| [tcp\|udp] [src\|dst] port <port>         | Matches TCP or UDP packets sent to/from port                  |
++-------------------------------------------+---------------------------------------------------------------+
+| [tcp\|udp] [src\|dst] portrange <p1>-<p2> | Matches TCP or UDP packets to/from a port in the given range  |
++-------------------------------------------+---------------------------------------------------------------+
+| less <length>                             | Matches packets less than or equal to length                  |
++-------------------------------------------+---------------------------------------------------------------+
+| greater <length>                          | Matches packets greater than or equal to length               |
++-------------------------------------------+---------------------------------------------------------------+
+| (ether\|ip\|ip6) proto <protocol>         | Matches an Ethernet,IPv4, or IPv6 protocol                    |
++-------------------------------------------+---------------------------------------------------------------+
+| (ether\|ip) broadcast                     | Matches Ethernet or IPv4 broadcasts                           |
++-------------------------------------------+---------------------------------------------------------------+
+| (ether\|ip\|ip6) multicast                | Matches Ethernet, IPv4, or IPv6 multicasts                    |
++-------------------------------------------+---------------------------------------------------------------+
+| type (mgt\|ctl\|data) [subtype <subtype>] | Matches 802.11 frames based on type and optional subtype      |
++-------------------------------------------+---------------------------------------------------------------+
+| vlan [<vlan>]                             | Matches 802.1Q frames, optionally with a VLAN ID of vlan      |
++-------------------------------------------+---------------------------------------------------------------+
+| mpls [<label>]                            | Matches MPLS packets, optionally with a label of label        |
++-------------------------------------------+---------------------------------------------------------------+
+| <expr> <relop> <expr>                     | Matches packets by an arbitrary expression                    |
++-------------------------------------------+---------------------------------------------------------------+
+
+cli options
+-----------
+
++----------------+-----------+------------+
+| Protocols      | TCP Flags | Modifiers  |
++================+===========+============+
+| arp ip6 slip   | tcp-urg   | ! or not   |
++----------------+-----------+------------+
+| ether link tcp | tcp-rst   | && or and  |
++----------------+-----------+------------+
+| fddi icmp ip   | tcp-ack   | \|\| or or |
++----------------+-----------+------------+
+| ppp radio rarp | tcp-syn   |            |
++----------------+-----------+------------+
+| tr udp wlan    | tcp-psh   |            |
++----------------+-----------+------------+
+|                | tcp-fin   |            |
++----------------+-----------+------------+
+
+Examples
+
+
+- UDP not bound for port 53
+   udp dst port not 53
+
+- Traffic between these hosts
+   host 10.0.0.1 && host 10.0.0.2
+
+- Packets to either TCP port
+   tcp dst port 80 or 8080
+
+
++-------------------+--------------------+------------------+
+| ICMP              | Types              |                  |
++===================+====================+==================+
+| icmp-echoreply    | icmp-routeradvert  | icmp-tstampreply |
++-------------------+--------------------+------------------+
+| icmp-unreach      | icmp-routersolicit | icmp-ireq        |
++-------------------+--------------------+------------------+
+| icmp-sourcequench | icmp-timxceed      | icmp-ireqreply   |
++-------------------+--------------------+------------------+
+| icmp-redirect     | icmp-paramprob     | icmp-maskreq     |
++-------------------+--------------------+------------------+
+| icmp-echo         | icmp-tstamp        | icmp-maskreply   |
++-------------------+--------------------+------------------+
 
