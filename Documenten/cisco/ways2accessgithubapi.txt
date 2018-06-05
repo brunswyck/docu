@@ -1,5 +1,0 @@
-curl -u $GIT_USER:$GIT_PASS https://raw.githubusercontent.com/brunswyck/clisexy/master/commands.json | jq -C
-
-curl -H 'Authorization: token $GIT_PASS' -H 'Accept: application/vnd.github.v3.raw' -O -L https://api.github.com/repos/brunswyck/clisexy/master/commands.json
-
-curl -u $GIT_USER:$GIT_PASS https://api.github.com/users/brunswyck

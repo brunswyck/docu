@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/guru/github/docu/.git/branches'
-let g:netrw_dirhist_2='/home/guru/test'
-let g:netrw_dirhist_3='/home/guru/.vim/bundle/Vundle.vim'
-let g:netrw_dirhist_4='/home/guru/.vim/bundle/Vundle.vim/test'
-let g:netrw_dirhist_5='/home/guru/github/docu/.git'
