@@ -11,6 +11,7 @@ Welcome to docu patrick's documentation!
    :caption: Contents:
 
    diagrams
+   python
    cumulocity
    server
    workstation
