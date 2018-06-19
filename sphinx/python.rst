@@ -1081,3 +1081,731 @@ item = next(iterator)
    #  File "<stdin>", line 6, in first
    #ValueError: iterable is empty
 
+generators
+----------
+
+specify iterable sequences
+ - all generators are iterators
+
+are lazily evaluated
+ - they only computate the next value on demand
+
+can model infinite sequences
+ - such as data streams from a sensor with no definite end
+
+are composable into pipelines
+ - for natural stream processing
+
+
+.. code-block:: python
+
+   def gen123():
+       yield 1
+       yield 2
+       yield 3
+       # return
+       # implicit return at the end
+
+   g = gen123()
+   g
+   # <generator object gen123 at 0x7f3f662e8fc0>
+   # pass the generator to the function
+   next(g)
+   1
+   next(g)
+   2
+   next(g)
+   3
+   # now StopIteration exception
+   #
+   # Traceback (most recent call last):
+   #   File "<stdin>", line 1, in <module>
+   #   StopIteration
+   for v in gen123(): 
+       print(v)
+   
+   1
+   2
+   3
+   # remember each call to function creates a new generator object
+   h = gen123()
+   i = gen123()
+   h
+   #generator object gen123 at 0x7f3f66302048>
+   i
+   #generator object gen123 at 0x7f3f663020a0>
+
+.. code-block:: python
+
+   def gen246():
+       print("about to yield 2")
+       yield 2
+       print("about to yield 4")
+       yield 4
+       print("about to yield 6")
+       yield 6
+   
+   g = gen246() # generator = created and returned but non of the code has yet been executed
+   next(g)
+   "about to yield 2"
+   2
+   next(g) # generator resumes at the point we left off
+   "about to yield 4"                                                                                    
+   2              
+   next(g)
+   "about to yield 6"
+   6
+
+stateful generators
+-------------------
+
+- Generators resume execution
+- Can maintain state in local variables
+- Complex control flow
+- Lazy evaluation
+
+
+take generator
+
+.. code-block:: python
+
+   def take(count, iterable):
+       """Take items from the front of an iterable.
+   
+       Args:
+           count: maximum number of items to retrieve
+           iterable: the source series
+   
+       Yields:
+            at most 'count' items from 'iterable'
+       """
+   
+       counter = 0
+       for item in iterable:
+           if counter == count:
+               return # end sequence when we reach specified count
+               # return raises StopIteration which is caught internally by the for loop in run_take()
+           counter += 1 # how many items have been yielded so far
+           yield item # contains a generator bc it has at least one yield statement
+   
+   
+   def run_take(): # generators are lazy and only generate values on request
+       items = [2, 4, 6, 8, 10]
+       for item in take(3, items):  # take(count, iterable) # return raises StopIteration which is caught by
+           print(item)
+   
+   
+   if __name__ == "__main__":
+           run_take()
+
+
+distinct generator
+
+.. code-block:: python
+
+   # 2nd generator
+   def distinct(iterable):
+       """Return unique items by eliminating duplicates
+   
+       Args:
+           iterable: source series
+   
+       Yields:
+           Unique elements in order from 'iterable'
+       """
+   
+       seen = set()
+       for item in iterable:
+           if item in seen:
+               continue # finishes current iteration of the loop an begins next iteration immediately!
+               # execution will be transferred back to the for statement to begin next iteration
+           yield item
+           seen.add(item) # next call from for loop in run_distinct() will resume here with remembered
+           # item 5 just yielded
+           # and then moves up to beginning of for loop again where item is reassigned to second value 7
+   
+   def run_distinct():
+       items = [5, 7, 7, 6, 5, 5]
+       for item in distinct(items):
+           print(item)
+   
+   if __name__ == '__main__':
+       run_distinct()
+
+both combined in pipeline
+
+.. code-block:: python
+
+   def take(count, iterable):
+       counter = 0
+       for item in iterable:
+           if counter == count:
+               return # end sequence when we reach specified count
+               # return raises StopIteration which is caught internally by the for loop in run_take()
+           counter += 1 # how many items have been yielded so far
+           yield item # contains a generator bc it has at least one yield statement
+   
+   
+   def run_take(): # generators are lazy and only generate values on request
+       items = [2, 4, 6, 8, 10]
+       for item in take(3, items):  # take(count, iterable) # return raises StopIteration which is caught by
+           print(item)
+   
+   # 2nd generator
+   def distinct(iterable):
+       seen = set()
+       for item in iterable:
+           if item in seen:
+               continue # finishes current iteration of the loop an begins next iteration immediately!
+               # execution will be transferred back to the for statement to begin next iteration
+           yield item
+           seen.add(item) # next call from for loop in run_distinct() will resume here with first item 5
+           # and then moves up to beginning of for loop again with second item 7
+   
+   def run_distinct():
+       items = [5, 7, 7, 6, 5, 5]
+       for item in distinct(items):
+           print(item)
+   
+   def run_pipeline():
+       items = [5, 7, 7, 6, 5, 5]
+       for item in take(3, distinct(items)): # distinct must run first to produce the iterator object argument for take
+           print(item)
+   
+   if __name__ == '__main__':
+       run_pipeline()
+
+
+laziness and infinite
+^^^^^^^^^^^^^^^^^^^^^
+
+• Just in Time Computation
+• Infinite (or large) sequences
+  • sensor readings
+  • mathematical series
+  • massive files
+
+.. code-block:: python
+
+   def lucas():
+       yield 2
+       a = 2
+       b = 1
+       while True: # infinite while loop
+           yield b
+           a, b = b, a + b
+   
+   for x in lucas():
+       print(x)
+   # this will run forever until you pc runs out of memory but demonstrates nicely
+
+generator comprehensions
+------------------------
+
+- similar syntax to list comprehensions
+- create a generator object
+- concise
+- lazy evaluation
+
+(expr(item) for item in iterable)
+
+.. code-block:: python
+
+   million_squares = (x*x for x in range(1, 1000001)) # creates a generator object
+   list(million_squares) # force evaluation of the generator by using it to create a list
+   list(million_squares)
+   [] # repeating it = empty, generators are single use objects!
+   # each time we call a generator function, we create a generator object
+   sum(x*x for x in range(1, 1000001)) # sum of first 10mil squares, using a list comprehencsion would take 400MB!
+   333333833333500000
+
+   sum(x*x for x in range(1, 1000001) if x % 17) # with optional if condition
+   313726019609411764
+
+
+.. note:: we didn't have to use extra parentheses to put a generator comprehension wihtin sum(), this improves readability
+
+using itertools
+---------------
+
+list of iteration tools in python: https://docs.python.org/3/library/itertools.html 
+
+using islice and count
+
+.. code-block:: python
+
+   from itertools import islice, count
+   from math import sqrt
+   
+   
+   def is_prime(x):
+       if x < 2:
+           return False
+       for i in range(2, int(sqrt(x)) + 1):
+           if x % i == 0:
+               return False
+       return True
+   
+   # do this thousand_primes = islice(all_primes, 1000) but how to generate all primes
+   # ranges must always be finite, we need an open ended version of range and that is what count() does
+   # thousand_primes = islice((x for x in count() if is_prime(x)), 1000) # with islice() like with lists
+   
+   sum(islice((x for x in count() if is_prime(x)), 1000))
+   3682913
+
+
+using any(or) and all(and) for iterable series of bool values
+
+.. code-block:: python
+
+   any([False, False, True])
+   True
+   all([False, False, True])
+   False
+   
+   # Are there any prime numbers between 1328 and 1361?
+   any(is_prime(x) for x in range(1328, 1361))
+   False
+   
+   # title() converts first character to uppercase
+   # check if all city names have capital letters
+   all(name == name.title() for name in ['London', 'New York', 'Sydney'])
+   True
+   
+   # syncronize iterations over 2 iterable series
+   # eg two  series of temperature data
+   sunday = [12, 14, 15, 15, 17, 21, 22, 22, 23, 22, 20, 18]
+   monday = [13, 14, 14, 14, 16, 20, 21, 22, 22, 21, 19, 17]
+   # bind them in pairs of corresponding readings
+   for item in zip(sunday, monday):
+       print(item)
+   
+   (12, 13)
+   (14, 14)
+   (15, 14)
+   (15, 14)
+   (17, 16)
+   (21, 20)
+   (22, 21)
+   (22, 22)
+   (23, 22)
+   (22, 21)
+   (20, 19)
+   (18, 17)
+   
+   # zip yields tuples when iterated
+   # we can take advantage of this with tuple unpacking in the for loop
+   for sun, mon in zip(sunday, monday):
+       print("average =", (sun + mon) / 2)
+   
+   average = 12.5
+   average = 14.0
+   average = 14.5
+   average = 14.5
+   average = 16.5
+   average = 20.5
+   average = 21.5
+   average = 22.0
+   average = 22.5
+   average = 21.5
+   average = 19.5
+   average = 17.5
+   
+   tuesday = [2, 2, 3, 7, 9, 10, 9, 8, 8]
+   
+   for temps in zip(sunday, monday, tuesday):
+       print("min={:4.1f}, max={:4.1f}, average={:4.1f}".format(min(temps), max(temps), sum(temps) / len(temps)))
+   """ 
+   min= 2.0, max=13.0, average= 9.0
+   min= 2.0, max=14.0, average=10.0
+   min= 3.0, max=15.0, average=10.7
+   min= 7.0, max=15.0, average=12.0
+   min= 9.0, max=17.0, average=14.0
+   min=10.0, max=21.0, average=17.0
+   min= 9.0, max=22.0, average=17.3
+   min= 8.0, max=22.0, average=17.3
+   min= 8.0, max=23.0, average=17.7
+   """
+   # now we want one long temperature series for sunday monday and thuesday 
+   # we can then lazily concatenate iterables using itertools chain
+   # this is different from simply concatenating 3 lists into a new list
+   # we have no memory impact of data duplication
+   from itertools import chain
+   temperatures = chain(sunday, monday, tuesday)
+
+   all(t > 0 for t in temperatures)
+   temperatures = chain(sunday, monday, tuesday)
+   True
+
+   # following shows generator functions, generator expressions, predicate functions and for loops
+   def lucas():
+       yield 2
+       a = 2
+       b = 1
+       while True: # infinite while loop
+           yield b
+           a, b = b, a + b
+
+   for x in (p for p in lucas() if is_prime(p)):
+       print(x)
+
+   2
+   3
+   7
+   11
+   29
+   47
+   199
+   521
+   2207
+   3571
+   9349
+   3010349
+   54018521
+   370248451
+   6643838879
+   119218851371
+   5600748293801
+   688846502588399
+   32361122672259149
+   
+
+   """ itertools.chain(*iterables)
+   Make an iterator that returns elements from the first iterable until it is exhausted, then proceeds to the next iterable, until all of the iterables are exhausted. Used for treating consecutive sequences as a single sequence """
+   
+https://docs.python.org/3/library/itertools.html#itertools.chain
+   
+summary comprehensions generators
+---------------------------------
+
+- Comprehensions
+  - Comprehensions are a concise syntax for describing lists, sets and dictionaries.
+  - Comprehensions operate on an iterable source object and apply an optional predicate filter and a mandatory expression, both of which are usually in terms of the current item.
+  - Iterables are objects over which we can iterate item by item.
+  - We retrieve an iterator from an iterable object using the built-in iter() function.
+  - Iterators produce items one-by-one-from the underlying iterable series each time they are passed to the built-in next() function 
+
+- Generators
+  - Generator functions allow us to describe series using imperative code.
+  - Generator functions contain at least one use of the yield keyword.
+  - Generators are iterators. When advanced with next() the generator starts or resumes execution up to and including the next yield.
+  - Each call to a generator function creates a new generator object.
+  - Generators can maintain explicit state in local variables between iterations.
+  - Generators are lazy, and so can model infinite series of data.
+  - Generator expressions have a similar syntactic form to list comprehensions and allow for a more declarative and concise way of creating generator objects.
+
+list of iteration tools in python: https://docs.python.org/3/library/itertools.html
+
+classes
+=======
+
+self: the first argument to all instance methods
+__init__() instance method for initializing new objects
+
+.. warning:: __init__() is an initializer, not a constructor, self is similar to this. __init__() is to configure an object that already exists by the time it is called
+
+why self._number?
+ 
+ 1. avoid name clash with number()
+ 2. implementation details of objects start with _
+
+.. note:: using objects of different types through a common interface = polymorphism
+
+.. code-block:: python
+   
+   """Model for aircraft flights."""
+   
+   class Flight:
+       """A flight with a particular passenger aircraft."""
+   
+       def __init__(self, number, aircraft):
+           if not number[:2].isalpha():
+               raise ValueError("No airline code in '{}'".format(number))
+   
+           if not number[:2].isupper():
+               raise ValueError("Invalid airline code '{}'".format(number))
+   
+           if not (number[2:].isdigit() and int(number[2:]) <= 9999):
+               raise ValueError("Invalid route number '{}'".format(number))
+   
+           self._number = number
+           self._aircraft = aircraft
+   
+           rows, seats = self._aircraft.seating_plan()
+           self._seating = [None] + [ {letter:None for letter in seats} for _ in rows ]
+   
+       def number(self):
+           return self._number
+   
+       def airline(self):
+           return self._number[:2]
+   
+       def aircraft_model(self):
+           return self._aircraft.model()
+   
+       def allocate_seat(self, seat, passenger):
+           """Allocate a seat to a passenger.
+   
+           Args:
+               seat: A seat designator such as '12C' or '21F'.
+               passenger: The passenger name.
+   
+           Raises:
+               ValueError: If the seat is unavailable.
+           """
+           rows, seat_letters = self._aircraft.seating_plan()
+   
+           letter = seat[-1]
+           if letter not in seat_letters:
+               raise ValueError("Invalid seat letter {}".format(letter))
+   
+           row_text = seat[:1]
+           try:
+               row = int(row_text)
+           except ValueError:
+               raise ValueError("Invalid seat row {}".format(row_text))
+   
+           if row not in rows:
+               raise ValueError("Invalid row number {}".format(row))
+   
+           if self._seating[row][letter] is not None:
+               raise ValueError("Seat {} is already occupied.".format(seat))
+   
+           self._seating[row][letter] = passenger
+   
+       def _parse_seat(self, seat):
+           """Parse a seat designator into a valid row and letter.
+   
+           Args:
+               seat: A seat designator such as 12F
+   
+           Returns:
+               A tuple containing an integer and a string for row and seat.
+           """
+           row_numbers, seat_letters = self._aircraft.seating_plan()
+   
+           letter = seat[-1]
+           if letter not in seat_letters:
+               raise ValueError("Invalid seat letter {}".format(letter))
+   
+           row_text = seat[:-1]
+           try:
+               row = int(row_text)
+           except ValueError:
+               raise ValueError("Invalid seat row {}".format(row_text))
+   
+           if row not in row_numbers:
+               raise ValueError("Invalid row number {}".format(row))
+   
+           return row, letter
+   
+       def allocate_seat(self, seat, passenger):
+           """Allocate a seat to a passenger.
+   
+           Args:
+               seat: A seat designator such as '12C' or '21F'.
+               passenger: The passenger name.
+   
+           Raises:
+               ValueError: If the seat is unavailable.
+           """
+           row, letter = self._parse_seat(seat)
+   
+           if self._seating[row][letter] is not None:
+               raise ValueError("Seat {} already occupied".format(seat))
+   
+           self._seating[row][letter] = passenger
+   
+       def relocate_passenger(self, from_seat, to_seat):
+           """Relocate a passenger to a different seat.
+   
+           Args:
+               from_seat: The existing seat designator for the
+                          passenger to be moved.
+   
+               to_seat: The new seat designator.
+           """
+   
+           from_row, from_letter = self._parse_seat(from_seat)
+           if self._seating[from_row][from_letter] is None:
+               raise ValueError("No passenger to relocate in seat {}".format(from_seat))
+   
+           to_row, to_letter = self._parse_seat(to_seat)
+           if self._seating[to_row][to_letter] is not None:
+               raise ValueError("Seat {} already occupied".format(to_seat))
+   
+           self._seating[to_row][to_letter] = self._seating[from_row][from_letter]
+           self._seating[from_row][from_letter] = None
+   
+       def num_available_seats(self):
+           return sum( sum(1 for s in row.values() if s is None)
+                       for row in self._seating
+                       if row is not None)
+   
+       def make_boarding_cards(self, card_printer):
+           for passenger, seat in sorted(self._passenger_seats()):
+               card_printer(passenger, seat, self.number(), self.aircraft_model())
+   
+       def _passenger_seats(self):
+           """An iterable series of passenger seating allocations."""
+           row_numbers, seat_letters = self._aircraft.seating_plan()
+           for row in row_numbers:
+               for letter in seat_letters:
+                   passenger = self._seating[row][letter]
+                   if passenger is not None:
+                       yield (passenger, "{}{}".format(row, letter))
+   
+   
+   class Aircraft:
+         def __init__(self, registration):
+             self._registration = registration
+   
+         def registration(self):
+             return self._registration
+   
+         def num_seats(self):
+             rows, row_seats = self.seating_plan()
+             return len(rows) * len(row_seats)
+   
+   
+   class AirbusA319(Aircraft):
+         def model(self):
+             return "Airbus A319"
+   
+         def seating_plan(self):
+             return range(1, 23), "ABCDEF"
+   
+   
+   class Boeing777(Aircraft):
+       def model(self):
+           return "Boeing 777"
+   
+       def seating_plan(self):
+           # For simplicity's sake, we ignore complex
+           # seating arrangement for first-class
+           return range(1, 56), "ABCDEGHJK"
+   
+   
+   def make_flights():
+         f = Flight("BA758", AirbusA319("G-EUPT"))
+         f.allocate_seat('12A', 'Guido van Rossum')
+         f.allocate_seat('15F', 'Bjarne Stroustrup')
+         f.allocate_seat('15E', 'Anders Hejlsberg')
+         f.allocate_seat('1C', 'John McCarthy')
+         f.allocate_seat('1D', 'Richard Hickey')
+   
+         g = Flight("AF72", Boeing777("F-GSPS"))
+         g.allocate_seat('55K', 'Larry Wall')
+         g.allocate_seat('33G', 'Yukihiro Matsumoto')
+         g.allocate_seat('4B', 'Brian Kernighan')
+         g.allocate_seat('4A', 'Dennis Ritchie')
+   
+         return f, g
+   
+   
+   def console_card_printer(passenger, seat, flight_number, aircraft):
+         output = "| Name: {0}"     \
+                  "  Flight: {1}"   \
+                  "  Seat: {2}"     \
+                  "  Aircraft: {3}" \
+                  " |".format(passenger, flight_number, seat, aircraft)
+         banner = '+' + '-' * (len(output) - 2) + '+'
+         border = '|' + ' ' * (len(output) - 2) + '|'
+         lines = [banner, border, output, border, banner]
+         card = '\n'.join(lines)
+         print(card)
+         print()
+
+summary classes
+---------------
+
+- All types in Python have a 'class'
+- Classes define the structure and behavior of an object
+- Class is determined when object is created
+  - normally fixed for the lifetime
+- Classes are the key support for Object-Oriented Programming in Python
+- Classes defined using the class keyword followed by CamelCase name
+- Class instances created by calling the class as if it were a function
+- Instance methods are functions defined inside the class
+  - Should accept an object instance called self as the first parameter
+- Methods are called using instance.method()
+  - Syntactic sugar for passing self instance to method
+- The optional __init__() method initialized new instances
+  - If present, the constructor calls __init__()
+  - __init__() is not the constructor
+- Arguments passed to the constructor are forwarded to the initializer
+
+- Instance attributes are created simply by assigning to them
+- Implementation details are denoted by a leading underscore
+  - There are no public, protected or private access modifiers in Python
+- Accessing implementation details can be very useful
+  - Especially during development and debugging
+- Class invariants should be established in the initializer
+  - If the invariants can't be established raise exceptions to signal failure
+- Methods can have docstrings, just like regular functions
+- Classes can have docstrings
+- Even within an object method calls must be preceded with self
+- You can have as many classes and functions in a module as you wish
+  - Related classes and global functions are usually grouped together this way
+- Polymorphism in Python is achieved through duck typing
+- Polymorphism in Python does not use shared base classes or interfaces
+- Class inheritance is primarily useful for sharing implementation
+- All methods are inherited, including special methods like the initializer
+
+- Strings support slicing, because they implement the sequence protocol
+- Following the Law of Demeter can reduce coupling
+- We can nest comprehensions
+- It can sometimes be useful to discard the current item in a comprehension
+- When dealing with one-based collections it's often easier just to waste one
+- list entry.
+- Don't feel compelled to use classes when a simple function will suffice
+- Comprehensions or generator expression can be split over multiple lines
+- Statements can be split over multiple lines using backslash
+  - Use this feature sparingly and only when it improves readability
+- Use “Ask! Don’t tell.” to avoid tight coupling between objects
+
+files and resource management
+=============================
+
+open(file, mode, encoding)
+ file: path to file (required)
+ mode: read/write/append, binary/text
+ encoding: text encoding
+
+https://docs.python.org/3/library/functions.html#open
+
++-----------+-----------------------------------------------------------------+
+| Character | Meaning                                                         |
++===========+=================================================================+
+| 'r'       | open for reading (default)                                      |
++-----------+-----------------------------------------------------------------+
+| 'w'       | open for writing, truncating the file first                     |
++-----------+-----------------------------------------------------------------+
+| 'x'       | open for exclusive creation, failing if the file already exists |
++-----------+-----------------------------------------------------------------+
+| 'a'       | open for writing, appending to the end of the file if it exists |
++-----------+-----------------------------------------------------------------+
+| 'b'       | binary mode                                                     |
++-----------+-----------------------------------------------------------------+
+| 't'       | text mode (default)                                             |
++-----------+-----------------------------------------------------------------+
+| '+'       | open a disk file for updating (reading and writing)             |
++-----------+-----------------------------------------------------------------+
+| 'U'       | universal newlines mode (deprecated)                            |
++-----------+-----------------------------------------------------------------+
+
+write() returns the number of codepoints, not the number of characters
+
+.. code-block:: python
+
+   import sys
+
+   def main(filename):
+       f = open(filename, mode='rt', encoding='utf-8')
+       for line in f:
+           print(line)
+       f.close()
+
+   if __name__ == '__main__':
+       main(sys.argv[1])
+
