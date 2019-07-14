@@ -72,7 +72,12 @@ Force pushing with a "lease" allows the force push to fail if there are new comm
 
    git push <remote> <branch> --force-with-lease
 
+load .gitconfig file
+--------------------
 
+.. code::
+
+   git config --local include.path "$PWD/.gitconfig"
 
 
 

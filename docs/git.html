@@ -112,6 +112,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#show-current-config">show current config</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#changed-gitignore-but-folder-still-in-commit">changed gitignore but folder still in commit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#force-local-changes-on-remote-master-with-no-merge">force local changes on remote master with no merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-gitconfig-file">load .gitconfig file</a></li>
 </ul>
 </li>
 </ul>
@@ -208,6 +209,12 @@ git push -f origin master
 </div>
 <p>Force pushing with a “lease” allows the force push to fail if there are new commits on the remote that you didn’t expect (technically, if you haven’t fetched them into your remote-tracking branch yet), which is useful if you don’t want to accidentally overwrite someone else’s commits that you didn’t even know about yet, and you just want to overwrite your own:</p>
 <div class="code highlight-rest"><div class="highlight"><pre><span></span>git push &lt;remote&gt; &lt;branch&gt; --force-with-lease
+</pre></div>
+</div>
+</div>
+<div class="section" id="load-gitconfig-file">
+<h4>load .gitconfig file<a class="headerlink" href="#load-gitconfig-file" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-rest"><div class="highlight"><pre><span></span>git config --local include.path &quot;$PWD/.gitconfig&quot;
 </pre></div>
 </div>
 </div>
