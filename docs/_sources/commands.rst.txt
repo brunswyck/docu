@@ -235,6 +235,15 @@ find
 
 removing files
 ==============
+
+remove files with same extension
+--------------------------------
+
+.. code::
+
+   find . -maxdepth 1 -name "*.html" -type f -delete
+
+
 remove all but 1
 ----------------
 

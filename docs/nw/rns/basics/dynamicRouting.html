@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Dynamic Routing &mdash; docu patrick a documentation</title>
+  <title>Dynamic Routing &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="Static Routes" href="staticRouting.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -128,6 +144,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -142,7 +160,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -285,14 +303,14 @@
 </div>
 <div class="section" id="enable-disable">
 <h2>enable/disable<a class="headerlink" href="#enable-disable" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="c1"># conf t</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="c1"># conf t</span>
     <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># version 2</span>
 </pre></div>
 </div>
 <div class="section" id="verify-rip-routing">
 <h3>verify rip routing<a class="headerlink" href="#verify-rip-routing" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
 <span class="n">R1</span><span class="c1"># show ip protocols | section Default</span>
 <span class="n">R1</span><span class="c1"># show ip route | begin Gateway</span>
 </pre></div>
@@ -301,7 +319,7 @@
 </div>
 <div class="section" id="disable-auto-summarization">
 <h2>disable auto summarization<a class="headerlink" href="#disable-auto-summarization" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>    <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
     <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
     <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
 <span class="n">R1</span><span class="c1"># show ip protocols | section Automatic</span>
@@ -310,7 +328,7 @@
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>auto-summary = classful, no auto-summary = you can see /25 routes = classless, don’t confuse with summarization. If you want a summary address you can apply the following on the <strong>outgoing interface you want de summary address advertised</strong></p>
-<div class="code last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">summary</span><span class="o">-</span><span class="n">address</span> <span class="n">rip</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">252.0</span>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">summary</span><span class="o">-</span><span class="n">address</span> <span class="n">rip</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">252.0</span>
 </pre></div>
 </div>
 </div>
@@ -328,7 +346,7 @@
 </ul>
 </div></blockquote>
 <p>Use the <strong>passive-interface</strong> router configuration command to prevent the transmission of routing updates through a router interface, <em>but still allow that network to be advertised to other routers</em>. The command stops routing updates out the specified interface. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out other interfaces.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">on</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">passive</span> <span class="n">interface</span> <span class="n">on</span> <span class="n">G0</span><span class="o">/</span><span class="mi">0</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
@@ -411,7 +429,7 @@
 <p class="last">All routing protocols support the passive-interface command.</p>
 </div>
 <p>configure the LAN interface as a passive interface on R2 and R3.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
 
@@ -443,7 +461,7 @@
 </ul>
 </div></blockquote>
 </div></blockquote>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1 209.165.200.226</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router rip</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># default-information originate</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
@@ -454,7 +472,7 @@
 <div class="section" id="exercise-example">
 <h2>exercise example<a class="headerlink" href="#exercise-example" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>a router that is connected to an isp
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span>a router that is connected to an isp
 ------------------------------------
 hostname R1
 !
@@ -655,7 +673,7 @@ EIGRP is cfgd on all of them</p>
         <a href="switchedNetworks.html" class="btn btn-neutral float-right" title="switched networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="staticRouting.html" class="btn btn-neutral" title="Static Routes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="staticRouting.html" class="btn btn-neutral float-left" title="Static Routes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -664,7 +682,7 @@ EIGRP is cfgd on all of them</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -681,36 +699,16 @@ EIGRP is cfgd on all of them</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

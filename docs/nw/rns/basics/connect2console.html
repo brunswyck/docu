@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Connect to console &mdash; docu patrick a documentation</title>
+  <title>Connect to console &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="basics" href="inhoud.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -115,6 +131,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -129,7 +147,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -188,15 +206,15 @@
 <div class="section" id="minicom">
 <h2>minicom<a class="headerlink" href="#minicom" title="Permalink to this headline">¶</a></h2>
 <p>make your user member of the dialout group</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">G</span> <span class="n">dialout</span> <span class="n">guru</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">G</span> <span class="n">dialout</span> <span class="n">guru</span>
 </pre></div>
 </div>
-<p>check what tty you should use after connecting the cable with <code class="docutils literal notranslate"><span class="pre">dmesg</span></code></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dmesg</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">tty</span>
+<p>check what tty you should use after connecting the cable with <code class="docutils literal"><span class="pre">dmesg</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dmesg</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">tty</span>
 </pre></div>
 </div>
 <p>launch minicom with the appropriate baudrate and tty device</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minicom</span> <span class="o">--</span><span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span> <span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyS0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">minicom</span> <span class="o">--</span><span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span> <span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyS0</span>
 </pre></div>
 </div>
 <p>off you go</p>
@@ -214,7 +232,7 @@
         <a href="routingConcepts.html" class="btn btn-neutral float-right" title="Routing Concepts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="inhoud.html" class="btn btn-neutral" title="basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="inhoud.html" class="btn btn-neutral float-left" title="basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -223,7 +241,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -240,36 +258,16 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

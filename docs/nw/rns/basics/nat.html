@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>NAT &mdash; docu patrick a documentation</title>
+  <title>NAT &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="DHCP" href="dhcp.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -147,6 +163,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -161,7 +179,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -326,7 +344,7 @@
 <h3>Packets without a Layer 4 Segment<a class="headerlink" href="#packets-without-a-layer-4-segment" title="Permalink to this headline">¶</a></h3>
 <p>What about IPv4 packets carrying data other than a TCP or UDP segment? These packets do not contain a Layer 4 port number. PAT translates most common protocols carried by IPv4 that do not use TCP or UDP as a transport layer protocol. The most common of these is ICMPv4. Each of these types of protocols is handled differently by PAT. For example, ICMPv4 query messages, echo requests, and echo replies include a Query ID. <strong>ICMPv4 uses the Query ID to identify an echo request with its corresponding echo reply. The Query ID is incremented with each echo request sent. PAT uses the Query ID instead of a Layer 4 port number</strong>.</p>
 <p>Note: Other ICMPv4 messages do not use the Query ID. These messages and other protocols that do not use TCP or UDP port numbers vary and are beyond the scope of this curriculum.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translations</span>
 <span class="n">Pro</span>  <span class="n">Inside</span> <span class="k">global</span>     <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">tcp</span> <span class="mf">64.100</span><span class="o">.</span><span class="mf">100.2</span><span class="p">:</span><span class="mi">25</span>    <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.2</span><span class="p">:</span><span class="mi">25</span>      <span class="o">---</span>                <span class="o">---</span>
 <span class="n">tcp</span> <span class="mf">64.100</span><span class="o">.</span><span class="mf">100.2</span><span class="p">:</span><span class="mi">443</span>   <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.2</span><span class="p">:</span><span class="mi">443</span>     <span class="o">---</span>                <span class="o">---</span>
@@ -431,7 +449,7 @@
 <h2>Configuring Static NAT<a class="headerlink" href="#configuring-static-nat" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">create a MAPPING between inside local address and the inside global addresses</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static local-ip global-ip</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static local-ip global-ip</span>
 </pre></div>
 </div>
 </li>
@@ -440,12 +458,12 @@
 <dd><p class="first last">In the example, the Serial 0/0/0 interface of R2 is an inside interface and Serial 0/1/0 is an outside interface.</p>
 </dd>
 </dl>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Mark the interface as connected to the inside</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 </pre></div>
 </div>
 </li>
@@ -454,19 +472,19 @@
 <dd><p class="first last">E.g. Serial 0/1/0</p>
 </dd>
 </dl>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Mark the interface as connected to the outside</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <p>Image shows the commands needed on R2 to create a static NAT mapping to the web server in the example topology. With the configuration shown, R2 translates packets from the web server with address 192.168.10.254 to public IPv4 address 209.165.201.5. The Internet client directs web requests to the public IPv4 address 209.165.201.5. R2 forwards that traffic to the web server at 192.168.10.254.</p>
 <img alt="../../../_images/Ch9_Static_NAT_example.png" src="../../../_images/Ch9_Static_NAT_example.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">establishes</span> <span class="n">static</span> <span class="n">translation</span> <span class="n">between</span> <span class="n">an</span> <span class="n">inside</span> <span class="n">local</span> <span class="n">address</span> <span class="o">&amp;</span> <span class="n">an</span> <span class="n">inside</span> <span class="k">global</span> <span class="n">address</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">establishes</span> <span class="n">static</span> <span class="n">translation</span> <span class="n">between</span> <span class="n">an</span> <span class="n">inside</span> <span class="n">local</span> <span class="n">address</span> <span class="o">&amp;</span> <span class="n">an</span> <span class="n">inside</span> <span class="k">global</span> <span class="n">address</span>
 <span class="o">---</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.10.254 209.165.201.5</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial0/0/0</span>
@@ -502,11 +520,11 @@
 </ol>
 <dl class="docutils">
 <dt>verify with</dt>
-<dd><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span></code></dd>
+<dd><code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span></code></dd>
 <dt>clear nat statistics</dt>
-<dd><code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code></dd>
+<dd><code class="docutils literal"><span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code></dd>
 <dt>check if nat is working</dt>
-<dd><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code></dd>
+<dd><code class="docutils literal"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code></dd>
 </dl>
 <p>In this example it would show <strong>1 static</strong> in <strong>Total active translations</strong></p>
 </div>
@@ -514,7 +532,7 @@
 <h2>Configure Static NAT exercise<a class="headerlink" href="#configure-static-nat-exercise" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/Ch9_9.2.1.4_Configuring_Static_NAT.png" src="../../../_images/Ch9_9.2.1.4_Configuring_Static_NAT.png" />
 <p>configure static NAT so that outside devices can access and inside server at its public address</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="o">&gt;</span><span class="n">enable</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="o">&gt;</span><span class="n">enable</span>
 <span class="n">R1</span><span class="c1">#show ip nat translations</span>
 <span class="n">R1</span><span class="c1">#map the server1 inside address to its outside address</span>
 <span class="n">R1</span><span class="c1">#conf t</span>
@@ -529,7 +547,7 @@
 </pre></div>
 </div>
 <p>Use the following commands to verify the static NAT configuration:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>show running-config
+<div class="code highlight-default"><div class="highlight"><pre><span></span>show running-config
 show ip nat translations
 show ip nat statistics
 
@@ -603,28 +621,28 @@ Dynamic mappings:
 <h2>Configuring Dynamic NAT<a class="headerlink" href="#configuring-dynamic-nat" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Define a <strong>pool of global addresses</strong> to be used for translation</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool name start-ip end-ip {netmask netmask | prefix-length prefix-length}</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool name start-ip end-ip {netmask netmask | prefix-length prefix-length}</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure a standard <strong>access list permitting the addresses that should be translated</strong></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list access-list-number permit source [source-wildcard]</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list access-list-number permit source [source-wildcard]</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Establish dynamic <strong>source</strong> translation, specifying the <strong>access list and pool</strong> defined in prior steps</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside source list access-list-number pool name</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside source list access-list-number pool name</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">identify the INSIDE interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">identify the OUTSIDE interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface type number</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
 </pre></div>
 </div>
@@ -635,19 +653,19 @@ Dynamic mappings:
 <h2>Dynamic NAT example<a class="headerlink" href="#dynamic-nat-example" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/Ch9_dynamic_NAT_example_config.png" src="../../../_images/Ch9_dynamic_NAT_example_config.png" />
 <p>Defines a pool of public IPv4 addresses under the pool name NAT POOL1</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool NAT-POOL1 209.165.200.226 209.165.200.240 netmask 255.255.255.224</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool NAT-POOL1 209.165.200.226 209.165.200.240 netmask 255.255.255.224</span>
 </pre></div>
 </div>
 <p>Defines what addresses are eligible to be translated</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.0.0 0.0.255.255</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.0.0 0.0.255.255</span>
 </pre></div>
 </div>
 <p>Binds NAT-POOL1 with ACL 1</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool NAT-POOL1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool NAT-POOL1</span>
 </pre></div>
 </div>
 <p>Identifies interface serial 0/0/0 as an inside NAT interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial 0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial 0/0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 </pre></div>
 </div>
@@ -678,15 +696,15 @@ Dynamic mappings:
 <li><p class="first">PC1 at 192.168.10.10 and PC2 at 192.168.11.10 receive the packets and continue the conversation. The router performs Steps 2 to 5 for each packet.</p>
 </li>
 </ol>
-<p>Verify with <code class="docutils literal notranslate"><span class="pre">R2#</span> <span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span> <span class="pre">verbose</span></code></p>
+<p>Verify with <code class="docutils literal"><span class="pre">R2#</span> <span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span> <span class="pre">verbose</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">By default, translation entries time out after 24 hours, unless the timers have been reconfigured with the <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translation</span> <span class="pre">timeout</span> <span class="pre">timeout-seconds</span></code> command in global configuration mode.</p>
+<p class="last">By default, translation entries time out after 24 hours, unless the timers have been reconfigured with the <code class="docutils literal"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translation</span> <span class="pre">timeout</span> <span class="pre">timeout-seconds</span></code> command in global configuration mode.</p>
 </div>
 </div>
 <div class="section" id="clearing-nat-translations">
 <h2>Clearing NAT Translations<a class="headerlink" href="#clearing-nat-translations" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clears</span> <span class="nb">all</span> <span class="n">dynamic</span> <span class="n">address</span> <span class="n">translation</span> <span class="n">entries</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">NAT</span> <span class="n">translation</span> <span class="n">table</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">clears</span> <span class="nb">all</span> <span class="n">dynamic</span> <span class="n">address</span> <span class="n">translation</span> <span class="n">entries</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">NAT</span> <span class="n">translation</span> <span class="n">table</span>
 <span class="o">-----------------------------------------------------------------------------</span>
 <span class="n">R2</span><span class="c1"># clear ip nat translation *</span>
 
@@ -705,7 +723,7 @@ Dynamic mappings:
 <p class="first admonition-title">Note</p>
 <p class="last">Only the dynamic translations are cleared from the table. Static translations cannot be cleared from the translation table</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">R2#</span> <span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code></p>
+<p><code class="docutils literal"><span class="pre">R2#</span> <span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code></p>
 </div>
 <div class="section" id="configure-dynamic-nat-exercise">
 <h2>Configure Dynamic NAT exercise<a class="headerlink" href="#configure-dynamic-nat-exercise" title="Permalink to this headline">¶</a></h2>
@@ -715,12 +733,12 @@ Dynamic mappings:
 <p>On R2:</p>
 <ul>
 <li><p class="first">configure one statement for ACL 1 to permit any address belonging to 172.16.0.0/16</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#access-list 1 permit 172.16.0.0 0.0.255.255</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#access-list 1 permit 172.16.0.0 0.0.255.255</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure a NAT pool that uses all four addresses in the 209.165.76.196/30 address space</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip nat pool NAT-POOL1 209.165.76.196 209.165.76.199 netmask 255.255.255.252</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip nat pool NAT-POOL1 209.165.76.196 209.165.76.199 netmask 255.255.255.252</span>
 </pre></div>
 </div>
 </li>
@@ -728,13 +746,13 @@ Dynamic mappings:
 <p>Notice in the topology there are 3 network ranges that would be translated based on the ACL created. What will happen if more than 2 devices attempt to access the Internet?</p>
 <ul>
 <li><p class="first">Associate ACL1 with the NAT pool</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 nat NAT-POOL1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 nat NAT-POOL1</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure the NAT interfaces</p>
 <p>Configure R2 interfaces with the appropriate inside and outside NAT commands</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface Serial 0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface Serial 0/0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip nat outside</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#interface Serial 0/0/1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip nat inside</span>
@@ -744,15 +762,15 @@ Dynamic mappings:
 </ul>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">if you try to remove an active pool you will get an error msg that it is in use <code class="docutils literal notranslate"><span class="pre">R2(config)#no</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">pool</span> <span class="pre">1</span> <span class="pre">209.165.76.192</span> <span class="pre">209.165.76.195</span> <span class="pre">netmask</span> <span class="pre">255.255.255.252</span></code>
+<p class="last">if you try to remove an active pool you will get an error msg that it is in use <code class="docutils literal"><span class="pre">R2(config)#no</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">pool</span> <span class="pre">1</span> <span class="pre">209.165.76.192</span> <span class="pre">209.165.76.195</span> <span class="pre">netmask</span> <span class="pre">255.255.255.252</span></code>
 %Pool 1 in use, cannot destroy
 You need to remove the pool reference first from the inside nat
-<code class="docutils literal notranslate"><span class="pre">R2(config)#no</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">1</span></code></p>
+<code class="docutils literal"><span class="pre">R2(config)#no</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">1</span></code></p>
 </div>
 </div>
 <div class="section" id="verify-nat-implementation">
 <h3>Verify NAT implementation<a class="headerlink" href="#verify-nat-implementation" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R2 running-config
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R2 running-config
 -----------------
 !
 interface Serial0/0/0
@@ -787,7 +805,7 @@ access-list 1 permit 172.16.0.0 0.0.255.255
 <p>The first 2 devices have access and any additional devices are denied access until the other 2 are timed out.</p>
 </li>
 <li><p class="first">View the NAT translations on R2</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat statistics</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">0</span> <span class="n">dynamic</span><span class="p">,</span> <span class="mi">0</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Outside</span> <span class="n">Interfaces</span><span class="p">:</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
 <span class="n">Inside</span> <span class="n">Interfaces</span><span class="p">:</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
@@ -1000,7 +1018,7 @@ Part 3: Configure and Verify Dynamic NAT</p>
 <div class="section" id="build-network-verify-connectivity">
 <h3>Build network &amp; verify connectivity<a class="headerlink" href="#build-network-verify-connectivity" title="Permalink to this headline">¶</a></h3>
 <p>Basic settings for each router:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
 <span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
 <span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
 <span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
@@ -1020,12 +1038,12 @@ Copy the running configuration to the startup configuration.</p>
 <li><p class="first">Create a simulated web server on ISP</p>
 <ul>
 <li><p class="first">Create a local user named webuser with an encrypted password of webpass</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># username webuser privilege 15 secret webpass</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># username webuser privilege 15 secret webpass</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Create a default route from the Gateway router to the ISP router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.201.17</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.201.17</span>
 </pre></div>
 </div>
 </li>
@@ -1049,22 +1067,22 @@ Static NAT is particularly useful for web servers or devices that must have stat
 <li><p class="first">configure a static mapping</p>
 <p>A static map is configured to tell the router to translate between the private inside server address 192.168.1.20 and the public address 209.165.200.225. This allows a user from the Internet to access PC-A.
 PC-A is simulating a server or device with a constant address that can be accessed from the Internet.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.1.20 209.165.200.225</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.1.20 209.165.200.225</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">specify the interfaces</p>
 <ul>
-<li><p class="first">Issue the <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span></code> and <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">outside</span></code> commands to the interfaces</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<li><p class="first">Issue the <code class="docutils literal"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span></code> and <code class="docutils literal"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">outside</span></code> commands to the interfaces</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 <span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface s0/0/1</span>
 <span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Display the static NAT table by issuing the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span></code> command</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<li><p class="first">Display the static NAT table by issuing the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span></code> command</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>      <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="o">---</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span>    <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span>       <span class="o">---</span>                <span class="o">---</span>
 </pre></div>
@@ -1075,7 +1093,7 @@ The Inside global address is assigned by?</p>
 <p>The Inside local address is assigned by?</p>
 </li>
 <li><p class="first">From PC-A, ping the Lo0 interface ( 192.31.7.1) on ISP. If the ping was un successful, troubleshoot and correct the issues.  On the Gateway router, d isplay the NAT table.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>      <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">1</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>
 <span class="o">---</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span>    <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span>       <span class="o">---</span>                <span class="o">---</span>
@@ -1086,7 +1104,7 @@ What port number was used in this ICMP exchange?
 Note: It may be necessary to disable the PC-A firewall for the ping to be successful.</p>
 </li>
 <li><p class="first">From PC-A, telnet to the ISP Lo0 interface and display the NAT table</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>        <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>        <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">1</span>   <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">1034</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span><span class="p">:</span><span class="mi">1034</span>  <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">23</span>      <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">23</span>
 <span class="o">---</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span>      <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span>       <span class="o">---</span>                <span class="o">---</span>
@@ -1101,7 +1119,7 @@ Outside global / local:</p>
 <li><p class="first">Because static NAT was configured for PC-A, verify that pinging from ISP to PC-A at the static NAT public address (209.165.200.225) is successful.</p>
 </li>
 <li><p class="first">On the Gateway router, display the NAT table to verify the translation.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>       <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">12</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span><span class="p">:</span><span class="mi">12</span>    <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.17</span><span class="p">:</span><span class="mi">12</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.17</span><span class="p">:</span><span class="mi">12</span>
 <span class="o">---</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span>     <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span>       <span class="o">---</span>                <span class="o">---</span>
@@ -1109,8 +1127,8 @@ Outside global / local:</p>
 </div>
 <p>Notice that the Outside local and Outside global addresses are the same. This address is the ISP remote network source address. For the ping from the ISP to succeed, the Inside global static NAT address 209.165.200.225 was translated to the Inside local address of PC-A (192.168.1.20).</p>
 </li>
-<li><p class="first">Verify NAT statistics by using the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> command on the Gateway router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
+<li><p class="first">Verify NAT statistics by using the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> command on the Gateway router</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">2</span> <span class="p">(</span><span class="mi">1</span> <span class="n">static</span><span class="p">,</span> <span class="mi">1</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">1</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Peak</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">occurred</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">12</span> <span class="n">ago</span>
 <span class="n">Outside</span> <span class="n">interfaces</span><span class="p">:</span>
@@ -1141,35 +1159,35 @@ Outside global / local:</p>
 <ul>
 <li><p class="first">Clear NATs
 Before proceeding to add dynamic NATs, clear the NATs and statistics from Part 2.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># clear ip nat translation *</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># clear ip nat translation *</span>
 <span class="n">Gateway</span><span class="c1"># clear ip nat statistics</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Define an access control list (ACL) that matches the LAN private IP address range.</p>
 <p>ACL 1 is used to allow 192.168.1.0/24 network to be translated.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.1.0 0.0.0.255</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.1.0 0.0.0.255</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Verify that the NAT interface configurations are still valid</p>
-<p>Issue the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> command on the Gateway router to verify the NAT configurations.</p>
+<p>Issue the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> command on the Gateway router to verify the NAT configurations.</p>
 </li>
 <li><p class="first">Define the pool of usable public IP addresses.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool public_access 209.165.200.242 209.165.200.254 netmask 255.255.255.224</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool public_access 209.165.200.242 209.165.200.254 netmask 255.255.255.224</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Define the NAT from the inside source list to the outside pool</p>
 <p>Note: Remember that NAT pool names are case-sensitive and the pool name entered here must match that used in the previous step.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool public_access</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool public_access</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Test the configuration</p>
 <ol class="loweralpha">
 <li><p class="first">From PC-B, ping the Lo0 interface (192.31.7.1) on ISP. If the ping was unsuccessful, troubleshoot and correct the issues. On the Gateway router, display the NAT table.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>      <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="o">---</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span>    <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span>       <span class="o">---</span>                <span class="o">---</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.242</span><span class="p">:</span><span class="mi">1</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.21</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>
@@ -1185,7 +1203,7 @@ Before proceeding to add dynamic NATs, clear the NATs and statistics from Part 2
 When prompted, log in as webuser with a password of webpass</p>
 </li>
 <li><p class="first">Display the NAT table.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>        <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="o">---</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span>      <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span>       <span class="o">---</span>                <span class="o">---</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.242</span><span class="p">:</span><span class="mi">1038</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.21</span><span class="p">:</span><span class="mi">1038</span> <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">80</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">80</span>
@@ -1211,8 +1229,8 @@ Inside:
 Outside:
 What well-known port number and service was used?</p>
 </li>
-<li><p class="first">Verify NAT statistics by using the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> command on the Gateway router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
+<li><p class="first">Verify NAT statistics by using the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> command on the Gateway router</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">3</span> <span class="p">(</span><span class="mi">1</span> <span class="n">static</span><span class="p">,</span> <span class="mi">2</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">1</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Peak</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="n">occurred</span> <span class="mi">00</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">40</span> <span class="n">ago</span>
 <span class="n">Outside</span> <span class="n">interfaces</span><span class="p">:</span>
@@ -1240,7 +1258,7 @@ What well-known port number and service was used?</p>
 <li><p class="first">Remove the static NAT entry</p>
 <ol class="loweralpha">
 <li><p class="first">Remove the static NAT from Part 2. Enter yes when prompted to delete child entries.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Gateway(config)# no ip nat inside source static 192.168.1.20 209.165.200.225
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Gateway(config)# no ip nat inside source static 192.168.1.20 209.165.200.225
 Static entry in use, do you want to delete child entries? [no]: yes
 </pre></div>
 </div>
@@ -1250,7 +1268,7 @@ Static entry in use, do you want to delete child entries? [no]: yes
 <li><p class="first">Ping the ISP (192.31.7.1) from both hosts.</p>
 </li>
 <li><p class="first">Display the NAT table and statistics.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">4</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">4</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">2</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Peak</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="n">occurred</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">43</span> <span class="n">ago</span>
 <span class="n">Outside</span> <span class="n">interfaces</span><span class="p">:</span>
@@ -1296,28 +1314,28 @@ Static entry in use, do you want to delete child entries? [no]: yes
 <h2>Configuring PAT (NAT overload)<a class="headerlink" href="#configuring-pat-nat-overload" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Define a pool of global addresses to be used for overload translation</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool NAT-POOL-OVERLOAD start-ip end-ip {netmask netmask prefix-length prefix-length}</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool NAT-POOL-OVERLOAD start-ip end-ip {netmask netmask prefix-length prefix-length}</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Define a standard access list permitting the addresses that should be translated</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit source source-wildcard</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit source source-wildcard</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Establish overload translation, specifying the acl and pool defined in prior steps</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool NAT-POOL-OVERLOAD overload</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool NAT-POOL-OVERLOAD overload</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Identify the inside interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial 0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial 0/0/0</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Identify the outside interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface Serial 0/1/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface Serial 0/1/0</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
 </pre></div>
 </div>
@@ -1340,7 +1358,7 @@ Static entry in use, do you want to delete child entries? [no]: yes
 <p class="last">The primary difference between this configuration and the configuration for dynamic, one-to-one NAT is that the overload keyword is used. The <strong>overload</strong> keyword enables PAT.</p>
 </div>
 <img alt="../../../_images/Ch9_PAT_with_single_address.png" src="../../../_images/Ch9_PAT_with_single_address.png" />
-<p><code class="docutils literal notranslate"><span class="pre">R2(config)#</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">2</span> <span class="pre">interface</span> <span class="pre">Serial</span> <span class="pre">0/1/0</span> <span class="pre">overload</span></code></p>
+<p><code class="docutils literal"><span class="pre">R2(config)#</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">2</span> <span class="pre">interface</span> <span class="pre">Serial</span> <span class="pre">0/1/0</span> <span class="pre">overload</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">PAT with single public ip = <strong>interface</strong> type number overload</p>
@@ -1366,7 +1384,7 @@ Static entry in use, do you want to delete child entries? [no]: yes
 <li><p class="first">Configure traffic that will be permitted for NAT translations</p>
 <ul>
 <li><p class="first">On R2, configure a standard ACL named R2NAT that uses three statements to permit, in order, the following private address spaces:192.168.10.0/24, 192.168.20.0/24, and 192.168.30.0/24</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip access-list standard R2NAT</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip access-list standard R2NAT</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#permit 192.168.10.0 0.0.0.255</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#permit 192.168.20.0 0.0.0.255</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">std</span><span class="o">-</span><span class="n">nacl</span><span class="p">)</span><span class="c1">#permit 192.168.30.0 0.0.0.255</span>
@@ -1380,21 +1398,21 @@ Static entry in use, do you want to delete child entries? [no]: yes
 <li><p class="first">Configure a pool of addresses for NAT</p>
 <ul>
 <li><p class="first">Configure R2 with a NAT pool named R2POOL that uses the first address in the 209.165.202.128/30 address space. The second address is used for static NAT later in Part 2.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip nat pool R2POOL 209.165.202.129 209.165.202.129 netmask 255.255.255.255</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip nat pool R2POOL 209.165.202.129 209.165.202.129 netmask 255.255.255.255</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </li>
 <li><p class="first">Associate the named ACL with the NAT pool and enable PAT</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip nat inside source list R2NAT pool R2POOL overload</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip nat inside source list R2NAT pool R2POOL overload</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure the NAT interfaces</p>
 <ul>
 <li><p class="first">Configure R2 interfaces with the appropriate inside and outside NAT commands</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#interface FastEthernet 0/1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#interface FastEthernet 0/1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip nat inside</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#interface Serial 0/0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#ip nat inside</span>
@@ -1415,7 +1433,7 @@ Static entry in use, do you want to delete child entries? [no]: yes
 <div class="section" id="configure-static-nat">
 <h3>Configure Static NAT<a class="headerlink" href="#configure-static-nat" title="Permalink to this headline">¶</a></h3>
 <p>Create a static NAT translation to map the local.pka inside address to its outside address</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.20.254 209.165.202.130</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.20.254 209.165.202.130</span>
 </pre></div>
 </div>
 </div>
@@ -1430,7 +1448,7 @@ Static entry in use, do you want to delete child entries? [no]: yes
 </li>
 <li><p class="first">View NAT translations</p>
 <p>View the NAT translations on R2</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#do show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#do show ip nat translations</span>
 <span class="n">Pro</span>  <span class="n">Inside</span> <span class="k">global</span>     <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="o">---</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">202.130</span>   <span class="mf">192.168</span><span class="o">.</span><span class="mf">20.254</span>     <span class="o">---</span>                <span class="o">---</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">202.129</span><span class="p">:</span><span class="mf">1025192.168</span><span class="o">.</span><span class="mf">10.10</span><span class="p">:</span><span class="mi">1025</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.30</span><span class="p">:</span><span class="mi">80</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.30</span><span class="p">:</span><span class="mi">80</span>
@@ -1461,7 +1479,7 @@ Static entry in use, do you want to delete child entries? [no]: yes
 </li>
 </ol>
 <p>Router 2 running config</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>spanning-tree mode pvst
+<div class="code highlight-default"><div class="highlight"><pre><span></span>spanning-tree mode pvst
 !
 !
 !
@@ -1619,7 +1637,7 @@ Part 3: Configure and Verify PAT</p>
 <div class="section" id="build-network-verify-connectivity-9-2-3-7">
 <h3>Build network &amp; verify connectivity 9.2.3.7<a class="headerlink" href="#build-network-verify-connectivity-9-2-3-7" title="Permalink to this headline">¶</a></h3>
 <p>Basic settings for each router:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
 <span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
 <span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
 <span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
@@ -1636,12 +1654,12 @@ Part 3: Configure and Verify PAT</p>
 <p>Configure Static Routing</p>
 <ul>
 <li><p class="first">Create a static route from the ISP router to the Gateway router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 209.165.200.224 255.255.255.248 209.165.201.18</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 209.165.200.224 255.255.255.248 209.165.201.18</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Create a default route from the Gateway router to the ISP router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.201.17</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.201.17</span>
 </pre></div>
 </div>
 </li>
@@ -1659,23 +1677,23 @@ Part 3: Configure and Verify PAT</p>
 <ol class="arabic">
 <li><p class="first">Define an access control list that matches the LAN private IP addresses.
 ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.1.0 0.0.0.255</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.1.0 0.0.0.255</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Define the pool of usable public IP addresses.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool public_access 209.165.200.225 209.165.200.230 netmask 255.255.255.248</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat pool public_access 209.165.200.225 209.165.200.230 netmask 255.255.255.248</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Define the NAT from the inside source list to the outside pool.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool public_access overload</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 pool public_access overload</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Specify the interfaces</p>
 <p>Issue the ip nat inside and ip nat outside commands to the interfaces.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/1</span>
 <span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 <span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="o">-</span> <span class="k">if</span><span class="p">)</span><span class="c1"># interface s0/0/1</span>
 <span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
@@ -1687,7 +1705,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 <li><p class="first">From each PC host, ping the 192.31.7.1 address on the ISP router.</p>
 </li>
 <li><p class="first">Display NAT statistics on the Gateway router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">3</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">3</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">3</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Peak</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">occurred</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">25</span> <span class="n">ago</span>
 <span class="n">Outside</span> <span class="n">interfaces</span><span class="p">:</span>
@@ -1711,7 +1729,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 </div>
 </li>
 <li><p class="first">Display NATs on the Gateway router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>      <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">0</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">0</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">1</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.21</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>
@@ -1737,17 +1755,17 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 </ol>
 </li>
 <li><p class="first">Remove the pool of useable public IP addresses</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no ip nat pool public_access 209.165.200.225 209.165.200.230 netmask 255.255.255.248</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no ip nat pool public_access 209.165.200.225 209.165.200.230 netmask 255.255.255.248</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Remove the NAT translation from inside source list to outside pool.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no ip nat inside source list 1 pool public_access overload</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no ip nat inside source list 1 pool public_access overload</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Associate the source list with the outside interface.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 interface serial 0/0/1 overload</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source list 1 interface serial 0/0/1 overload</span>
 </pre></div>
 </div>
 </li>
@@ -1756,7 +1774,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 <li><p class="first">From each PC, ping the 192.31.7.1 address on the ISP router.</p>
 </li>
 <li><p class="first">Display NAT statistics on the Gateway router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">3</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">3</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">3</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Peak</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">occurred</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">19</span> <span class="n">ago</span>
 <span class="n">Outside</span> <span class="n">interfaces</span><span class="p">:</span>
@@ -1777,7 +1795,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 </div>
 </li>
 <li><p class="first">Display NAT translations on Gateway.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>      <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.18</span><span class="p">:</span><span class="mi">3</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.20</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">3</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.18</span><span class="p">:</span><span class="mi">1</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.21</span><span class="p">:</span><span class="mi">1</span>     <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>       <span class="mf">192.31</span><span class="o">.</span><span class="mf">7.1</span><span class="p">:</span><span class="mi">1</span>
@@ -1795,7 +1813,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 </div>
 <div class="section" id="port-forwarding">
 <h2>Port Forwarding<a class="headerlink" href="#port-forwarding" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">{static</span> <span class="pre">{tcp</span> <span class="pre">|</span> <span class="pre">udp</span> <span class="pre">local-ip</span> <span class="pre">local-port</span> <span class="pre">global-ip</span> <span class="pre">global-port}</span> <span class="pre">[extendable]}</span></code></p>
+<p><code class="docutils literal"><span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">{static</span> <span class="pre">{tcp</span> <span class="pre">|</span> <span class="pre">udp</span> <span class="pre">local-ip</span> <span class="pre">local-port</span> <span class="pre">global-ip</span> <span class="pre">global-port}</span> <span class="pre">[extendable]}</span></code></p>
 <ul class="simple">
 <li>TCP or UDP port number</li>
 <li>local-ip = 192.168.10.254</li>
@@ -1810,20 +1828,20 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 </ul>
 <img alt="../../../_images/Ch9_port_forwarding_example.png" src="../../../_images/Ch9_port_forwarding_example.png" />
 <p>Establishes static translation between an inside local address and local port and an inside global address and global port</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static tcp 192.168.10.254 80 209.165.200.225 8080</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static tcp 192.168.10.254 80 209.165.200.225 8080</span>
 </pre></div>
 </div>
 <p>Identifies interface Serial 0/0/0 as an inside NAT interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial0/0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 </pre></div>
 </div>
 <p>Identifies interface Serial 0/1/0 as an outside NAT interface</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial0/1/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Serial0/1/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>         <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>          <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.225</span><span class="p">:</span><span class="mi">8080</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.254</span><span class="p">:</span><span class="mi">80</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.254</span><span class="p">:</span><span class="mi">46088</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.254</span><span class="p">:</span><span class="mi">46088</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">201.225</span><span class="p">:</span><span class="mi">8080</span>  <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.254</span><span class="p">:</span><span class="mi">80</span>  <span class="o">---</span>                    <span class="o">---</span>
@@ -1871,9 +1889,9 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 <p>Step 2. Verify that correct translations exist in the translation table using the show ip nat translations command.</p>
 <p>Step 3. Use the clear and debug commands to verify that NAT is operating as expected. Check to see if dynamic entries are recreated after they are cleared.</p>
 <p>Step 4. Review in detail what is happening to the packet, and verify that routers have the correct routing information to move the packet.</p>
-<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span></code> commands. Prior to using the show commands, the NAT statistics and entries in the NAT table are cleared with the <code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> and <code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translation</span> <span class="pre">*</span></code> commands. After the host at 192.168.10.10 telnets to the server at 209.165.201.1, the NAT statistics and NAT table are displayed to verify NAT is working as expected.</p>
-<p>In a simple network environment, it is useful to monitor NAT statistics with the show ip nat statistics command. The show ip nat statistics command displays information about the total number of active translations, NAT configuration parameters, the number of addresses in the pool, and the number that have been allocated. However, in a more complex NAT environment, with several translations taking place, this command may not clearly identify the issue. It may be necessary to run <code class="docutils literal notranslate"><span class="pre">debug</span></code> commands on the router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># debug ip nat</span>
+<p><code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> and <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span></code> commands. Prior to using the show commands, the NAT statistics and entries in the NAT table are cleared with the <code class="docutils literal"><span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> and <code class="docutils literal"><span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translation</span> <span class="pre">*</span></code> commands. After the host at 192.168.10.10 telnets to the server at 209.165.201.1, the NAT statistics and NAT table are displayed to verify NAT is working as expected.</p>
+<p>In a simple network environment, it is useful to monitor NAT statistics with the show ip nat statistics command. The show ip nat statistics command displays information about the total number of active translations, NAT configuration parameters, the number of addresses in the pool, and the number that have been allocated. However, in a more complex NAT environment, with several translations taking place, this command may not clearly identify the issue. It may be necessary to run <code class="docutils literal"><span class="pre">debug</span></code> commands on the router.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># debug ip nat</span>
 <span class="n">R2</span><span class="c1"># debug ip nat detailed</span>
 </pre></div>
 </div>
@@ -1892,7 +1910,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 <p class="last">Verify that the ACL referenced in the NAT command is permitting all of the necessary networks. E.g., only 192.168.0.0/16 addresses are eligible to be translated. Packets from the inside network destined for the Internet with source addresses that are not explicitly permitted by ACL 1 are not translated by R2.</p>
 </div>
 <img alt="../../../_images/Ch9_NAT_troubleshooting_scenario1.png" src="../../../_images/Ch9_NAT_troubleshooting_scenario1.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip nat translations</span>
 <span class="n">R2</span><span class="c1">#</span>
 <span class="n">R2</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">0</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">0</span> <span class="n">extended</span><span class="p">)</span>
@@ -1912,7 +1930,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat outside</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show access-lists</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show access-lists</span>
 <span class="n">Standard</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="mi">1</span>
     <span class="mi">10</span> <span class="n">permit</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">wildcard</span> <span class="n">bits</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span>
 <span class="n">R2</span><span class="c1">#</span>
@@ -1922,7 +1940,7 @@ ACL 1 is used to allow the 192.168.1.0/24 network to be translated.</p>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># access-list 1 permit 192.168.0.0 0.0.255.255</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip nat statistics</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">active</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">1</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">1</span> <span class="n">dynamic</span><span class="p">;</span> <span class="mi">1</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Peak</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">occurred</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">19</span> <span class="n">ago</span>
 <span class="n">Outside</span> <span class="n">interfaces</span><span class="p">:</span>
@@ -2050,7 +2068,7 @@ Record the success of each ping. Ping any other machines as needed.</p>
 <dt>from L2</dt>
 <dd>Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)</dd>
 <dt>from R2</dt>
-<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span>R2#ping 64.100.201.5
+<dd><div class="code first last highlight-default"><div class="highlight"><pre><span></span>R2#ping 64.100.201.5
 Sending 5, 100-byte ICMP Echos to 64.100.201.5, timeout is 2 seconds
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms
@@ -2065,7 +2083,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms
 <h3>PT Troubleshoot NAT Configuration<a class="headerlink" href="#pt-troubleshoot-nat-configuration" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic">
 <li><p class="first">View the NAT translations on R2. If NAT is working, there should be table entries.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translation</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translation</span>
 <span class="n">R2</span><span class="c1">#show ip nat statistics</span>
 <span class="n">Total</span> <span class="n">translations</span><span class="p">:</span> <span class="mi">0</span> <span class="p">(</span><span class="mi">0</span> <span class="n">static</span><span class="p">,</span> <span class="mi">0</span> <span class="n">dynamic</span><span class="p">,</span> <span class="mi">0</span> <span class="n">extended</span><span class="p">)</span>
 <span class="n">Outside</span> <span class="n">Interfaces</span><span class="p">:</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
@@ -2085,7 +2103,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/5 ms
 </div>
 </li>
 <li><p class="first">Show the running configuration of R2. The NAT inside port should align with the private address, while the NAT outside port should align with the public address.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>!
+<div class="code highlight-default"><div class="highlight"><pre><span></span>!
 interface Serial0/0/0
  ip address 209.165.76.194 255.255.255.224
  ip nat inside
@@ -2109,7 +2127,7 @@ access-list 101 permit ip 10.4.10.0 0.0.0.255 any
 <p>Inside and outside are incorrectly configured, got it backwards here</p>
 </li>
 <li><p class="first">Correct the Interfaces. Assign the ip nat inside and ip nat outside commands to the correct ports.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nat</span> <span class="n">debugging</span> <span class="ow">is</span> <span class="n">on</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">nat</span> <span class="n">debugging</span> <span class="ow">is</span> <span class="n">on</span>
 
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface Serial 0/0/1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no ip nat outside</span>
@@ -2141,7 +2159,7 @@ access-list 101 permit ip 10.4.10.0 0.0.0.255 any
 </dd>
 <dt>from PC1 is successful</dt>
 <dd><p class="first">see NAT translations working and later expiring via debug ip nat after the ping from PC1 (ip 10.4.10.1)</p>
-<div class="code last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
 <span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span>
 <span class="n">NAT</span><span class="o">*</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="o">-&gt;</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span> <span class="p">[</span><span class="mi">33</span><span class="p">]</span>
 
@@ -2167,7 +2185,7 @@ access-list 101 permit ip 10.4.10.0 0.0.0.255 any
 <dt>View the NAT translations on R2. If NAT is working, there should be table entries.</dt>
 <dd><p class="first">Well NAT is not working properly yet as only nodes on the 10.4.10.0/24 network are being translated
 the 10.4.11.0/24 ain’t getting any..</p>
-<div class="code last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translations</span>
+<div class="code last highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip nat translations</span>
 <span class="n">Pro</span>  <span class="n">Inside</span> <span class="k">global</span>     <span class="n">Inside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="n">local</span>      <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">10</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">10</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">10</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">10</span>
 <span class="n">icmp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">:</span><span class="mi">11</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.1</span><span class="p">:</span><span class="mi">11</span>       <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">11</span>    <span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span><span class="p">:</span><span class="mi">11</span>
@@ -2184,7 +2202,7 @@ the 10.4.11.0/24 ain’t getting any..</p>
 </dl>
 </li>
 <li><p class="first">Show Access-list 101 on R2. The wildcard mask should encompass both the 10.4.10.0 network and the 10.4.11.0 network.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip access-list</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1">#show ip access-list</span>
 <span class="n">Extended</span> <span class="n">IP</span> <span class="n">access</span> <span class="nb">list</span> <span class="mi">101</span>
     <span class="mi">10</span> <span class="n">permit</span> <span class="n">ip</span> <span class="mf">10.4</span><span class="o">.</span><span class="mf">10.0</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.255</span> <span class="nb">any</span> <span class="p">(</span><span class="mi">16</span> <span class="n">match</span><span class="p">(</span><span class="n">es</span><span class="p">))</span>
 </pre></div>
@@ -2197,7 +2215,7 @@ so to include 11 would be like changing the subnet from 24 to 23 which means 2^2
 so  255.255.255.255
 | - 255.255.254.0 (/23 instead of /24)
 | =   0.  0.  1.255</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no access-list 101 permit ip 10.4.10.0 0.0.0.255 any</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no access-list 101 permit ip 10.4.10.0 0.0.0.255 any</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#access-list 101 permit ip 10.4.10.0 0.0.1.255 any</span>
 </pre></div>
 </div>
@@ -2212,7 +2230,7 @@ sure enough pings are working now</p>
 </li>
 <li><p class="first">View the NAT translations on R2. NAT should display many table entries.
 launch a ping from a node in each network and check nat translations with debugging on for bonus kudos</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="o">&gt;</span><span class="n">en</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="o">&gt;</span><span class="n">en</span>
 <span class="n">R2</span><span class="c1">#show ip nat translation</span>
 <span class="n">R2</span><span class="c1">#</span>
 <span class="n">NAT</span><span class="p">:</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.4</span><span class="o">.</span><span class="mf">11.1</span><span class="o">-&gt;</span><span class="mf">209.165</span><span class="o">.</span><span class="mf">76.195</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">64.100</span><span class="o">.</span><span class="mf">201.5</span> <span class="p">[</span><span class="mi">29</span><span class="p">]</span>
@@ -2337,7 +2355,7 @@ In this lab, the Gateway router was configured by an inexperienced network admin
 </ul>
 </div></blockquote>
 <p>Copy the following basic configuration and paste it to the running-configuration on the router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
 <span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
 <span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
 <span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
@@ -2356,19 +2374,19 @@ In this lab, the Gateway router was configured by an inexperienced network admin
 <h3>Configure Static Routing<a class="headerlink" href="#configure-static-routing" title="Permalink to this headline">¶</a></h3>
 <ol class="loweralpha">
 <li><p class="first">Create a static route from the ISP router to the Gateway router which was assigned public network address range 209.165.200.224/27.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 209.165.200.224 255.255.255.224 s0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ISP</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 209.165.200.224 255.255.255.224 s0/0/0</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Create a default route from the Gateway router to the ISP router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 s0/0/1</span>
 </pre></div>
 </div>
 </li>
 </ol>
 <p>provided faulty configurations:</p>
 <p>Gateway Router Configuration</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>interface
+<div class="code highlight-default"><div class="highlight"><pre><span></span>interface
 g0/1
  ip nat outside
 no shutdown
@@ -2397,8 +2415,8 @@ end
 <h3>Troubleshoot Static NAT<a class="headerlink" href="#troubleshoot-static-nat" title="Permalink to this headline">¶</a></h3>
 <p>examine the static NAT for PC-A to determine if it is configured correctly. You will troubleshoot the scenario until the correct static NAT is verified.</p>
 <ol class="loweralpha">
-<li><p class="first">To troubleshoot issues with NAT, use the <code class="docutils literal notranslate"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">nat</span></code> command. Turn on NAT debugging to see translations in real-time across the Gateway router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># debug ip nat</span>
+<li><p class="first">To troubleshoot issues with NAT, use the <code class="docutils literal"><span class="pre">debug</span> <span class="pre">ip</span> <span class="pre">nat</span></code> command. Turn on NAT debugging to see translations in real-time across the Gateway router.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Gateway</span><span class="c1"># debug ip nat</span>
 </pre></div>
 </div>
 </li>
@@ -2422,7 +2440,7 @@ Why are you seeing a NAT translation in the table, but none occurred when PC-A p
 </li>
 <li><p class="first">From PC-A, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?</p>
 </li>
-<li><p class="first">Use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span> <span class="pre">verbose</span></code> command to verify static NAT functionality.</p>
+<li><p class="first">Use the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">translations</span> <span class="pre">verbose</span></code> command to verify static NAT functionality.</p>
 </li>
 </ol>
 <blockquote>
@@ -2445,11 +2463,11 @@ If static NAT is not occurring, repeat the steps above to troubleshoot the confi
 </li>
 <li><p class="first">From PC-B, ping Lo0 on the ISP router. Do any NAT debug translations appear on the Gateway router?</p>
 </li>
-<li><p class="first">Use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> to view NAT usage.</p>
+<li><p class="first">Use the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">statistics</span></code> to view NAT usage.</p>
 <p>Is the NAT occurring successfully?
 What percentage of dynamic addresses has been allocated?</p>
 </li>
-<li><p class="first">Turn off all debugging using the <code class="docutils literal notranslate"><span class="pre">undebug</span> <span class="pre">all</span></code> command.</p>
+<li><p class="first">Turn off all debugging using the <code class="docutils literal"><span class="pre">undebug</span> <span class="pre">all</span></code> command.</p>
 </li>
 </ol>
 <p>Reflection</p>
@@ -2918,19 +2936,19 @@ you launch the Packet Tracer activity.</li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">the default vlan needs to be configured on the router subinterface <code class="docutils literal notranslate"><span class="pre">Central(config-subif)#encapsulation</span> <span class="pre">dot1Q</span> <span class="pre">45</span> <span class="pre">native</span></code></p>
+<p class="last">the default vlan needs to be configured on the router subinterface <code class="docutils literal"><span class="pre">Central(config-subif)#encapsulation</span> <span class="pre">dot1Q</span> <span class="pre">45</span> <span class="pre">native</span></code></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">ospf uses area 0 by default <code class="docutils literal notranslate"><span class="pre">Central(config-router)#network</span> <span class="pre">172.16.15.0</span> <span class="pre">0.0.0.255</span> <span class="pre">area</span> <span class="pre">0</span></code></p>
+<p class="last">ospf uses area 0 by default <code class="docutils literal"><span class="pre">Central(config-router)#network</span> <span class="pre">172.16.15.0</span> <span class="pre">0.0.0.255</span> <span class="pre">area</span> <span class="pre">0</span></code></p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">don’t forget to apply the ACL. PT does not score this atm. <code class="docutils literal notranslate"><span class="pre">Central(config)#ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">1</span> <span class="pre">pool</span> <span class="pre">NAT-OVERLOAD</span></code></p>
+<p class="last">don’t forget to apply the ACL. PT does not score this atm. <code class="docutils literal"><span class="pre">Central(config)#ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">1</span> <span class="pre">pool</span> <span class="pre">NAT-OVERLOAD</span></code></p>
 </div>
 <p>running configs:</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Central(config-router)#do show run
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span>Central(config-router)#do show run
 Building configuration...
 
 Current configuration : 2110 bytes
@@ -3186,7 +3204,7 @@ interface FastEthernet0/9
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. Which address or addresses represent the inside global address?</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.0.100 209.165.20.25</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.0.100 209.165.20.25</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial0/0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.1.1.2 255.255.255.0</span>
@@ -3227,7 +3245,7 @@ interface FastEthernet0/9
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. Based on the output that is shown, what type of NAT has been implemented?</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip nat translations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip nat translations</span>
 <span class="n">Pro</span> <span class="n">Inside</span> <span class="k">global</span>         <span class="n">Inside</span> <span class="n">local</span>    <span class="n">Outside</span> <span class="n">local</span>       <span class="n">Outside</span> <span class="k">global</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">1405</span>  <span class="mf">10.6</span><span class="o">.</span><span class="mf">15.2</span><span class="p">:</span><span class="mi">1405</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">202.141</span><span class="p">:</span><span class="mi">80</span>  <span class="mf">209.165</span><span class="o">.</span><span class="mf">202.141</span><span class="p">:</span><span class="mi">80</span>
 <span class="n">tcp</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.225</span><span class="p">:</span><span class="mi">1406</span>  <span class="mf">10.6</span><span class="o">.</span><span class="mf">15.1</span><span class="p">:</span><span class="mi">1406</span>  <span class="mf">198.51</span><span class="o">.</span><span class="mf">100.3</span><span class="p">:</span><span class="mi">80</span>     <span class="mf">198.51</span><span class="o">.</span><span class="mf">100.3</span><span class="p">:</span><span class="mi">80</span>
@@ -3268,7 +3286,7 @@ interface FastEthernet0/9
 <li>Answer -&gt; <span class="transparent">They allow sites to be combined without creating any address conflicts</span></li>
 </ul>
 </li>
-<li><p class="first">A network administrator configures the border router with the command <code class="docutils literal notranslate"><span class="pre">R1(config)#</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">4</span> <span class="pre">pool</span> <span class="pre">corp</span></code>. What is required to be configured in order for this particular command to be functional?</p>
+<li><p class="first">A network administrator configures the border router with the command <code class="docutils literal"><span class="pre">R1(config)#</span> <span class="pre">ip</span> <span class="pre">nat</span> <span class="pre">inside</span> <span class="pre">source</span> <span class="pre">list</span> <span class="pre">4</span> <span class="pre">pool</span> <span class="pre">corp</span></code>. What is required to be configured in order for this particular command to be functional?</p>
 <ul class="simple">
 <li>a NAT pool named corp that defines the starting and ending public IP addresses</li>
 <li>an access list named corp that defines the private addresses that are affected by NAT</li>
@@ -3340,7 +3358,7 @@ interface FastEthernet0/9
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. What is the purpose of the command marked with an arrow shown in the partial configuration output of a Cisco broadband router?</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>interface FastEthernet 0/0
+<div class="code highlight-default"><div class="highlight"><pre><span></span>interface FastEthernet 0/0
  ip address 10.10.10.1 255.255.255.0
  ip nat inside
  no cdp enable
@@ -3380,7 +3398,7 @@ no cdp run
 </li>
 <li><p class="first">Refer to the exhibit. A technician is configuring R2 for static NAT to allow the client to access the web server. What is a possible reason that the client PC cannot access the web server?</p>
 <img alt="../../../_images/Ch9_practice_exam_q19.png" src="../../../_images/Ch9_practice_exam_q19.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.10.2 209.165.201.5</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip nat inside source static 192.168.10.2 209.165.201.5</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface Fa0/1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="c1"># ip address 192.168.10.254 255.255.255.0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip nat inside</span>
@@ -3431,7 +3449,7 @@ no cdp run
         <a href="lldpAndLicensing.html" class="btn btn-neutral float-right" title="Device Discovery Management &amp; Maintenance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dhcp.html" class="btn btn-neutral" title="DHCP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dhcp.html" class="btn btn-neutral float-left" title="DHCP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -3440,7 +3458,7 @@ no cdp run
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -3457,36 +3475,16 @@ no cdp run
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

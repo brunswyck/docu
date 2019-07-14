@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scripting &mdash; docu patrick a documentation</title>
+  <title>Scripting &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,22 +17,37 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Diagrams in Sphinx" href="diagrams.html" />
+    <link rel="prev" title="commands" href="commands.html" />
     <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -40,15 +55,14 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> docu patrick
+            <a href="index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -58,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -83,14 +97,29 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scripting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bash">BASH</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#run-commands-in-script-as-sudo">run commands in script as sudo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workstation.html">workstation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -105,7 +134,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">docu patrick</a>
+          <a href="index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -161,7 +190,7 @@
 <h2>BASH<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="functions">
 <h3>functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>funcky() { echo &quot;this is a funky function&quot;; echo; } # compacted needs semicolon
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>funcky() { echo &quot;this is a funky function&quot;; echo; } # compacted needs semicolon
 
 a function call is the equivalent to a command
 
@@ -201,23 +230,23 @@ exit $?
 <div class="section" id="run-commands-in-script-as-sudo">
 <h4>run commands in script as sudo<a class="headerlink" href="#run-commands-in-script-as-sudo" title="Permalink to this headline">¶</a></h4>
 <p><strong>Use the NOPASSWD directive</strong></p>
-<p>You can use the NOPASSWD directive in your <code class="docutils literal notranslate"><span class="pre">/etc/sudoers</span> <span class="pre">file</span></code>.</p>
+<p>You can use the NOPASSWD directive in your <code class="docutils literal"><span class="pre">/etc/sudoers</span> <span class="pre">file</span></code>.</p>
 <p>If your user is called user and your host is called host you could add these lines to /etc/sudoers:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">user</span> <span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">NOPASSWD</span><span class="p">:</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">shutdown</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">user</span> <span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">NOPASSWD</span><span class="p">:</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">shutdown</span>
 <span class="n">user</span> <span class="n">host</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">NOPASSWD</span><span class="p">:</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">reboot</span>
 </pre></div>
 </div>
 <p>This will allow the user user to run the desired commands on host without entering a password. All other sudoed commands will still require a password.</p>
 <p>The commands specified in the sudoers file must be fully qualified (i.e. using the absolute path to the command to run) as described in the sudoers man page. Providing a relative path is considered a syntax error.</p>
 <p>If the command ends with a trailing / character and points to a directory, the user will be able to run any command in that directory (but not in any sub-directories therein). In the following example, the user user can run any command in the directory /home/someuser/bin/:</p>
-<p><code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">host</span> <span class="pre">=</span> <span class="pre">(root)</span> <span class="pre">NOPASSWD:</span> <span class="pre">/home/someuser/bin/</span></code></p>
+<p><code class="docutils literal"><span class="pre">user</span> <span class="pre">host</span> <span class="pre">=</span> <span class="pre">(root)</span> <span class="pre">NOPASSWD:</span> <span class="pre">/home/someuser/bin/</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Always use the command visudo to edit the sudoers file to make sure you do not lock yourself out of the system – just in case you accidentally write something incorrect to the sudoers file. visudo will save your modified file to a temporary location and will only overwrite the real sudoers file if the modified file can be parsed without errors.</p>
 </div>
 <p><strong>Using /etc/sudoers.d instead of modifying /etc/sudoers</strong></p>
 <p>As an alternative to editing the /etc/sudoers file, you could add the two lines to a new file in /etc/sudoers.d e.g. /etc/sudoers.d/shutdown. This is an elegant way of separating different changes to the sudo rights and also leaves the original sudoers file untouched for easier upgrades.</p>
-<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">visudo</span> <span class="pre">-f</span> <span class="pre">/etc/sudoers.d/shutdown</span></code></p>
+<p><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">visudo</span> <span class="pre">-f</span> <span class="pre">/etc/sudoers.d/shutdown</span></code></p>
 <p>This also automatically ensures that the owner and permissions of the new file is set correctly.</p>
 <p>example for DHCP
 ::
@@ -233,12 +262,12 @@ DHCPUSERS       ALL = NOPASSWD: DHCP</p>
 <p>If you did not use visudo to edit your files and then accidentally messed up /etc/sudoers or messed up a file in /etc/sudoers.d then you will be locked out of sudo.</p>
 <p>The solution could be to fix the files using pkexec which is an alternative to sudo.</p>
 <p>To fix /etc/sudoers:</p>
-<p><code class="docutils literal notranslate"><span class="pre">pkexec</span> <span class="pre">visudo</span></code></p>
+<p><code class="docutils literal"><span class="pre">pkexec</span> <span class="pre">visudo</span></code></p>
 <p>To fix /etc/sudoers.d/shutdown:</p>
-<p><code class="docutils literal notranslate"><span class="pre">pkexec</span> <span class="pre">visudo</span> <span class="pre">-f</span> <span class="pre">/etc/sudoers.d/shutdown</span></code></p>
+<p><code class="docutils literal"><span class="pre">pkexec</span> <span class="pre">visudo</span> <span class="pre">-f</span> <span class="pre">/etc/sudoers.d/shutdown</span></code></p>
 <p>If the ownership and/or permissions are incorrect for any sudoers file, the file will be ignored by sudo so you might also find yourself locked out in this situation. Again, you can use pkexec to fix this.</p>
 <p>The correct permissions should be like this:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ls -l /etc/sudoers.d/shutdown
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>$ls -l /etc/sudoers.d/shutdown
 -r--r----- 1 root root 86 Jul 16 15:37 /etc/sudoers.d/shutdown
 
 Use pkexec like this to fix ownership and permissions:
@@ -259,12 +288,21 @@ pkexec chmod 0440 /etc/sudoers.d/shutdown
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="diagrams.html" class="btn btn-neutral float-right" title="Diagrams in Sphinx" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="commands.html" class="btn btn-neutral float-left" title="commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -281,36 +319,16 @@ pkexec chmod 0440 /etc/sudoers.d/shutdown
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

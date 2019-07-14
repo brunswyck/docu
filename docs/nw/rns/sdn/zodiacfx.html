@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Setting up the ZodiacFX &mdash; docu patrick a documentation</title>
+  <title>Setting up the ZodiacFX &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,23 +17,37 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Setting up a GNS3 server" href="gns3server.html" />
     <link rel="prev" title="Open Daylight" href="opendaylight.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -41,15 +55,14 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -59,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -85,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -104,6 +121,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -118,7 +137,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -180,7 +199,7 @@
 <ol class="arabic">
 <li><p class="first">connect the usb cable from the zodiacfx to your laptop</p>
 <p>Verify with dmesg</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dmesg</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dmesg</span>
 
 <span class="p">[</span><span class="mf">3010068.043396</span><span class="p">]</span> <span class="n">usb</span> <span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span> <span class="n">new</span> <span class="n">full</span><span class="o">-</span><span class="n">speed</span> <span class="n">USB</span> <span class="n">device</span> <span class="n">number</span> <span class="mi">10</span> <span class="n">using</span> <span class="n">xhci_hcd</span>
 <span class="p">[</span><span class="mf">3010068.185334</span><span class="p">]</span> <span class="n">usb</span> <span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span> <span class="n">New</span> <span class="n">USB</span> <span class="n">device</span> <span class="n">found</span><span class="p">,</span> <span class="n">idVendor</span><span class="o">=</span><span class="mi">03</span><span class="n">eb</span><span class="p">,</span> <span class="n">idProduct</span><span class="o">=</span><span class="mi">2404</span>
@@ -196,7 +215,7 @@
 we’ll connect to it via minicom</p>
 </li>
 <li><p class="first">install and configure minicom</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@stretch:~/.ssh$ sudo apt-get install minicom
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@stretch:~/.ssh$ sudo apt-get install minicom
 patrick@stretch:~/.ssh$ sudo usermod --append --groups dialout $USER
 patrick@stretch:~/.ssh$ sudo minicom --device /dev/ttyACM0
 Welcome to minicom 2.7
@@ -275,7 +294,7 @@ Zodiac_FX#
 </pre></div>
 </div>
 <p>This is the default configuration</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Zodiac_FX</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show config</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Zodiac_FX</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show config</span>
 
 <span class="o">-------------------------------------------------------------------------</span>
 <span class="n">Configuration</span>
@@ -296,7 +315,7 @@ Zodiac_FX#
 </div>
 </li>
 <li><p class="first">Configure the ip-address subnetmask and gateway</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Zodiac_FX</span><span class="c1"># show ports</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Zodiac_FX</span><span class="c1"># show ports</span>
 <span class="n">Zodiac_FX</span><span class="c1">#config</span>
 <span class="n">Zodiac_FX</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># set ip-address 192.168.2.204</span>
  <span class="n">IP</span> <span class="n">Address</span> <span class="nb">set</span> <span class="n">to</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">2.204</span>
@@ -335,7 +354,7 @@ Zodiac_FX#
 <p>#. Configure an interface alias ip if you want to connect to the default ip-address the zodiac ships with and you’re on a different LAN subnet
 example</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ip</span> <span class="n">addr</span> <span class="n">add</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">1.8</span><span class="o">/</span><span class="mi">24</span> <span class="n">label</span> <span class="n">enp0s31f6</span><span class="p">:</span><span class="n">fx</span> <span class="n">dev</span> <span class="n">enp0s31f6</span>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ip</span> <span class="n">addr</span> <span class="n">add</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">1.8</span><span class="o">/</span><span class="mi">24</span> <span class="n">label</span> <span class="n">enp0s31f6</span><span class="p">:</span><span class="n">fx</span> <span class="n">dev</span> <span class="n">enp0s31f6</span>
 <span class="n">verify</span> <span class="k">with</span>
 <span class="n">sudo</span> <span class="n">ip</span> <span class="n">addr</span> <span class="n">show</span> <span class="n">label</span> <span class="n">enp0s31f6</span><span class="p">:</span><span class="n">fx</span>
 </pre></div>
@@ -362,8 +381,10 @@ example</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="gns3server.html" class="btn btn-neutral float-right" title="Setting up a GNS3 server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="opendaylight.html" class="btn btn-neutral" title="Open Daylight" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="opendaylight.html" class="btn btn-neutral float-left" title="Open Daylight" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -372,7 +393,7 @@ example</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -389,36 +410,16 @@ example</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

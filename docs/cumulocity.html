@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cumulocity &mdash; docu patrick a documentation</title>
+  <title>cumulocity &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,24 +17,37 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="debian server" href="server.html" />
-    <link rel="prev" title="Diagrams in Sphinx" href="diagrams.html" />
+    <link rel="prev" title="python" href="python.html" />
     <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -42,15 +55,14 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> docu patrick
+            <a href="index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">cumulocity</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installing-and-registering-an-iot-device">installing and registering an IOT device</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installation-beaglebone-black">installation (beaglebone black)</a><ul>
@@ -107,6 +123,8 @@
 <li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -121,7 +139,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">docu patrick</a>
+          <a href="index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -182,7 +200,7 @@
 <p>source: <a class="reference external" href="https://beagleboard.org/latest-images">https://beagleboard.org/latest-images</a></p>
 <ol class="arabic">
 <li><p class="first">insert the microsd card and verify its existence on your OS</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@stretch:~/docu/sphinx[brunswyck:docu.git master|!?]$ sudo lsblk /dev/mmc*;sudo blkid /dev/mmc*;sudo fdisk -l | grep mmc
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@stretch:~/docu/sphinx[brunswyck:docu.git master|!?]$ sudo lsblk /dev/mmc*;sudo blkid /dev/mmc*;sudo fdisk -l | grep mmc
 NAME        MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
 mmcblk0     179:0    0  29G  0 disk
 └─mmcblk0p1 179:1    0  29G  0 part
@@ -195,7 +213,7 @@ Disk /dev/mmcblk0: 29 GiB, 31104958464 bytes, 60751872 sectors
 </div>
 </li>
 <li><p class="first">pick/download/verify your image (see source url) and burn it to the sd card</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@stretch:~/Downloads$ wget http://debian.beagleboard.org/images/bone-debian-9.3-iot-armhf-2018-03-05-4gb.img.xz
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@stretch:~/Downloads$ wget http://debian.beagleboard.org/images/bone-debian-9.3-iot-armhf-2018-03-05-4gb.img.xz
 --2018-05-30 15:01:58--  http://debian.beagleboard.org/images/bone-debian-9.3-iot-armhf-2018-03-05-4gb.img.xz
 Resolving debian.beagleboard.org (debian.beagleboard.org)... 52.26.75.20
 Connecting to debian.beagleboard.org (debian.beagleboard.org)|52.26.75.20|:80... connected.
@@ -218,7 +236,7 @@ patrick@stretch:~/Downloads$ xzcat  bone-debian-9.3-iot-armhf-2018-03-05-4gb.img
 </div>
 </li>
 <li><p class="first">Boot it up on the BBlack and configure basics, default user=debian password=temppwd</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">as</span> <span class="n">root</span> <span class="p">(</span><span class="n">sudo</span> <span class="n">su</span><span class="p">)</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="k">as</span> <span class="n">root</span> <span class="p">(</span><span class="n">sudo</span> <span class="n">su</span><span class="p">)</span>
 <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span><span class="p">;</span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span> <span class="o">-</span><span class="n">y</span>
 
 <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">keyboard</span><span class="o">-</span><span class="n">configuration</span> <span class="n">console</span><span class="o">-</span><span class="n">setup</span>
@@ -235,7 +253,7 @@ patrick@stretch:~/Downloads$ xzcat  bone-debian-9.3-iot-armhf-2018-03-05-4gb.img
 </div>
 </li>
 <li><p class="first">copy your public key to the node so you can ssh</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ sudo ip addr show
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ sudo ip addr show
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -255,7 +273,7 @@ for ease adjust your /etc/hosts file
 </div>
 </li>
 <li><p class="first">install java</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ sudo apt-get update;sudo apt-get install oracle-java8-installer -y
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ sudo apt-get update;sudo apt-get install oracle-java8-installer -y
 patrick@beaglebone:~# sudo apt install oracle-java8-set-default
 patrick@beaglebone:~$ java -version
 java version &quot;1.8.0_171&quot;
@@ -271,7 +289,7 @@ Java HotSpot(TM) Client VM (build 25.171-b11, mixed mode)
 <h3>register the device on cumulocity<a class="headerlink" href="#register-the-device-on-cumulocity" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="download-and-extract-the-linux-agent">
 <h4>download and extract the linux agent<a class="headerlink" href="#download-and-extract-the-linux-agent" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ mkdir dlds
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ mkdir dlds
 patrick@beaglebone:~$ cd dlds/
 patrick@beaglebone:~/dlds$ wget http://resources.cumulocity.com/examples/cumulocity-linux-agent-latest.tar.gz
 --2018-05-30 20:13:06--  http://resources.cumulocity.com/examples/cumulocity-linux-agent-latest.tar.gz
@@ -294,7 +312,7 @@ patrick@beaglebone:~/dlds$ chmod ug+x c8y-agent.sh
 </div>
 <div class="section" id="configure-the-host-and-launch-the-agent">
 <h4>configure the host and launch the agent<a class="headerlink" href="#configure-the-host-and-launch-the-agent" title="Permalink to this headline">¶</a></h4>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ vim dlds/cfg/cumulocity.properties
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ vim dlds/cfg/cumulocity.properties
 
 enter your hostname so the agent knows where to connect the device to
 
@@ -318,7 +336,7 @@ patrick@beaglebone:~$ tmux new-session -n agent -s cumulocity
 patrick@beaglebone:~$ sh ~/dlds/c8y-agent.sh
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~/dlds/cfg$ sudo tail -f /var/log/messages
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~/dlds/cfg$ sudo tail -f /var/log/messages
 
 May 30 21:17:56 beaglebone patrick: Running the Cumulocity Linux Agent...
 May 30 21:17:59 beaglebone patrick: 21:17:59.817 [main] WARN  c8y.lx.agent.PropUtils - Configuration file ./cfg/device.properties cannot be read, assuming empty configuration
@@ -333,7 +351,7 @@ May 30 21:18:01 beaglebone patrick: #011at c8y.lx.agent.Agent.main(Agent.java:84
 </pre></div>
 </div>
 <p>tcpdump also shows no additional traffic to gateway is generated by the agent.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ sudo tcpdump -i eth0 host 192.168.2.1
+<div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~$ sudo tcpdump -i eth0 host 192.168.2.1
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 07:31:59.366666 IP 192.168.2.88.bootpc &gt; firewall.home.bootps: BOOTP/DHCP, Request from 50:72:24:b7:3b:af (oui Unknown), length 548
@@ -358,7 +376,7 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 </ol>
 <p>available libraries</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>patrick@beaglebone:~/dlds/lib$ ls
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span>patrick@beaglebone:~/dlds/lib$ ls
 aopalliance-1.0.jar                                     jersey-multipart-1.8-8.17.0-20171117.084531-31.jar
 bayeux-api-2.8.0.jar                                    jetty-util-7.6.14.v20131031.jar
 cometd-java-client-2.8.0.jar                            joda-time-1.6.2.jar
@@ -404,7 +422,7 @@ jersey-core-1.8-8.17.0-20171117.084529-31.jar           tyrus-spi-1.8.2.jar
         <a href="server.html" class="btn btn-neutral float-right" title="debian server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="diagrams.html" class="btn btn-neutral" title="Diagrams in Sphinx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="python.html" class="btn btn-neutral float-left" title="python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -413,7 +431,7 @@ jersey-core-1.8-8.17.0-20171117.084529-31.jar           tyrus-spi-1.8.2.jar
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -430,36 +448,16 @@ jersey-core-1.8-8.17.0-20171117.084529-31.jar           tyrus-spi-1.8.2.jar
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

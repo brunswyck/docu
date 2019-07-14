@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Switch Configuration &mdash; docu patrick a documentation</title>
+  <title>Switch Configuration &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="switched networks" href="switchedNetworks.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -126,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -140,7 +158,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -198,7 +216,7 @@
 <h1>Switch Configuration<a class="headerlink" href="#switch-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="configure-boot-environment-variable">
 <h2>Configure BOOT Environment variable<a class="headerlink" href="#configure-boot-environment-variable" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash:/c2960-lanbasek9-mz.150-2.SE/c2960-lanbasek9-mz.150-2.SE.bin</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash:/c2960-lanbasek9-mz.150-2.SE/c2960-lanbasek9-mz.150-2.SE.bin</span>
              <span class="n">command</span>     <span class="n">storage</span>   <span class="n">path</span> <span class="n">to</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">fs</span>     <span class="n">IOS</span> <span class="n">filename</span>
 
 <span class="n">S1</span><span class="c1"># show boot</span>
@@ -247,7 +265,7 @@
 </div>
 <div class="section" id="configure-sw-management-ipv4">
 <h2>Configure Sw management ipv4<a class="headerlink" href="#configure-sw-management-ipv4" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface vlan 99</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 172.17.99.11 255.255.255.0</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
@@ -261,7 +279,7 @@
 </div>
 <div class="section" id="assign-all-user-ports-to-vlan">
 <h3>Assign all user ports to vlan<a class="headerlink" href="#assign-all-user-ports-to-vlan" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>S1(config)#
+<div class="code highlight-default"><div class="highlight"><pre><span></span>S1(config)#
 interface range f0/1 – 24,g0/1 - 2
 S1(config-if-range)# switchport access vlan 99
 S1(config-if-range)#exit
@@ -278,7 +296,7 @@ S1# copy run start
 </div>
 <div class="section" id="configure-apply-vlan-99">
 <h3>configure &amp; apply vlan 99<a class="headerlink" href="#configure-apply-vlan-99" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 99</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 99</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name vlan_name</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface interface_id</span>
@@ -288,7 +306,7 @@ S1# copy run start
 </div>
 <div class="section" id="troubleshooting">
 <h3>troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show interface vlan99</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show interface vlan99</span>
 <span class="n">S1</span><span class="c1"># show ip interface vlan99</span>
 <span class="n">S1</span><span class="c1"># show vlan brief</span>
 <span class="n">S1</span><span class="c1"># show mac address-table</span>
@@ -299,7 +317,7 @@ S1# copy run start
 <div class="section" id="basic-template-for-less-hassle">
 <h3>basic template for less hassle<a class="headerlink" href="#basic-template-for-less-hassle" title="Permalink to this headline">¶</a></h3>
 <p>from global conf mode past:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
 <span class="n">hostname</span> <span class="n">S1</span>
 <span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
 <span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
@@ -319,7 +337,7 @@ S1# copy run start
 </div>
 <div class="section" id="setup-a-static-mac-address">
 <h2>Setup a static MAC address<a class="headerlink" href="#setup-a-static-mac-address" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># clear mac address-table dynamic</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># clear mac address-table dynamic</span>
 <span class="n">S1</span><span class="c1"># show mac address-table</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># mac address-table static 0050.56BE.6C89 vlan 99 interface fastethernet 0/6</span>
 <span class="n">S1</span><span class="c1"># show mac address-table</span>
@@ -335,7 +353,7 @@ S1# copy run start
 </div>
 <div class="section" id="speed-auto-mdix">
 <h2>Speed/auto-MDIX<a class="headerlink" href="#speed-auto-mdix" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 0/1</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># duplex auto</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># speed auto</span>
@@ -357,7 +375,7 @@ S1# copy run start
 </div>
 <div class="section" id="ssh-switch-setup">
 <h2>SSH Switch Setup<a class="headerlink" href="#ssh-switch-setup" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># config t</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># config t</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># hostname myswitch</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip domain-name thegeekstuff.com</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># crypto key generate rsa</span>
@@ -382,7 +400,7 @@ S1# copy run start
 </div>
 <div class="section" id="disable-unused-ports">
 <h2>Disable unused ports<a class="headerlink" href="#disable-unused-ports" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show run</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show run</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range fastethernet0/1 - 4, fastethernet0/10 - 15</span>
 </pre></div>
 </div>
@@ -403,11 +421,11 @@ S1# copy run start
 <div class="section" id="sticky-secure-mac-addresses">
 <h3>Sticky Secure MAC addresses<a class="headerlink" href="#sticky-secure-mac-addresses" title="Permalink to this headline">¶</a></h3>
 <p>To configure an interface to convert dynamically learned MAC addresses to sticky secure MAC addresses and add them to the running configuration, you must enable sticky learning.</p>
-<p>Sticky learning is enabled on an interface by using the <code class="docutils literal notranslate"><span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span> <span class="pre">interface</span> <span class="pre">configuration</span> <span class="pre">mode</span> <span class="pre">command</span></code>.
+<p>Sticky learning is enabled on an interface by using the <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span> <span class="pre">interface</span> <span class="pre">configuration</span> <span class="pre">mode</span> <span class="pre">command</span></code>.
 When this command is entered, the switch converts all dynamically learned MAC addresses, including those that were dynamically learned before sticky learning was enabled, into sticky secure MAC addresses. All sticky secure MAC addresses are added to the address table and to the running configuration.</p>
-<p>Sticky secure MAC addresses can also be manually defined. When sticky secure MAC addresses are configured by using the <code class="docutils literal notranslate"><span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span> <span class="pre">mac-address</span></code> interface configuration mode command, all specified addresses are added to the address table and the running configuration.
+<p>Sticky secure MAC addresses can also be manually defined. When sticky secure MAC addresses are configured by using the <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span> <span class="pre">mac-address</span></code> interface configuration mode command, all specified addresses are added to the address table and the running configuration.
 If the sticky secure MAC addresses are saved to the startup configuration file, then when the switch restarts or the interface shuts down, the interface does not need to relearn the addresses. If the sticky secure addresses are not saved, they will be lost.</p>
-<p>If sticky learning is disabled by using the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span></code> interface configuration mode command, the sticky secure MAC addresses remain part of the address table, but are removed from the running configuration.</p>
+<p>If sticky learning is disabled by using the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span></code> interface configuration mode command, the sticky secure MAC addresses remain part of the address table, but are removed from the running configuration.</p>
 <p>Characteristics of sticky secure MAC addresses.</p>
 <img alt="../../../_images/sticky_secure.png" src="../../../_images/sticky_secure.png" />
 <div class="admonition note">
@@ -475,7 +493,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 <p class="first admonition-title">Note</p>
 <p class="last">All 3 no longer forward traffic and don’t display an error message. Restrict is only one with syslog msg, up violation = restrict &amp; shutdown</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">mac</span> <span class="n">address</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">mac</span> <span class="n">address</span>
 <span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span>
 <span class="n">dynamic</span> <span class="n">adds</span> <span class="n">only</span> <span class="n">to</span> <span class="n">table</span> <span class="n">n</span> <span class="n">removed</span> <span class="n">at</span> <span class="n">shutdown</span>
 <span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span> <span class="n">dynamic</span>
@@ -486,7 +504,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </div>
 <div class="section" id="configuring-port-security-on-if">
 <h3>Configuring port security on IF<a class="headerlink" href="#configuring-port-security-on-if" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 0/18</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 0/18</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport switchport port-security</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport switchport port-security maximum 10</span>
@@ -498,7 +516,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </pre></div>
 </div>
 <p>This example shows how to enable port security on Fast Ethernet port 12 and how to set the maximum number of secure addresses to 5. The violation mode is the default, and no secure MAC addresses are configured.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># configure terminal</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># configure terminal</span>
 <span class="n">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span>  <span class="n">End</span> <span class="k">with</span> <span class="n">CNTL</span><span class="o">/</span><span class="n">Z</span><span class="o">.</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 3/12</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
@@ -522,16 +540,16 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </pre></div>
 </div>
 <ul class="simple">
-<li>To return the interface <strong>to the default condition</strong> as not a secure port, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span></code> interface configuration command.</li>
-<li>To return the interface <strong>to the default number of secure MAC addresses</strong>, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">maximum</span> <span class="pre">value</span></code>.</li>
-<li>To <strong>delete a MAC</strong> address from the address table, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">mac_address</span></code> command.</li>
-<li>To return the <strong>violation mode to the default condition (shutdown mode)</strong>, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">violation</span> <span class="pre">{restrict</span> <span class="pre">|</span> <span class="pre">shutdown}</span></code> command.</li>
-<li>To <strong>disable sticky learning</strong> on an interface, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span></code> command. The interface converts the sticky secure MAC addresses to dynamic secure addresses.</li>
-<li>To <strong>delete a sticky secure MAC addresses</strong> from the address table, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">sticky</span> <span class="pre">mac-address</span> <span class="pre">mac_address</span></code> command. To <strong>delete all the sticky addresses on an interface or a VLAN</strong>, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">sticky</span> <span class="pre">interface</span> <span class="pre">interface-id</span></code> command.</li>
-<li>To <strong>clear dynamically learned</strong> port security MAC in the CAM table, use the <code class="docutils literal notranslate"><span class="pre">clear</span> <span class="pre">port-security</span> <span class="pre">dynamic</span></code> command. The address keyword enables you to clear a secure MAC addresses. The interface keyword enables you to clear all secure addresses on an interface.</li>
+<li>To return the interface <strong>to the default condition</strong> as not a secure port, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span></code> interface configuration command.</li>
+<li>To return the interface <strong>to the default number of secure MAC addresses</strong>, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">maximum</span> <span class="pre">value</span></code>.</li>
+<li>To <strong>delete a MAC</strong> address from the address table, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">mac_address</span></code> command.</li>
+<li>To return the <strong>violation mode to the default condition (shutdown mode)</strong>, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">violation</span> <span class="pre">{restrict</span> <span class="pre">|</span> <span class="pre">shutdown}</span></code> command.</li>
+<li>To <strong>disable sticky learning</strong> on an interface, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span></code> command. The interface converts the sticky secure MAC addresses to dynamic secure addresses.</li>
+<li>To <strong>delete a sticky secure MAC addresses</strong> from the address table, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">sticky</span> <span class="pre">mac-address</span> <span class="pre">mac_address</span></code> command. To <strong>delete all the sticky addresses on an interface or a VLAN</strong>, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">sticky</span> <span class="pre">interface</span> <span class="pre">interface-id</span></code> command.</li>
+<li>To <strong>clear dynamically learned</strong> port security MAC in the CAM table, use the <code class="docutils literal"><span class="pre">clear</span> <span class="pre">port-security</span> <span class="pre">dynamic</span></code> command. The address keyword enables you to clear a secure MAC addresses. The interface keyword enables you to clear all secure addresses on an interface.</li>
 </ul>
 <p>This example shows how to configure a secure MAC address on Fast Ethernet port 5/1 and verify the configuration:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># configure terminal</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># configure terminal</span>
 <span class="n">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span>  <span class="n">End</span> <span class="k">with</span> <span class="n">CNTL</span><span class="o">/</span><span class="n">Z</span><span class="o">.</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 5/1</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
@@ -566,7 +584,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 <p>To set the aging time &amp; aging type for all secure addresses on a port</p>
 <p>Use this to remove n add PCs on a secure port without deleting other secure MACs</p>
 <p>To configure port security aging</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface interface_id</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface interface_id</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security [ aging {static | time aging_time | type {absolute | inactivity} ]</span>
 
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 5/1</span>
@@ -577,13 +595,13 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 <p>The <strong>time aging_time</strong> keyword specifies the aging time for this port. Valid range for aging_time is from 0 to 1440 minutes. If the time is equal to 0, aging is disabled for this port.</p>
 <p>The <strong>type</strong> keyword sets the aging type as <strong>absolute or inactive</strong>. For absolute aging, all the secure addresses on this port ago out exactly after the time (minutes) specified and are removed from the secure address list. For inactive aging, the secure addresses on this port ago out only if there is no data traffic from the secure source address for the specified time period.</p>
 <p>Verify</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># show port security [interface interface_id] [address]</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># show port security [interface interface_id] [address]</span>
 
 <span class="n">To</span> <span class="n">disable</span> <span class="n">port</span> <span class="n">security</span> <span class="n">aging</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">secure</span> <span class="n">addresses</span> <span class="n">on</span> <span class="n">a</span> <span class="n">port</span><span class="p">:</span>
 <span class="n">Switch</span><span class="c1"># no switchport port-security aging time</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">example</span> <span class="n">displays</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">show</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">command</span> <span class="n">when</span> <span class="n">you</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">enter</span> <span class="n">an</span> <span class="n">interface</span><span class="p">:</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">example</span> <span class="n">displays</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">show</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">command</span> <span class="n">when</span> <span class="n">you</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">enter</span> <span class="n">an</span> <span class="n">interface</span><span class="p">:</span>
 
 <span class="n">Switch</span><span class="c1"># show port-security</span>
 
@@ -612,7 +630,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </pre></div>
 </div>
 <p>This example displays output from the show port-security command for a specified interface:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># show port-security interface fastethernet 5/1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># show port-security interface fastethernet 5/1</span>
 <span class="n">Port</span> <span class="n">Security</span>              <span class="p">:</span> <span class="n">Enabled</span>
 <span class="n">Port</span> <span class="n">Status</span>                <span class="p">:</span> <span class="n">Secure</span><span class="o">-</span><span class="n">up</span>
 <span class="n">Violation</span> <span class="n">Mode</span>             <span class="p">:</span> <span class="n">Shutdown</span>
@@ -628,7 +646,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </pre></div>
 </div>
 <p>This example displays output from the show port-security address command:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1">#sh port-security address</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1">#sh port-security address</span>
 
           <span class="n">Secure</span> <span class="n">Mac</span> <span class="n">Address</span> <span class="n">Table</span>
 <span class="o">-------------------------------------------------------------------</span>
@@ -657,8 +675,8 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </pre></div>
 </div>
 <p>Check if ports in Error disabled state</p>
-<p><code class="docutils literal notranslate"><span class="pre">S1#</span> <span class="pre">show</span> <span class="pre">interface</span> <span class="pre">fa0/18</span> <span class="pre">status</span></code>
-<code class="docutils literal notranslate"><span class="pre">S1#</span> <span class="pre">show</span> <span class="pre">port-security</span> <span class="pre">interface</span> <span class="pre">fastethernet</span> <span class="pre">0/18</span></code></p>
+<p><code class="docutils literal"><span class="pre">S1#</span> <span class="pre">show</span> <span class="pre">interface</span> <span class="pre">fa0/18</span> <span class="pre">status</span></code>
+<code class="docutils literal"><span class="pre">S1#</span> <span class="pre">show</span> <span class="pre">port-security</span> <span class="pre">interface</span> <span class="pre">fastethernet</span> <span class="pre">0/18</span></code></p>
 </div>
 <div class="section" id="example-exercise">
 <h3>example exercise<a class="headerlink" href="#example-exercise" title="Permalink to this headline">¶</a></h3>
@@ -693,7 +711,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 </ul>
 </dd>
 </dl>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1">#show port-security interface ?</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1">#show port-security interface ?</span>
   <span class="n">Ethernet</span>         <span class="n">IEEE</span> <span class="mf">802.3</span>
   <span class="n">FastEthernet</span>     <span class="n">FastEthernet</span> <span class="n">IEEE</span> <span class="mf">802.3</span>
   <span class="n">GigabitEthernet</span>  <span class="n">GigabitEthernet</span> <span class="n">IEEE</span> <span class="mf">802.3</span><span class="n">z</span>
@@ -901,7 +919,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
         <a href="vlans.html" class="btn btn-neutral float-right" title="VLANS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="switchedNetworks.html" class="btn btn-neutral" title="switched networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="switchedNetworks.html" class="btn btn-neutral float-left" title="switched networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -910,7 +928,7 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -927,36 +945,16 @@ If the sticky secure MAC addresses are saved to the startup configuration file, 
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

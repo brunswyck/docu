@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Device Discovery Management &amp; Maintenance &mdash; docu patrick a documentation</title>
+  <title>Device Discovery Management &amp; Maintenance &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="NAT" href="nat.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -143,6 +159,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -157,7 +175,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -234,7 +252,7 @@
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">cdp</span> <span class="pre">neighbors</span></code> reveals the remote hostname - local IF - remote platform - remote IF - capabilities Router S(witch) I(GMP)</p>
+<p class="last"><code class="docutils literal"><span class="pre">show</span> <span class="pre">cdp</span> <span class="pre">neighbors</span></code> reveals the remote hostname - local IF - remote platform - remote IF - capabilities Router S(witch) I(GMP)</p>
 </div>
 </div>
 <div class="section" id="cdp-exercise-10-1-1-4">
@@ -358,7 +376,7 @@ Password: <a class="reference external" href="mailto:S3cre7P&#37;&#52;&#48;55">S
 <img alt="../../../_images/Ch10_ex_cdp_10.1.1.4.png" src="../../../_images/Ch10_ex_cdp_10.1.1.4.png" />
 <ol class="arabic">
 <li><p class="first">On Admin-PC open CMD and SSH into the gateway router at 192.168.1.1 using the username admin01 and the password <a class="reference external" href="mailto:S3cre7P&#37;&#52;&#48;55">S3cre7P<span>&#64;</span>55</a></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>PC&gt; ssh –l admin01 192.168.1.1
+<div class="code highlight-default"><div class="highlight"><pre><span></span>PC&gt; ssh –l admin01 192.168.1.1
 </pre></div>
 </div>
 <div class="admonition note">
@@ -367,7 +385,7 @@ Password: <a class="reference external" href="mailto:S3cre7P&#37;&#52;&#48;55">S
 </div>
 </li>
 <li><p class="first">Use the show ip interface brief and show interfaces commands to document the Edge1 router’s physical interfaces, IP addresses , and subnet masks in the Addressing Table.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Edge1# show ip interface brief
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Edge1# show ip interface brief
 Interface              IP-Address      OK? Method Status                Protocol
 GigabitEthernet0/0     192.168.1.1     YES manual up                    up
 GigabitEthernet0/1     unassigned      YES unset  administratively down down
@@ -506,7 +524,7 @@ Vlan1 is administratively down, line protocol is down
 <dd><p class="first last">Password:</p>
 </dd>
 </dl>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>  Edge1# ssh –l branchadmin 209.165.200.10
+<div class="code highlight-default"><div class="highlight"><pre><span></span>  Edge1# ssh –l branchadmin 209.165.200.10
   Branch-Edge#
 
 After connecting to the Remote Branch Office at 209.165.200.10 what piece of previously missing information can now be added to the Addressing Table above?
@@ -527,7 +545,7 @@ hostname Branche-Edge, Branch-Firewall hostnames and their ip address + subnet m
 </div>
 </li>
 <li><p class="first">disable cdp on link to ISP</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface S0/0/1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#interface S0/0/1</span>
 <span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#no cdp enable</span>
 <span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#exit</span>
 <span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#cdp run</span>
@@ -536,7 +554,7 @@ hostname Branche-Edge, Branch-Firewall hostnames and their ip address + subnet m
 </div>
 </li>
 <li><p class="first">check NBs on Branch-Edge</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show cdp neighbors detail</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show cdp neighbors detail</span>
 
 <span class="n">Device</span> <span class="n">ID</span><span class="p">:</span> <span class="n">Branch</span><span class="o">-</span><span class="n">Firewall</span>
 <span class="n">Entry</span> <span class="n">address</span><span class="p">(</span><span class="n">es</span><span class="p">):</span>
@@ -546,7 +564,7 @@ hostname Branche-Edge, Branch-Firewall hostnames and their ip address + subnet m
 </div>
 </li>
 <li><p class="first">ssh into the firewall</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="c1">#ssh -l branchadmin 192.168.3.253</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Edge</span><span class="c1">#ssh -l branchadmin 192.168.3.253</span>
 <span class="n">Open</span>
 <span class="n">Password</span><span class="p">:</span>
 
@@ -555,7 +573,7 @@ hostname Branche-Edge, Branch-Firewall hostnames and their ip address + subnet m
 </div>
 </li>
 <li><p class="first">check NBs on Branch-Firewall</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Firewall</span><span class="c1">#show cdp neighbors</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Branch</span><span class="o">-</span><span class="n">Firewall</span><span class="c1">#show cdp neighbors</span>
 <span class="n">Capability</span> <span class="n">Codes</span><span class="p">:</span> <span class="n">R</span> <span class="o">-</span> <span class="n">Router</span><span class="p">,</span> <span class="n">T</span> <span class="o">-</span> <span class="n">Trans</span> <span class="n">Bridge</span><span class="p">,</span> <span class="n">B</span> <span class="o">-</span> <span class="n">Source</span> <span class="n">Route</span> <span class="n">Bridge</span>
                   <span class="n">S</span> <span class="o">-</span> <span class="n">Switch</span><span class="p">,</span> <span class="n">H</span> <span class="o">-</span> <span class="n">Host</span><span class="p">,</span> <span class="n">I</span> <span class="o">-</span> <span class="n">IGMP</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">Repeater</span><span class="p">,</span> <span class="n">P</span> <span class="o">-</span> <span class="n">Phone</span>
 <span class="n">Device</span> <span class="n">ID</span>    <span class="n">Local</span> <span class="n">Intrfce</span>   <span class="n">Holdtme</span>    <span class="n">Capability</span>   <span class="n">Platform</span>    <span class="n">Port</span> <span class="n">ID</span>
@@ -602,7 +620,7 @@ hostname Branche-Edge, Branch-Firewall hostnames and their ip address + subnet m
 </div>
 </li>
 <li><p class="first">explore the discovered switch via ssh</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Branch-Firewall#ssh -l branchadmin 192.168.4.132
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Branch-Firewall#ssh -l branchadmin 192.168.4.132
 Open
 Password:
 
@@ -669,8 +687,8 @@ sw-br-floor2&gt;
 </div>
 <p>Add the vlan ip and the newly discovered switch to the addressing table</p>
 </li>
-<li><p class="first">Verify there are no ip addresses left by using traceroute and even <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">arp</span></code></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sw</span><span class="o">-</span><span class="n">br</span><span class="o">-</span><span class="n">floor3</span><span class="o">&gt;</span><span class="n">traceroute</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.5</span>
+<li><p class="first">Verify there are no ip addresses left by using traceroute and even <code class="docutils literal"><span class="pre">show</span> <span class="pre">arp</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sw</span><span class="o">-</span><span class="n">br</span><span class="o">-</span><span class="n">floor3</span><span class="o">&gt;</span><span class="n">traceroute</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.5</span>
 <span class="n">Type</span> <span class="n">escape</span> <span class="n">sequence</span> <span class="n">to</span> <span class="n">abort</span><span class="o">.</span>
 <span class="n">Tracing</span> <span class="n">the</span> <span class="n">route</span> <span class="n">to</span> <span class="mf">209.165</span><span class="o">.</span><span class="mf">200.5</span>
 
@@ -692,7 +710,7 @@ sw-br-floor2&gt;
 </ol>
 <p>enable password is unkown and switch 1 doesn’t have a mgmt ip address so we can’t explore further</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>sw-br-floor2&gt;show cdp neighbors detail
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span>sw-br-floor2&gt;show cdp neighbors detail
 Device ID: sw-br-floor3
 Entry address(es):
   IP address : 192.168.4.133
@@ -862,7 +880,7 @@ sw-br-floor2&gt;
 </dl>
 <div class="section" id="configuration">
 <h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># conf t</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># conf t</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># lldp run</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface gigabitethernet 0/1</span>
 <span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># lldp transmit</span>
@@ -884,7 +902,7 @@ sw-br-floor2&gt;
 <h3>comparison neighbors information<a class="headerlink" href="#comparison-neighbors-information" title="Permalink to this headline">¶</a></h3>
 <p>cdp</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S3</span><span class="c1"># show cdp neighbors</span>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S3</span><span class="c1"># show cdp neighbors</span>
 <span class="n">Capability</span> <span class="n">Codes</span><span class="p">:</span> <span class="n">R</span> <span class="o">-</span> <span class="n">Router</span><span class="p">,</span> <span class="n">T</span> <span class="o">-</span> <span class="n">Trans</span> <span class="n">Bridge</span><span class="p">,</span> <span class="n">B</span> <span class="o">-</span> <span class="n">Source</span> <span class="n">Route</span> <span class="n">Bridge</span>
                   <span class="n">S</span> <span class="o">-</span> <span class="n">Switch</span><span class="p">,</span> <span class="n">H</span> <span class="o">-</span> <span class="n">Host</span><span class="p">,</span> <span class="n">I</span> <span class="o">-</span> <span class="n">IGMP</span><span class="p">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">Repeater</span><span class="p">,</span> <span class="n">P</span> <span class="o">-</span> <span class="n">Phone</span><span class="p">,</span>
                   <span class="n">D</span> <span class="o">-</span> <span class="n">Remote</span><span class="p">,</span> <span class="n">C</span> <span class="o">-</span> <span class="n">CVTA</span><span class="p">,</span> <span class="n">M</span> <span class="o">-</span> <span class="n">Two</span><span class="o">-</span> <span class="n">port</span> <span class="n">Mac</span> <span class="n">Relay</span>
@@ -897,7 +915,7 @@ sw-br-floor2&gt;
 </div></blockquote>
 <p>lldp</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Capability</span> <span class="n">codes</span><span class="p">:(</span><span class="n">R</span><span class="p">)</span> <span class="n">Router</span><span class="p">,</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="n">Bridge</span><span class="p">,</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="n">Telephone</span><span class="p">,</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="n">DOCSIS</span> <span class="n">Cable</span> <span class="n">Device</span>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Capability</span> <span class="n">codes</span><span class="p">:(</span><span class="n">R</span><span class="p">)</span> <span class="n">Router</span><span class="p">,</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="n">Bridge</span><span class="p">,</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="n">Telephone</span><span class="p">,</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="n">DOCSIS</span> <span class="n">Cable</span> <span class="n">Device</span>
                  <span class="p">(</span><span class="n">W</span><span class="p">)</span> <span class="n">WLAN</span> <span class="n">Access</span> <span class="n">Point</span><span class="p">,</span> <span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="n">Repeater</span><span class="p">,</span> <span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="n">Station</span><span class="p">,</span> <span class="p">(</span><span class="n">O</span><span class="p">)</span> <span class="n">Other</span>
 <span class="n">Device</span> <span class="n">ID</span>           <span class="n">Local</span> <span class="n">Intf</span>     <span class="n">Hold</span><span class="o">-</span><span class="n">time</span>  <span class="n">Capability</span>    <span class="n">Port</span> <span class="n">ID</span>
 <span class="n">S3</span>                  <span class="n">Gi0</span><span class="o">/</span><span class="mi">1</span>          <span class="mi">120</span>        <span class="n">B</span>               <span class="n">Fa0</span><span class="o">/</span><span class="mi">5</span>
@@ -960,7 +978,7 @@ sw-br-floor2&gt;
 <div class="section" id="ntp">
 <h2>NTP<a class="headerlink" href="#ntp" title="Permalink to this headline">¶</a></h2>
 <p>set clock manually (you’d be an idiot but hey learn the command)</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># clock set 20:36:00 dec 11 2015</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># clock set 20:36:00 dec 11 2015</span>
 <span class="n">R1</span><span class="c1"># clock timezone PST -8</span>
 <span class="n">R1</span><span class="c1"># clock summer-time PDT recurring</span>
 </pre></div>
@@ -1018,7 +1036,7 @@ sw-br-floor2&gt;
 </tr>
 </tbody>
 </table>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R2&gt;en
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R2&gt;en
 R2#ping 209.165.200.225
 
 Type escape sequence to abort.
@@ -1221,16 +1239,16 @@ Messages that contain information of use only when debugging a program</td>
 <li>Interface IP (IF)</li>
 </ul>
 <p>By default, the format of syslog messages on the Cisco IOS Software is as follows:</p>
-<p><code class="docutils literal notranslate"><span class="pre">seq</span> <span class="pre">no:</span> <span class="pre">timestamp:</span> <span class="pre">%facility-severity-MNEMONIC:</span> <span class="pre">description</span></code></p>
+<p><code class="docutils literal"><span class="pre">seq</span> <span class="pre">no:</span> <span class="pre">timestamp:</span> <span class="pre">%facility-severity-MNEMONIC:</span> <span class="pre">description</span></code></p>
 <p>For example, sample output on a Cisco switch for an EtherChannel link changing state to up is:</p>
-<p><code class="docutils literal notranslate"><span class="pre">00:00:46:</span> <span class="pre">%LINK-3-UPDOWN:</span> <span class="pre">Interface</span> <span class="pre">Port-channel1,</span> <span class="pre">changed</span> <span class="pre">state</span> <span class="pre">to</span> <span class="pre">up</span></code></p>
+<p><code class="docutils literal"><span class="pre">00:00:46:</span> <span class="pre">%LINK-3-UPDOWN:</span> <span class="pre">Interface</span> <span class="pre">Port-channel1,</span> <span class="pre">changed</span> <span class="pre">state</span> <span class="pre">to</span> <span class="pre">up</span></code></p>
 <p><strong>Facility-SecurityLvl-Mnemonic:</strong>
 Here the facility is <strong>LINK</strong> and the severity level is <strong>3</strong>, with a MNEMONIC of <strong>UPDOWN</strong>.</p>
 <p>The most common messages are link up and down messages, and messages that a device produces when it exits from configuration mode. If ACL logging is configured, the device generates syslog messages when packets match a parameter condition.</p>
 </div>
 <div class="section" id="adding-a-timestamp-to-syslog-messages">
 <h2>Adding a timestamp to Syslog Messages<a class="headerlink" href="#adding-a-timestamp-to-syslog-messages" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># conf t</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># conf t</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># shutdown</span>
 <span class="o">%</span><span class="n">LINK</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">CHANGED</span><span class="p">:</span> <span class="n">Interface</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">administratively</span> <span class="n">down</span>
@@ -1246,7 +1264,7 @@ Here the facility is <strong>LINK</strong> and the severity level is <strong>3</
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
 </pre></div>
 </div>
-<p>Use the command <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">timestamps</span> <span class="pre">log</span> <span class="pre">datetime</span></code> to <strong>force logged events to display the date and time</strong>
+<p>Use the command <code class="docutils literal"><span class="pre">service</span> <span class="pre">timestamps</span> <span class="pre">log</span> <span class="pre">datetime</span></code> to <strong>force logged events to display the date and time</strong>
 Above, when the R1 GigabitEthernet 0/0 interface is reactivated, the log messages now contain the date and time.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1261,10 +1279,10 @@ Above, when the R1 GigabitEthernet 0/0 interface is reactivated, the log message
 <div class="section" id="default-logging-service-settings">
 <h2>Default Logging Service Settings<a class="headerlink" href="#default-logging-service-settings" title="Permalink to this headline">¶</a></h2>
 <p>by default routers and switches send log messages for all security levels to the console
-<code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">console</span></code>
+<code class="docutils literal"><span class="pre">logging</span> <span class="pre">console</span></code>
 On some IOS version the device also <strong>buffers</strong> log messages
-<code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">buffered</span></code></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">logging</span></code> command displays the default logging service settings on a cisco router.</p>
+<code class="docutils literal"><span class="pre">logging</span> <span class="pre">buffered</span></code></p>
+<p>The <code class="docutils literal"><span class="pre">show</span> <span class="pre">logging</span></code> command displays the default logging service settings on a cisco router.</p>
 <img alt="../../../_images/Ch10_Show_logging.png" src="../../../_images/Ch10_Show_logging.png" />
 <p>The first highlighted line states that this router logs to the console and includes debug messages. This actually means that <strong>all debug level messages, as well as any lower level messages (such as notification level messages), are logged to the console</strong>. On most Cisco IOS routers, the <strong>default severity level is 7, debugging</strong>. The output also notes that 32 such messages have been logged.</p>
 <p>The second highlighted line states that this router logs to an internal buffer. Because this router has <strong>enabled logging to an internal buffer</strong>, the show logging command also lists the messages in that buffer. You can view some of the system messages that have been logged at the end of the output.</p>
@@ -1273,17 +1291,17 @@ On some IOS version the device also <strong>buffers</strong> log messages
 <h2>Syslog configuration<a class="headerlink" href="#syslog-configuration" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">configure destination hostname/IPv4 of the syslog server</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging 192.168.1.3</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging 192.168.1.3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">control messages to be sent to the syslog server with the <code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">trap</span></code> command. E.g. 4 and lower(more severe) the msgs with a higher,less severe level are sent to console.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap 4</span>
+<li><p class="first">control messages to be sent to the syslog server with the <code class="docutils literal"><span class="pre">logging</span> <span class="pre">trap</span></code> command. E.g. 4 and lower(more severe) the msgs with a higher,less severe level are sent to console.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap 4</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Optionally configure the source IF with <code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">source-interface</span> <span class="pre">if-type</span> <span class="pre">if-number</span></code>. This specifies that <strong>syslog packets shall contain the IP of this interface</strong> regardless of what IF the packet uses to exit the router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging source-interface GigabitEthernet 0/0</span>
+<li><p class="first">Optionally configure the source IF with <code class="docutils literal"><span class="pre">logging</span> <span class="pre">source-interface</span> <span class="pre">if-type</span> <span class="pre">if-number</span></code>. This specifies that <strong>syslog packets shall contain the IP of this interface</strong> regardless of what IF the packet uses to exit the router</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging source-interface GigabitEthernet 0/0</span>
 </pre></div>
 </div>
 </li>
@@ -1291,13 +1309,13 @@ On some IOS version the device also <strong>buffers</strong> log messages
 </div>
 <div class="section" id="verifying-syslog">
 <h2>Verifying Syslog<a class="headerlink" href="#verifying-syslog" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show logging | include changed state to up</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show logging | include changed state to up</span>
 <span class="n">R1</span><span class="c1"># show logging | begin June 12 22:35</span>
 </pre></div>
 </div>
 <div class="section" id="filter-logging-with-specific-date">
 <h3>filter logging with specific date<a class="headerlink" href="#filter-logging-with-specific-date" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Oct</span> <span class="mi">30</span> <span class="mi">20</span><span class="p">:</span><span class="mi">44</span><span class="p">:</span><span class="mf">42.941</span> <span class="n">UTC</span><span class="p">:</span> <span class="o">%</span><span class="n">LINK</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">UPDOWN</span><span class="p">:</span> <span class="n">Interface</span> <span class="n">Serial3</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="mf">0.6</span><span class="o">/</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">down</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Oct</span> <span class="mi">30</span> <span class="mi">20</span><span class="p">:</span><span class="mi">44</span><span class="p">:</span><span class="mf">42.941</span> <span class="n">UTC</span><span class="p">:</span> <span class="o">%</span><span class="n">LINK</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">UPDOWN</span><span class="p">:</span> <span class="n">Interface</span> <span class="n">Serial3</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="mf">0.6</span><span class="o">/</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">down</span>
 <span class="n">show</span> <span class="n">logging</span> <span class="o">|</span> <span class="n">include</span> <span class="p">(</span><span class="n">Oct</span> <span class="mi">30</span> <span class="mi">20</span><span class="p">:</span><span class="mi">44</span><span class="p">)</span><span class="o">..*</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="mf">0.6</span><span class="o">/</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1324,7 +1342,7 @@ Turn it on and move the window so you can monitor actively</p>
 <li><p class="first">Configure intermediary devices to use the syslog server</p>
 <ul>
 <li><p class="first">Configure R1 to send log events</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#logging ?</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#logging ?</span>
 <span class="n">A</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">C</span><span class="o">.</span><span class="n">D</span>   <span class="n">IP</span> <span class="n">address</span> <span class="n">of</span> <span class="n">the</span> <span class="n">logging</span> <span class="n">host</span>
 <span class="n">buffered</span>  <span class="n">Set</span> <span class="n">buffered</span> <span class="n">logging</span> <span class="n">parameters</span>
 <span class="n">console</span>   <span class="n">Set</span> <span class="n">console</span> <span class="n">logging</span> <span class="n">parameters</span>
@@ -1358,7 +1376,7 @@ Turn it on and move the window so you can monitor actively</p>
 </ul>
 </li>
 <li><p class="first">manually set the clocks on the switches to the current date and time</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="c1">#clock set 14:57:33 September 5 2017</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="c1">#clock set 14:57:33 September 5 2017</span>
 <span class="n">S1</span><span class="c1">#clock set 15:00:00 September 5 2017</span>
 </pre></div>
 </div>
@@ -1366,7 +1384,7 @@ Turn it on and move the window so you can monitor actively</p>
 <li><p class="first">Enable the logging timestamp <strong>service</strong> on the switches</p>
 <ul>
 <li><p class="first">Configure S1 and S2 to send its timestamp with logs it sends to the syslog server</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># service timestamps log datetime msec</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># service timestamps log datetime msec</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># service timestamps log datetime msec</span>
 </pre></div>
 </div>
@@ -1380,12 +1398,12 @@ Turn it on and move the window so you can monitor actively</p>
 <li><p class="first">Turn the NTP service on and not the date and time</p>
 </li>
 <li><p class="first">Automatically set the clock on R1 w date &amp; time according to NTP server</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp server 64.103.224.2</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp server 64.103.224.2</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure R1 to send its timestamp with the logs that it sends to the Syslog server</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#service timestamps log datetime msec</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#service timestamps log datetime msec</span>
 </pre></div>
 </div>
 </li>
@@ -1459,7 +1477,7 @@ Note: The routers used with CCNA hands-on labs are Cisco 1941 Integrated Service
 <li><p class="first">Console into the router and enter global configuration mode.</p>
 <ul>
 <li><p class="first">Copy the following basic configuration and paste it to the running-configuration on the router.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
 <span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
 <span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
 <span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
@@ -1498,39 +1516,39 @@ Note: The routers used with CCNA hands-on labs are Cisco 1941 Integrated Service
 <li><p class="first">Configure R1 as the NTP Server and R2 as the NTP client of R1. Synchronized time is important for Syslog and debug functions</p>
 </li>
 <li><p class="first">Display the current time</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show clock</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1">#show clock</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Set the time. Use the clock set command</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># clock set 15:45:00 5 october 2017</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># clock set 15:45:00 5 october 2017</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The time can also be set using the clock timezone command in the global configuration mode. For more information regarding this command, research the clock timezone command at <a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/video/cds/cda/is/3_0/command_reference/Command_Ref/timezone.html">cisco timezone</a> to determine the zone for your region. UTC+1 <code class="docutils literal notranslate"><span class="pre">clock</span> <span class="pre">timezone</span> <span class="pre">WEST</span> <span class="pre">+1</span></code> configure summertime <code class="docutils literal notranslate"><span class="pre">Router(config)#</span> <span class="pre">clock</span> <span class="pre">summer-time</span> <span class="pre">WEST</span> <span class="pre">recurring</span></code></p>
+<p class="last">The time can also be set using the clock timezone command in the global configuration mode. For more information regarding this command, research the clock timezone command at <a class="reference external" href="https://www.cisco.com/c/en/us/td/docs/video/cds/cda/is/3_0/command_reference/Command_Ref/timezone.html">cisco timezone</a> to determine the zone for your region. UTC+1 <code class="docutils literal"><span class="pre">clock</span> <span class="pre">timezone</span> <span class="pre">WEST</span> <span class="pre">+1</span></code> configure summertime <code class="docutils literal"><span class="pre">Router(config)#</span> <span class="pre">clock</span> <span class="pre">summer-time</span> <span class="pre">WEST</span> <span class="pre">recurring</span></code></p>
 </div>
 </li>
 <li><p class="first">Configure the NTP master
-Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> <span class="pre">master</span> <span class="pre">stratum--hopcountnumber</span></code>. NTP hops away from an authoritative time source.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp master 5</span>
+Use the <code class="docutils literal"><span class="pre">ntp</span> <span class="pre">master</span> <span class="pre">stratum--hopcountnumber</span></code>. NTP hops away from an authoritative time source.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp master 5</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Configure the NTP client</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp server 10.1.1.1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp server 10.1.1.1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ntp update-calendar</span>
 </pre></div>
 </div>
-<p>the <code class="docutils literal notranslate"><span class="pre">ntp</span> <span class="pre">update-calendar</span></code> command periodically updates the calendar with NTP time</p>
+<p>the <code class="docutils literal"><span class="pre">ntp</span> <span class="pre">update-calendar</span></code> command periodically updates the calendar with NTP time</p>
 </li>
 <li><p class="first">Verify NTP configuration</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ntp associations</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ntp associations</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Issue show clock on R1 and R2 to compare the timestamp</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show clock</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show clock</span>
 <span class="n">R2</span><span class="c1"># show clock</span>
 </pre></div>
 </div>
@@ -1544,7 +1562,7 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 <li><p class="first">start the syslog server on PC-B</p>
 </li>
 <li><p class="first">Verify that the timestamp service is enabled on R2</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show run | include timestamp</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show run | include timestamp</span>
 <span class="n">service</span> <span class="n">timestamps</span> <span class="n">debug</span> <span class="n">datetime</span> <span class="n">msec</span>
 <span class="n">service</span> <span class="n">timestamps</span> <span class="n">log</span> <span class="n">datetime</span> <span class="n">msec</span>
 
@@ -1554,12 +1572,12 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 </div>
 </li>
 <li><p class="first">Configure R2 to send syslog messages to syslog server, PC-B</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging host 172.16.2.3</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging host 172.16.2.3</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Display the default logging settings</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show logging</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show logging</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -1569,7 +1587,7 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 </ul>
 </li>
 <li><p class="first">Configure and observe the effect of logging severity levels on R2</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap ?</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap ?</span>
 <span class="o">&lt;</span><span class="mi">0</span><span class="o">-</span><span class="mi">7</span><span class="o">&gt;</span>          <span class="n">Logging</span> <span class="n">severity</span> <span class="n">level</span>
 <span class="n">alerts</span>         <span class="n">Immediate</span> <span class="n">action</span> <span class="n">needed</span>           <span class="p">(</span><span class="n">severity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">critical</span>       <span class="n">Critical</span> <span class="n">conditions</span>               <span class="p">(</span><span class="n">severity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1583,10 +1601,10 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 </pre></div>
 </div>
 <ul>
-<li><p class="first">if the <code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">trap</span> <span class="pre">warnings</span></code> command was issued, what severity levels of msgs are logged?</p>
+<li><p class="first">if the <code class="docutils literal"><span class="pre">logging</span> <span class="pre">trap</span> <span class="pre">warnings</span></code> command was issued, what severity levels of msgs are logged?</p>
 </li>
 <li><p class="first">Change the logging severity level to 4</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap warnings</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap warnings</span>
 <span class="ow">or</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap 4</span>
 </pre></div>
@@ -1595,13 +1613,13 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 </ul>
 </li>
 <li><p class="first">Create interface loopback 0 IF on R2 and observe the log messages on PC-B</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface lo 0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface lo 0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Remove the loopback 0 IF on R2 and observe logs</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no interface lo 0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no interface lo 0</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -1609,7 +1627,7 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 </ul>
 </li>
 <li><p class="first">Change the logging severity to 6</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap informational</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap informational</span>
 <span class="ow">or</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap 6</span>
 </pre></div>
@@ -1618,7 +1636,7 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 <li><p class="first">Clear the syslog entries on PC-B</p>
 </li>
 <li><p class="first">Create the loopback 1 IF on R2</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface loopback 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface loopback 1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no interface loopback 1</span>
 </pre></div>
 </div>
@@ -1641,7 +1659,7 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 <p class="first admonition-title">Note</p>
 <p class="last">Note that the flash file system also has an asterisk preceding it. This indicates that flash is the current default file system. The bootable IOS is located in flash; therefore, the pound symbol (#) is appended to the flash listing, indicating that it is a bootable disk.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="c1"># show file systems</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="c1"># show file systems</span>
 <span class="n">Router</span><span class="c1"># dir</span>
 <span class="n">Router</span><span class="c1"># pwd</span>
 <span class="n">nvram</span><span class="p">:</span><span class="o">/</span>
@@ -1680,26 +1698,26 @@ Use the <code class="docutils literal notranslate"><span class="pre">ntp</span> 
 <div class="section" id="backup-configs-w-tftp">
 <h3>Backup configs w TFTP<a class="headerlink" href="#backup-configs-w-tftp" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li>use the <code class="docutils literal notranslate"><span class="pre">copy</span> <span class="pre">running-config</span> <span class="pre">tftp</span></code> or <code class="docutils literal notranslate"><span class="pre">copy</span> <span class="pre">startup-config</span> <span class="pre">tftp</span></code> commands to backup the configs</li>
-<li>use the <code class="docutils literal notranslate"><span class="pre">copy</span> <span class="pre">tftp</span> <span class="pre">running-config</span></code> or <code class="docutils literal notranslate"><span class="pre">copy</span> <span class="pre">tftp</span> <span class="pre">startup-config</span></code> commands to restore the configs</li>
+<li>use the <code class="docutils literal"><span class="pre">copy</span> <span class="pre">running-config</span> <span class="pre">tftp</span></code> or <code class="docutils literal"><span class="pre">copy</span> <span class="pre">startup-config</span> <span class="pre">tftp</span></code> commands to backup the configs</li>
+<li>use the <code class="docutils literal"><span class="pre">copy</span> <span class="pre">tftp</span> <span class="pre">running-config</span></code> or <code class="docutils literal"><span class="pre">copy</span> <span class="pre">tftp</span> <span class="pre">startup-config</span></code> commands to restore the configs</li>
 </ol>
 </div>
 </div>
 <div class="section" id="using-usb-ports">
 <h2>Using USB ports<a class="headerlink" href="#using-usb-ports" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># dir usbflash0:</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># dir usbflash0:</span>
 <span class="n">Directory</span> <span class="n">of</span> <span class="n">usbflash0</span><span class="p">:</span><span class="o">/</span>
 <span class="mi">1</span> <span class="o">-</span><span class="n">rw</span><span class="o">-</span> <span class="mi">30125020</span> <span class="n">Dec</span> <span class="mi">22</span> <span class="mi">2032</span> <span class="mi">05</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="mi">32</span> <span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">c3825</span><span class="o">-</span><span class="n">entservicesk9</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">123</span><span class="o">-</span><span class="mf">14.</span><span class="n">T</span>
 <span class="mi">63158272</span> <span class="nb">bytes</span> <span class="n">total</span> <span class="p">(</span><span class="mi">33033216</span> <span class="nb">bytes</span> <span class="n">free</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>you can use the <code class="docutils literal notranslate"><span class="pre">more</span></code> command to view the the contents</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># more usbflash0:/R1-Config</span>
+<p>you can use the <code class="docutils literal"><span class="pre">more</span></code> command to view the the contents</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># more usbflash0:/R1-Config</span>
 </pre></div>
 </div>
 <div class="section" id="backing-up-to-usb">
 <h3>Backing up to USB<a class="headerlink" href="#backing-up-to-usb" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1# copy running-config usbflash0:
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1# copy running-config usbflash0:
 Destination filename [running-config]? R1-Config
 5024 bytes copied in 0.736 secs (6826 bytes/sec)
 </pre></div>
@@ -1707,7 +1725,7 @@ Destination filename [running-config]? R1-Config
 </div>
 <div class="section" id="restoring-from-usb">
 <h3>Restoring from USB<a class="headerlink" href="#restoring-from-usb" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># copy usbflash0:/R1-Config running-config</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># copy usbflash0:/R1-Config running-config</span>
 </pre></div>
 </div>
 </div>
@@ -1721,8 +1739,8 @@ Destination filename [running-config]? R1-Config
 <p class="last">With console access, a user can access the ROMMON mode by using a break sequence during the boot up process or removing the external flash memory when the device is powered off.</p>
 </div>
 </li>
-<li><p class="first">Change the configuration register to <code class="docutils literal notranslate"><span class="pre">0x2142</span></code> to ignore the startup-config file</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">monitor</span><span class="p">:</span> <span class="n">command</span> <span class="s2">&quot;boot&quot;</span> <span class="n">aborted</span> <span class="n">due</span> <span class="n">to</span> <span class="n">user</span> <span class="n">interrupt</span>
+<li><p class="first">Change the configuration register to <code class="docutils literal"><span class="pre">0x2142</span></code> to ignore the startup-config file</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">monitor</span><span class="p">:</span> <span class="n">command</span> <span class="s2">&quot;boot&quot;</span> <span class="n">aborted</span> <span class="n">due</span> <span class="n">to</span> <span class="n">user</span> <span class="n">interrupt</span>
 <span class="n">rommon</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">confreg</span> <span class="mh">0x2142</span>
 <span class="n">rommon</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="n">reset</span>
 </pre></div>
@@ -1732,8 +1750,8 @@ Destination filename [running-config]? R1-Config
 </li>
 <li><p class="first">save those changes</p>
 </li>
-<li><p class="first">apply the changes and reset config-register to <code class="docutils literal notranslate"><span class="pre">0x2102</span></code> and <code class="docutils literal notranslate"><span class="pre">reload</span></code></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Router# copy startup-config running-config
+<li><p class="first">apply the changes and reset config-register to <code class="docutils literal"><span class="pre">0x2102</span></code> and <code class="docutils literal"><span class="pre">reload</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Router# copy startup-config running-config
 Destination filename [running-config]?
 
 1450 bytes copied in 0.156 secs
@@ -1752,7 +1770,7 @@ Router# reload
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Note that in rommon it’s <code class="docutils literal notranslate"><span class="pre">confreg</span> <span class="pre">0x2142</span></code> and in IOS it’s <code class="docutils literal notranslate"><span class="pre">config-register</span> <span class="pre">0x2102</span></code></p>
+<p class="last">Note that in rommon it’s <code class="docutils literal"><span class="pre">confreg</span> <span class="pre">0x2142</span></code> and in IOS it’s <code class="docutils literal"><span class="pre">config-register</span> <span class="pre">0x2102</span></code></p>
 </div>
 </div>
 <div class="section" id="lab-managing-device-configuration-files">
@@ -1803,7 +1821,7 @@ Router# reload
 </tr>
 </tbody>
 </table>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>  g0/1    F0/5
+<div class="highlight-html"><div class="highlight"><pre><span></span>  g0/1    F0/5
 R1 <span class="p">&lt;</span><span class="nt">--------</span><span class="p">&gt;</span> S1 <span class="p">&lt;</span><span class="nt">---------</span><span class="p">&gt;</span> PC-A
 tftp            F0/6         tftp
 client    tftp client        client
@@ -1824,7 +1842,7 @@ Install and configure a TFTP server</p>
 <p class="first admonition-title">Note</p>
 <p class="last">A common misconception is that you can TFTP a file over the console connection. This is not the case because the console connection does not use IP. The TFTP transfer can be initiated from the client device (router or switch) using the console connection, but there must be IP connectivity between the client and server for the file transfer to take place.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># copy ?</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># copy ?</span>
 <span class="o">/</span><span class="n">erase</span>          <span class="n">Erase</span> <span class="n">destination</span> <span class="n">file</span> <span class="n">system</span><span class="o">.</span>
 <span class="o">/</span><span class="n">error</span>          <span class="n">Allow</span> <span class="n">to</span> <span class="n">copy</span> <span class="n">error</span> <span class="n">file</span><span class="o">.</span>
 <span class="o">/</span><span class="n">noverify</span>       <span class="n">Don</span><span class="s1">&#39;t verify image signature before reload.</span>
@@ -1854,7 +1872,7 @@ Install and configure a TFTP server</p>
 </pre></div>
 </div>
 <p>The flash: file system for S1 is the source file system in this example.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># copy flash: ?</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># copy flash: ?</span>
 <span class="n">archive</span><span class="p">:</span>        <span class="n">Copy</span> <span class="n">to</span> <span class="n">archive</span><span class="p">:</span> <span class="n">file</span> <span class="n">system</span>
 <span class="n">flash0</span><span class="p">:</span>         <span class="n">Copy</span> <span class="n">to</span> <span class="n">flash0</span><span class="p">:</span> <span class="n">file</span> <span class="n">system</span>
 <span class="n">flash1</span><span class="p">:</span>         <span class="n">Copy</span> <span class="n">to</span> <span class="n">flash1</span><span class="p">:</span> <span class="n">file</span> <span class="n">system</span>
@@ -1878,7 +1896,7 @@ Install and configure a TFTP server</p>
 </pre></div>
 </div>
 <p>Enter the copy running-config tftp: command. Provide the remote host address of the TFTP server (PC-A), 192.168.1.3. Press Enter to accept default destination filename (s1-config) or provide your own filename. The exclamation marks (!!) indicate the transfer process is in progress and is successful.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>S1# copy running-config tftp:
+<div class="code highlight-default"><div class="highlight"><pre><span></span>S1# copy running-config tftp:
 Address or name of remote host []?  192.168.1.3
 Destination filename [s1-config]?
 !!
@@ -1890,7 +1908,7 @@ S1#
 If you don’t have the required permissions you’ll get this error
 %Error opening <a class="reference external" href="tftp://192.168.1.3/s1-config">tftp://192.168.1.3/s1-config</a> (Permission denied)</p>
 <p>explore flash/usbflash as well</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># copy running-config flash:</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># copy running-config flash:</span>
 <span class="n">R1</span><span class="c1"># dir flash:</span>
 <span class="n">R1</span><span class="c1"># more flash:R1-running-config-backup</span>
 
@@ -1938,14 +1956,14 @@ If you don’t have the required permissions you’ll get this error
 <p>Note: The Cisco IOS Software naming conventions, field meaning, image content, and other details are subject to change.</p>
 <p>Memory Requirements</p>
 <p>On most Cisco routers including the integrated services routers, the IOS is stored in compact flash as a compressed image and loaded into DRAM during boot-up. The Cisco IOS Software Release 15.0 images available for the Cisco 1900 and 2900 ISR require 256MB of flash and 512MB of RAM. The 3900 ISR requires 256MB of flash and 1GB of RAM. This does not include additional management tools such as Cisco Configuration Professional (Cisco CP). For complete details, refer to the product data sheet for the specific router.</p>
-<p>to backup ios image <code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">copy</span> <span class="pre">flash0:</span> <span class="pre">tftp:</span></code>
-to restore ios image <code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">copy</span> <span class="pre">tftp:</span> <span class="pre">flash0:</span></code></p>
+<p>to backup ios image <code class="docutils literal"><span class="pre">R1#</span> <span class="pre">copy</span> <span class="pre">flash0:</span> <span class="pre">tftp:</span></code>
+to restore ios image <code class="docutils literal"><span class="pre">R1#</span> <span class="pre">copy</span> <span class="pre">tftp:</span> <span class="pre">flash0:</span></code></p>
 </div>
 <div class="section" id="boot-system-command">
 <h2>boot system command<a class="headerlink" href="#boot-system-command" title="Permalink to this headline">¶</a></h2>
-<p>To upgrade to the copied IOS image after that image is saved on the router’s flash memory, configure the router to load the new image during bootup using the <code class="docutils literal notranslate"><span class="pre">boot</span> <span class="pre">system</span></code> command
-Verify with <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">version</span></code></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># configure terminal</span>
+<p>To upgrade to the copied IOS image after that image is saved on the router’s flash memory, configure the router to load the new image during bootup using the <code class="docutils literal"><span class="pre">boot</span> <span class="pre">system</span></code> command
+Verify with <code class="docutils literal"><span class="pre">show</span> <span class="pre">version</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># configure terminal</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash0://c1900-universalk9-mz.SPA.152-4.M3.bin</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># exit</span>
 <span class="n">R1</span><span class="c1"># copy running-config startup-config</span>
@@ -1953,7 +1971,7 @@ Verify with <code class="docutils literal notranslate"><span class="pre">show</s
 </pre></div>
 </div>
 <p>Copy the IPBase with strong encryption IOS image (ipbasek9) for the 1841 router from the TFTP Server to R1</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1# copy tftp: flash:
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1# copy tftp: flash:
 Address or name of remote host []? 192.168.2.254
 Source filename []?  c1841-ipbasek9-mz.124-12.bin
 Destination filename [c1841-ipbasek9-mz.124-12.bin]?
@@ -1972,8 +1990,8 @@ Loading c1841-ipbasek9-mz.124-12.bin from 192.168.2.254:
 </div>
 <p>Verify that the IOS image has been copied to flash
 How many IOS images are located in the flash:?</p>
-<p>Use the <code class="docutils literal notranslate"><span class="pre">boot</span> <span class="pre">system</span></code> command to load the IPBase image on the next reload</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash:c1841-ipbasek9-mz.124-12.bin</span>
+<p>Use the <code class="docutils literal"><span class="pre">boot</span> <span class="pre">system</span></code> command to load the IPBase image on the next reload</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash:c1841-ipbasek9-mz.124-12.bin</span>
 <span class="n">Save</span> <span class="n">the</span> <span class="n">configuration</span> <span class="ow">and</span> <span class="n">reload</span> <span class="n">R1</span>
 
 <span class="n">Verify</span> <span class="n">the</span> <span class="n">upgraded</span> <span class="n">IOS</span> <span class="n">image</span> <span class="ow">is</span> <span class="n">loaded</span> <span class="n">after</span> <span class="n">R1</span> <span class="n">reboots</span>
@@ -2025,29 +2043,29 @@ Offers the security features found in Advanced Security IOS image on ISR 1900, 2
 <p>The PAK is received during purchase.</p>
 <p>The UDI is a combination of the Product ID (PID), the Serial Number (SN), and the hardware version. The SN is an 11 digit number which uniquely identifies a device. The PID identifies the type of device. Only the PID and SN are used for license creation. This UDI can be displayed using the show license udi command shown in Figure 1. This information is also available on a pull-out label tray found on the device. Figure 2 shows an example of the pull-out label on a Cisco 1941 router.</p>
 <p>After entering the appropriate information, the customer receives an email containing the license information to install the license file. The license file is an XML text file with a .lic extension.</p>
-<p><code class="docutils literal notranslate"><span class="pre">R2#</span> <span class="pre">show</span> <span class="pre">license</span> <span class="pre">udi</span></code></p>
+<p><code class="docutils literal"><span class="pre">R2#</span> <span class="pre">show</span> <span class="pre">license</span> <span class="pre">udi</span></code></p>
 <ol class="arabic">
 <li><p class="first">Install the license</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># license install flash0:security-CISCO1941-FHH12250057.xml</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># license install flash0:security-CISCO1941-FHH12250057.xml</span>
 <span class="o">...</span>
 <span class="n">R1</span><span class="c1"># reload</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Verify with <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">version</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">license</span></code></p>
+<li><p class="first">Verify with <code class="docutils literal"><span class="pre">show</span> <span class="pre">version</span></code> and <code class="docutils literal"><span class="pre">show</span> <span class="pre">license</span></code></p>
 </li>
 <li><p class="first">Activate an evaluation right-to-use license</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># license accept end user agreement</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># license accept end user agreement</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># license boot module c1900 technology-package datak9</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show license</span>
 </pre></div>
 </div>
 </li>
 </ol>
-<p>Use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">license</span> <span class="pre">feature</span></code> command to view the technology package licenses and feature licenses supported on the router.</p>
+<p>Use the <code class="docutils literal"><span class="pre">show</span> <span class="pre">license</span> <span class="pre">feature</span></code> command to view the technology package licenses and feature licenses supported on the router.</p>
 <ol class="arabic">
 <li><p class="first">Backup the license</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># license save file-sys://lic-location</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># license save file-sys://lic-location</span>
 <span class="n">R1</span><span class="c1"># license save flash0://all_licenses.lic</span>
 <span class="n">R1</span><span class="c1"># show flash0:</span>
 <span class="n">to</span> <span class="n">restore</span>
@@ -2062,14 +2080,14 @@ Offers the security features found in Advanced Security IOS image on ISR 1900, 2
 <div><ol class="arabic">
 <li><p class="first">Disable the technology package.</p>
 <p>Disable the active license with the command:</p>
-<p><code class="docutils literal notranslate"><span class="pre">Router(config)#</span> <span class="pre">license</span> <span class="pre">boot</span> <span class="pre">module</span> <span class="pre">module-name</span> <span class="pre">technology-package</span> <span class="pre">package-name</span> <span class="pre">disable</span></code></p>
+<p><code class="docutils literal"><span class="pre">Router(config)#</span> <span class="pre">license</span> <span class="pre">boot</span> <span class="pre">module</span> <span class="pre">module-name</span> <span class="pre">technology-package</span> <span class="pre">package-name</span> <span class="pre">disable</span></code></p>
 <p>Reload the router using the reload command. A reload is required to make the software package inactive.</p>
 </li>
 <li><p class="first">Clear the license.</p>
 <p>Clear the technology package license from license storage.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Router#</span> <span class="pre">license</span> <span class="pre">clear</span> <span class="pre">feature-name</span></code></p>
+<p><code class="docutils literal"><span class="pre">Router#</span> <span class="pre">license</span> <span class="pre">clear</span> <span class="pre">feature-name</span></code></p>
 <p>Clear the license boot module command used for disabling the active license:</p>
-<p><code class="docutils literal notranslate"><span class="pre">Router(config)#</span> <span class="pre">no</span> <span class="pre">license</span> <span class="pre">boot</span> <span class="pre">module</span> <span class="pre">module-name</span> <span class="pre">technology-package</span> <span class="pre">package-name</span> <span class="pre">disable</span></code></p>
+<p><code class="docutils literal"><span class="pre">Router(config)#</span> <span class="pre">no</span> <span class="pre">license</span> <span class="pre">boot</span> <span class="pre">module</span> <span class="pre">module-name</span> <span class="pre">technology-package</span> <span class="pre">package-name</span> <span class="pre">disable</span></code></p>
 </li>
 </ol>
 </div></blockquote>
@@ -2256,7 +2274,7 @@ Offers the security features found in Advanced Security IOS image on ISR 1900, 2
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. Routers R1 and R2 are connected via a serial link. One router is configured as the NTP master, and the other is an NTP client. Which two pieces of information can be obtained from the partial output of the show ntp associations detail command on R2? (Choose two.)</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ntp associations detail</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ntp associations detail</span>
 <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.2</span> <span class="n">configured</span><span class="p">,</span> <span class="n">authenticated</span><span class="p">,</span> <span class="n">our_master</span><span class="p">,</span> <span class="n">sane</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">stratum</span> <span class="mi">3</span>
 </pre></div>
 </div>
@@ -2289,7 +2307,7 @@ Offers the security features found in Advanced Security IOS image on ISR 1900, 2
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. Which two conclusions can be drawn from the syslog message that was generated by the router? (Choose two.)</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Mar</span> <span class="mi">31</span> <span class="mi">07</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mf">03.2323</span><span class="p">:</span> <span class="o">%</span><span class="n">LINEPROTO</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">UPDOWN</span><span class="p">:</span> <span class="n">Line</span> <span class="n">protocol</span> <span class="n">on</span> <span class="n">Interface</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">up</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Mar</span> <span class="mi">31</span> <span class="mi">07</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mf">03.2323</span><span class="p">:</span> <span class="o">%</span><span class="n">LINEPROTO</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">UPDOWN</span><span class="p">:</span> <span class="n">Line</span> <span class="n">protocol</span> <span class="n">on</span> <span class="n">Interface</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">changed</span> <span class="n">state</span> <span class="n">to</span> <span class="n">up</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -2394,7 +2412,7 @@ Offers the security features found in Advanced Security IOS image on ISR 1900, 2
 </ul>
 </li>
 <li><p class="first">A network administrator configures a router with the command sequence:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system tftp://c1900-universalk9-mz.SPA.152-4.M3.bin</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system tftp://c1900-universalk9-mz.SPA.152-4.M3.bin</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system rom</span>
 </pre></div>
 </div>
@@ -2619,7 +2637,7 @@ Offers the security features found in Advanced Security IOS image on ISR 1900, 2
 </ul>
 </li>
 <li><p class="first">An administrator issued the following commands on router R1:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging 192.168.10.2</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging 192.168.10.2</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># logging trap 5</span>
 </pre></div>
 </div>
@@ -2665,7 +2683,7 @@ Router(config-if)# cdp receive</p>
 </ul>
 </li>
 <li><p class="first">Refer to the exhibit. What two statements describe the NTP status of the router? (Choose two.)</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="c1"># show ntp status</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="c1"># show ntp status</span>
 <span class="n">Clock</span> <span class="ow">is</span> <span class="n">synchronized</span><span class="p">,</span> <span class="n">stratum</span> <span class="mi">3</span><span class="p">,</span> <span class="n">reference</span> <span class="ow">is</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span>
 <span class="n">nominal</span> <span class="n">freq</span> <span class="ow">is</span> <span class="mf">250.0000</span> <span class="n">Hz</span><span class="p">,</span> <span class="n">actual</span> <span class="n">freq</span> <span class="ow">is</span> <span class="mf">250.0000</span> <span class="n">Hz</span><span class="p">,</span> <span class="n">precision</span> <span class="ow">is</span> <span class="mi">2</span><span class="o">**</span><span class="mi">24</span>
 <span class="n">reference</span> <span class="n">time</span> <span class="ow">is</span> <span class="n">DA278091</span><span class="o">.</span><span class="mi">83</span><span class="n">EB7490</span> <span class="p">(</span><span class="mi">12</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mf">53.515</span> <span class="n">UTC</span> <span class="n">Fri</span> <span class="n">Dec</span> <span class="mi">25</span> <span class="mi">2015</span><span class="p">)</span>
@@ -2698,14 +2716,14 @@ Router(config-if)# cdp receive</p>
 </li>
 <li><p class="first">An administrator wants to send log messages for all severity levels from a router to its console. Which procedure should the administrator follow to accomplish this?</p>
 <ul class="simple">
-<li>The administrator must issue the <code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">console</span></code> command on the router</li>
+<li>The administrator must issue the <code class="docutils literal"><span class="pre">logging</span> <span class="pre">console</span></code> command on the router</li>
 <li>The messages cannot be viewed on a router console. A syslog server must be installed on a workstation in order to view these messages</li>
-<li>The administrator must issue the <code class="docutils literal notranslate"><span class="pre">logging</span> <span class="pre">trap</span> <span class="pre">7</span></code> command on the router</li>
+<li>The administrator must issue the <code class="docutils literal"><span class="pre">logging</span> <span class="pre">trap</span> <span class="pre">7</span></code> command on the router</li>
 <li>The administrator needs to do nothing, because Cisco routers send log messages for all severity levels to the console by default</li>
 <li>Answer: <span class="transparent">The administrator needs to do nothing, because Cisco routers send log messages for all severity levels to the console by default</span></li>
 </ul>
 </li>
-<li><p class="first">What information can be gathered about a neighbor device from the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">cdp</span> <span class="pre">neighbors</span> <span class="pre">detail</span></code> command that cannot be found with the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">cdp</span> <span class="pre">neighbors</span></code> command?</p>
+<li><p class="first">What information can be gathered about a neighbor device from the <code class="docutils literal"><span class="pre">show</span> <span class="pre">cdp</span> <span class="pre">neighbors</span> <span class="pre">detail</span></code> command that cannot be found with the <code class="docutils literal"><span class="pre">show</span> <span class="pre">cdp</span> <span class="pre">neighbors</span></code> command?</p>
 <ul class="simple">
 <li>the platform that is used by the neighbor</li>
 <li>the IP address of the neighbor</li>
@@ -2722,7 +2740,7 @@ Router(config-if)# cdp receive</p>
 <li>0x4102</li>
 <li>0x4124</li>
 <li>Answer: <span class="transparent">0x2102</span></li>
-<li>Info: This can be seen by executing <code class="docutils literal notranslate"><span class="pre">R#</span> <span class="pre">show</span> <span class="pre">version</span></code></li>
+<li>Info: This can be seen by executing <code class="docutils literal"><span class="pre">R#</span> <span class="pre">show</span> <span class="pre">version</span></code></li>
 </ul>
 </li>
 </ol>
@@ -2740,7 +2758,7 @@ Router(config-if)# cdp receive</p>
         <a href="finals.html" class="btn btn-neutral float-right" title="routing n switching basics finals" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="nat.html" class="btn btn-neutral" title="NAT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nat.html" class="btn btn-neutral float-left" title="NAT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2749,7 +2767,7 @@ Router(config-if)# cdp receive</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -2766,36 +2784,16 @@ Router(config-if)# cdp receive</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

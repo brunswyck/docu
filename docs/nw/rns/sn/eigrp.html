@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>EIGRP &mdash; docu patrick a documentation</title>
+  <title>EIGRP &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="Dynamic Routing" href="dynamic_routing.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -155,6 +171,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -169,7 +187,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -230,7 +248,7 @@
 <img alt="../../../_images/Administrative-Distance.png" src="../../../_images/Administrative-Distance.png" />
 <p>RFC link <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc7868.txt">https://www.rfc-editor.org/rfc/rfc7868.txt</a></p>
 <p>In Cisco IOS Release 15.0(1)M, Cisco introduced a new EIGRP configuration option called named EIGRP. Named EIGRP enables the configuration of EIGRP for both IPv4 and IPv6 under a single configuration mode. This helps eliminate configuration complexity that occurs when configuring EIGRP for both IPv4 and IPv6. Named EIGRP is beyond the scope of this course.</p>
-<p>EIGRP was designed as a network layer independent routing protocol. Because of this design, EIGRP cannot use the services of UDP or TCP. Instead, EIGRP uses the <code class="docutils literal notranslate"><span class="pre">Reliable</span> <span class="pre">Transport</span> <span class="pre">Protocol</span> <span class="pre">(RTP)</span></code> for the delivery and reception of EIGRP packets</p>
+<p>EIGRP was designed as a network layer independent routing protocol. Because of this design, EIGRP cannot use the services of UDP or TCP. Instead, EIGRP uses the <code class="docutils literal"><span class="pre">Reliable</span> <span class="pre">Transport</span> <span class="pre">Protocol</span> <span class="pre">(RTP)</span></code> for the delivery and reception of EIGRP packets</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="100%" />
@@ -426,14 +444,14 @@ QU(quq) = both</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Unlike the older distance vector routing protocol RIP, EIGRP does not send periodic updates and route entries do not age out. Instead, EIGRP sends incremental updates only when the state of a destination changes. This may include when a new network becomes available, an existing network becomes unavailable, or a change occurs in the routing metric for an existing network.</p>
 </div>
-<p>EIGRP uses the terms <code class="docutils literal notranslate"><span class="pre">partial</span> <span class="pre">update</span> <span class="pre">and</span> <span class="pre">bounded</span> <span class="pre">update</span></code> when referring to its updates.</p>
+<p>EIGRP uses the terms <code class="docutils literal"><span class="pre">partial</span> <span class="pre">update</span> <span class="pre">and</span> <span class="pre">bounded</span> <span class="pre">update</span></code> when referring to its updates.</p>
 <blockquote>
 <div><ul class="simple">
 <li>A partial update means that the update only includes information about route changes.</li>
 <li>A bounded update refers to the sending of partial updates only to the routers that are affected by the changes. Bounded updates help EIGRP minimize the bandwidth that is required to send EIGRP updates.</li>
 </ul>
 </div></blockquote>
-<p>EIGRP Update packets use reliable delivery, which means <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">sending</span> <span class="pre">router</span> <span class="pre">requires</span> <span class="pre">an</span> <span class="pre">acknowledgment</span></code>. Update packets are sent as a multicast when required by multiple routers, or as a unicast when required by only a single router. In the figure, the updates are sent as unicasts because the links are point-to-point.</p>
+<p>EIGRP Update packets use reliable delivery, which means <code class="docutils literal"><span class="pre">the</span> <span class="pre">sending</span> <span class="pre">router</span> <span class="pre">requires</span> <span class="pre">an</span> <span class="pre">acknowledgment</span></code>. Update packets are sent as a multicast when required by multiple routers, or as a unicast when required by only a single router. In the figure, the updates are sent as unicasts because the links are point-to-point.</p>
 </div>
 <div class="section" id="acknowledge-packets">
 <h3>acknowledge packets<a class="headerlink" href="#acknowledge-packets" title="Permalink to this headline">¶</a></h3>
@@ -449,7 +467,7 @@ QU(quq) = both</p>
 </div>
 <div class="section" id="query-packets">
 <h3>Query packets<a class="headerlink" href="#query-packets" title="Permalink to this headline">¶</a></h3>
-<p>DUAL uses Query and Reply packets when searching for networks and other tasks. Queries and replies use reliable delivery. <code class="docutils literal notranslate"><span class="pre">Queries</span> <span class="pre">can</span> <span class="pre">use</span> <span class="pre">multicast</span> <span class="pre">or</span> <span class="pre">unicast,</span> <span class="pre">whereas</span> <span class="pre">replies</span> <span class="pre">are</span> <span class="pre">always</span> <span class="pre">sent</span> <span class="pre">as</span> <span class="pre">unicast</span></code>.</p>
+<p>DUAL uses Query and Reply packets when searching for networks and other tasks. Queries and replies use reliable delivery. <code class="docutils literal"><span class="pre">Queries</span> <span class="pre">can</span> <span class="pre">use</span> <span class="pre">multicast</span> <span class="pre">or</span> <span class="pre">unicast,</span> <span class="pre">whereas</span> <span class="pre">replies</span> <span class="pre">are</span> <span class="pre">always</span> <span class="pre">sent</span> <span class="pre">as</span> <span class="pre">unicast</span></code>.</p>
 <p>A QUERY packet carries the DUAL QUERY message type and is sent by a router to advertise that a route is in ACTIVE state and the originator is requesting alternate path information from its neighbors.  An infinite metric is encoded by setting the delay part of the metric to its maximum value.</p>
 <p>If there is a topology change that causes multiple destinations to be marked ACTIVE, EIGRP will build one or more QUERY packets for all destinations present.  The state of each route is recorded individually, so a responding QUERY or REPLY need not contain all the same destinations in a single packet.  Since EIGRP uses a reliable transport mechanism, route QUERY packets are also guaranteed be reliably delivered.</p>
 <p>When a QUERY packet is received, each destination will trigger a DUAL event, and the state machine will run individually for each route. Once the entire original QUERY packet is processed, then a REPLY or SIA-REPLY will be sent with the latest information.</p>
@@ -509,14 +527,14 @@ Thus, the value of the FD can either be the same as the current best distance, o
 <dt>The Data Link Frame</dt>
 <dd><ul class="first last simple">
 <li>MAC Source Address (sending NIC)</li>
-<li>MAC = MC <code class="docutils literal notranslate"><span class="pre">01-00-5E-00-00-0A</span></code></li>
+<li>MAC = MC <code class="docutils literal"><span class="pre">01-00-5E-00-00-0A</span></code></li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="section" id="eigrp-packet-header">
 <h2>EIGRP Packet Header<a class="headerlink" href="#eigrp-packet-header" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 <span class="o">|</span><span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>  <span class="o">|</span>
 <span class="o">|</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span><span class="o">|</span>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
@@ -535,7 +553,7 @@ Thus, the value of the FD can either be the same as the current best distance, o
 <p>Header Version: EIGRP Packet Header Format version.  Current Version is 2.  This field is not the same as the TLV Version field.</p>
 <div class="section" id="opcodes">
 <h3>Opcodes<a class="headerlink" href="#opcodes" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Opcode</span><span class="p">:</span> <span class="n">Indicates</span> <span class="n">the</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">the</span> <span class="n">message</span><span class="o">.</span> <span class="n">It</span> <span class="n">will</span> <span class="n">be</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">values</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Opcode</span><span class="p">:</span> <span class="n">Indicates</span> <span class="n">the</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">the</span> <span class="n">message</span><span class="o">.</span> <span class="n">It</span> <span class="n">will</span> <span class="n">be</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">values</span><span class="p">:</span>
    <span class="n">EIGRP_OPC_UPDATE</span>              <span class="mi">1</span>
    <span class="n">EIGRP_OPC_REQUEST</span>             <span class="mi">2</span>
    <span class="n">EIGRP_OPC_QUERY</span>               <span class="mi">3</span>
@@ -557,7 +575,7 @@ Thus, the value of the FD can either be the same as the current best distance, o
 <div class="section" id="flags">
 <h3>Flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h3>
 <p>Defines special handling of the packet. There are currently four defined flag bits.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># INIT-Flag (0x01): This bit is set in the initial UPDATE sent to a newly discovered neighbor. It instructs the neighbor to advertise its full set of routes.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># INIT-Flag (0x01): This bit is set in the initial UPDATE sent to a newly discovered neighbor. It instructs the neighbor to advertise its full set of routes.</span>
 
 <span class="c1"># CR-Flag (0x02): This bit indicates that receivers should only accept the packet if they are in Conditionally Received mode.</span>
   <span class="n">A</span> <span class="n">router</span> <span class="n">enters</span> <span class="n">Conditionally</span> <span class="n">Received</span> <span class="n">mode</span> <span class="n">when</span> <span class="n">it</span> <span class="n">receives</span> <span class="ow">and</span> <span class="n">processes</span> <span class="n">a</span> <span class="n">HELLO</span> <span class="n">packet</span> <span class="k">with</span> <span class="n">a</span> <span class="n">SEQUENCE</span> <span class="n">TLV</span> <span class="n">present</span><span class="o">.</span>
@@ -588,7 +606,7 @@ A non-zero value can only be present in unicast-addressed packets.
 <div class="section" id="virtual-router-identifier-vrid">
 <h3>Virtual Router Identifier (VRID)<a class="headerlink" href="#virtual-router-identifier-vrid" title="Permalink to this headline">¶</a></h3>
 <p>A 16-bit number that identifies the virtual router with which this packet is associated. Packets received with an unknown, or unsupported, value will be discarded.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Value</span> <span class="n">Range</span>       <span class="n">Usage</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Value</span> <span class="n">Range</span>       <span class="n">Usage</span>
   <span class="mh">0x0000</span>            <span class="n">Unicast</span> <span class="n">Address</span> <span class="n">Family</span>
   <span class="mh">0x0001</span>            <span class="n">Multicast</span> <span class="n">Address</span> <span class="n">Family</span>
   <span class="mh">0x0002</span><span class="o">-</span><span class="mh">0x7FFF</span>     <span class="n">Reserved</span>
@@ -619,7 +637,7 @@ this encoding scheme is that it allows multiple network-layer
 protocols to carry independent information.  Therefore, if it is
 later decided to implement a single “integrated” protocol, this can
 be done.</div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="nb">format</span> <span class="n">of</span> <span class="n">a</span> <span class="p">{</span><span class="nb">type</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="p">(</span><span class="n">TLV</span><span class="p">)</span> <span class="ow">is</span> <span class="n">encoded</span> <span class="k">as</span> <span class="n">follows</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="nb">format</span> <span class="n">of</span> <span class="n">a</span> <span class="p">{</span><span class="nb">type</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="p">(</span><span class="n">TLV</span><span class="p">)</span> <span class="ow">is</span> <span class="n">encoded</span> <span class="k">as</span> <span class="n">follows</span><span class="p">:</span>
 
  <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -636,7 +654,7 @@ TLVs can appear in a packet in any order, and there are no interdependencies amo
 A TLV is malformed if the TLV Length is invalid or if the TLV extends beyond the end of the containing message.</p>
 <div class="section" id="type-field-encoding">
 <h3>Type Field Encoding<a class="headerlink" href="#type-field-encoding" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="nb">type</span> <span class="n">field</span> <span class="ow">is</span> <span class="n">structured</span> <span class="k">as</span> <span class="n">follows</span><span class="p">:</span> <span class="n">Type</span> <span class="n">High</span><span class="p">:</span> <span class="mi">1</span> <span class="n">octet</span> <span class="n">that</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="nb">type</span> <span class="n">field</span> <span class="ow">is</span> <span class="n">structured</span> <span class="k">as</span> <span class="n">follows</span><span class="p">:</span> <span class="n">Type</span> <span class="n">High</span><span class="p">:</span> <span class="mi">1</span> <span class="n">octet</span> <span class="n">that</span>
 <span class="n">defines</span> <span class="n">the</span> <span class="n">protocol</span> <span class="n">classification</span><span class="p">:</span>
 
          <span class="n">Protocol</span>            <span class="n">ID</span>   <span class="n">VERSION</span>
@@ -662,7 +680,7 @@ A TLV is malformed if the TLV Length is invalid or if the TLV extends beyond the
 </div>
 <div class="section" id="eigrp-generic-tlv-definitions">
 <h2>EIGRP Generic TLV Definitions<a class="headerlink" href="#eigrp-generic-tlv-definitions" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                             <span class="n">Ver</span> <span class="mf">1.2</span>   <span class="n">Ver</span> <span class="mf">2.0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                             <span class="n">Ver</span> <span class="mf">1.2</span>   <span class="n">Ver</span> <span class="mf">2.0</span>
 <span class="n">PARAMETER_TYPE</span>                <span class="mh">0x0001</span>    <span class="mh">0x0001</span>
 <span class="n">AUTHENTICATION_TYPE</span>           <span class="mh">0x0002</span>    <span class="mh">0x0002</span>
 <span class="n">SEQUENCE_TYPE</span>                 <span class="mh">0x0003</span>    <span class="mh">0x0003</span>
@@ -678,12 +696,12 @@ A TLV is malformed if the TLV Length is invalid or if the TLV extends beyond the
 <dl class="docutils">
 <dt>This TLV is used in HELLO packets to convey the EIGRP metric coefficient values:</dt>
 <dd><ul class="first last simple">
-<li>noted as <code class="docutils literal notranslate"><span class="pre">K-values</span> <span class="pre">as</span> <span class="pre">well</span> <span class="pre">as</span> <span class="pre">the</span> <span class="pre">Hold</span> <span class="pre">Time</span></code> values.</li>
+<li>noted as <code class="docutils literal"><span class="pre">K-values</span> <span class="pre">as</span> <span class="pre">well</span> <span class="pre">as</span> <span class="pre">the</span> <span class="pre">Hold</span> <span class="pre">Time</span></code> values.</li>
 <li>This TLV is also used in an initial UPDATE packet when a neighbor is discovered.</li>
 </ul>
 </dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 <span class="o">|</span>            <span class="mh">0x0001</span>             <span class="o">|</span>            <span class="mh">0x000C</span>             <span class="o">|</span>
@@ -711,7 +729,7 @@ The default values for weights are:</p>
 <div class="section" id="x0002-authentication-type">
 <h3>0x0002 - AUTHENTICATION_TYPE<a class="headerlink" href="#x0002-authentication-type" title="Permalink to this headline">¶</a></h3>
 <p>This TLV may be used in any EIGRP packet and conveys the authentication type and data used. Routers receiving a mismatch in authentication shall discard the packet.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 <span class="o">|</span>             <span class="mh">0x0002</span>            <span class="o">|</span>            <span class="n">Length</span>             <span class="o">|</span>
@@ -738,7 +756,7 @@ Multiple authentication types can be present in a single AUTHENTICATION_TYPE TLV
 <div class="section" id="x0003-sequence-type">
 <h3>0x0003 - SEQUENCE_TYPE<a class="headerlink" href="#x0003-sequence-type" title="Permalink to this headline">¶</a></h3>
 <p>This TLV is used for a sender to tell receivers to not accept packets with the CR-Flag set. This is used to order multicast and unicast addressed packets.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">|</span><span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
 <span class="o">|</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 <span class="o">|</span>            <span class="mh">0x0003</span>             <span class="o">|</span>            <span class="n">Length</span>             <span class="o">|</span>
@@ -789,8 +807,8 @@ Neighbor address on interface in which the HELLO with SEQUENCE TLV is sent.  Eac
 <p class="first admonition-title">Note</p>
 <p class="last">EIGRP and OSPF can support multiple instances of the routing protocol. However, this multiple routing protocol implementation is not usually needed or recommended.</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">router</span> <span class="pre">eigrp</span> <span class="pre">autonomous-system</span></code> command does not start the EIGRP process itself. The router does not start sending updates. Rather, this command only provides access to configure the EIGRP settings.</p>
-<p>To completely remove the EIGRP routing process from a device, use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">router</span> <span class="pre">eigrp</span> <span class="pre">autonomous-system</span></code> global configuration mode command, which stops the EIGRP process and removes all existing EIGRP router configurations.</p>
+<p>The <code class="docutils literal"><span class="pre">router</span> <span class="pre">eigrp</span> <span class="pre">autonomous-system</span></code> command does not start the EIGRP process itself. The router does not start sending updates. Rather, this command only provides access to configure the EIGRP settings.</p>
+<p>To completely remove the EIGRP routing process from a device, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">router</span> <span class="pre">eigrp</span> <span class="pre">autonomous-system</span></code> global configuration mode command, which stops the EIGRP process and removes all existing EIGRP router configurations.</p>
 </div>
 <div class="section" id="eigrp-router-id">
 <h2>EIGRP Router ID<a class="headerlink" href="#eigrp-router-id" title="Permalink to this headline">¶</a></h2>
@@ -814,7 +832,7 @@ Neighbor address on interface in which the HELLO with SEQUENCE TLV is sent.  Eac
 <p class="last">The eigrp router-id command is used to configure the router ID for EIGRP. Some versions of IOS will accept the command router-id, without first specifying eigrp. The running-config, however, will display eigrp router-id regardless of which command is used.</p>
 </div>
 <img alt="../../../_images/6_eigrp_Topology_router_ids.png" src="../../../_images/6_eigrp_Topology_router_ids.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># eigrp router-id 1.1.1.1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#</span>
 
@@ -859,7 +877,7 @@ Neighbor address on interface in which the HELLO with SEQUENCE TLV is sent.  Eac
 </div>
 <p>If a router ID is not explicitly configured, then the router would use its <strong>highest IPv4 address configured on a loopback interface</strong>. The advantage of using a loopback interface is that unlike physical interfaces, <strong>loopbacks cannot fail</strong>. There are no actual cables or adjacent devices on which the loopback interface depends for being in the up state. Therefore, using a loopback address for the router ID can provide a more consistent router ID than using an interface address.</p>
 <p>If the eigrp router-id command is not used and loopback interfaces are configured, EIGRP chooses the highest IPv4 address of any of its loopback interfaces.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">enable</span> <span class="n">eigrp</span> <span class="k">for</span> <span class="n">interfaces</span> <span class="n">on</span> <span class="n">subnets</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="ow">and</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">30</span>
 <span class="o">----------------------------------------------------------------------</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 172.16.0.0</span>
@@ -895,14 +913,14 @@ Neighbor address on interface in which the HELLO with SEQUENCE TLV is sent.  Eac
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">DUAL automatically generates the notification message because the <code class="docutils literal notranslate"><span class="pre">R(config-router)#</span> <span class="pre">eigrp</span> <span class="pre">log-neighbor-changes</span></code> command is enabled by default. Specifically, the command helps verify neighbor adjacencies during configuration of EIGRP and displays any changes in EIGRP neighbor adjacencies, such as when an EIGRP adjacency has been added or removed.</p>
+<p class="last">DUAL automatically generates the notification message because the <code class="docutils literal"><span class="pre">R(config-router)#</span> <span class="pre">eigrp</span> <span class="pre">log-neighbor-changes</span></code> command is enabled by default. Specifically, the command helps verify neighbor adjacencies during configuration of EIGRP and displays any changes in EIGRP neighbor adjacencies, such as when an EIGRP adjacency has been added or removed.</p>
 </div>
 </div>
 <div class="section" id="passive-interface">
 <h2>Passive Interface<a class="headerlink" href="#passive-interface" title="Permalink to this headline">¶</a></h2>
 <p>As soon as a new IF is enabled within the EIGRP NW, EIGRP attempts to form a NB adjacency with any NB routers to send and receive updates</p>
 <p>It may be necesary, or advantageous, to <strong>include a DC NW in the routing update but not allow any NB adjacencies off of that IF to form</strong>. The passive-interface command can be used to prevent the NB adjacencies</p>
-<p>There are 2 primary reasons to enable the <code class="docutils literal notranslate"><span class="pre">passive-interface</span></code> command:</p>
+<p>There are 2 primary reasons to enable the <code class="docutils literal"><span class="pre">passive-interface</span></code> command:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>To suppress unnecessary update traffic. E.g. when an IF is a LAN IF with no other routers connected</li>
@@ -911,11 +929,11 @@ Neighbor address on interface in which the HELLO with SEQUENCE TLV is sent.  Eac
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">To configure all interfaces as passive, use the <code class="docutils literal notranslate"><span class="pre">passive-interface</span> <span class="pre">default</span></code> command. To disable an interface as passive, use the no passive-interface interface-type interface-number command.</p>
+<p class="last">To configure all interfaces as passive, use the <code class="docutils literal"><span class="pre">passive-interface</span> <span class="pre">default</span></code> command. To disable an interface as passive, use the no passive-interface interface-type interface-number command.</p>
 </div>
 <p>An example of using the passive interface to increase security controls is when a network must connect to a third-party organization, for which the local administrator has no control, such as when connecting to an ISP network. In this case, the local network administrator would need to advertise the interface link through their own network, but would not want the third-party organization to receive or send routing updates to the local routing device, as this is a security risk.</p>
 <p>Verify with show ip protocols</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface gigabitethernet 0/0</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># passive-interface gigabitethernet 0/0</span>
@@ -1038,7 +1056,7 @@ Is the directly connected network included in the EIGRP network statements?</p>
 metric = <strong>[K1*bandwidth + K3*delay] * 256</strong></p>
 <p>by default dus
 <strong>(Bandwidth + Delay) * 256 = Metric</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">Metric</span> <span class="pre">=</span> <span class="pre">((</span> <span class="pre">10</span> <span class="pre">000</span> <span class="pre">000</span> <span class="pre">/</span> <span class="pre">bandwidth)</span> <span class="pre">+</span> <span class="pre">(sum</span> <span class="pre">of</span> <span class="pre">delay</span> <span class="pre">/</span> <span class="pre">10))</span> <span class="pre">*</span> <span class="pre">256</span></code></p>
+<p><code class="docutils literal"><span class="pre">Metric</span> <span class="pre">=</span> <span class="pre">((</span> <span class="pre">10</span> <span class="pre">000</span> <span class="pre">000</span> <span class="pre">/</span> <span class="pre">bandwidth)</span> <span class="pre">+</span> <span class="pre">(sum</span> <span class="pre">of</span> <span class="pre">delay</span> <span class="pre">/</span> <span class="pre">10))</span> <span class="pre">*</span> <span class="pre">256</span></code></p>
 <p>Complete Composite Formula:
 metric = <strong>[K1*bandwidth +  (K2*bandwidth) / (256 - load) + K3*delay] * [K5 / (reliability + K4)]</strong></p>
 <p>(Not used if “K” values are 0)</p>
@@ -1054,7 +1072,7 @@ K3 (delay) = 1
 K4 (reliability) = 0
 K5 (reliability) = 0</div></blockquote>
 <p>Change K values:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># metric weights tos k1 k2 k3 k4 k5</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># metric weights tos k1 k2 k3 k4 k5</span>
 </pre></div>
 </div>
 <p>By default, EIGRP uses the following values in its composite metric to calculate the preferred path to a network:</p>
@@ -1085,7 +1103,7 @@ Represents the worst load on a link between the source and destination, which is
 <p class="first admonition-title">Warning</p>
 <p class="last">The metric calculation method (k values) and the EIGRP autonomous system number must match between EIGRP neighbors. If they do not match, the routers do not form an adjacency.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols</span>
 <span class="o">***</span> <span class="n">IP</span> <span class="n">Routing</span> <span class="ow">is</span> <span class="n">NSF</span> <span class="n">aware</span> <span class="o">***</span>
 
 <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;eigrp 1&quot;</span>
@@ -1116,7 +1134,7 @@ Represents the worst load on a link between the source and destination, which is
 <p>Use the following interface configuration mode command to modify the bandwidth metric:</p>
 <p>Router(config-if)# bandwidth kilobits-bandwidth-value</p>
 <p>Use the no bandwidth command to restore the default value.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">modify</span> <span class="n">bandwidth</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">modify</span> <span class="n">bandwidth</span>
 <span class="o">----------------</span>
 
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s0/0/0</span>
@@ -1190,14 +1208,14 @@ Represents the worst load on a link between the source and destination, which is
 <li>R1’s reported distance to 192.168.1.0 is 2,170,112</li>
 <li>R1 meets the feasibility condition</li>
 </ul>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip route</span>
 
 <span class="n">D</span>    <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">3012096</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.10</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
                            <span class="o">|</span>             <span class="o">|</span>
     <span class="n">Feasible</span> <span class="n">Distance</span> <span class="o">&lt;-----</span>             <span class="o">------&gt;</span> <span class="n">Successor</span> <span class="p">(</span><span class="n">R3</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
 
 <span class="n">D</span>    <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span><span class="p">,</span> <span class="mi">02</span><span class="p">:</span><span class="mi">44</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
                            <span class="o">|</span>
@@ -1214,7 +1232,7 @@ Represents the worst load on a link between the source and destination, which is
 <li>If there is a failure in R2’s path to 192.168.1.0/24 via R3 (successor), then R2 immediately installs the path via R1 (FS) in its routing table.</li>
 <li>R1 becomes the new successor for R2’s path to this network</li>
 </ul>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip route</span>
 
 <span class="n">D</span>     <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">41024256</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.1</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
                            <span class="o">|</span>  <span class="o">|</span>
@@ -1230,7 +1248,7 @@ Represents the worst load on a link between the source and destination, which is
 <li>Lists all successors and FSs that DUAL has calculated to destination NWs</li>
 <li>Only the successor is installed into the IP routing table</li>
 </ul>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip eigrp topology</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip eigrp topology</span>
 <span class="n">EIGRP</span><span class="o">-</span><span class="n">IPv4</span> <span class="n">Topology</span> <span class="n">Table</span> <span class="k">for</span> <span class="n">AS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">ID</span><span class="p">(</span><span class="mf">2.2</span><span class="o">.</span><span class="mf">2.2</span><span class="p">)</span>
 <span class="n">Codes</span><span class="p">:</span> <span class="n">P</span> <span class="o">-</span> <span class="n">Passive</span><span class="p">,</span> <span class="n">A</span> <span class="o">-</span> <span class="n">Active</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">Update</span><span class="p">,</span> <span class="n">Q</span> <span class="o">-</span> <span class="n">Query</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">Reply</span><span class="p">,</span>
        <span class="n">r</span> <span class="o">-</span> <span class="n">reply</span> <span class="n">Status</span><span class="p">,</span> <span class="n">s</span> <span class="o">-</span> <span class="n">sia</span> <span class="n">Status</span>
@@ -1327,14 +1345,14 @@ Represents the worst load on a link between the source and destination, which is
 <div class="section" id="no-feasible-successor">
 <h3>No feasible Successor<a class="headerlink" href="#no-feasible-successor" title="Permalink to this headline">¶</a></h3>
 <img alt="../../../_images/6_eigrp_topotable_noFS.png" src="../../../_images/6_eigrp_topotable_noFS.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
 
  <span class="n">D</span>    <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span><span class="p">,</span> <span class="mi">01</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
                               <span class="o">|</span>             <span class="o">|</span>
        <span class="n">Feasible</span> <span class="n">Distance</span> <span class="o">&lt;-----</span>             <span class="o">------&gt;</span> <span class="n">Next</span><span class="o">-</span><span class="n">hop</span> <span class="n">router</span> <span class="p">(</span><span class="n">R3</span><span class="p">)</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">Successor</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip eigrp topology</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip eigrp topology</span>
 
  <span class="n">P</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="mi">1</span> <span class="n">successors</span><span class="p">,</span> <span class="n">FD</span> <span class="ow">is</span> <span class="mi">2170112</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span> <span class="p">(</span><span class="mi">2170112</span><span class="o">/</span><span class="mi">2816</span><span class="p">),</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
                                                <span class="o">|</span>
@@ -1354,7 +1372,7 @@ Represents the worst load on a link between the source and destination, which is
 <div class="section" id="debug-eigrp-fsm">
 <h3>debug eigrp fsm<a class="headerlink" href="#debug-eigrp-fsm" title="Permalink to this headline">¶</a></h3>
 <img alt="../../../_images/6_eigrp_debug_eigrp_fsm.png" src="../../../_images/6_eigrp_debug_eigrp_fsm.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip eigrp topology</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip eigrp topology</span>
 
 <span class="n">P</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="mi">1</span> <span class="n">successors</span><span class="p">,</span> <span class="n">FD</span> <span class="ow">is</span> <span class="mi">3012096</span>
 <span class="n">Successor</span> <span class="p">(</span><span class="n">R3</span><span class="p">)</span><span class="o">--&gt;</span>    <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.10</span> <span class="p">(</span><span class="mi">3012096</span><span class="o">/</span><span class="mi">2816</span><span class="p">),</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
@@ -1363,7 +1381,7 @@ Represents the worst load on a link between the source and destination, which is
                                       <span class="o">----&gt;</span> <span class="n">FS</span> <span class="p">(</span><span class="n">R1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># debug eigrp fsm</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># debug eigrp fsm</span>
 <span class="n">EIGRP</span> <span class="n">Finite</span> <span class="n">State</span> <span class="n">Machine</span> <span class="n">debugging</span> <span class="ow">is</span> <span class="n">on</span>
 <span class="n">R2</span><span class="c1"># conf t</span>
 <span class="n">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span>  <span class="n">End</span> <span class="k">with</span> <span class="n">CNTL</span><span class="o">/</span><span class="n">Z</span><span class="o">.</span>
@@ -1379,14 +1397,14 @@ Represents the worst load on a link between the source and destination, which is
 <span class="n">R2</span><span class="c1"># undebug all</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip route</span>
 
 <span class="n">D</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">41024256</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.1</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
                                    <span class="o">|</span>
                                    <span class="o">----&gt;</span> <span class="n">New</span> <span class="n">Successor</span> <span class="p">(</span><span class="n">R1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip eigrp topology</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ip eigrp topology</span>
 
 <span class="n">P</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="mi">1</span> <span class="n">successors</span><span class="p">,</span> <span class="n">FD</span> <span class="ow">is</span> <span class="mi">41024256</span> <span class="n">via</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.1</span> <span class="p">(</span><span class="mi">41024256</span><span class="o">/</span><span class="mi">2170112</span><span class="p">),</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
                                                                 <span class="o">|</span>
@@ -1527,7 +1545,7 @@ Represents the worst load on a link between the source and destination, which is
 <img alt="../../../_images/6_eigrp_ipv6_configuration.png" src="../../../_images/6_eigrp_ipv6_configuration.png" />
 <p>Only the IPv6 global unicast addresses have been configured on each router.</p>
 <p>below are the starting interface configurations on each router. Notice the interface bandwidth values from the previous EIGRP for IPv4 configuration. Because EIGRP for IPv4 and IPv6 use the same metrics, modifying the bandwidth parameters influences both routing protocols.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1# show running-config
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1# show running-config
 
 !
 interface GigabitEthernet0/0
@@ -1578,14 +1596,14 @@ interface Serial0/0/1
 <p>Link-local addresses are automatically created when an IPv6 global unicast address is assigned to the interface. Global unicast addresses are not required on an interface; however, IPv6 link-local addresses are.</p>
 <img alt="../../../_images/6_eigrp_cfg_link_locals.png" src="../../../_images/6_eigrp_cfg_link_locals.png" />
 <p>Unless configured manually, Cisco routers create the link-local address using <strong>FE80::/10</strong> prefix and the EUI-64 process. EUI-64 involves using the 48-bit Ethernet MAC address, inserting FFFE in the middle and flipping the seventh bit. <strong>For serial interfaces, Cisco uses the MAC address of an Ethernet interface</strong>. A router with several serial interfaces can assign the same link-local address to each IPv6 interface, because link-local addresses only need to be local on the link.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 address link-local-address link-local</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 address link-local-address link-local</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">A link-local address has a prefix within the range FE80 to FEBF.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s 0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s 0/0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 address fe80::1 ?</span>
   <span class="n">link</span><span class="o">-</span><span class="n">local</span>  <span class="n">Use</span> <span class="n">link</span><span class="o">-</span><span class="n">local</span> <span class="n">address</span>
 
@@ -1643,7 +1661,7 @@ R2(config-rtr)#</p>
 </div>
 <div class="section" id="enabling-eigrp-for-ipv6-if">
 <h2>Enabling EIGRP for IPv6 IF<a class="headerlink" href="#enabling-eigrp-for-ipv6-if" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 eigrp 2</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># exit</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s 0/0/0</span>
@@ -1669,7 +1687,7 @@ R2(config-rtr)#</p>
 </div>
 <div class="section" id="configure-and-verify-ipv6">
 <h3>Configure and Verify IPv6<a class="headerlink" href="#configure-and-verify-ipv6" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 2</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 2</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># passive-interface gigabitethernet 0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># end</span>
 
@@ -1758,7 +1776,7 @@ R2(config-rtr)#</p>
 </div>
 <div class="section" id="eigrp-ipv6-routing-table">
 <h2>EIGRP IPv6 Routing Table<a class="headerlink" href="#eigrp-ipv6-routing-table" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route</span>
 
 <span class="n">C</span>   <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">1</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span> <span class="p">[</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span>
      <span class="n">via</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">directly</span> <span class="n">connected</span>
@@ -1793,7 +1811,7 @@ R2(config-rtr)#</p>
 </div></blockquote>
 <p>All three routes are using router R3 as the next-hop router (successor). Notice that the routing table uses the link-local address as the next-hop address. Because each router has had all its interfaces configured with a unique and distinguishable link-local address, it is easy to recognize that the next-hop router via FE80::3 is router R3.</p>
 <p>display the IPv6 routing table for R2.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ipv6 route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="c1"># show ipv6 route</span>
 
 <span class="n">D</span>   <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">1</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">3524096</span><span class="p">]</span>
      <span class="n">via</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
@@ -1823,7 +1841,7 @@ R2(config-rtr)#</p>
 </pre></div>
 </div>
 <p>display the routing table for R3. Notice that R3 has two equal cost paths to the 2001:DB8:CAFE:A001::/64. One path is via R1 at FE80::1 and the other path is via R2 at FE80::2.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ipv6 route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ipv6 route</span>
 
 <span class="n">D</span>   <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">1</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span>
      <span class="n">via</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">1</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
@@ -1856,19 +1874,19 @@ R2(config-rtr)#</p>
 <h3>Configuration EIGRP IPv6<a class="headerlink" href="#configuration-eigrp-ipv6" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic">
 <li><p class="first">Enable IPv6 routing on the routers.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Assign a router ID to each router.</p>
 <ol class="loweralpha">
 <li><p class="first">To begin the EIGRP for IPv6 routing configuration process, issue the ipv6 router eigrp 1 command, where 1 is the AS number.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">EIGRP for IPv6 requires a 32-bit address for the router ID. Use the eigrp r outer-i d command to configure the router ID in the router configuration mode.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># eigrp router-id 1.1.1.1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># eigrp router-id 2.2.2.2</span>
@@ -1881,7 +1899,7 @@ R2(config-rtr)#</p>
 </li>
 <li><p class="first">Enable EIGRP for IPv6 routing on each router</p>
 <p>The IPv6 routing process is shut down by default. Issue the no shutdown command to enable EIGRP for IPv6 routing on all routers.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># no shutdown</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># no shutdown</span>
@@ -1893,7 +1911,7 @@ R2(config-rtr)#</p>
 <li><p class="first">Configure EIGRP for IPv6 using AS 1 on the Serial and Gigabit Ethernet interfaces on the routers.</p>
 <ol class="loweralpha">
 <li><p class="first">Issue the ipv6 eigrp 1 command on the interfaces that participate in the EIGRP routing process. The AS number is 1 as assigned in Step 2. The configuration for R1 is displayed below as an example.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface s0/0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 eigrp 1</span>
@@ -1903,7 +1921,7 @@ R2(config-rtr)#</p>
 </div>
 </li>
 <li><p class="first">Assign EIGRP participating interfaces on R2 and R3. You will see neighbor adjacency messages as interfaces are added to the EIGRP routing process. The messages on R1 are displayed below as an example.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config-if)#
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1(config-if)#
 *Apr 12 00:25:49.183: %DUAL-5-NBRCHANGE: EIGRP-IPv6 1: Neighbor FE80::2 (Serial0/0/0) is up: new adjacency
 *Apr 12 00:26:15.583: %DUAL-5-NBRCHANGE: EIGRP-IPv6 1: Neighbor FE80::3 (Serial0/0/1) is up: new adjacency
 What address is used to indicate the neighbor in the adjacency messages?
@@ -1919,7 +1937,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 <ol class="arabic">
 <li><p class="first">Examine the neighbor adjacencies.</p>
 <p>On R1, issue the show ipv6 eigrp neighbors command to verify that the adjacency has been established with its neighboring routers. The link-local addresses of the neighboring routers are displayed in the adjacency table.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 eigrp neighbors</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 eigrp neighbors</span>
 <span class="n">EIGRP</span><span class="o">-</span><span class="n">IPv6</span> <span class="n">Neighbors</span> <span class="k">for</span> <span class="n">AS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">H</span>   <span class="n">Address</span>                                <span class="n">Interface</span>              <span class="n">Hold</span>   <span class="n">Uptime</span>   <span class="n">SRTT</span>  <span class="n">RTO</span>  <span class="n">Q</span>  <span class="n">Seq</span>
                                                                   <span class="p">(</span><span class="n">sec</span><span class="p">)</span>               <span class="p">(</span><span class="n">ms</span><span class="p">)</span>      <span class="n">Cnt</span> <span class="n">Num</span>
@@ -1932,7 +1950,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 </li>
 <li><p class="first">Examine the IPv6 EIGRP routing table.</p>
 <p>Use the show ipv6 route eigrp command to display IPv6 specific EIGRP routes on all the routers.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route eigrp</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route eigrp</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Table</span> <span class="o">-</span> <span class="n">default</span> <span class="o">-</span> <span class="mi">10</span> <span class="n">entries</span>
 <span class="n">Codes</span><span class="p">:</span> <span class="n">C</span> <span class="o">-</span> <span class="n">Connected</span><span class="p">,</span> <span class="n">L</span> <span class="o">-</span> <span class="n">Local</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">Static</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">Static</span> <span class="n">route</span>
      <span class="n">B</span> <span class="o">-</span> <span class="n">BGP</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">RIP</span><span class="p">,</span> <span class="n">I1</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L1</span><span class="p">,</span> <span class="n">I2</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L2</span>
@@ -1951,7 +1969,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 </div>
 </li>
 <li><p class="first">Examine the EIGRP topology.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 eigrp topology</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 eigrp topology</span>
 <span class="n">EIGRP</span><span class="o">-</span><span class="n">IPv6</span> <span class="n">Topology</span> <span class="n">Table</span> <span class="k">for</span> <span class="n">AS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">ID</span><span class="p">(</span><span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span><span class="p">)</span>
 <span class="n">Codes</span><span class="p">:</span> <span class="n">P</span> <span class="o">-</span> <span class="n">Passive</span><span class="p">,</span> <span class="n">A</span> <span class="o">-</span> <span class="n">Active</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">Update</span><span class="p">,</span> <span class="n">Q</span> <span class="o">-</span> <span class="n">Query</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">Reply</span><span class="p">,</span>
      <span class="n">r</span> <span class="o">-</span> <span class="n">reply</span> <span class="n">Status</span><span class="p">,</span> <span class="n">s</span> <span class="o">-</span> <span class="n">sia</span> <span class="n">Status</span>
@@ -1973,8 +1991,8 @@ What address is used to indicate the neighbor in the adjacency messages?
 </div>
 </li>
 <li><p class="first">Verify the parameters and current state of the active IPv6 routing protocol processes.</p>
-<p>Issue the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">protocols</span></code> command to verify the configured parameter. From the output, EIGRP is the configured IPv6 routing protocol with 1.1.1.1 as the router ID for R1. This routing protocol is associated with autonomous system 1 with three active interfaces: G0/0, S0/0/0, and S0/0/1.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 protocols</span>
+<p>Issue the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">protocols</span></code> command to verify the configured parameter. From the output, EIGRP is the configured IPv6 routing protocol with 1.1.1.1 as the router ID for R1. This routing protocol is associated with autonomous system 1 with three active interfaces: G0/0, S0/0/0, and S0/0/1.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 protocols</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;connected&quot;</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;ND&quot;</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;eigrp 1&quot;</span>
@@ -2002,10 +2020,10 @@ What address is used to indicate the neighbor in the adjacency messages?
 </div>
 <div class="section" id="configure-n-verify-passive-ifs">
 <h3>Configure n Verify Passive IFs<a class="headerlink" href="#configure-n-verify-passive-ifs" title="Permalink to this headline">¶</a></h3>
-<p>A passive interface does not allow outgoing and incoming routing updates over the configured interface. The <code class="docutils literal notranslate"><span class="pre">passive-interface</span> <span class="pre">interface</span></code> command causes the router to stop sending and receiving Hello packets over an interface.</p>
+<p>A passive interface does not allow outgoing and incoming routing updates over the configured interface. The <code class="docutils literal"><span class="pre">passive-interface</span> <span class="pre">interface</span></code> command causes the router to stop sending and receiving Hello packets over an interface.</p>
 <ol class="arabic">
 <li><p class="first">Configure interface G0/0 as passive on R1 and R2.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># passive-interface g0/0</span>
@@ -2013,9 +2031,9 @@ What address is used to indicate the neighbor in the adjacency messages?
 </div>
 </li>
 <li><p class="first">Verify the passive interface configuration</p>
-<p>Issue the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">protocols</span></code> command on R1 and verify that G0/0 has been configured as passive.</p>
+<p>Issue the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ipv6</span> <span class="pre">protocols</span></code> command on R1 and verify that G0/0 has been configured as passive.</p>
 <blockquote>
-<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 protocols</span>
+<div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 protocols</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;connected&quot;</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;ND&quot;</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="ow">is</span> <span class="s2">&quot;eigrp 1&quot;</span>
@@ -2043,11 +2061,11 @@ What address is used to indicate the neighbor in the adjacency messages?
 <li><p class="first">Configure the G0/0 passive IF on R3</p>
 </li>
 </ol>
-<p>If a few interfaces are configured as passive, use the <code class="docutils literal notranslate"><span class="pre">passive-interface</span> <span class="pre">default</span></code> command to configure all the interfaces on the router as passive. Use the <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">passive-interface</span> <span class="pre">interface</span></code> command to allow EIGRP Hello messages in and out of the router interface.</p>
+<p>If a few interfaces are configured as passive, use the <code class="docutils literal"><span class="pre">passive-interface</span> <span class="pre">default</span></code> command to configure all the interfaces on the router as passive. Use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">passive-interface</span> <span class="pre">interface</span></code> command to allow EIGRP Hello messages in and out of the router interface.</p>
 <blockquote>
 <div><ol class="loweralpha">
 <li><p class="first">Configure all interfaces as passive on R3.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># passive-interface default</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1">#</span>
 <span class="o">*</span> <span class="n">Apr</span> <span class="mi">13</span> <span class="mi">00</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mf">03.267</span><span class="p">:</span> <span class="o">%</span><span class="n">DUAL</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">NBRCHANGE</span><span class="p">:</span> <span class="n">EIGRP</span><span class="o">-</span><span class="n">IPv6</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Neighbor</span> <span class="n">FE80</span><span class="p">::</span><span class="mi">1</span> <span class="p">(</span><span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span><span class="p">)</span> <span class="ow">is</span> <span class="n">down</span><span class="p">:</span> <span class="n">interface</span> <span class="n">passive</span>
@@ -2055,9 +2073,9 @@ What address is used to indicate the neighbor in the adjacency messages?
 </pre></div>
 </div>
 </li>
-<li><p class="first">After you have issued the <code class="docutils literal notranslate"><span class="pre">passive-interface</span> <span class="pre">default</span></code> command, R3 no longer participates in the routing process. What command can you use to verify it?</p>
+<li><p class="first">After you have issued the <code class="docutils literal"><span class="pre">passive-interface</span> <span class="pre">default</span></code> command, R3 no longer participates in the routing process. What command can you use to verify it?</p>
 <p>show ipv6 route eigrp or show ipv6 route</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ipv6 route eigrp</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ipv6 route eigrp</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Table</span> <span class="o">-</span> <span class="n">default</span> <span class="o">-</span> <span class="mi">7</span> <span class="n">entries</span>
 <span class="n">Codes</span><span class="p">:</span> <span class="n">C</span> <span class="o">-</span> <span class="n">Connected</span><span class="p">,</span> <span class="n">L</span> <span class="o">-</span> <span class="n">Local</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">Static</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">Static</span> <span class="n">route</span>
        <span class="n">B</span> <span class="o">-</span> <span class="n">BGP</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">RIP</span><span class="p">,</span> <span class="n">I1</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L1</span><span class="p">,</span> <span class="n">I2</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L2</span>
@@ -2071,7 +2089,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 <li><p class="first">What command can you use to display the passive interfaces on R3?</p>
 </li>
 <li><p class="first">Configure the serial interfaces to participate in the routing process.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># no passive-interface s0/0/0</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># no passive-interface s0/0/1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1">#</span>
@@ -2099,7 +2117,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 <p>EIGRP avoids this problem by adding a network route for the classful network route to the routing table. This network entry routes packets to a Null interface. The Null0 interface, commonly known as “the bit bucket”, is a virtual IOS interface that is a route to nowhere. Packets that match a route with a Null0 exit interface are discarded.</p>
 <div class="section" id="automatic-summarization-disabled">
 <h3>Automatic summarization disabled<a class="headerlink" href="#automatic-summarization-disabled" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ip route eigrp</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="c1"># show ip route eigrp</span>
 
  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">3</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">2</span> <span class="n">masks</span>
 <span class="n">D</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">90</span><span class="o">/</span><span class="mi">2170112</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.5</span><span class="p">,</span>
@@ -2122,13 +2140,13 @@ What address is used to indicate the neighbor in the adjacency messages?
 </div>
 <p>image below is an example of R2 thinking it needs to do equal cost LB due to clasfull boundary summarization of 10.0.0.0/8 NWs on R1 and R3 who then advertize the summarized route to R2</p>
 <img alt="../../../_images/6_eigrp_autosumm_issue.png" src="../../../_images/6_eigrp_autosumm_issue.png" />
-<p>so to fix this you need to type router eigrp #as followed by <code class="docutils literal notranslate"><span class="pre">Rx(router-config)</span> <span class="pre">no</span> <span class="pre">auto-summary</span></code></p>
+<p>so to fix this you need to type router eigrp #as followed by <code class="docutils literal"><span class="pre">Rx(router-config)</span> <span class="pre">no</span> <span class="pre">auto-summary</span></code></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">null0 in the routing table shows auto summary is enabled</p>
 </div>
 <img alt="../../../_images/6_eigrp_autosumm_issuefix.png" src="../../../_images/6_eigrp_autosumm_issuefix.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
 
   <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">6</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">4</span> <span class="n">masks</span>
 <span class="n">D</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">summary</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">06</span><span class="p">,</span> <span class="n">Null0</span>
@@ -2155,7 +2173,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 </ul>
 </dd>
 </dl>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip route</span>
 
   <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">6</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">4</span> <span class="n">masks</span>
 <span class="n">D</span>  <span class="mf">172.16</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">summary</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">06</span><span class="p">,</span> <span class="n">Null0</span>
@@ -2198,7 +2216,7 @@ What address is used to indicate the neighbor in the adjacency messages?
 <div class="section" id="propagating-a-default-route">
 <h2>propagating a default route<a class="headerlink" href="#propagating-a-default-route" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/6_eigrp_propagate_default_static.png" src="../../../_images/6_eigrp_propagate_default_static.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 serial 0/1/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 serial 0/1/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># redistribute static</span>
 
@@ -2211,12 +2229,12 @@ What address is used to indicate the neighbor in the adjacency messages?
 <div class="section" id="default-routes-ipv6">
 <h2>default routes ipv6<a class="headerlink" href="#default-routes-ipv6" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/6_eigrp_ipv6_defaults1.png" src="../../../_images/6_eigrp_ipv6_defaults1.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 serial 0/1/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 serial 0/1/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router eigrp 2</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># redistribute static</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route</span>
 <span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Table</span> <span class="o">-</span> <span class="n">default</span> <span class="o">-</span> <span class="mi">12</span> <span class="n">entries</span>
 <span class="n">Codes</span><span class="p">:</span>  <span class="n">C</span> <span class="o">-</span> <span class="n">Connected</span><span class="p">,</span> <span class="n">L</span> <span class="o">-</span> <span class="n">Local</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">Static</span><span class="p">,</span>
      <span class="n">U</span> <span class="o">-</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">Static</span> <span class="n">route</span>
@@ -2232,9 +2250,9 @@ What address is used to indicate the neighbor in the adjacency messages?
 </div>
 <div class="section" id="tuning-bandwidth">
 <h2>tuning bandwidth<a class="headerlink" href="#tuning-bandwidth" title="Permalink to this headline">¶</a></h2>
-<p>Router(config-if)# <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">bandwidth-percent</span> <span class="pre">eigrp</span> <span class="pre">as-number</span> <span class="pre">percent</span></code>
-Router(config-if)# <code class="docutils literal notranslate"><span class="pre">ipv6</span> <span class="pre">bandwidth-percent</span> <span class="pre">eigrp</span> <span class="pre">as-number</span> <span class="pre">percent</span></code></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial 0/0/0</span>
+<p>Router(config-if)# <code class="docutils literal"><span class="pre">ip</span> <span class="pre">bandwidth-percent</span> <span class="pre">eigrp</span> <span class="pre">as-number</span> <span class="pre">percent</span></code>
+Router(config-if)# <code class="docutils literal"><span class="pre">ipv6</span> <span class="pre">bandwidth-percent</span> <span class="pre">eigrp</span> <span class="pre">as-number</span> <span class="pre">percent</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial 0/0/0</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 bandwidth-percent eigrp 2 40</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
 </pre></div>
@@ -2244,7 +2262,7 @@ Router(config-if)# <code class="docutils literal notranslate"><span class="pre">
 <h2>tuning hello n hold timers<a class="headerlink" href="#tuning-hello-n-hold-timers" title="Permalink to this headline">¶</a></h2>
 <p>default 1.544 Mbps = 60s hello 180s hold
 default greater    =  5s hello  15s hold</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface s0/0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hello-interval eigrp 1 50</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 150</span>
 
@@ -2253,12 +2271,12 @@ default greater    =  5s hello  15s hold</p>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ipv6 hold-time eigrp 2 150</span>
 </pre></div>
 </div>
-<p>use the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">eigrp</span> <span class="pre">interfaces</span> <span class="pre">detail</span></code> command to view the hello interval and hold timer for EIGRP.</p>
+<p>use the <code class="docutils literal"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">eigrp</span> <span class="pre">interfaces</span> <span class="pre">detail</span></code> command to view the hello interval and hold timer for EIGRP.</p>
 <p>R2# show ip eigrp interfaces detail</p>
 </div>
 <div class="section" id="load-balancing">
 <h2>load balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline">¶</a></h2>
-<p>Cisco IOS, by default, allows load balancing using up to <code class="docutils literal notranslate"><span class="pre">four</span> <span class="pre">equal-cost</span> <span class="pre">paths</span></code>; however, this can be modified. Using the maximum-paths router configuration mode command, <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">to</span> <span class="pre">32</span> <span class="pre">equal-cost</span> <span class="pre">routes</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">kept</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">routing</span> <span class="pre">table</span></code></p>
+<p>Cisco IOS, by default, allows load balancing using up to <code class="docutils literal"><span class="pre">four</span> <span class="pre">equal-cost</span> <span class="pre">paths</span></code>; however, this can be modified. Using the maximum-paths router configuration mode command, <code class="docutils literal"><span class="pre">up</span> <span class="pre">to</span> <span class="pre">32</span> <span class="pre">equal-cost</span> <span class="pre">routes</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">kept</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">routing</span> <span class="pre">table</span></code></p>
 <div class="section" id="unequal-cost-load-balancing">
 <h3>Unequal-Cost Load Balancing<a class="headerlink" href="#unequal-cost-load-balancing" title="Permalink to this headline">¶</a></h3>
 <img alt="../../../_images/6_eigrp_variance_example.png" src="../../../_images/6_eigrp_variance_example.png" />
@@ -2267,7 +2285,7 @@ default greater    =  5s hello  15s hold</p>
 <p class="last">variance condition is met. However the link between R5 and R3 has an AD of 25 and that AD is bigger than the FS of 20 so this route cannot take part in the unequal cost load balancing!</p>
 </div>
 <p>EIGRP for IPv4 and IPv6 can also balance traffic across multiple routes that have different metrics. This type of balancing is called unequal-cost load balancing.
-Setting a value using the <code class="docutils literal notranslate"><span class="pre">variance</span></code> command in router configuration mode enables EIGRP to install multiple loop-free routes with unequal cost in a local routing table.</p>
+Setting a value using the <code class="docutils literal"><span class="pre">variance</span></code> command in router configuration mode enables EIGRP to install multiple loop-free routes with unequal cost in a local routing table.</p>
 <dl class="docutils">
 <dt>A route learned through EIGRP must meet two criteria to be installed in the local routing table:</dt>
 <dd>The route must be loop-free, being either a feasible successor or having a reported distance that is less than the total distance.
@@ -2279,9 +2297,9 @@ The metric of the route must be lower than the metric of the best route (the suc
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">To control how trafﬁc is distributed among routes when there are multiple routes for the same destination network that have different costs, use the <code class="docutils literal notranslate"><span class="pre">trafﬁc-share</span> <span class="pre">balanced</span></code> command. Trafﬁc is then distributed proportionately to the ratio of the costs.</p>
+<p class="last">To control how trafﬁc is distributed among routes when there are multiple routes for the same destination network that have different costs, use the <code class="docutils literal"><span class="pre">trafﬁc-share</span> <span class="pre">balanced</span></code> command. Trafﬁc is then distributed proportionately to the ratio of the costs.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># maximum-paths 4</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># maximum-paths 4</span>
 
 <span class="n">to</span> <span class="n">see</span> <span class="n">what</span> <span class="n">maximum</span> <span class="n">path</span> <span class="ow">is</span>
 <span class="n">R3</span><span class="c1"># show ip protocols</span>
@@ -2304,7 +2322,7 @@ The metric of the route must be lower than the metric of the best route (the suc
 <li>Enable MD5 authentication on the interface</li>
 <li>Specify what keychain the interface will use</li>
 </ol>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config)# key chain R1keychain
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1(config)# key chain R1keychain
 R1(config-keychain) key 1
 both passphrase and key id will be hashed!
 R1(config-keychain-key)# key-string password
@@ -2487,7 +2505,7 @@ key-chain R1keychain:
 <p class="first admonition-title">Note</p>
 <p class="last">The bandwidth command only affect s the EIGRP metric calculation, not the actual bandwi dth of the serial link</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R1</span>
 
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.1.0</span>
@@ -2511,7 +2529,7 @@ key-chain R1keychain:
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R2</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R2</span>
 
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.2.0</span>
@@ -2529,7 +2547,7 @@ key-chain R1keychain:
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip hold-time eigrp 1 180</span>
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R3</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span> <span class="n">R3</span>
 
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.3.0</span>
@@ -2566,14 +2584,14 @@ key-chain R1keychain:
 <p class="first admonition-title">Note</p>
 <p class="last">A Discontiguous Network topology is where you have some network (perhaps network 172.16.0.0) that is divided in two parts (perhaps 172.16.0.0 through 172.16.100.0 and 172.16.101.0 through 172.16.200.0) and to go from one part to the other part you must go through some other different network (perhaps 192.168.1.0).</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Prior to IOS 15 auto-summary had to be manually disabled.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp autonomous-system</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp autonomous-system</span>
 <span class="n">R</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no router eigrp autonomous-system</span>
 <span class="n">R</span><span class="c1"># show ip eigrp neighbors</span>
 <span class="n">R</span><span class="c1"># show ip eigrp topology</span>
@@ -2605,7 +2623,7 @@ Automatic summarization is causing inconsistent routing in a discontiguous netwo
 </div>
 <div class="section" id="default-router-config-example">
 <h2>default router config example<a class="headerlink" href="#default-router-config-example" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>conf t
+<div class="code highlight-default"><div class="highlight"><pre><span></span>conf t
 service password-encryption
 hostname R1
 enable secret class
@@ -2822,7 +2840,7 @@ end
         <a href="ospf.html" class="btn btn-neutral float-right" title="OSPF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dynamic_routing.html" class="btn btn-neutral" title="Dynamic Routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dynamic_routing.html" class="btn btn-neutral float-left" title="Dynamic Routing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2831,7 +2849,7 @@ end
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -2848,36 +2866,16 @@ end
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

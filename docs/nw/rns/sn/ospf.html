@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>OSPF &mdash; docu patrick a documentation</title>
+  <title>OSPF &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="EIGRP" href="eigrp.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -132,6 +148,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -146,7 +164,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -209,8 +227,8 @@
 <dt>State</dt>
 <dd>description of an interface and it’s relationship to NB routers</dd>
 </dl>
-<p><code class="docutils literal notranslate"><span class="pre">224.0.0.5</span> <span class="pre">or</span> <span class="pre">unicast</span> <span class="pre">MAC</span> <span class="pre">01:00:5E:00:00:05</span></code>
-<code class="docutils literal notranslate"><span class="pre">224.0.0.6</span> <span class="pre">for</span> <span class="pre">link-local</span> <span class="pre">multicasts</span> <span class="pre">MAC</span> <span class="pre">01:00:5E:00:00:06(do</span> <span class="pre">not</span> <span class="pre">hop</span> <span class="pre">across</span> <span class="pre">routers)</span></code>
+<p><code class="docutils literal"><span class="pre">224.0.0.5</span> <span class="pre">or</span> <span class="pre">unicast</span> <span class="pre">MAC</span> <span class="pre">01:00:5E:00:00:05</span></code>
+<code class="docutils literal"><span class="pre">224.0.0.6</span> <span class="pre">for</span> <span class="pre">link-local</span> <span class="pre">multicasts</span> <span class="pre">MAC</span> <span class="pre">01:00:5E:00:00:06(do</span> <span class="pre">not</span> <span class="pre">hop</span> <span class="pre">across</span> <span class="pre">routers)</span></code>
 - resides directly on top of IP
 - does not use TCP(pid 5) Or UDP(pid 17)
 - Protocol ID 89
@@ -662,7 +680,7 @@ The router connected to the RIP process here</p>
 <div class="section" id="ospf-configuration">
 <h2>OSPF configuration<a class="headerlink" href="#ospf-configuration" title="Permalink to this headline">¶</a></h2>
 <img alt="../../../_images/8_ospf_config_router.png" src="../../../_images/8_ospf_config_router.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># ?</span>
 <span class="n">Router</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">:</span>
 
@@ -736,7 +754,7 @@ Use highest active IPv4 address</p>
 <p class="first admonition-title">Warning</p>
 <p class="last">Router ID’s are local to the router! can be different across routers!</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 1</span>
 <span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 3</span>
 <span class="n">will</span> <span class="n">work</span>
 </pre></div>
@@ -744,8 +762,8 @@ Use highest active IPv4 address</p>
 </div>
 <div class="section" id="modify-router-id">
 <h2>Modify Router ID<a class="headerlink" href="#modify-router-id" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">ospf</span> <span class="pre">process</span></code></p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config)# router ospf 10
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">ospf</span> <span class="pre">process</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1(config)# router ospf 10
 R1(config-router)# router-id 1.1.1.1
 % OSPF: Reload or use &quot;clear ip ospf process&quot; command, for this to take effect
 
@@ -768,7 +786,7 @@ R1# show ip protocols | section Router ID
 R1#
 </pre></div>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols | section Router ID</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols | section Router ID</span>
   <span class="n">Router</span> <span class="n">ID</span> <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>
 <span class="n">R1</span><span class="c1">#</span>
 </pre></div>
@@ -777,7 +795,7 @@ R1#
 <p class="first admonition-title">Note</p>
 <p class="last">The router-id command is the preferred method. However, some older versions of the IOS do not recognize the router-id command; therefore, the best way to set the router ID on those routers is by using a loopback interface</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 172.16.1.0 0.0.0.255 area 0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 172.16.3.0 0.0.0.3 area 0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.10.4 0.0.0.3 area 0</span>
@@ -804,7 +822,7 @@ R1#
 </div>
 <div class="section" id="adjust-cost-for-gb-ethernet-links">
 <h3>adjust cost for Gb Ethernet links<a class="headerlink" href="#adjust-cost-for-gb-ethernet-links" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">to</span> <span class="n">change</span> <span class="n">reference</span> <span class="n">bandwidth</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">to</span> <span class="n">change</span> <span class="n">reference</span> <span class="n">bandwidth</span>
 <span class="o">-----------------------------</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># auto-cost reference-bandwidth 1000</span>
 <span class="n">R1</span><span class="c1"># show interfaces serial 0/0/1 | include BW</span>
@@ -865,7 +883,7 @@ R1#
 <h2>OSPF TroubleShooting<a class="headerlink" href="#ospf-troubleshooting" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">configure new router</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>view NB ID Pri state DR/BDR
+<div class="code highlight-default"><div class="highlight"><pre><span></span>view NB ID Pri state DR/BDR
 ---------------------------
 R1# show ip ospf neighbors
 best practice use loopback instead of IF
@@ -899,7 +917,7 @@ R1# show ip ospf interface
 </div>
 <img alt="../../../_images/8_ospf_multiarea_configuration.png" src="../../../_images/8_ospf_multiarea_configuration.png" />
 <p>Router 1 EIGRP Gi0/0 10.1.1.1</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int g0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shut</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.1.1.1 255.255.255.0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface loop 0</span>
@@ -914,7 +932,7 @@ R1# show ip ospf interface
 <dt>Router 2 ASBR EIGRP &amp; OSPF Gi0/0 10.1.1.2</dt>
 <dd>Gi0/1 10.1.2.1</dd>
 </dl>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int g0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int g0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shut</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.1.1.2 255.255.255.0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface g0/1</span>
@@ -949,7 +967,7 @@ R1# show ip ospf interface
 <p class="first admonition-title">Note</p>
 <p class="last">Below displays the content of the LSDB of R1. The command offers similar information to its OSPFv2 counterpart. However, the OSPFv3 LSDB contains additional LSA types not available in OSPFv2.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 ospf database</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 ospf database</span>
 
         <span class="n">OSPFv3</span> <span class="n">Router</span> <span class="k">with</span> <span class="n">ID</span> <span class="p">(</span><span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span><span class="p">)</span> <span class="p">(</span><span class="n">Process</span> <span class="n">ID</span> <span class="mi">10</span><span class="p">)</span>
 
@@ -1007,7 +1025,7 @@ R1# show ip ospf interface
 </div>
 <div class="section" id="distribute-default-static-route">
 <h3>distribute default static route<a class="headerlink" href="#distribute-default-static-route" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.200.226</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.200.226</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># default-information originate</span>
@@ -1027,7 +1045,7 @@ R1# show ip ospf interface
 </div>
 <div class="section" id="distribute-default-static-route-in-ospfv3">
 <h3>distribute default static route in OSPFV3<a class="headerlink" href="#distribute-default-static-route-in-ospfv3" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 2001:DB8:FEED:1::2</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 2001:DB8:FEED:1::2</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router ospf 10</span>
 <span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># default-information originate</span>
@@ -1052,7 +1070,7 @@ R1# show ip ospf interface
 </div>
 <div class="section" id="verify-hello-n-dead-intervals">
 <h3>verify hello n dead intervals<a class="headerlink" href="#verify-hello-n-dead-intervals" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip ospf interface serial 0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip ospf interface serial 0/0/0</span>
 <span class="o">...</span> <span class="n">Timer</span> <span class="n">intervals</span> <span class="n">configure</span><span class="p">,</span> <span class="n">Hello</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Dead</span> <span class="mi">40</span>
 
 <span class="n">R1</span><span class="c1"># show ip ospf interface | include Timer</span>
@@ -1072,7 +1090,7 @@ R1# show ip ospf interface
 </div>
 <div class="section" id="modify-hello-n-dead-intervals">
 <h3>modify hello n dead intervals<a class="headerlink" href="#modify-hello-n-dead-intervals" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial 0/0/0</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial 0/0/0</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip ospf hello-interval 5</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip ospf dead-interval 20</span>
 <span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
@@ -1088,7 +1106,7 @@ R1# show ip ospf interface
 <p class="last">Use the no ip ospf hello-interval and no ip ospf dead-interval commands to reset the intervals to their default</p>
 </div>
 <img alt="../../../_images/8_ospf_show_database.png" src="../../../_images/8_ospf_show_database.png" />
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip ospf database router 1.1.1.1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip ospf database router 1.1.1.1</span>
 <span class="n">will</span> <span class="n">show</span> <span class="n">details</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">links</span> <span class="n">involved</span>
 <span class="n">loopback</span> <span class="o">=</span> <span class="n">stub</span> <span class="n">network</span>
 </pre></div>
@@ -1098,7 +1116,7 @@ R1# show ip ospf interface
 <p class="first admonition-title">Note</p>
 <p class="last">all routers in the same area will have the same link state database</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># debug ip ospf events</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># debug ip ospf events</span>
 </pre></div>
 </div>
 </div>
@@ -1129,7 +1147,7 @@ R1# show ip ospf interface
         <a href="../sdn/inhoud.html" class="btn btn-neutral float-right" title="Open Daylight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="eigrp.html" class="btn btn-neutral" title="EIGRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="eigrp.html" class="btn btn-neutral float-left" title="EIGRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1138,7 +1156,7 @@ R1# show ip ospf interface
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -1155,36 +1173,16 @@ R1# show ip ospf interface
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

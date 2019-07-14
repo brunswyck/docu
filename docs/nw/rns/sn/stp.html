@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Spanning Tree Protocol &mdash; docu patrick a documentation</title>
+  <title>Spanning Tree Protocol &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="Scaling VLANs" href="scaling_vlans.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -130,6 +146,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -144,7 +162,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -206,7 +224,7 @@
 <img alt="../../../_images/3_stp_best_paths1.png" src="../../../_images/3_stp_best_paths1.png" />
 <p>the internal root path cost from S2 to the root bridge S1 over path 1 is 19 (based on the IEEE-specified individual port cost) while the internal root path cost over path 2 is 38. Because path 1 has a lower overall path cost to the root bridge, it is the preferred path. STP configures the redundant path to be blocked, which prevents a loop from occurring.</p>
 <p>To verify the port and internal root path cost to the root bridge, enter the show spanning-tree command</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/1</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># spanning-tree cost 25</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="c1"># end</span>
 <span class="n">S2</span><span class="c1">#</span>
@@ -556,7 +574,7 @@ Cisco switches running IOS 15.0 or later, run PVST+ by default. This version inc
 <p class="last">BPDU frame has a destination MAC address of 01:80:C2:00:00:00, which is a multicast address for the spanning tree group</p>
 </div>
 <p>Configure the priority for VLAN 1 on S3 to 24576 and return to privileged EXEC mode.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># spanning-tree vlan 1 priority 24576</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># spanning-tree vlan 1 priority 24576</span>
 <span class="n">S3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># end</span>
 <span class="n">Configure</span> <span class="n">S2</span> <span class="n">to</span> <span class="n">be</span> <span class="n">the</span> <span class="n">secondary</span> <span class="n">root</span> <span class="k">for</span> <span class="n">VLAN</span> <span class="mi">1</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">to</span> <span class="n">privileged</span> <span class="n">EXEC</span> <span class="n">mode</span><span class="o">.</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># spanning-tree vlan 1 root secondary</span>
@@ -589,7 +607,7 @@ Cisco switches running IOS 15.0 or later, run PVST+ by default. This version inc
 </div>
 <div class="section" id="bridge-protocol-data-unit-fields">
 <h2>Bridge Protocol Data Unit fields<a class="headerlink" href="#bridge-protocol-data-unit-fields" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Protocol</span> <span class="n">ID</span><span class="p">:</span>       <span class="mi">2</span> <span class="nb">bytes</span> <span class="p">(</span><span class="mh">0x0000</span> <span class="n">IEEE</span> <span class="mf">802.1</span><span class="n">D</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Protocol</span> <span class="n">ID</span><span class="p">:</span>       <span class="mi">2</span> <span class="nb">bytes</span> <span class="p">(</span><span class="mh">0x0000</span> <span class="n">IEEE</span> <span class="mf">802.1</span><span class="n">D</span><span class="p">)</span>
 <span class="mf">2.</span> <span class="n">Version</span> <span class="n">ID</span><span class="p">:</span>        <span class="mi">1</span> <span class="n">byte</span> <span class="p">(</span><span class="mh">0x00</span> <span class="n">Config</span> <span class="o">&amp;</span> <span class="n">TCN</span> <span class="o">/</span> <span class="mh">0x02</span> <span class="n">RST</span> <span class="o">/</span> <span class="mh">0x03</span> <span class="n">MST</span> <span class="o">/</span> <span class="mh">0x04</span> <span class="n">SPT</span>  <span class="n">BPDU</span><span class="p">)</span>
 <span class="mf">3.</span> <span class="n">BPDU</span> <span class="n">Type</span><span class="p">:</span>         <span class="mi">1</span> <span class="n">byte</span> <span class="p">(</span><span class="mh">0x00</span> <span class="n">STP</span> <span class="n">Config</span> <span class="n">BPDU</span><span class="p">,</span> <span class="mh">0x80</span> <span class="n">TCN</span> <span class="n">BPDU</span><span class="p">,</span> <span class="mh">0x02</span> <span class="n">RST</span><span class="o">/</span><span class="n">MST</span> <span class="n">Config</span> <span class="n">BPDU</span><span class="p">)</span>
 <span class="mf">4.</span> <span class="n">Flags</span><span class="p">:</span>             <span class="mi">1</span> <span class="n">byte</span>
@@ -686,7 +704,7 @@ Transmit hold count: 6 BPDUs</td>
 <p>PortFast is a Cisco feature for PVST+ environments. When a switch port is configured with PortFast that port transitions from blocking to forwarding state immediately, bypassing the usual 802.1D STP transition states (the listening and learning states). You can use PortFast on access ports to allow these devices to connect to the network immediately, rather than waiting for IEEE 802.1D STP to converge on each VLAN.
 Without PortFast, a PC can send a DHCP request before the port is in forwarding state, denying the host from getting a usable IP address and other information. Because PortFast immediately changes the state to forwarding, the PC always gets a usable IP address</p>
 <p>BPDU guard puts the port in an errdisabled (error-disabled) state on receipt of a BPDU. This will effectively shut down the port. The BPDU guard feature provides a secure response to invalid configurations because you must manually put the interface back into service.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Configure FastEthernet 0/11 for portfast on S2
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Configure FastEthernet 0/11 for portfast on S2
 ----------
 S2(config)# interface FastEthernet 0/11
 S2(config-if)# spanning-tree portfast
@@ -726,7 +744,7 @@ spanning-tree vlan 20 priority 28672
 </div>
 <div class="section" id="pvst-load-balancing">
 <h2>PVST+ Load Balancing<a class="headerlink" href="#pvst-load-balancing" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">the</span> <span class="n">following</span> <span class="n">on</span> <span class="n">S3</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Configure</span> <span class="n">the</span> <span class="n">following</span> <span class="n">on</span> <span class="n">S3</span>
 
 <span class="n">VLAN</span> <span class="mi">20</span> <span class="k">as</span> <span class="n">primary</span> <span class="n">root</span>
 <span class="n">VLAN</span> <span class="mi">10</span> <span class="k">as</span> <span class="n">secondary</span> <span class="n">root</span>
@@ -783,7 +801,7 @@ spanning-tree vlan 20 priority 28672
 </div>
 <div class="section" id="configure-rapid-pvst">
 <h2>Configure Rapid PVST+<a class="headerlink" href="#configure-rapid-pvst" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># spanning-tree mode rapid-pvst</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface f0/2</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># spanning-tree link-type point-to-point</span>
@@ -795,7 +813,7 @@ spanning-tree vlan 20 priority 28672
 <p class="first admonition-title">Note</p>
 <p class="last">Generally, it is unnecessary to configure the point-to-point link-type parameter for Rapid PVST+, because it is unusual to have a shared link-type. In most cases, the only difference between configuring PVST+ and Rapid PVST+ is the spanning-tree mode rapid-pvst command.</p>
 </div>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>S1# show run
+<div class="code highlight-default"><div class="highlight"><pre><span></span>S1# show run
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
@@ -848,7 +866,7 @@ S1#
 <div class="section" id="switch-stacks">
 <h2>Switch stacks<a class="headerlink" href="#switch-stacks" title="Permalink to this headline">¶</a></h2>
 <p>A switch stack can consist of up to nine Catalyst 3750 switches connected through their StackWise ports. One of the switches controls the operation of the stack and is called the stack master. The stack master and the other switches in the stack are stack members. Layer 2 and Layer 3 protocols present the entire switch stack as a single entity to the network.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>Switch# show running-config | begin interface
+<div class="code highlight-default"><div class="highlight"><pre><span></span>Switch# show running-config | begin interface
 interface GigabitEthernet1/0/1
 !
 interface GigabitEthernet1/0/2
@@ -934,7 +952,7 @@ Switch#
         <a href="la_hsrp.html" class="btn btn-neutral float-right" title="Etherchannel - Hot Standby Routing Protocol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="scaling_vlans.html" class="btn btn-neutral" title="Scaling VLANs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scaling_vlans.html" class="btn btn-neutral float-left" title="Scaling VLANs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -943,7 +961,7 @@ Switch#
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -960,36 +978,16 @@ Switch#
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

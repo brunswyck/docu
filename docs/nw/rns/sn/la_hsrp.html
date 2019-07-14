@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Etherchannel - Hot Standby Routing Protocol &mdash; docu patrick a documentation</title>
+  <title>Etherchannel - Hot Standby Routing Protocol &mdash; Patrick&#39;s Docuhub a documentation</title>
   
 
   
@@ -17,15 +17,31 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -33,24 +49,20 @@
     <link rel="prev" title="Spanning Tree Protocol" href="stp.html" />
     <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
 
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> docu patrick
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
           
 
           
@@ -60,7 +72,7 @@
             
             
               <div class="version">
-                0.0.1
+                2019-07-14
               </div>
             
           
@@ -86,7 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
@@ -126,6 +142,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
 </ul>
 
             
@@ -140,7 +158,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">docu patrick</a>
+          <a href="../../../index.html">Patrick's Docuhub</a>
         
       </nav>
 
@@ -359,7 +377,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 <h2>Configuring Etherchannel LACP<a class="headerlink" href="#configuring-etherchannel-lacp" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Specify the interfaces, good practice is to shut em down</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range FastEthernet0/1 - 2</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range FastEthernet0/1 - 2</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># channel-group 1 mode active</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># interface port-channel 1</span>
 <span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># no shutdown</span>
@@ -369,7 +387,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 </div>
 </li>
 <li><p class="first">Create the port channel interface with the channel-group identifier mode active command in interface range</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range f0/23 - 24</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range f0/23 - 24</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># channel-group 3 mode ?</span>
  <span class="n">active</span>     <span class="n">Enable</span> <span class="n">LACP</span> <span class="n">unconditionally</span>
  <span class="n">auto</span>       <span class="n">Enable</span> <span class="n">PAgP</span> <span class="n">only</span> <span class="k">if</span> <span class="n">a</span> <span class="n">PAgP</span>
@@ -382,7 +400,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 </div>
 </li>
 <li><p class="first">Enter port channel interface configuration mode to configure the ports</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># interface port-channel 1</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="nb">range</span><span class="p">)</span><span class="c1"># interface port-channel 1</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode trunk</span>
 <span class="n">S2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport trunk native vlan 99</span>
 
@@ -393,7 +411,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 </div>
 </li>
 <li><p class="first">Verify configuration</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show run interface f0/3</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show run interface f0/3</span>
 <span class="n">S1</span><span class="c1"># show interfaces f0/3 switchport</span>
 
 <span class="n">Verify</span> <span class="n">that</span> <span class="n">the</span> <span class="n">ports</span> <span class="n">have</span> <span class="n">been</span> <span class="n">aggregated</span><span class="o">.</span>
@@ -433,7 +451,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 <p>show etherchannel summary</p>
 <img alt="../../../_images/4_la_hsrp_show_etherchannel_summary.png" src="../../../_images/4_la_hsrp_show_etherchannel_summary.png" />
 <p>show etherchannel port-channel</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show etherchannel port-channel</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show etherchannel port-channel</span>
 
 <span class="n">Channel</span><span class="o">-</span><span class="n">group</span> <span class="n">listing</span><span class="p">:</span>
 <span class="o">----------------------</span>
@@ -469,7 +487,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 <img alt="../../../_images/4_la_hsrp_verifying_etherchannel.png" src="../../../_images/4_la_hsrp_verifying_etherchannel.png" />
 <div class="section" id="commands-summary">
 <h3>commands summary<a class="headerlink" href="#commands-summary" title="Permalink to this headline">¶</a></h3>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">interfaces</span> <span class="n">port</span><span class="o">-</span><span class="n">channel</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">interfaces</span> <span class="n">port</span><span class="o">-</span><span class="n">channel</span>
 <span class="n">show</span> <span class="n">etherchannel</span> <span class="n">summary</span>
 <span class="n">show</span> <span class="n">etherchannel</span> <span class="n">port</span><span class="o">-</span><span class="n">channel</span>
 <span class="n">show</span> <span class="n">interfaces</span> <span class="n">etherchannel</span>
@@ -488,7 +506,7 @@ An EtherChannel supports the same allowed range of VLANs on all the interfaces i
 </div></blockquote>
 <p>Note: It is easy to confuse PAgP or LACP with DTP, because they both are protocols used to automate behavior on trunk links. PAgP and LACP are used for link aggregation (EtherChannel). DTP is used for automating the creation of trunk links. When an EtherChannel trunk is configured, typically EtherChannel (PAgP or LACP) is configured first and then DTP.</p>
 <p>interfaces F0/1 and F0/2 on switches S1 and S2 are connected with an EtherChannel. The output indicates that the EtherChannel is down.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show etherchannel summary</span>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show etherchannel summary</span>
 <span class="n">Flags</span><span class="p">:</span>  <span class="n">D</span> <span class="o">-</span> <span class="n">down</span>        <span class="n">P</span> <span class="o">-</span> <span class="n">bundled</span> <span class="ow">in</span> <span class="n">port</span><span class="o">-</span><span class="n">channel</span>
         <span class="n">I</span> <span class="o">-</span> <span class="n">stand</span><span class="o">-</span><span class="n">alone</span> <span class="n">s</span> <span class="o">-</span> <span class="n">suspended</span>
         <span class="n">H</span> <span class="o">-</span> <span class="n">Hot</span><span class="o">-</span><span class="n">standby</span> <span class="p">(</span><span class="n">LACP</span> <span class="n">only</span><span class="p">)</span>
@@ -617,7 +635,7 @@ The router currently forwards packets that are sent to the group virtual MAC add
 </div>
 <div class="section" id="hsrp-configuration">
 <h2>HSRP Configuration<a class="headerlink" href="#hsrp-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1(config)# interface g0/1
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1(config)# interface g0/1
 R1(config-if)# ip address 172.16.10.2 255.255.255.0
 R1(config-if)# standby version 2
 R1(config-if)# standby 1 ip 172.16.10.1
@@ -736,7 +754,7 @@ Group name is &quot;hsrp-Gi0/1-1&quot; (default)
 <li>End devices are not configured with the correct default gateway address. Although not directly related to HSRP, configuring the DHCP server with one of the HSRP router’s real IP addresses would mean that end devices would only have connectivity to remote networks when that HSRP router is active.</li>
 <li>Because R1 is configured with the standby 1 preempt command, it initiates a coup and assumes the role of active route</li>
 </ul>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>R1#
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1#
  Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 Adv in, active 0  passive 1
  Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 created
  Dec  2 18:01:30.183: HSRP: Gi0/1 Nbr 172.16.10.2 is passive
@@ -799,7 +817,7 @@ R2#
         <a href="dynamic_routing.html" class="btn btn-neutral float-right" title="Dynamic Routing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="stp.html" class="btn btn-neutral" title="Spanning Tree Protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="stp.html" class="btn btn-neutral float-left" title="Spanning Tree Protocol" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -808,7 +826,7 @@ R2#
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, patrick.
+        &copy; Copyright 2019, Patrick Brunswyck
 
     </p>
   </div>
@@ -825,36 +843,16 @@ R2#
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'a',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../../_static/js/custom.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
