@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VIM &mdash; Patrick&#39;s Docuhub a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="GIT" href="git.html" />
+    <link rel="prev" title="workstation" href="workstation.html" />
+    <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Patrick's Docuhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019-07-14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workstation.html">workstation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VIM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#workflow">workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#escape-or-not">Escape or not?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keyboard-shortcuts">keyboard shortcuts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mnemonics">mnemonics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#movements">Movements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#jump-to-previous-cursor-locations">jump to previous cursor locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jump-list">jump-list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dry">DRY</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#repeat-last-command">repeat last command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#macro-s">macro’s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exit-from-insert-mode-to-normal-mode">exit from insert mode to normal mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#up-until-next-char-word">up until next char/word</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#replace-all-chars-up-to-some-character">replace all chars up to some character</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#change-till-some-char">change till some char</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#strip-html-tags">strip html tags</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#file-exploring">file exploring</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#open-new-file-from-within-vim">open new file from within vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#working-with-tabs">working with tabs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-paste">copy paste</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yank-line-on-line-x">yank line on line x</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yank-lines-relative-numbers">yank lines relative numbers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yank-lines-upwards">yank lines upwards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#copy-append-files-to-another-file">copy/append files to another file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#replacing">replacing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#replace-tabs-with-spaces">replace tabs with spaces</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deleting">deleting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formatting">formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#changing-case">changing case</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-whitespace-across-multiple-lines">adding whitespace across multiple lines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#indenting-across-multiple-lines">indenting across multiple lines</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#syntax-highlighting-checking">syntax highlighting &amp; checking</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#asynchronous-lint-engine">Asynchronous Lint Engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-special-characters-in-vim">show special characters in vim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-vundle-plugin-on-vim">install vundle plugin on vim</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Patrick's Docuhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>VIM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/vim.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vim">
+<h1>VIM<a class="headerlink" href="#vim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="workflow">
+<h2>workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="escape-or-not">
+<h3>Escape or not?<a class="headerlink" href="#escape-or-not" title="Permalink to this headline">¶</a></h3>
+<h2><a name="unescapedspecialcharacters">Regular Expression Special Characters Not Requiring Escaping</a></h2>
+<p>The following special characters are interpreted as regular expression operators <u><strong><em>without</em></strong></u> escaping (escaping will result in them being intepreted as literals):</p>
+<table>
+<tbody>
+<tr>
+<td><code>\</code></td>
+<td>Escape next character (use “<code>\\</code>” for literal backslash).</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Start-of-line (at start of pattern).</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>End-of-line.</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>Matches any character.</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Matches 0 or more occurrences of the previous atom.</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>Matches last given substitute string.</td>
+</tr>
+<tr>
+<td><code>[</code>…<code>]</code></td>
+<td>Matches any of the characters given within the brackets.</td>
+</tr>
+<tr>
+<td><code>[^</code>…<code>]</code></td>
+<td>Matches any character <em>not</em> given within the brackets.</td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>In replacement pattern: insert the whole matched search pattern.</td>
+</tr>
+</tbody>
+</table>
+<h2><a name="escapedspecialcharacters">Regular Expression Special Characters Requiring Escaping</a></h2>
+<p>The following special characters are interpreted as regular expression operators <u><strong><em>only when escaped</em></strong></u> (otherwise they will be interpreted as literals):</p>
+<table>
+<tbody>
+<tr>
+<td><code>\&lt;</code></td>
+<td>Matches beginning of a word (left word break/boundary).</td>
+</tr>
+<tr>
+<td><code>\&gt;</code></td>
+<td>Matches end of a word (right word break/boundary).</td>
+</tr>
+<tr>
+<td><code>\(</code>...<code>\)</code></td>
+<td>Grouping into an atom.</td>
+</tr>
+<tr>
+<td><code>\|</code></td>
+<td>Separating alternatives.</td>
+</tr>
+<tr>
+<td><code>\_.</code></td>
+<td>Matches any single character or end-of-line.</td>
+</tr>
+<tr>
+<td><code>\+</code></td>
+<td>1 or more of the previous atom (greedy).</td>
+</tr>
+<tr>
+<td><code>\=</code></td>
+<td>0 or one of the previous atom (greedy).</td>
+</tr>
+<tr>
+<td><code>\?</code></td>
+<td>0 or one of the previous atom (greedy).</td>
+</tr>
+<tr>
+<td><code>\{</code></td>
+<td>
+            Multi-item count match specification (greedy).<p></p>
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td><code>\{</code>n<code>,</code>m<code>}</code></td>
+<td>n to m occurrences of the preceding atom (as many as possible).</td>
+</tr>
+<tr>
+<td><code>\{</code>n<code>}</code></td>
+<td>Exactly n occurrences of the preceding atom.</td>
+</tr>
+<tr>
+<td><code>\{</code>n<code>,}</code></td>
+<td>At least n occurrences of the preceding atom (as many as possible).</td>
+</tr>
+<tr>
+<td><code>\{,</code>m<code>}</code></td>
+<td>0 to n occurrences of the preceding atom (as many as possible).</td>
+</tr>
+<tr>
+<td><code>\{}</code></td>
+<td>0 or more occurrences of the preceding atom (as many as possible).</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr>
+<td><code>\{-</code></td>
+<td>
+            Multi-item count match specification (non-greedy).<p></p>
+</tr>
+<tr>
+<td><code>\{-</code>n<code>,</code>m<code>}</code></td>
+<td>n to m occurrences of the preceding atom (as few as possible).</td>
+</tr>
+<tr>
+<td><code>\{-</code>n<code>}</code></td>
+<td>Exactly n occurrences of the preceding atom.</td>
+</tr>
+<tr>
+<td><code>\{-</code>n<code>,}</code></td>
+<td>At least n occurrences of the preceding atom (as few as possible).</td>
+</tr>
+<tr>
+<td><code>\{-,</code>m<code>}</code></td>
+<td>0 to n occurrences of the preceding atom (as few as possible).</td>
+</tr>
+<tr>
+<td><code>\{-}</code></td>
+<td>0 or more occurrences of the preceding atom (as few as possible).</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table></div>
+<div class="section" id="keyboard-shortcuts">
+<h3>keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="mnemonics">
+<h4>mnemonics<a class="headerlink" href="#mnemonics" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>a: append or around</li>
+<li>b: before</li>
+<li>c: change</li>
+<li>d: delete</li>
+<li>e: edit</li>
+<li>f: find</li>
+<li>g: go</li>
+<li>h: left</li>
+<li>i: insert or in</li>
+<li>j: down</li>
+<li>k: up</li>
+<li>l: right</li>
+<li>m: mark</li>
+<li>n: next</li>
+<li>o: open a new line</li>
+<li>p: put or paste</li>
+<li>q: (quote/record keystrokes to the register indicated by the next character)</li>
+<li>r: replace</li>
+<li>s: substitute</li>
+<li>t: toward</li>
+<li>u: undo</li>
+<li>v: enter visual mode</li>
+<li>w: word (move right one word at a time)</li>
+<li>x: (delete (or x-out) a single character)</li>
+<li>y: yank</li>
+<li>z: fold, it’s visual, it looks like a folded sheet of paper</li>
+</ul>
+</div>
+</div>
+<div class="section" id="movements">
+<h3>Movements<a class="headerlink" href="#movements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="jump-to-previous-cursor-locations">
+<h4>jump to previous cursor locations<a class="headerlink" href="#jump-to-previous-cursor-locations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">''</span></code> go to previous cursor position</li>
+<li><code class="docutils literal"><span class="pre">g;</span> <span class="pre">and</span> <span class="pre">g,</span></code> to move back- and forward in the list of your previous edit location</li>
+</ul>
+</div>
+<div class="section" id="jump-list">
+<h4>jump-list<a class="headerlink" href="#jump-list" title="Permalink to this headline">¶</a></h4>
+<p>lets you navigate back and forth among a number of motions.  see <code class="docutils literal"><span class="pre">:help</span> <span class="pre">jump-motions</span></code> for more information.</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Ctrl+I</span></code> or <code class="docutils literal"><span class="pre">Ctrl+O</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="dry">
+<h3>DRY<a class="headerlink" href="#dry" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="repeat-last-command">
+<h4>repeat last command<a class="headerlink" href="#repeat-last-command" title="Permalink to this headline">¶</a></h4>
+<p>press <cite>.</cite> to repeat last change made in normal mode
+eg <cite>dw</cite> to delete a word and <cite>.</cite> to delete some more words$</p>
+</div>
+<div class="section" id="macro-s">
+<h4>macro’s<a class="headerlink" href="#macro-s" title="Permalink to this headline">¶</a></h4>
+<p>start a macro with <code class="docutils literal"><span class="pre">qa</span></code> a is your first macro b your second
+do your motions and inserts like <code class="docutils literal"><span class="pre">$a|,</span></code>
+now execute the macro with <code class="docutils literal"><span class="pre">&#64;a</span></code>
+now repeat this with <code class="docutils literal"><span class="pre">&#64;&#64;</span></code> or with count <code class="docutils literal"><span class="pre">10&#64;&#64;</span></code></p>
+<p>to view your macro’s type <code class="docutils literal"><span class="pre">:reg</span></code>
+or view macros a b c <code class="docutils literal"><span class="pre">:reg</span> <span class="pre">abc</span></code></p>
+</div>
+<div class="section" id="exit-from-insert-mode-to-normal-mode">
+<h4>exit from insert mode to normal mode<a class="headerlink" href="#exit-from-insert-mode-to-normal-mode" title="Permalink to this headline">¶</a></h4>
+<p>Add to your .vimrc file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">inoremap</span> <span class="n">jj</span> <span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="up-until-next-char-word">
+<h4>up until next char/word<a class="headerlink" href="#up-until-next-char-word" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>f: moves forward to char</li>
+<li>F: moves backward to char</li>
+<li>T: moves backward just right of char</li>
+<li>t: moves forward just left of char</li>
+</ul>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># delete until you encounter next space</span>
+<span class="n">t</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># jump to just before char</span>
+<span class="n">df</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># deletes upto and including char</span>
+<span class="n">dfT</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># deletes back to previous space</span>
+<span class="n">d2t</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="c1"># will delete upto 2 spaces</span>
+
+<span class="n">dW</span> <span class="c1"># delete all nonblank chars until and incl space</span>
+<span class="n">dE</span> <span class="c1"># same but not the space</span>
+<span class="n">daW</span> <span class="c1"># delete from inside a word incl whitespace after word</span>
+<span class="n">diw</span> <span class="c1"># deletes word irrespective pos. cursor &amp; go into insert mode</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="replace-all-chars-up-to-some-character">
+<h4>replace all chars up to some character<a class="headerlink" href="#replace-all-chars-up-to-some-character" title="Permalink to this headline">¶</a></h4>
+<p>Visual mode is probably the shortest way here:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">vt</span><span class="p">:</span><span class="n">r</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>v enter visual mode</li>
+<li>t: select till :</li>
+<li>r (note space after r) replace selected region with spaces.</li>
+</ul>
+</div>
+<div class="section" id="change-till-some-char">
+<h4>change till some char<a class="headerlink" href="#change-till-some-char" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">cf_</span></code> or <code class="docutils literal"><span class="pre">ct_</span></code></p>
+</div>
+<div class="section" id="strip-html-tags">
+<h4>strip html tags<a class="headerlink" href="#strip-html-tags" title="Permalink to this headline">¶</a></h4>
+<p><cite>%s/&lt;_.{-1,}&gt;//g</cite></p>
+</div>
+</div>
+<div class="section" id="file-exploring">
+<h3>file exploring<a class="headerlink" href="#file-exploring" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><a class="reference external" href="https://github.com/scrooloose/nerdtree">NERDTree file explorer</a></dt>
+<dd>Plugin ‘scrooloose/nerdtree’</dd>
+<dt><a class="reference external" href="https://github.com/Xuyuanp/nerdtree-git-plugin">NERDTree git plugin</a></dt>
+<dd>Plugin ‘Xuyuanp/nerdtree-git-plugin’</dd>
+<dt><a class="reference external" href="https://github.com/scrooloose/nerdcommenter">NERD Commenter</a></dt>
+<dd>for more info type :help nerdcommenter
+Plugin ‘scrooloose/nerdcommenter’</dd>
+</dl>
+<div class="section" id="open-new-file-from-within-vim">
+<h4>open new file from within vim<a class="headerlink" href="#open-new-file-from-within-vim" title="Permalink to this headline">¶</a></h4>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">e</span> <span class="n">newfile</span><span class="o">.</span><span class="n">rst</span>
+<span class="ow">or</span> <span class="n">browse</span> <span class="k">for</span> <span class="n">it</span>
+<span class="p">:</span><span class="n">Explore</span> <span class="o">&lt;</span><span class="n">directory</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>There are several window commands that allow you to do this:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Ctrl+W +/-: increase/decrease height (ex. 20&lt;C-w&gt;+)</li>
+<li>Ctrl+W &gt;/&lt;: increase/decrease width (ex. 30&lt;C-w&gt;&lt;)</li>
+<li>Ctrl+W _: set height (ex. 50&lt;C-w&gt;_)</li>
+<li>Ctrl+W | : set width (ex. 50&lt;C-w&gt;|)</li>
+<li>Ctrl+W =: equalize width and height of all windows</li>
+</ul>
+</div></blockquote>
+<p>See also: :help CTRL-W</p>
+</div>
+<div class="section" id="working-with-tabs">
+<h4>working with tabs<a class="headerlink" href="#working-with-tabs" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://vim.wikia.com/wiki/Using_tab_pages">vim_tabs</a></p>
+<p>Set tab label to show tab number, filename, if modified (‘+’ is shown if the current window in the tab has been modified):</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="nb">set</span> <span class="n">guitablabel</span><span class="o">=%</span><span class="n">N</span><span class="o">/</span>\ <span class="o">%</span><span class="n">t</span>\ <span class="o">%</span><span class="n">M</span>
+</pre></div>
+</div>
+<p>The -p option opens each file in a seperate tab</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="o">-</span><span class="n">p</span> <span class="n">file1</span><span class="o">.</span><span class="n">rst</span> <span class="n">file2</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+<p>Once Vim has been launched, there are many commands that directly create or close tabs:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">tabedit</span> <span class="p">{</span><span class="n">file</span><span class="p">}</span>   <span class="n">edit</span> <span class="n">specified</span> <span class="n">file</span> <span class="p">(</span><span class="ow">or</span> <span class="n">new</span> <span class="n">one</span><span class="p">)</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabfind</span> <span class="p">{</span><span class="n">file</span><span class="p">}</span>   <span class="nb">open</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span> <span class="k">with</span> <span class="n">filename</span> <span class="n">given</span><span class="p">,</span> <span class="n">searching</span> <span class="n">the</span> <span class="s1">&#39;path&#39;</span> <span class="n">to</span> <span class="n">find</span> <span class="n">it</span>
+<span class="p">:</span><span class="n">tabclose</span>         <span class="n">close</span> <span class="n">current</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabclose</span> <span class="p">{</span><span class="n">i</span><span class="p">}</span>     <span class="n">close</span> <span class="n">i</span><span class="o">-</span><span class="n">th</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabonly</span>          <span class="n">close</span> <span class="nb">all</span> <span class="n">other</span> <span class="n">tabs</span> <span class="p">(</span><span class="n">show</span> <span class="n">only</span> <span class="n">the</span> <span class="n">current</span> <span class="n">tab</span><span class="p">)</span>
+<span class="p">:</span><span class="n">tab</span> <span class="n">sp</span>           <span class="n">split</span> <span class="n">the</span> <span class="n">current</span> <span class="n">window</span><span class="p">,</span> <span class="n">but</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">sp</span> <span class="n">file</span><span class="o">.</span><span class="n">txt</span>      <span class="n">creates</span> <span class="n">a</span> <span class="n">new</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">T</span>         <span class="n">move</span> <span class="n">the</span> <span class="n">window</span> <span class="n">to</span> <span class="n">a</span> <span class="n">new</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">c</span>         <span class="n">close</span> <span class="n">the</span> <span class="n">current</span> <span class="n">window</span>
+</pre></div>
+</div>
+<p>navigation</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">tabs</span>         <span class="nb">list</span> <span class="nb">all</span> <span class="n">tabs</span> <span class="n">including</span> <span class="n">their</span> <span class="n">displayed</span> <span class="n">windows</span>
+<span class="p">:</span><span class="n">tabm</span> <span class="mi">0</span>       <span class="n">move</span> <span class="n">current</span> <span class="n">tab</span> <span class="n">to</span> <span class="n">first</span>
+<span class="p">:</span><span class="n">tabm</span>         <span class="n">move</span> <span class="n">current</span> <span class="n">tab</span> <span class="n">to</span> <span class="n">last</span>
+<span class="p">:</span><span class="n">tabm</span> <span class="p">{</span><span class="n">i</span><span class="p">}</span>     <span class="n">move</span> <span class="n">current</span> <span class="n">tab</span> <span class="n">to</span> <span class="n">position</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="p">:</span><span class="n">tabn</span>         <span class="n">go</span> <span class="n">to</span> <span class="nb">next</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabp</span>         <span class="n">go</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tabfirst</span>     <span class="n">go</span> <span class="n">to</span> <span class="n">first</span> <span class="n">tab</span>
+<span class="p">:</span><span class="n">tablast</span>      <span class="n">go</span> <span class="n">to</span> <span class="n">last</span> <span class="n">tab</span>
+</pre></div>
+</div>
+<p>In normal mode, you can type:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">gt</span>            <span class="n">go</span> <span class="n">to</span> <span class="nb">next</span> <span class="n">tab</span>
+<span class="n">gT</span>            <span class="n">go</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">tab</span>
+<span class="p">{</span><span class="n">i</span><span class="p">}</span><span class="n">gt</span>         <span class="n">go</span> <span class="n">to</span> <span class="n">tab</span> <span class="ow">in</span> <span class="n">position</span> <span class="n">i</span>
+</pre></div>
+</div>
+<p>Note that the gt command counts from one. That means 3gt will jump to the third tab. Also note is 0gt and 1gt mean the same thing: jumping to the first tab.</p>
+<p>Using recent vim versions, in normal mode and in insert mode, you can type:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Ctrl</span><span class="o">-</span><span class="n">PgDn</span>     <span class="n">go</span> <span class="n">to</span> <span class="nb">next</span> <span class="n">tab</span>
+<span class="n">Ctrl</span><span class="o">-</span><span class="n">PgUp</span>     <span class="n">go</span> <span class="n">to</span> <span class="n">previous</span> <span class="n">tab</span>
+</pre></div>
+</div>
+<p>Jumping to a specific tab with {i}gt is easier if you set up your tabline to show the tab number.</p>
+</div>
+</div>
+<div class="section" id="copy-paste">
+<h3>copy paste<a class="headerlink" href="#copy-paste" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="yank-line-on-line-x">
+<h4>yank line on line x<a class="headerlink" href="#yank-line-on-line-x" title="Permalink to this headline">¶</a></h4>
+<p>From <cite>:help :yank:</cite></p>
+<p><cite>:[range]y[ank] [x]</cite>    Yank [range] lines [into register x].</p>
+<p>So, to yank line 4, one would type:
+.. code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">4</span><span class="n">yank</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">you can easily do this from insert mode with CTRL+o This allows you to execute one command, after which you’re returned to insert mode</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">o</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">4</span><span class="n">yank</span>
+</pre></div>
+</div>
+<p>You can, of course, also use other ranges:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Lines 1 to 3: :1,3yank</li>
+<li>The entire buffer: :%yank</li>
+<li>From the current line to the end of the buffer: :.,$:yank</li>
+<li>The current line and the next 3: :.,+3yank</li>
+<li>The current line and the previous 3: :-3,.yank</li>
+<li>The line 3 lines above the current line: :-3yank</li>
+</ul>
+</div></blockquote>
+<p>If you want to copy line 4 to right below the current line you can do this:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">4</span><span class="n">t</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>or that, if you want to copy that line right above the current line:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">4</span><span class="n">t</span><span class="o">-</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="yank-lines-relative-numbers">
+<h4>yank lines relative numbers<a class="headerlink" href="#yank-lines-relative-numbers" title="Permalink to this headline">¶</a></h4>
+<p>lines spanning from 10 to 15 lines above:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="n">y</span>
+</pre></div>
+</div>
+<p>for more help:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">cmdline</span><span class="o">-</span><span class="n">ranges</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="yank-lines-upwards">
+<h4>yank lines upwards<a class="headerlink" href="#yank-lines-upwards" title="Permalink to this headline">¶</a></h4>
+<p>You can use the :yank command with a range to accomplish this effect.</p>
+<p>:.-6,.yank</p>
+<dl class="docutils">
+<dt>The range explanation</dt>
+<dd><ul class="first last simple">
+<li>. or the dot means current line</li>
+<li>.-6 means current line minus 6</li>
+<li>.-6,. is current line minus 6 to the current line</li>
+<li>This can be abbreviated .-6 to just -6 giving us -6,.yank</li>
+<li>the current line is also assumed in the end of the range so -6,yank</li>
+<li>the yank command can be shortened to just :y giving us -6,y</li>
+</ul>
+</dd>
+</dl>
+<p>Final command:</p>
+<p>:-6,y</p>
+<p>For more help:</p>
+<p>:h :yank
+:h [range]</p>
+</div>
+<div class="section" id="copy-append-files-to-another-file">
+<h4>copy/append files to another file<a class="headerlink" href="#copy-append-files-to-another-file" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>visually select the lines</li>
+<li>type <code class="docutils literal"><span class="pre">:!&gt;</span> <span class="pre">filename.txt</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="replacing">
+<h3>replacing<a class="headerlink" href="#replacing" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="replace-tabs-with-spaces">
+<h4>replace tabs with spaces<a class="headerlink" href="#replace-tabs-with-spaces" title="Permalink to this headline">¶</a></h4>
+<p>select your block with ctrl+v
+now enter :retab</p>
+<p>should look like
+.. code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="s1">&#39;&lt;,&#39;</span><span class="o">&gt;</span><span class="n">retab</span>
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>:s/foo/bar/g    Change each &#39;foo&#39; to &#39;bar&#39; in the current line.
+:%s/foo/bar/g   Change each &#39;foo&#39; to &#39;bar&#39; in all the lines.
+:5,12s/foo/bar/g    Change each &#39;foo&#39; to &#39;bar&#39; for all lines from line 5 to line 12 (inclusive).
+:&#39;a,&#39;bs/foo/bar/g   Change each &#39;foo&#39; to &#39;bar&#39; for all lines from mark a to mark b inclusive (see Note below).
+:&#39;&lt;,&#39;&gt;s/foo/bar/g   When compiled with +visual, change each &#39;foo&#39; to &#39;bar&#39; for all lines within a visual selection.
+:.,$s/foo/bar/g     Change each &#39;foo&#39; to &#39;bar&#39; for all lines from the current line (.) to the last line ($) inclusive.
+:.,+2s/foo/bar/g    Change each &#39;foo&#39; to &#39;bar&#39; for the current line (.) and the two next lines (+2).
+:g/^baz/s/foo/bar/g     Change each &#39;foo&#39; to &#39;bar&#39; in each line starting with &#39;baz&#39;.
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|vim_searchnreplace|</span></a></p>
+</div>
+</div>
+<div class="section" id="deleting">
+<h3>deleting<a class="headerlink" href="#deleting" title="Permalink to this headline">¶</a></h3>
+<p>Delete <cite>{motion}</cite> text [into register x] and start insert</p>
+<p><cite>[“x]c{motion}</cite></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">help</span> <span class="n">c</span>
+</pre></div>
+</div>
+<p>use <code class="docutils literal"><span class="pre">d0</span></code> instead of <code class="docutils literal"><span class="pre">d^</span></code> to delete to the real beginning of the line
+<code class="docutils literal"><span class="pre">d-HOME</span></code> works too</p>
+</div>
+<div class="section" id="formatting">
+<h3>formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="changing-case">
+<h4>changing case<a class="headerlink" href="#changing-case" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>~</dt>
+<dd>Toggle case of the character under the cursor, or all visually-selected characters.</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>3~</dt>
+<dd>Toggle case of the next three characters.</dd>
+<dt>g~3w</dt>
+<dd>Toggle case of the next three words.</dd>
+<dt>g~iw</dt>
+<dd>Toggle case of the current word (inner word – cursor anywhere in word).</dd>
+<dt>g~$</dt>
+<dd>Toggle case of all characters to end of line.</dd>
+<dt>g~~</dt>
+<dd>Toggle case of the current line (same as V~).</dd>
+</dl>
+<p>The above uses ~ to toggle case. In each example, you can replace ~ with u to convert to lowercase, or with U to convert to uppercase. For example:</p>
+<dl class="docutils">
+<dt>U</dt>
+<dd>Uppercase the visually-selected text.
+First press v or V then move to select text.
+If you don’t select text, pressing U will undo all changes to the current line.</dd>
+<dt>gUU</dt>
+<dd>Change the current line to uppercase (same as VU).</dd>
+<dt>gUiw</dt>
+<dd>Change current word to uppercase.</dd>
+<dt>u</dt>
+<dd>Lowercase the visually-selected text.
+If you don’t select text, pressing u will undo the last change.</dd>
+<dt>guu</dt>
+<dd>Change the current line to lowercase (same as Vu).</dd>
+</dl>
+</div>
+<div class="section" id="adding-whitespace-across-multiple-lines">
+<h4>adding whitespace across multiple lines<a class="headerlink" href="#adding-whitespace-across-multiple-lines" title="Permalink to this headline">¶</a></h4>
+<p>ctrl+V selectblock shift+I space ESC</p>
+</div>
+<div class="section" id="indenting-across-multiple-lines">
+<h4>indenting across multiple lines<a class="headerlink" href="#indenting-across-multiple-lines" title="Permalink to this headline">¶</a></h4>
+<p>ctrl+V selectblock &gt; or &lt; ESC</p>
+</div>
+</div>
+<div class="section" id="syntax-highlighting-checking">
+<h3>syntax highlighting &amp; checking<a class="headerlink" href="#syntax-highlighting-checking" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="asynchronous-lint-engine">
+<h4>Asynchronous Lint Engine<a class="headerlink" href="#asynchronous-lint-engine" title="Permalink to this headline">¶</a></h4>
+<p>ALE (Asynchronous Lint Engine) is a plugin for providing linting in NeoVim and Vim 8 while you edit your text files.</p>
+<p>Plugin ‘w0rp/ale’</p>
+<p><a href="#id3"><span class="problematic" id="id4">|vim_syntax_ale|</span></a></p>
+</div>
+<div class="section" id="show-special-characters-in-vim">
+<h4>show special characters in vim<a class="headerlink" href="#show-special-characters-in-vim" title="Permalink to this headline">¶</a></h4>
+<p>:set list
+:set listchars=eol:¬,tab:&gt;-,trail:~,extends:&gt;,precedes:&lt;,space:␣</p>
+<p>for help
+:help listchars
+turn off
+:set nolist</p>
+<div class="section" id="just-show-tabs-n-whitespace">
+<h5>just show tabs n whitespace<a class="headerlink" href="#just-show-tabs-n-whitespace" title="Permalink to this headline">¶</a></h5>
+<p>:syntax on
+:set syntax=whitespace</p>
+</div>
+</div>
+<div class="section" id="install-vundle-plugin-on-vim">
+<h4>install vundle plugin on vim<a class="headerlink" href="#install-vundle-plugin-on-vim" title="Permalink to this headline">¶</a></h4>
+<p>:PluginInstall</p>
+<p>to install all of them</p>
+<p>:BundleInstall</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="git.html" class="btn btn-neutral float-right" title="GIT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="workstation.html" class="btn btn-neutral float-left" title="workstation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Brunswyck
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,960 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Switch Configuration &mdash; Patrick&#39;s Docuhub a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="VLANS" href="vlans.html" />
+    <link rel="prev" title="switched networks" href="switchedNetworks.html" />
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019-07-14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="routingConcepts.html">Routing Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="staticRouting.html">Static Routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamicRouting.html">Dynamic Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switchedNetworks.html">switched networks</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Switch Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configure-boot-environment-variable">Configure BOOT Environment variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#switch-boot-sequence">Switch boot sequence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#recover-from-system-crash">Recover from System Crash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-sw-management-ipv4">Configure Sw management ipv4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-a-static-mac-address">Setup a static MAC address</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#duplex-communication">Duplex communication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#speed-auto-mdix">Speed/auto-MDIX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verify-interface-status">Verify interface status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-switch-setup">SSH Switch Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-unused-ports">Disable unused ports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#port-security">Port Security</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna-chapter-5">QnA Chapter 5</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vlans.html">VLANS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="acl.html">ACLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dhcp.html">DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="finals.html">routing n switching basics finals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sn/inhoud.html">scaling networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patrick's Docuhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+          <li><a href="inhoud.html">basics</a> &raquo;</li>
+        
+      <li>Switch Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/nw/rns/basics/switchConfiguration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="switch-configuration">
+<h1>Switch Configuration<a class="headerlink" href="#switch-configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="configure-boot-environment-variable">
+<h2>Configure BOOT Environment variable<a class="headerlink" href="#configure-boot-environment-variable" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># boot system flash:/c2960-lanbasek9-mz.150-2.SE/c2960-lanbasek9-mz.150-2.SE.bin</span>
+             <span class="n">command</span>     <span class="n">storage</span>   <span class="n">path</span> <span class="n">to</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">fs</span>     <span class="n">IOS</span> <span class="n">filename</span>
+
+<span class="n">S1</span><span class="c1"># show boot</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="switch-boot-sequence">
+<h2>Switch boot sequence<a class="headerlink" href="#switch-boot-sequence" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>loads POST from ROM. Checks CPU subsystem. Tests CPU, DRAM &amp; portion of flash device</li>
+<li>loads BOOT LOADER software from ROM, runs immediately after POST</li>
+<li>BOOT LOADER performs low-level CPU initialization. Initializes CPU registers that control where physical memory is mapped, quantity of memory and its speed</li>
+<li>BOOT LOADER initializes flash file system on the system board</li>
+<li>BOOT LOADER locates &amp; loads a default IOS image into memory</li>
+</ol>
+<p>BOOT environment variable. If this variable is not set, the switch attempts to load and execute the first executable file it can by performing a recursive, depth-first search throughout the flash file system</p>
+</div>
+<div class="section" id="recover-from-system-crash">
+<h2>Recover from System Crash<a class="headerlink" href="#recover-from-system-crash" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>connect by console cable, configure terminal emulation software</li>
+<li>unplug power cord</li>
+<li>reconnect power and hold down MODE button while system LED is flashing green</li>
+<li>Continue pressing MODE button while LED turns briefly amber and then solid green. Now release the button</li>
+<li>boot loader <strong>switch:</strong> prompt appears</li>
+</ol>
+<p>switch: dir flash:</p>
+<div class="section" id="catalyst-2960-switch-leds">
+<h3>Catalyst 2960 switch LEDs<a class="headerlink" href="#catalyst-2960-switch-leds" title="Permalink to this headline">¶</a></h3>
+<img alt="../../../_images/c2960leds.png" src="../../../_images/c2960leds.png" />
+<ol class="arabic simple">
+<li>System LED: system has power and is functioning properly. If Amber = power but not working properly</li>
+<li>RPS LED: blinking = connected but providing power to another device. Amber = standby mode Blinking Amber = providing power due to main PSU failed</li>
+<li>Port Status LED (default mode): alternating green-amber = link fault. Amber/blinking Amber = no forwarding/port blocked to prevent loop</li>
+<li>Port Duplex mode LED: green = full duplex</li>
+<li>Port Speed LED: off = 10Mb/s green=100Mb/s blinking green=1000Mb/s</li>
+<li>PoE Mode LED: Amber = 1or+ denied power BlinkingAmber = off due to fault| PoE fault Green= PoE on Alterating Green-Amber = no power to not exceed switch power capacity</li>
+<li>Mode button</li>
+<li>port LEDs</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, the switch is configured to have the management of the switch controlled through VLAN 1. All ports are assigned to VLAN 1 by default. For security purposes, it is considered a best practice to use a VLAN other than VLAN 1 for the management VLAN.</p>
+</div>
+</div>
+</div>
+<div class="section" id="configure-sw-management-ipv4">
+<h2>Configure Sw management ipv4<a class="headerlink" href="#configure-sw-management-ipv4" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface vlan 99</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 172.17.99.11 255.255.255.0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shutdown</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">S1</span><span class="c1"># copy running-config startup-config</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Notice that the VLAN 99 interface is in the down state even though you entered the no shutdown command. The interface is currently down because no switch ports are assigned to VLAN 99.</p>
+</div>
+<div class="section" id="assign-all-user-ports-to-vlan">
+<h3>Assign all user ports to vlan<a class="headerlink" href="#assign-all-user-ports-to-vlan" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>S1(config)#
+interface range f0/1 – 24,g0/1 - 2
+S1(config-if-range)# switchport access vlan 99
+S1(config-if-range)#exit
+S1(config)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to down
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan99, changed state to up
+
+S1# configure terminal
+S1(config)# ip default-gateway 172.17.99.1
+S1(config)# end
+S1# copy run start
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-apply-vlan-99">
+<h3>configure &amp; apply vlan 99<a class="headerlink" href="#configure-apply-vlan-99" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># vlan 99</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># name vlan_name</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">vlan</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface interface_id</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport access vlan 99</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h3>troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show interface vlan99</span>
+<span class="n">S1</span><span class="c1"># show ip interface vlan99</span>
+<span class="n">S1</span><span class="c1"># show vlan brief</span>
+<span class="n">S1</span><span class="c1"># show mac address-table</span>
+<span class="n">S1</span><span class="c1"># show mac address-table dynamic</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-template-for-less-hassle">
+<h3>basic template for less hassle<a class="headerlink" href="#basic-template-for-less-hassle" title="Permalink to this headline">¶</a></h3>
+<p>from global conf mode past:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
+<span class="n">hostname</span> <span class="n">S1</span>
+<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
+<span class="n">enable</span> <span class="n">secret</span> <span class="k">class</span>
+<span class="nc">banner</span> <span class="n">motd</span> <span class="c1">#</span>
+<span class="n">Unauthorized</span> <span class="n">access</span> <span class="ow">is</span> <span class="n">strictly</span> <span class="n">prohibited</span><span class="o">.</span> <span class="c1">#</span>
+<span class="n">Line</span> <span class="n">con</span> <span class="mi">0</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">logging</span> <span class="n">synchronous</span>
+<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">15</span>
+<span class="n">password</span> <span class="n">cisco</span>
+<span class="n">login</span>
+<span class="n">exit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setup-a-static-mac-address">
+<h2>Setup a static MAC address<a class="headerlink" href="#setup-a-static-mac-address" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># clear mac address-table dynamic</span>
+<span class="n">S1</span><span class="c1"># show mac address-table</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># mac address-table static 0050.56BE.6C89 vlan 99 interface fastethernet 0/6</span>
+<span class="n">S1</span><span class="c1"># show mac address-table</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># no mac address-table static 0050.56BE.6C89 vlan 99 interface fastethernet 0/6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="duplex-communication">
+<h2>Duplex communication<a class="headerlink" href="#duplex-communication" title="Permalink to this headline">¶</a></h2>
+<p>When a switch port is operating in full-duplex mode, there is no collision domain associated with the port.</p>
+<p>Gigabit Ethernet and 10Gb NICs require full-duplex connections to operate. In full-duplex mode, the collision detection circuit on the NIC is disabled. Frames that are sent by the two connected devices cannot collide because the devices use two separate circuits in the network cable. Full-duplex connections require a switch that supports full-duplex configuration, or a direct connection using an Ethernet cable between two devices.</p>
+<p>Standard, shared hub-based Ethernet configuration efficiency is typically rated at 50 to 60 percent of the stated bandwidth. Full-duplex offers 100 percent efficiency in both directions (transmitting and receiving). This results in a 200 percent potential use of the stated bandwidth.</p>
+</div>
+<div class="section" id="speed-auto-mdix">
+<h2>Speed/auto-MDIX<a class="headerlink" href="#speed-auto-mdix" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># configure terminal</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 0/1</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># duplex auto</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># speed auto</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># mdix auto</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">S1</span><span class="c1"># copy run start</span>
+
+<span class="n">show</span> <span class="n">controllers</span> <span class="n">ethernet</span><span class="o">-</span><span class="n">controller</span> <span class="n">fa</span> <span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="n">phy</span> <span class="o">|</span> <span class="n">include</span> <span class="n">Auto</span><span class="o">-</span><span class="n">MDIX</span>
+</pre></div>
+</div>
+<p>check with show interfaces interface id</p>
+</div>
+<div class="section" id="verify-interface-status">
+<h2>Verify interface status<a class="headerlink" href="#verify-interface-status" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/interface_errors.png" src="../../../_images/interface_errors.png" />
+<img alt="../../../_images/interface_error_types.png" src="../../../_images/interface_error_types.png" />
+<p>“Input errors” is the sum of all errors in datagrams that were received on the interface being examined. This includes runts, giants, CRC, no buffer, frame, overrun, and ignored counts.</p>
+<p>“Output errors” is the sum of all errors that prevented the final transmission of datagrams out the interface that is being examined.</p>
+</div>
+<div class="section" id="ssh-switch-setup">
+<h2>SSH Switch Setup<a class="headerlink" href="#ssh-switch-setup" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># config t</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># hostname myswitch</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip domain-name thegeekstuff.com</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># crypto key generate rsa</span>
+
+<span class="n">S1</span><span class="c1"># line vty 0 4</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># transport input ssh</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># login local</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># password 7</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># exit</span>
+<span class="n">S1</span><span class="c1"># line console 0</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># logging synchronous</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># login local</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">line</span><span class="p">)</span><span class="c1"># exit</span>
+
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip ssh version 2</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># username god secret h3ll0n34rth</span>
+<span class="n">S1</span><span class="c1"># enable secret class</span>
+<span class="n">S1</span><span class="c1"># service password-encryption</span>
+<span class="n">S1</span><span class="c1"># show ip ssh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-unused-ports">
+<h2>Disable unused ports<a class="headerlink" href="#disable-unused-ports" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1"># show run</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface range fastethernet0/1 - 4, fastethernet0/10 - 15</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="port-security">
+<h2>Port Security<a class="headerlink" href="#port-security" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="secure-mac-address-types">
+<h3>Secure MAC Address Types<a class="headerlink" href="#secure-mac-address-types" title="Permalink to this headline">¶</a></h3>
+<p>There are a number of ways to configure port security. The type of secure address is based on the configuration and includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Static secure MAC addresses - MAC addresses that are manually configured on a port by using the switchport port-security mac-address mac-address interface configuration mode command. MAC addresses configured in this way are stored in the address table and are added to the running configuration on the switch.</li>
+<li>Dynamic secure MAC addresses - MAC addresses that are dynamically learned and stored only in the address table. MAC addresses configured in this way are removed when the switch restarts.</li>
+<li>Sticky secure MAC addresses - MAC addresses that can be dynamically learned or manually configured, then stored in the address table and added to the running configuration.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="sticky-secure-mac-addresses">
+<h3>Sticky Secure MAC addresses<a class="headerlink" href="#sticky-secure-mac-addresses" title="Permalink to this headline">¶</a></h3>
+<p>To configure an interface to convert dynamically learned MAC addresses to sticky secure MAC addresses and add them to the running configuration, you must enable sticky learning.</p>
+<p>Sticky learning is enabled on an interface by using the <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span> <span class="pre">interface</span> <span class="pre">configuration</span> <span class="pre">mode</span> <span class="pre">command</span></code>.
+When this command is entered, the switch converts all dynamically learned MAC addresses, including those that were dynamically learned before sticky learning was enabled, into sticky secure MAC addresses. All sticky secure MAC addresses are added to the address table and to the running configuration.</p>
+<p>Sticky secure MAC addresses can also be manually defined. When sticky secure MAC addresses are configured by using the <code class="docutils literal"><span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span> <span class="pre">mac-address</span></code> interface configuration mode command, all specified addresses are added to the address table and the running configuration.
+If the sticky secure MAC addresses are saved to the startup configuration file, then when the switch restarts or the interface shuts down, the interface does not need to relearn the addresses. If the sticky secure addresses are not saved, they will be lost.</p>
+<p>If sticky learning is disabled by using the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span></code> interface configuration mode command, the sticky secure MAC addresses remain part of the address table, but are removed from the running configuration.</p>
+<p>Characteristics of sticky secure MAC addresses.</p>
+<img alt="../../../_images/sticky_secure.png" src="../../../_images/sticky_secure.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The port security feature will not work until port security is enabled on the interface using the switchport port-security command.</p>
+</div>
+</div>
+<div class="section" id="security-violation-modes">
+<h3>Security Violation Modes<a class="headerlink" href="#security-violation-modes" title="Permalink to this headline">¶</a></h3>
+<p>Security Violation Modes include: <strong>Protect Restrict Shutdown</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="21%" />
+<col width="14%" />
+<col width="13%" />
+<col width="16%" />
+<col width="17%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Violation Mode</td>
+<td>Forwards Traffic</td>
+<td>Syslog msg</td>
+<td>Error msg</td>
+<td>up violation</td>
+<td>Shutdown port</td>
+</tr>
+<tr class="row-even"><td>Protect</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Restrict</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>Shutdown</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<p>Security violations occur in these situations:</p>
+<ul class="simple">
+<li>A pc with MAC address not in address table attempts to access the interface when the table is full</li>
+<li>An address is being used on two secure interfaces in the same VLAN</li>
+</ul>
+<dl class="docutils">
+<dt>Protect:</dt>
+<dd>When # of secure MACs reaches limit allowed on port, packets with unknown source addresses are dropped until enough secure MACs are removed  or the # of maximum allowable addresses is increased. There is no notification</dd>
+<dt>Restrict:</dt>
+<dd>same as protect but there is a notification that a security violation has occurred.Syslog msg + violation count up</dd>
+<dt>Shutdown (default):</dt>
+<dd>a violation causes IF to become error-disabled and turns off port LED. violation count up + shutdown port</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All 3 no longer forward traffic and don’t display an error message. Restrict is only one with syslog msg, up violation = restrict &amp; shutdown</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">mac</span> <span class="n">address</span>
+<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span>
+<span class="n">dynamic</span> <span class="n">adds</span> <span class="n">only</span> <span class="n">to</span> <span class="n">table</span> <span class="n">n</span> <span class="n">removed</span> <span class="n">at</span> <span class="n">shutdown</span>
+<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span> <span class="n">dynamic</span>
+<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span> <span class="p">{</span><span class="n">sticky</span>
+<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">violation</span> <span class="p">{</span><span class="n">protect</span> <span class="o">|</span> <span class="n">restrict</span> <span class="o">|</span> <span class="n">shutdown</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-port-security-on-if">
+<h3>Configuring port security on IF<a class="headerlink" href="#configuring-port-security-on-if" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 0/18</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport switchport port-security</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport switchport port-security maximum 10</span>
+<span class="n">S1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport switchport port-security mac-address sticky</span>
+
+<span class="n">S1</span><span class="c1"># show port-security interface fastethernet 0/18</span>
+<span class="n">S1</span><span class="c1"># show run | begin FastEthernet 0/18</span>
+<span class="n">S1</span><span class="c1"># show port-security address</span>
+</pre></div>
+</div>
+<p>This example shows how to enable port security on Fast Ethernet port 12 and how to set the maximum number of secure addresses to 5. The violation mode is the default, and no secure MAC addresses are configured.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># configure terminal</span>
+<span class="n">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span>  <span class="n">End</span> <span class="k">with</span> <span class="n">CNTL</span><span class="o">/</span><span class="n">Z</span><span class="o">.</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 3/12</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security maximum 5</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security mac-address sticky</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">Switch</span><span class="c1"># show port-security interface fastethernet 3/12</span>
+<span class="n">Port</span> <span class="n">Security</span>              <span class="p">:</span><span class="n">Enabled</span>
+<span class="n">Port</span> <span class="n">Status</span>                <span class="p">:</span><span class="n">Secure</span><span class="o">-</span><span class="n">up</span>
+<span class="n">Violation</span> <span class="n">Mode</span>             <span class="p">:</span><span class="n">Shutdown</span>
+<span class="n">Aging</span> <span class="n">Time</span>                 <span class="p">:</span><span class="mi">0</span>
+<span class="n">Aging</span> <span class="n">Type</span>                 <span class="p">:</span><span class="n">Absolute</span>
+<span class="n">SecureStatic</span> <span class="n">Address</span> <span class="n">Aging</span> <span class="p">:</span><span class="n">Enabled</span>
+<span class="n">Maximum</span> <span class="n">MAC</span> <span class="n">Addresses</span>      <span class="p">:</span><span class="mi">5</span>
+<span class="n">Total</span> <span class="n">MAC</span> <span class="n">Addresses</span>        <span class="p">:</span><span class="mi">0</span>
+<span class="n">Configured</span> <span class="n">MAC</span> <span class="n">Addresses</span>   <span class="p">:</span><span class="mi">0</span>
+<span class="n">Sticky</span> <span class="n">MAC</span> <span class="n">Addresses</span>       <span class="p">:</span><span class="mi">11</span>
+<span class="n">Last</span> <span class="n">Source</span> <span class="n">Address</span>        <span class="p">:</span><span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0401</span>
+<span class="n">Security</span> <span class="n">Violation</span> <span class="n">Count</span>   <span class="p">:</span><span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>To return the interface <strong>to the default condition</strong> as not a secure port, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span></code> interface configuration command.</li>
+<li>To return the interface <strong>to the default number of secure MAC addresses</strong>, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">maximum</span> <span class="pre">value</span></code>.</li>
+<li>To <strong>delete a MAC</strong> address from the address table, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">mac_address</span></code> command.</li>
+<li>To return the <strong>violation mode to the default condition (shutdown mode)</strong>, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">violation</span> <span class="pre">{restrict</span> <span class="pre">|</span> <span class="pre">shutdown}</span></code> command.</li>
+<li>To <strong>disable sticky learning</strong> on an interface, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">mac-address</span> <span class="pre">sticky</span></code> command. The interface converts the sticky secure MAC addresses to dynamic secure addresses.</li>
+<li>To <strong>delete a sticky secure MAC addresses</strong> from the address table, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">sticky</span> <span class="pre">mac-address</span> <span class="pre">mac_address</span></code> command. To <strong>delete all the sticky addresses on an interface or a VLAN</strong>, use the <code class="docutils literal"><span class="pre">no</span> <span class="pre">switchport</span> <span class="pre">port-security</span> <span class="pre">sticky</span> <span class="pre">interface</span> <span class="pre">interface-id</span></code> command.</li>
+<li>To <strong>clear dynamically learned</strong> port security MAC in the CAM table, use the <code class="docutils literal"><span class="pre">clear</span> <span class="pre">port-security</span> <span class="pre">dynamic</span></code> command. The address keyword enables you to clear a secure MAC addresses. The interface keyword enables you to clear all secure addresses on an interface.</li>
+</ul>
+<p>This example shows how to configure a secure MAC address on Fast Ethernet port 5/1 and verify the configuration:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># configure terminal</span>
+<span class="n">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span>  <span class="n">End</span> <span class="k">with</span> <span class="n">CNTL</span><span class="o">/</span><span class="n">Z</span><span class="o">.</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 5/1</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport mode access</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security maximum 10</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security mac-address 0000.0000.0003 (Static secure MAC)</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security mac-address sticky</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">mac</span><span class="o">-</span><span class="n">address</span> <span class="n">sticky</span> <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0001</span> <span class="p">(</span><span class="n">Sticky</span> <span class="n">static</span> <span class="n">MAC</span><span class="p">)</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security mac-address sticky 0000.0000.0002</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">Switch</span><span class="c1">#show port address</span>
+<span class="n">Secure</span> <span class="n">Mac</span> <span class="n">Address</span> <span class="n">Table</span>
+<span class="o">------------------------------------------------------------------------</span>
+<span class="n">Vlan</span>  <span class="n">Mac</span> <span class="n">Address</span>       <span class="n">Type</span>                   <span class="n">Ports</span>   <span class="n">Remaining</span> <span class="n">Age</span>
+
+                                                              <span class="p">(</span><span class="n">mins</span><span class="p">)</span>
+<span class="o">----</span>  <span class="o">-----------</span>       <span class="o">----</span>                    <span class="o">-----</span>   <span class="o">-------------</span>
+<span class="mi">1</span>    <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0001</span>    <span class="n">SecureSticky</span>             <span class="n">Fa5</span><span class="o">/</span><span class="mi">1</span>        <span class="o">-</span>
+<span class="mi">1</span>    <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0002</span>    <span class="n">SecureSticky</span>             <span class="n">Fa5</span><span class="o">/</span><span class="mi">1</span>        <span class="o">-</span>
+<span class="mi">1</span>    <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0003</span>    <span class="n">SecureConfigured</span>         <span class="n">Fa5</span><span class="o">/</span><span class="mi">1</span>        <span class="o">-</span>
+
+
+<span class="o">------------------------------------------------------------------------</span>
+<span class="n">Total</span> <span class="n">Addresses</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span>     <span class="p">:</span> <span class="mi">2</span>
+<span class="n">Max</span> <span class="n">Addresses</span> <span class="n">limit</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span> <span class="p">:</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="port-security-aging">
+<h3>Port security aging<a class="headerlink" href="#port-security-aging" title="Permalink to this headline">¶</a></h3>
+<p>To set the aging time &amp; aging type for all secure addresses on a port</p>
+<p>Use this to remove n add PCs on a secure port without deleting other secure MACs</p>
+<p>To configure port security aging</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface interface_id</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security [ aging {static | time aging_time | type {absolute | inactivity} ]</span>
+
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface fastethernet 5/1</span>
+<span class="n">Switch</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># switchport port-security aging time 120</span>
+</pre></div>
+</div>
+<p>The <strong>static</strong> keyword enables aging for statically configured secure addresses on this port.</p>
+<p>The <strong>time aging_time</strong> keyword specifies the aging time for this port. Valid range for aging_time is from 0 to 1440 minutes. If the time is equal to 0, aging is disabled for this port.</p>
+<p>The <strong>type</strong> keyword sets the aging type as <strong>absolute or inactive</strong>. For absolute aging, all the secure addresses on this port ago out exactly after the time (minutes) specified and are removed from the secure address list. For inactive aging, the secure addresses on this port ago out only if there is no data traffic from the secure source address for the specified time period.</p>
+<p>Verify</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># show port security [interface interface_id] [address]</span>
+
+<span class="n">To</span> <span class="n">disable</span> <span class="n">port</span> <span class="n">security</span> <span class="n">aging</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">secure</span> <span class="n">addresses</span> <span class="n">on</span> <span class="n">a</span> <span class="n">port</span><span class="p">:</span>
+<span class="n">Switch</span><span class="c1"># no switchport port-security aging time</span>
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">example</span> <span class="n">displays</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">show</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">command</span> <span class="n">when</span> <span class="n">you</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">enter</span> <span class="n">an</span> <span class="n">interface</span><span class="p">:</span>
+
+<span class="n">Switch</span><span class="c1"># show port-security</span>
+
+<span class="n">Secure</span> <span class="n">Port</span>  <span class="n">MaxSecureAddr</span>  <span class="n">CurrentAddr</span>  <span class="n">SecurityViolation</span>  <span class="n">Security</span> <span class="n">Action</span>
+                <span class="p">(</span><span class="n">Count</span><span class="p">)</span>       <span class="p">(</span><span class="n">Count</span><span class="p">)</span>          <span class="p">(</span><span class="n">Count</span><span class="p">)</span>
+<span class="o">---------------------------------------------------------------------------</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">1</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Restrict</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">2</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Restrict</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">3</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">4</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">5</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">6</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">7</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+      <span class="n">Fa3</span><span class="o">/</span><span class="mi">8</span>              <span class="mi">2</span>            <span class="mi">2</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">10</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">11</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">12</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Restrict</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">13</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">14</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">15</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+     <span class="n">Fa3</span><span class="o">/</span><span class="mi">16</span>              <span class="mi">1</span>            <span class="mi">0</span>                  <span class="mi">0</span>         <span class="n">Shutdown</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="n">Total</span> <span class="n">Addresses</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span>     <span class="p">:</span><span class="mi">8</span>
+<span class="n">Max</span> <span class="n">Addresses</span> <span class="n">limit</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span> <span class="p">:</span><span class="mi">1024</span>
+<span class="n">Global</span> <span class="n">SNMP</span> <span class="n">trap</span> <span class="n">control</span> <span class="k">for</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span>                 <span class="p">:</span><span class="mi">20</span> <span class="p">(</span><span class="n">traps</span> <span class="n">per</span> <span class="n">second</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This example displays output from the show port-security command for a specified interface:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1"># show port-security interface fastethernet 5/1</span>
+<span class="n">Port</span> <span class="n">Security</span>              <span class="p">:</span> <span class="n">Enabled</span>
+<span class="n">Port</span> <span class="n">Status</span>                <span class="p">:</span> <span class="n">Secure</span><span class="o">-</span><span class="n">up</span>
+<span class="n">Violation</span> <span class="n">Mode</span>             <span class="p">:</span> <span class="n">Shutdown</span>
+<span class="n">Aging</span> <span class="n">Time</span>                 <span class="p">:</span> <span class="mi">0</span> <span class="n">mins</span>
+<span class="n">Aging</span> <span class="n">Type</span>                 <span class="p">:</span> <span class="n">Absolute</span>
+<span class="n">SecureStatic</span> <span class="n">Address</span> <span class="n">Aging</span> <span class="p">:</span> <span class="n">Disabled</span>
+<span class="n">Maximum</span> <span class="n">MAC</span> <span class="n">Addresses</span>      <span class="p">:</span> <span class="mi">1</span>
+<span class="n">Total</span> <span class="n">MAC</span> <span class="n">Addresses</span>        <span class="p">:</span> <span class="mi">1</span>
+<span class="n">Configured</span> <span class="n">MAC</span> <span class="n">Addresses</span>   <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Sticky</span> <span class="n">MAC</span> <span class="n">Addresses</span>       <span class="p">:</span> <span class="mi">1</span>
+<span class="n">Last</span> <span class="n">Source</span> <span class="n">Address</span>        <span class="p">:</span> <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">001</span><span class="n">a</span>
+<span class="n">Security</span> <span class="n">Violation</span> <span class="n">Count</span>   <span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>This example displays output from the show port-security address command:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="c1">#sh port-security address</span>
+
+          <span class="n">Secure</span> <span class="n">Mac</span> <span class="n">Address</span> <span class="n">Table</span>
+<span class="o">-------------------------------------------------------------------</span>
+<span class="n">Vlan</span>    <span class="n">Mac</span> <span class="n">Address</span>       <span class="n">Type</span>                <span class="n">Ports</span>   <span class="n">Remaining</span> <span class="n">Age</span>
+                                                         <span class="p">(</span><span class="n">mins</span><span class="p">)</span>
+<span class="o">----</span>    <span class="o">-----------</span>       <span class="o">----</span>                <span class="o">-----</span>   <span class="o">-------------</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0000</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">1</span>       <span class="mi">15</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0001</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">1</span>       <span class="mi">14</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0100</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">2</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0101</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">2</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0200</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">3</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0201</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">3</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0300</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">4</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">0301</span>    <span class="n">SecureConfigured</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">4</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1000</span>    <span class="n">SecureDynamic</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">5</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1001</span>    <span class="n">SecureDynamic</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">5</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1100</span>    <span class="n">SecureDynamic</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">6</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1101</span>    <span class="n">SecureDynamic</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">6</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1200</span>    <span class="n">SecureSticky</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">7</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1201</span>    <span class="n">SecureSticky</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">7</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1300</span>    <span class="n">SecureSticky</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">8</span>        <span class="o">-</span>
+   <span class="mi">1</span>    <span class="mf">0000.0001</span><span class="o">.</span><span class="mi">1301</span>    <span class="n">SecureSticky</span>    <span class="n">Fa3</span><span class="o">/</span><span class="mi">8</span>        <span class="o">-</span>
+<span class="o">-------------------------------------------------------------------</span>
+<span class="n">Total</span> <span class="n">Addresses</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span>     <span class="p">:</span><span class="mi">8</span>
+<span class="n">Max</span> <span class="n">Addresses</span> <span class="n">limit</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span> <span class="p">:</span><span class="mi">1024</span>
+</pre></div>
+</div>
+<p>Check if ports in Error disabled state</p>
+<p><code class="docutils literal"><span class="pre">S1#</span> <span class="pre">show</span> <span class="pre">interface</span> <span class="pre">fa0/18</span> <span class="pre">status</span></code>
+<code class="docutils literal"><span class="pre">S1#</span> <span class="pre">show</span> <span class="pre">port-security</span> <span class="pre">interface</span> <span class="pre">fastethernet</span> <span class="pre">0/18</span></code></p>
+</div>
+<div class="section" id="example-exercise">
+<h3>example exercise<a class="headerlink" href="#example-exercise" title="Permalink to this headline">¶</a></h3>
+<p>Requirements</p>
+<dl class="docutils">
+<dt>· Configure S1 with the following initial settings:</dt>
+<dd><ul class="first last simple">
+<li>Hostname</li>
+<li>Banner that includes the word warning</li>
+<li>Console port login and password cisco</li>
+<li>Encrypted enable password of class</li>
+<li>Encrypt plain text passwords</li>
+<li>Management interface addressing</li>
+</ul>
+</dd>
+<dt>· Configure SSH to secure remote access with the following settings:</dt>
+<dd><ul class="first last simple">
+<li>Domain name of cisco.com</li>
+<li>RSA key-pair parameters to support SSH version 2</li>
+<li>Set SSH version 2</li>
+<li>User admin with secret password ccna</li>
+<li>VTY lines only accept SSH connections and use local login for authentication</li>
+</ul>
+</dd>
+<dt>· Configure the port security feature to restrict network access:</dt>
+<dd><ul class="first last simple">
+<li>Disable all unused ports.</li>
+<li>Set the interface mode to access.</li>
+<li>Enable port security to allow only two hosts per port.</li>
+<li>Record the MAC address in the running configuration.</li>
+<li>Ensure that port violations disable ports.</li>
+</ul>
+</dd>
+</dl>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">S1</span><span class="c1">#show port-security interface ?</span>
+  <span class="n">Ethernet</span>         <span class="n">IEEE</span> <span class="mf">802.3</span>
+  <span class="n">FastEthernet</span>     <span class="n">FastEthernet</span> <span class="n">IEEE</span> <span class="mf">802.3</span>
+  <span class="n">GigabitEthernet</span>  <span class="n">GigabitEthernet</span> <span class="n">IEEE</span> <span class="mf">802.3</span><span class="n">z</span>
+
+<span class="n">S1</span><span class="c1">#show port-security interface FastEthernet 0/1</span>
+<span class="n">Port</span> <span class="n">Security</span>              <span class="p">:</span> <span class="n">Enabled</span>
+<span class="n">Port</span> <span class="n">Status</span>                <span class="p">:</span> <span class="n">Secure</span><span class="o">-</span><span class="n">up</span>
+<span class="n">Violation</span> <span class="n">Mode</span>             <span class="p">:</span> <span class="n">Shutdown</span>
+<span class="n">Aging</span> <span class="n">Time</span>                 <span class="p">:</span> <span class="mi">0</span> <span class="n">mins</span>
+<span class="n">Aging</span> <span class="n">Type</span>                 <span class="p">:</span> <span class="n">Absolute</span>
+<span class="n">SecureStatic</span> <span class="n">Address</span> <span class="n">Aging</span> <span class="p">:</span> <span class="n">Disabled</span>
+<span class="n">Maximum</span> <span class="n">MAC</span> <span class="n">Addresses</span>      <span class="p">:</span> <span class="mi">2</span>
+<span class="n">Total</span> <span class="n">MAC</span> <span class="n">Addresses</span>        <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Configured</span> <span class="n">MAC</span> <span class="n">Addresses</span>   <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Sticky</span> <span class="n">MAC</span> <span class="n">Addresses</span>       <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Last</span> <span class="n">Source</span> <span class="n">Address</span><span class="p">:</span><span class="n">Vlan</span>   <span class="p">:</span> <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0000</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Security</span> <span class="n">Violation</span> <span class="n">Count</span>   <span class="p">:</span> <span class="mi">0</span>
+
+<span class="n">S1</span><span class="c1">#show port-security ?</span>
+  <span class="n">address</span>    <span class="n">Show</span> <span class="n">secure</span> <span class="n">address</span>
+  <span class="n">interface</span>  <span class="n">Show</span> <span class="n">secure</span> <span class="n">interface</span>
+  <span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="n">S1</span><span class="c1">#show port-security address</span>
+                     <span class="n">Secure</span> <span class="n">Mac</span> <span class="n">Address</span> <span class="n">Table</span>
+<span class="o">-------------------------------------------------------------------------------</span>
+<span class="n">Vlan</span> <span class="n">Mac</span> <span class="n">Address</span>     <span class="n">Type</span>                    <span class="n">Ports</span>           <span class="n">Remaining</span> <span class="n">Age</span>
+                                                             <span class="p">(</span><span class="n">mins</span><span class="p">)</span>
+<span class="o">----</span> <span class="o">-----------</span>     <span class="o">----</span>                    <span class="o">-----</span>           <span class="o">-------------</span>
+<span class="o">------------------------------------------------------------------------------</span>
+<span class="n">Total</span> <span class="n">Addresses</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span>     <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Max</span> <span class="n">Addresses</span> <span class="n">limit</span> <span class="ow">in</span> <span class="n">System</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">one</span> <span class="n">mac</span> <span class="n">per</span> <span class="n">port</span><span class="p">)</span> <span class="p">:</span> <span class="mi">1024</span>
+<span class="n">S1</span><span class="c1">#show ip ?</span>
+  <span class="n">access</span><span class="o">-</span><span class="n">lists</span>  <span class="n">List</span> <span class="n">access</span> <span class="n">lists</span>
+  <span class="n">arp</span>           <span class="n">IP</span> <span class="n">ARP</span> <span class="n">table</span>
+  <span class="n">dhcp</span>          <span class="n">Show</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">DHCP</span> <span class="n">database</span>
+  <span class="n">interface</span>     <span class="n">IP</span> <span class="n">interface</span> <span class="n">status</span> <span class="ow">and</span> <span class="n">configuration</span>
+  <span class="n">ssh</span>           <span class="n">Information</span> <span class="n">on</span> <span class="n">SSH</span>
+
+<span class="n">S1</span><span class="c1">#show interface FastEthernet0/1</span>
+<span class="n">FastEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="ow">is</span> <span class="n">up</span><span class="p">,</span> <span class="n">line</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+  <span class="n">Hardware</span> <span class="ow">is</span> <span class="n">Lance</span><span class="p">,</span> <span class="n">address</span> <span class="ow">is</span> <span class="mi">00</span><span class="n">d0</span><span class="o">.</span><span class="n">bc57</span><span class="o">.</span><span class="mi">1001</span> <span class="p">(</span><span class="n">bia</span> <span class="mi">00</span><span class="n">d0</span><span class="o">.</span><span class="n">bc57</span><span class="o">.</span><span class="mi">1001</span><span class="p">)</span>
+ <span class="n">BW</span> <span class="mi">100000</span> <span class="n">Kbit</span><span class="p">,</span> <span class="n">DLY</span> <span class="mi">1000</span> <span class="n">usec</span><span class="p">,</span>
+     <span class="n">reliability</span> <span class="mi">255</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="n">txload</span> <span class="mi">1</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="n">rxload</span> <span class="mi">1</span><span class="o">/</span><span class="mi">255</span>
+  <span class="n">Encapsulation</span> <span class="n">ARPA</span><span class="p">,</span> <span class="n">loopback</span> <span class="ow">not</span> <span class="nb">set</span>
+  <span class="n">Keepalive</span> <span class="nb">set</span> <span class="p">(</span><span class="mi">10</span> <span class="n">sec</span><span class="p">)</span>
+  <span class="n">Full</span><span class="o">-</span><span class="n">duplex</span><span class="p">,</span> <span class="mi">100</span><span class="n">Mb</span><span class="o">/</span><span class="n">s</span>
+  <span class="nb">input</span> <span class="n">flow</span><span class="o">-</span><span class="n">control</span> <span class="ow">is</span> <span class="n">off</span><span class="p">,</span> <span class="n">output</span> <span class="n">flow</span><span class="o">-</span><span class="n">control</span> <span class="ow">is</span> <span class="n">off</span>
+  <span class="n">ARP</span> <span class="nb">type</span><span class="p">:</span> <span class="n">ARPA</span><span class="p">,</span> <span class="n">ARP</span> <span class="n">Timeout</span> <span class="mi">04</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+  <span class="n">Last</span> <span class="nb">input</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">08</span><span class="p">,</span> <span class="n">output</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">05</span><span class="p">,</span> <span class="n">output</span> <span class="n">hang</span> <span class="n">never</span>
+  <span class="n">Last</span> <span class="n">clearing</span> <span class="n">of</span> <span class="s2">&quot;show interface&quot;</span> <span class="n">counters</span> <span class="n">never</span>
+  <span class="n">Input</span> <span class="n">queue</span><span class="p">:</span> <span class="mi">0</span><span class="o">/</span><span class="mi">75</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> <span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="nb">max</span><span class="o">/</span><span class="n">drops</span><span class="o">/</span><span class="n">flushes</span><span class="p">);</span> <span class="n">Total</span> <span class="n">output</span> <span class="n">drops</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="n">Queueing</span> <span class="n">strategy</span><span class="p">:</span> <span class="n">fifo</span>
+  <span class="n">Output</span> <span class="n">queue</span> <span class="p">:</span><span class="mi">0</span><span class="o">/</span><span class="mi">40</span> <span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="nb">max</span><span class="p">)</span>
+  <span class="mi">5</span> <span class="n">minute</span> <span class="nb">input</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bits</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span><span class="o">/</span><span class="n">sec</span>
+  <span class="mi">5</span> <span class="n">minute</span> <span class="n">output</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bits</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="mi">0</span> <span class="n">packets</span><span class="o">/</span><span class="n">sec</span>
+     <span class="mi">956</span> <span class="n">packets</span> <span class="nb">input</span><span class="p">,</span> <span class="mi">193351</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">0</span> <span class="n">no</span> <span class="n">buffer</span>
+     <span class="n">Received</span> <span class="mi">956</span> <span class="n">broadcasts</span><span class="p">,</span> <span class="mi">0</span> <span class="n">runts</span><span class="p">,</span> <span class="mi">0</span> <span class="n">giants</span><span class="p">,</span> <span class="mi">0</span> <span class="n">throttles</span>
+     <span class="mi">0</span> <span class="nb">input</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">CRC</span><span class="p">,</span> <span class="mi">0</span> <span class="n">frame</span><span class="p">,</span> <span class="mi">0</span> <span class="n">overrun</span><span class="p">,</span> <span class="mi">0</span> <span class="n">ignored</span><span class="p">,</span> <span class="mi">0</span> <span class="n">abort</span>
+     <span class="mi">0</span> <span class="n">watchdog</span><span class="p">,</span> <span class="mi">0</span> <span class="n">multicast</span><span class="p">,</span> <span class="mi">0</span> <span class="n">pause</span> <span class="nb">input</span>
+     <span class="mi">0</span> <span class="nb">input</span> <span class="n">packets</span> <span class="k">with</span> <span class="n">dribble</span> <span class="n">condition</span> <span class="n">detected</span>
+     <span class="mi">2357</span> <span class="n">packets</span> <span class="n">output</span><span class="p">,</span> <span class="mi">263570</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">0</span> <span class="n">underruns</span>
+     <span class="mi">0</span> <span class="n">output</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">collisions</span><span class="p">,</span> <span class="mi">10</span> <span class="n">interface</span> <span class="n">resets</span>
+     <span class="mi">0</span> <span class="n">babbles</span><span class="p">,</span> <span class="mi">0</span> <span class="n">late</span> <span class="n">collision</span><span class="p">,</span> <span class="mi">0</span> <span class="n">deferred</span>
+     <span class="mi">0</span> <span class="n">lost</span> <span class="n">carrier</span><span class="p">,</span> <span class="mi">0</span> <span class="n">no</span> <span class="n">carrier</span>
+     <span class="mi">0</span> <span class="n">output</span> <span class="n">buffer</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">0</span> <span class="n">output</span> <span class="n">buffers</span> <span class="n">swapped</span> <span class="n">out</span>
+
+<span class="n">S1</span><span class="c1">#show port-security interface FastEthernet 0/1</span>
+<span class="n">Port</span> <span class="n">Security</span>              <span class="p">:</span> <span class="n">Enabled</span>
+<span class="n">Port</span> <span class="n">Status</span>                <span class="p">:</span> <span class="n">Secure</span><span class="o">-</span><span class="n">up</span>
+<span class="n">Violation</span> <span class="n">Mode</span>             <span class="p">:</span> <span class="n">Shutdown</span>
+<span class="n">Aging</span> <span class="n">Time</span>                 <span class="p">:</span> <span class="mi">0</span> <span class="n">mins</span>
+<span class="n">Aging</span> <span class="n">Type</span>                 <span class="p">:</span> <span class="n">Absolute</span>
+<span class="n">SecureStatic</span> <span class="n">Address</span> <span class="n">Aging</span> <span class="p">:</span> <span class="n">Disabled</span>
+<span class="n">Maximum</span> <span class="n">MAC</span> <span class="n">Addresses</span>      <span class="p">:</span> <span class="mi">2</span>
+<span class="n">Total</span> <span class="n">MAC</span> <span class="n">Addresses</span>        <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Configured</span> <span class="n">MAC</span> <span class="n">Addresses</span>   <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Sticky</span> <span class="n">MAC</span> <span class="n">Addresses</span>       <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Last</span> <span class="n">Source</span> <span class="n">Address</span><span class="p">:</span><span class="n">Vlan</span>   <span class="p">:</span> <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0000</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Security</span> <span class="n">Violation</span> <span class="n">Count</span>   <span class="p">:</span> <span class="mi">0</span>
+
+<span class="n">S1</span><span class="c1">#show port-security interface FastEthernet 0/2</span>
+<span class="n">Port</span> <span class="n">Security</span>              <span class="p">:</span> <span class="n">Enabled</span>
+<span class="n">Port</span> <span class="n">Status</span>                <span class="p">:</span> <span class="n">Secure</span><span class="o">-</span><span class="n">up</span>
+<span class="n">Violation</span> <span class="n">Mode</span>             <span class="p">:</span> <span class="n">Shutdown</span>
+<span class="n">Aging</span> <span class="n">Time</span>                 <span class="p">:</span> <span class="mi">0</span> <span class="n">mins</span>
+<span class="n">Aging</span> <span class="n">Type</span>                 <span class="p">:</span> <span class="n">Absolute</span>
+<span class="n">SecureStatic</span> <span class="n">Address</span> <span class="n">Aging</span> <span class="p">:</span> <span class="n">Disabled</span>
+<span class="n">Maximum</span> <span class="n">MAC</span> <span class="n">Addresses</span>      <span class="p">:</span> <span class="mi">2</span>
+<span class="n">Total</span> <span class="n">MAC</span> <span class="n">Addresses</span>        <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Configured</span> <span class="n">MAC</span> <span class="n">Addresses</span>   <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Sticky</span> <span class="n">MAC</span> <span class="n">Addresses</span>       <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Last</span> <span class="n">Source</span> <span class="n">Address</span><span class="p">:</span><span class="n">Vlan</span>   <span class="p">:</span> <span class="mf">0000.0000</span><span class="o">.</span><span class="mi">0000</span><span class="p">:</span><span class="mi">0</span>
+<span class="n">Security</span> <span class="n">Violation</span> <span class="n">Count</span>   <span class="p">:</span> <span class="mi">0</span>
+
+<span class="n">S1</span><span class="c1">#show port-security</span>
+<span class="n">Secure</span> <span class="n">Port</span> <span class="n">MaxSecureAddr</span> <span class="n">CurrentAddr</span> <span class="n">SecurityViolation</span> <span class="n">Security</span> <span class="n">Action</span>
+               <span class="p">(</span><span class="n">Count</span><span class="p">)</span>       <span class="p">(</span><span class="n">Count</span><span class="p">)</span>        <span class="p">(</span><span class="n">Count</span><span class="p">)</span>
+<span class="o">--------------------------------------------------------------------</span>
+        <span class="n">Fa0</span><span class="o">/</span><span class="mi">1</span>        <span class="mi">2</span>          <span class="mi">0</span>                 <span class="mi">0</span>         <span class="n">Shutdown</span>
+        <span class="n">Fa0</span><span class="o">/</span><span class="mi">2</span>        <span class="mi">2</span>          <span class="mi">0</span>                 <span class="mi">0</span>         <span class="n">Shutdown</span>
+<span class="o">----------------------------------------------------------------------</span>
+</pre></div>
+</div>
+<p>There are 10 best practices that represent the best insurance for a network:</p>
+<ol class="arabic simple">
+<li>Develop a written security policy for the organization.</li>
+<li>Shut down unused services and ports.</li>
+<li>Use strong passwords and change them often.</li>
+<li>Control physical access to devices.</li>
+<li>Avoid using standard insecure HTTP websites, especially for login screens. Instead use the more secure HTTPS.</li>
+<li>Perform backups and test the backed up files on a regular basis.</li>
+<li>Educate employees about social engineering attacks, and develop policies to validate identities over the phone, via email, and in person.</li>
+<li>Encrypt sensitive data and protect it with a strong password.</li>
+<li>Implement security hardware and software, such as firewalls.</li>
+<li>Keep IOS software up-to-date by installing security patches weekly or daily, if possible.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="qna-chapter-5">
+<h2>QnA Chapter 5<a class="headerlink" href="#qna-chapter-5" title="Permalink to this headline">¶</a></h2>
+<p>3 causes of interface up - line protocol down
+* encapsulation mismatch
+* other end = error-disabled
+* hardware</p>
+<dl class="docutils">
+<dt>Type of Ethernet frame that is smaller than 64bytes:</dt>
+<dd>runt</dd>
+<dt>Indication of a media or cable error:</dt>
+<dd>CRC error</dd>
+</dl>
+<p>A condition that occurs if a collision happens after 512bit have been transmitted: late collision</p>
+<dl class="docutils">
+<dt>a cisco switch feature that limits # of MAC addresses allowed through a port:</dt>
+<dd>port security</dd>
+<dt>a method of port security configuration whereby learned MAC addresses are deleted if the switch is restarted:</dt>
+<dd>dynamic</dd>
+<dt>a method of port security that can be dynamically learned &amp; once learned saved to the configuration saved in NVRAM:</dt>
+<dd>sticky</dd>
+<dt>default security violation for port security:</dt>
+<dd>shutdown</dd>
+<dt>Which command displays information about the auto-MDIX setting for a specific interface?:</dt>
+<dd>show controllers</dd>
+<dt>steps needed to configure a switch for SSH:</dt>
+<dd><ul class="first last simple">
+<li>Create a local user.</li>
+<li>Generate RSA keys.</li>
+<li>Configure a domain name.</li>
+<li>Use the login local command.</li>
+<li>Use the transport input ssh command.</li>
+<li>Order does not matter within this group.</li>
+</ul>
+</dd>
+<dt>What is a possible cause of runt Ethernet frames when a switch is being used:</dt>
+<dd>malfunctioning NIC (not a late collision)</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A runt frame is a frame that is smaller than 64 bytes, the minimum allowed Ethernet frame. This type of frame is usually due to a malfunctioning NIC or excessive collisions. Duplex misconfiguration can cause connectivity issues. Excessive cable length can generate CRC errors and/or late collisions.</p>
+</div>
+<dl class="docutils">
+<dt>switch and gateways:</dt>
+<dd>If the switch was unable to find and load the IOS, the prompt would be switch:. A Layer 2 switch does not provide the default gateway for connected hosts. The default gateway is provided by a Layer 3 device. The switch cannot be managed remotely until a management VLAN and a default gateway have been configured.</dd>
+<dt>what configuration must be in place for the auto-MDIX feature to function on a switch interface?:</dt>
+<dd>The speed and duplex of the interface must be configured for auto detect.</dd>
+<dt>What would be the most common reason that a network technician would see the following Cisco switch prompt after the switch boots?:</dt>
+<dd>The switch operating system cannot be found.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The prompt of “switch:” is seen when the switch cannot find an operating system and is in the boot loader environment where only a few basic commands can be used to repair the switch to an operational state. When an administrator has used Telnet or SSH to gain access to a switch prompt, the prompt usually asks for a username and password or is in user EXEC mode (switch&gt;, for example).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Escalating CRC errors usually means that the data is being modified during transmission from the host to the switch. This is often caused by high levels of electromagnetic interference on the link.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Port security cannot be enabled globally. All active switch ports should be manually secured using the switchport port-security command, which allows the administrator to control the number of valid MAC addresses allowed to access the port. This command does not specify what action will be taken if a violation occurs, nor does it change the process of populating the MAC address table.</p>
+</div>
+<dl class="docutils">
+<dt>Where are dynamically learned MAC addresses stored when sticky learning is enabled with the switchport port-security mac-address sticky command?:</dt>
+<dd>RAM</dd>
+<dt>Match the link state to the interface and protocol status:</dt>
+<dd><ul class="first last simple">
+<li>disable -&gt; administratively down</li>
+<li>Layer 1 problem -&gt; down/down</li>
+<li>Layer 2 problem -&gt; up/down</li>
+<li>operational -&gt; up/up</li>
+</ul>
+</dd>
+<dt>If one end of an Ethernet connection is configured for full duplex and the other end of the connection is configured for half duplex, where would late collisions be observed?:</dt>
+<dd>on the half-duplex end of the connection</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vlans.html" class="btn btn-neutral float-right" title="VLANS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="switchedNetworks.html" class="btn btn-neutral float-left" title="switched networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Brunswyck
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

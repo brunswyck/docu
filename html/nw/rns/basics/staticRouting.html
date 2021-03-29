@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Static Routes &mdash; Patrick&#39;s Docuhub a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Dynamic Routing" href="dynamicRouting.html" />
+    <link rel="prev" title="Routing Concepts" href="routingConcepts.html" />
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019-07-14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="connect2console.html">Connect to console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="routingConcepts.html">Routing Concepts</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Static Routes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ipv4-syntax">ipv4 syntax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combination-of-exit-interface-and-next-hop">combination of exit interface and next hop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#when-to-use-static-routes">When to Use Static Routes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-static-route">Default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-static-route">Summary static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#floating-static-route">Floating static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fully-specified-static-route">Fully Specified Static Route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-static-routing">ipv6 static routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6-default-static-route">ipv6 default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verify-a-default-static-route">verify a default static route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting-a-missing-route">Troubleshooting a missing route</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#solve-a-connectivity-problem">Solve a connectivity problem</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dynamicRouting.html">Dynamic Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switchedNetworks.html">switched networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switchConfiguration.html">Switch Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vlans.html">VLANS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="acl.html">ACLs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dhcp.html">DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nat.html">NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lldpAndLicensing.html">Device Discovery Management &amp; Maintenance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="finals.html">routing n switching basics finals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sn/inhoud.html">scaling networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patrick's Docuhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+          <li><a href="inhoud.html">basics</a> &raquo;</li>
+        
+      <li>Static Routes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/nw/rns/basics/staticRouting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="static-routes">
+<h1>Static Routes<a class="headerlink" href="#static-routes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ipv4-syntax">
+<h2>ipv4 syntax<a class="headerlink" href="#ipv4-syntax" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route network mask { next-hop-ip | exit-intf }</span>
+</pre></div>
+</div>
+<p>A static route is identified in the routing table with the code ‘S’.</p>
+<p>To configure an IPv4 default static route, use the following command:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">Router</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 { exit-intf | next-hop-ip }</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combination-of-exit-interface-and-next-hop">
+<h2>combination of exit interface and next hop<a class="headerlink" href="#combination-of-exit-interface-and-next-hop" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 192.168.2.0 255.255.255.0 s0/0/1 192.168.1.1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="when-to-use-static-routes">
+<h2>When to Use Static Routes<a class="headerlink" href="#when-to-use-static-routes" title="Permalink to this headline">¶</a></h2>
+<p>Static routing has three primary uses:</p>
+<blockquote>
+<div><p># Providing ease of routing table maintenance in smaller networks that are not expected to grow significantly.
+# Routing to and from stub networks. A STUB NETWORK is a network accessed by a single route, and the router has ONLY ONE NEIGHBOR.
+# Using a single default route to represent a path to any network that does not have a more specific match with another route in the routing table.</p>
+<p>benefits:</p>
+<ul class="simple">
+<li>Are not advertised over the network, resulting in better security</li>
+<li>Use less bandwidth than dynamic routing protocols</li>
+<li>Use known paths to send data</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Default routes are used to send traffic to any destination beyond the next upstream router.</p>
+</div>
+<dl class="docutils">
+<dt>Use static routes to…</dt>
+<dd><ul class="first last simple">
+<li>Connect to a specific network</li>
+<li>Connect a stub router</li>
+<li>Summarize routing table entries</li>
+<li>Create a backup route</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="default-static-route">
+<h2>Default static route<a class="headerlink" href="#default-static-route" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">route</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">nexthopip</span> <span class="o">|</span> <span class="n">exitif</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Default static routes are used when no other routes in the routing table match the packet destination IP address. In other words, when a more specific match does not exist. A common use is when connecting a company’s edge router to the ISP network. When a router has only one other router to which it is connected. In this situation, the router is known as a stub router.</p>
+</div>
+</div>
+<div class="section" id="summary-static-route">
+<h2>Summary static route<a class="headerlink" href="#summary-static-route" title="Permalink to this headline">¶</a></h2>
+<p>Representing multiple networks</p>
+<p>172.20.0.0/16
+172.21.0.0/16
+172.22.0.0/16
+172.23.0.0/16
+as 172.20.0.0/14</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">route</span> <span class="mf">172.20</span><span class="o">.</span><span class="mf">0.0</span> <span class="mf">255.252</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">nexthopip</span> <span class="o">|</span> <span class="n">exitif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="floating-static-route">
+<h2>Floating static route<a class="headerlink" href="#floating-static-route" title="Permalink to this headline">¶</a></h2>
+<p>Another type of static route is a floating static route.
+Floating static routes are static routes that are <strong>used to provide a backup path to a primary static or dynamic route, in the event of a link failure.</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The floating static route is only used when the primary route is not available.</p>
+</div>
+<p>To accomplish this, the floating static route is configured with a <strong>higher administrative distance than the primary route</strong>.
+The administrative distance represents the trustworthiness of a route.
+If multiple paths to the destination exist, the router will choose the path with the lowest administrative distance.</p>
+<p>The next hop can be identified by an IP address, exit interface, or both. How the destination is specified creates one of the three following route types:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Next-hop route</dt>
+<dd>Only the next-hop IP address is specified</dd>
+<dt>Directly connected static route</dt>
+<dd>Only the router exit interface is specified</dd>
+<dt>Fully specified static route</dt>
+<dd>The next-hop IP address and exit interface are specified</dd>
+</dl>
+</div></blockquote>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ip</span> <span class="n">route</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">1.0</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span> <span class="n">G0</span><span class="o">/</span><span class="mi">1</span> <span class="mf">172.16</span><span class="o">.</span><span class="mf">2.2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fully-specified-static-route">
+<h2>Fully Specified Static Route<a class="headerlink" href="#fully-specified-static-route" title="Permalink to this headline">¶</a></h2>
+<p>In a fully specified static route, <strong>both the exit interface and the next-hop IP</strong> address are specified.
+This is another type of static route that is <em>used in older IOSs, prior to CEF.</em></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This form of static route is used when the exit interface is a multi-access interface and it is necessary to explicitly identify the next hop.</p>
+</div>
+<p>The next hop must be directly connected to the specified exit interface.</p>
+<div class="section" id="example">
+<h3>example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-html"><div class="highlight"><pre><span></span>                             PC2
+                              |
+                              |_
+             172.16.1.0/24   |__|
+                               |
+                               |
+                           G0/0|.1
+                              _|__
+                             (_R2_)
+                     S0/0/0 /.2 .2\ S0/0/1
+                           /       \ DCE
+             172.16.2.0/24/         \/\
+                         /             \  192.168.1.0/24
+                      .1/               \.1
+          __           /__S0/0/0  S0/0/1_\        __
+PC1------|__|---------(_R1_) DCE      (_R3_)-----|__|----PC3
+                 G0/0  .1           .1 G0/0
+
+       172.16.3.0/24                  192.168.2.0/24
+</pre></div>
+</div>
+<p>Suppose that the network link between R1 and R2 is an Ethernet link and that the GigabitEthernet 0/1 interface of R1 is connected to that network,
+as shown in Figure 1. CEF is not enabled.
+To eliminate the recursive lookup,(map a next hop ip to what interface that is = if CEF not enabled)
+a directly connected static route can be implemented using the following command:</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 192.168.2.0 255.255.255.0 GigabitEthernet 0/1</span>
+</pre></div>
+</div>
+<p>However, this may cause unexpected or inconsistent results. The difference between an Ethernet multi-access network and a point-to-point serial network is that a point-to-point serial network has only one other device on that network, the router at the other end of the link. With Ethernet networks, there may be many different devices sharing the same multi-access network, including hosts and even multiple routers. By only designating the Ethernet exit interface in the static route, the router will not have sufficient information to determine which device is the next-hop device.</p>
+<p>R1 knows that the packet needs to be encapsulated in an Ethernet frame and sent out the GigabitEthernet 0/1 interface. However, R1 does not know the next-hop IPv4 address; therefore, it cannot determine the destination MAC address for the Ethernet frame.</p>
+<p>Depending upon the topology and the configurations on other routers, this static route may or may not work. It is recommended that when the exit interface is an Ethernet network, that a fully specified static route is used, including both the exit interface and the next-hop address.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 172.16.1.0 255.255.255.0 s0/0/1 192.168.1.2</span>
+</pre></div>
+</div>
+<p>As shown in Figure 2, when forwarding packets to R2, the exit interface is GigabitEthernet 0/1 and the next-hop IPv4 address is 172.16.2.2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">With the use of CEF, a fully specified static route is no longer necessary. A static route using a next-hop address should be used.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 172.16.2.2</span>
+
+<span class="n">R1</span><span class="c1">#show ip route static</span>
+
+
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#do show ip route static</span>
+     <span class="mf">172.31</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span> <span class="ow">is</span> <span class="n">variably</span> <span class="n">subnetted</span><span class="p">,</span> <span class="mi">7</span> <span class="n">subnets</span><span class="p">,</span> <span class="mi">5</span> <span class="n">masks</span>
+<span class="n">S</span>       <span class="mf">172.31</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.193</span>
+<span class="n">S</span>       <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.128</span><span class="o">/</span><span class="mi">26</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.193</span>
+<span class="n">S</span>       <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.196</span><span class="o">/</span><span class="mi">30</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">via</span> <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.193</span>
+
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip route 172.31.1.0 255.255.255.128 S0/0/0</span>
+<span class="o">%</span><span class="n">Default</span> <span class="n">route</span> <span class="n">without</span> <span class="n">gateway</span><span class="p">,</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">point</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">point</span> <span class="n">interface</span><span class="p">,</span> <span class="n">may</span> <span class="n">impact</span> <span class="n">performance</span>
+
+<span class="n">R2</span><span class="c1">#show ip route ?</span>
+  <span class="n">WORD</span>       <span class="n">Network</span> <span class="n">to</span> <span class="n">display</span> <span class="n">information</span> <span class="n">about</span> <span class="ow">or</span> <span class="n">hostname</span>
+  <span class="n">bgp</span>        <span class="n">Border</span> <span class="n">Gateway</span> <span class="n">Protocol</span> <span class="p">(</span><span class="n">BGP</span><span class="p">)</span>
+  <span class="n">connected</span>  <span class="n">Connected</span>
+  <span class="n">eigrp</span>      <span class="n">Enhanced</span> <span class="n">Interior</span> <span class="n">Routing</span> <span class="n">Protocol</span> <span class="p">(</span><span class="n">EIGRP</span><span class="p">)</span>
+  <span class="n">ospf</span>       <span class="n">Open</span> <span class="n">Shortest</span> <span class="n">Path</span> <span class="n">First</span> <span class="p">(</span><span class="n">OSPF</span><span class="p">)</span>
+  <span class="n">rip</span>        <span class="n">Routing</span> <span class="n">Information</span> <span class="n">Protocol</span> <span class="p">(</span><span class="n">RIP</span><span class="p">)</span>
+  <span class="n">static</span>     <span class="n">Static</span> <span class="n">routes</span>
+  <span class="n">summary</span>    <span class="n">Summary</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">routes</span>
+  <span class="o">|</span>          <span class="n">Output</span> <span class="n">Modifiers</span>
+  <span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+
+<span class="n">R2</span><span class="c1">#show ip route connected</span>
+ <span class="n">C</span>   <span class="mf">172.31</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">GigabitEthernet0</span><span class="o">/</span><span class="mi">0</span>
+ <span class="n">C</span>   <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.192</span><span class="o">/</span><span class="mi">30</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+ <span class="n">C</span>   <span class="mf">172.31</span><span class="o">.</span><span class="mf">1.196</span><span class="o">/</span><span class="mi">30</span>  <span class="ow">is</span> <span class="n">directly</span> <span class="n">connected</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+
+
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ip route 0.0.0.0 0.0.0.0 Serial 0/0/1</span>
+<span class="o">%</span><span class="n">Default</span> <span class="n">route</span> <span class="n">without</span> <span class="n">gateway</span><span class="p">,</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">point</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">point</span> <span class="n">interface</span><span class="p">,</span> <span class="n">may</span> <span class="n">impact</span> <span class="n">performance</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ipv6-static-routing">
+<h2>ipv6 static routing<a class="headerlink" href="#ipv6-static-routing" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 unicast-routing</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show ipv6 route</span>
+
+<span class="n">R1</span><span class="c1">#ping ipv6 2001.DB8:ACAD:4::2</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route 2001.DB8:ACAD:2::/64 2001.DB8:ACAD:4::2</span>
+
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># show ipv6 route</span>
+</pre></div>
+</div>
+<p>As with IPv4, before any packet is forwarded by the router, the routing table process must resolve the route to determine the exit interface to use to forward the packet. The route resolvability process will vary depending upon the type of forwarding mechanism being used by the router. CEF (Cisco Express Forwarding) is the default behavior on most platforms running IOS 12.0 or later.</p>
+<p>When a packet is destined for the 2001:DB8:ACAD:3::/64 network, R1:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Looks for a match in the routing table and finds that it has to forward the packets to the next-hop IPv6 address 2001:DB8:ACAD:4::2. Every route that references only a next-hop IPv6 address and does not reference an exit interface must have the next-hop IPv6 address resolved using another route in the routing table with an exit interface.</li>
+<li>R1 must now determine how to reach 2001:DB8:ACAD:4::2; therefore, it searches a second time looking for a match. In this case, the IPv6 address matches the route for the directly connected network 2001:DB8:ACAD:4::/64 with the exit interface Serial 0/0/0. This lookup tells the routing table process that this packet is forwarded out of that interface.</li>
+</ol>
+</div></blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Therefore, it actually takes two routing table lookup processes to forward any packet to the 2001:DB8:ACAD:3::/64 network. When the router has to perform multiple lookups in the routing table before forwarding a packet, it is performing a process known as a recursive lookup.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A recursive static IPv6 route is valid (that is, it is a candidate for insertion in the routing table) only when the specified next hop resolves, either directly or indirectly, to a valid exit interface.</p>
+</div>
+</div>
+<div class="section" id="ipv6-default-static-route">
+<h2>ipv6 default static route<a class="headerlink" href="#ipv6-default-static-route" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-html"><div class="highlight"><pre><span></span>                            PC2
+                             |
+                             |_
+     2001:db8:acad:2::/64   |__|
+                              |
+                              |
+                          G0/0|:1
+                             _|__
+                            (_R2_)
+                    S0/0/0 /2 :2\ S0/0/1
+                          /       \ DCE
+                         /         \/\
+   2001:db8:acad:4::/64 /             \  2001:db8:acad:5::/64
+                     :1/               \:1
+         __           /__S0/0/0  S0/0/1_\        __
+PC1-----|__|---------(_R1_) DCE      (_R3_)-----|__|----PC3
+                G0/0  :1           :1 G0/0
+
+   2001:db8:acad:1::/64             2001:db8:acad:3::/64
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 s0/0/0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The ‘S’ signifies that the route source is a static route. Unlike the IPv4 static route, there is no asterisk (*) or Gateway of Last Resort explicitly identified.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">ipv6</span> <span class="n">route</span> <span class="n">ipv6</span><span class="o">-</span><span class="n">prefix</span><span class="o">/</span><span class="n">prefix</span><span class="o">-</span><span class="n">length</span> <span class="p">{</span><span class="n">ipv6</span><span class="o">-</span><span class="n">address</span><span class="o">|</span><span class="n">interface</span><span class="o">-</span><span class="nb">type</span> <span class="n">interface</span><span class="o">-</span><span class="n">number</span><span class="p">}</span>
+<span class="o">-</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route 2001:0DB8:ACAD:1::/64 2001:0DB8:ACAD:3::1</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route 2001:0DB8:ACAD:2::/64 s0/0/0</span>
+</pre></div>
+</div>
+<p>Router is only connected to R2 = stub router = default static route</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#ipv6 route ::/0 2001:DB8:ACAD:4::2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="verify-a-default-static-route">
+<h2>verify a default static route<a class="headerlink" href="#verify-a-default-static-route" title="Permalink to this headline">¶</a></h2>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 route static</span>
+
+<span class="n">R1</span><span class="c1"># ping 2001:DB8:ACAD:4::2 source 2001:DB8:ACAD:1::2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting-a-missing-route">
+<h2>Troubleshooting a missing route<a class="headerlink" href="#troubleshooting-a-missing-route" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ping</li>
+<li>traceroute</li>
+<li>show ip route</li>
+<li>show ip interface brief</li>
+<li>show cdp neighbors detail</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="solve-a-connectivity-problem">
+<h2>Solve a connectivity problem<a class="headerlink" href="#solve-a-connectivity-problem" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li>ping 192.168.2.1 source g0/0</li>
+<li>traceroute 192.168.2.1</li>
+<li>show ip route | begin Gateway</li>
+<li>show running-config | section ip route</li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In a recursive static route, only the next-hop IPv6 address is specified. As a consequence, the router must perform a recursive route table lookup to find an exit interface associated with the network of the IPv6 address.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To test a floating static route, take down the main route/link in order to see whether the backup link appears in the routing table.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a static route is to be configured via the next-hop IP address, the IP address of the interface of the next router in the path to the destination is used.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>An example of a floating static route used in conjunction with the EIGRP routing protocol would be as follows.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 192.168.10.0 255.255.255.0 95</span>
+</pre></div>
+</div>
+<p class="last">Notice the extra number at the end of the static route. This route only appears in the routing table if the EIGRP-learned route with an administrative distance of 90 went down. That floating static route cannot appear in the routing table when a route with a better administrative distance exists.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dynamicRouting.html" class="btn btn-neutral float-right" title="Dynamic Routing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="routingConcepts.html" class="btn btn-neutral float-left" title="Routing Concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Brunswyck
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

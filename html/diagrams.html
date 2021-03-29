@@ -1,0 +1,529 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Diagrams in Sphinx &mdash; Patrick&#39;s Docuhub a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="python" href="python.html" />
+    <link rel="prev" title="Scripting" href="scripting.html" />
+    <link href="_static/mylayout.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Patrick's Docuhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019-07-14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripting.html">Scripting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Diagrams in Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-configuration">installation and configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphviz-blockdiag-nwdiag-and-actdiag">graphviz blockdiag nwdiag and actdiag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installation">installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#demonstration-of-diagrams">demonstration of diagrams</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#graphviz">graphviz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nwdiag">nwdiag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rackdiag">rackdiag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packetdiag">packetdiag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#blockdiag">blockdiag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#seqdiag">seqdiag</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workstation.html">workstation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="git.html">GIT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/inhoud.html">Routing/Switching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nw/rns/sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage/storage.html">Storage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Patrick's Docuhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Diagrams in Sphinx</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/diagrams.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="diagrams-in-sphinx">
+<h1>Diagrams in Sphinx<a class="headerlink" href="#diagrams-in-sphinx" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-and-configuration">
+<h2>installation and configuration<a class="headerlink" href="#installation-and-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="graphviz-blockdiag-nwdiag-and-actdiag">
+<h3>graphviz blockdiag nwdiag and actdiag<a class="headerlink" href="#graphviz-blockdiag-nwdiag-and-actdiag" title="Permalink to this headline">¶</a></h3>
+<p>add the installed diagram modules to the extensions section in your conf.py</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sphinx.ext.autodoc&#39;</span><span class="p">,</span> <span class="s1">&#39;sphinx.ext.graphviz&#39;</span><span class="p">,</span> <span class="s1">&#39;sphinx.ext.githubpages&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;sphinxcontrib.nwdiag&#39;</span><span class="p">,</span> <span class="s1">&#39;sphinxcontrib.rackdiag&#39;</span><span class="p">,</span> <span class="s1">&#39;sphinxcontrib.packetdiag&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;sphinxcontrib.seqdiag&#39;</span><span class="p">,</span><span class="s1">&#39;sphinxcontrib.blockdiag&#39;</span><span class="p">,</span><span class="s1">&#39;sphinxcontrib.actdiag&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="installation">
+<h4>installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
+<p>installing graphviz doesn’t work from pip install, you have to install it systemwide (pip doesn’t install a .dot binary for some reason.</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">graphviz</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h4>configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h4>
+<p>you need to autobuild it with the following configuration in your sphinx virtual environment if you want to use graphviz. For the network diagrams this is not required</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">autobuild</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="o">-</span><span class="n">D</span> <span class="n">graphviz_dot</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">dot</span> <span class="o">-</span><span class="n">H</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="o">-</span><span class="n">p</span> <span class="mi">6666</span> <span class="o">./</span> <span class="n">_build</span><span class="o">/</span><span class="n">html</span><span class="o">/</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="demonstration-of-diagrams">
+<h3>demonstration of diagrams<a class="headerlink" href="#demonstration-of-diagrams" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="graphviz">
+<h4>graphviz<a class="headerlink" href="#graphviz" title="Permalink to this headline">¶</a></h4>
+<img src="_images/graphviz-382add969ec16b0b33652d7a909a27f5990fd838.png" alt="digraph foo {
+   &quot;bar&quot; -&gt; &quot;baz&quot;;
+}" />
+<img src="_images/graphviz-6e5c1b01edb4b8acd0d8915841ef30d33709b834.png" alt="graph foo {
+&quot;bar&quot; -- &quot;baz&quot;;
+}" />
+<img src="_images/graphviz-05ef2e38ad0eb61c505dfd4fd3753850d80ccc3a.png" alt="digraph foo {
+&quot;bar&quot; -&gt; &quot;baz&quot; -&gt; &quot;quux&quot;;
+}" />
+<img src="_images/graphviz-b9a9e4e143472aa08f5f1e168757c9547f1430a0.png" alt="digraph example {
+    a [label=&quot;sphinx&quot;, href=&quot;http://sphinx-doc.org&quot;, target=&quot;_top&quot;];
+    b [label=&quot;other&quot;];
+    a -&gt; b;
+}" usemap="#example" />
+<map id="example" name="example">
+<area shape="poly" id="node1" href="http://sphinx-doc.org" target="_top" title="sphinx" alt="" coords="97,29,95,22,88,15,78,10,65,7,51,5,37,7,24,10,14,15,8,22,5,29,8,37,14,43,24,49,37,52,51,53,65,52,78,49,88,43,95,37"/>
+</map><img src="_images/graphviz-9755211d3301886656b2afaa57728b89202e7bc9.png" alt="digraph Flatland {
+
+   a -&gt; b -&gt; c -&gt; g;
+   a  [shape=polygon,sides=4]
+   b  [shape=polygon,sides=5]
+   c  [shape=polygon,sides=6]
+
+   g [peripheries=3,color=yellow];
+   s [shape=invtriangle,peripheries=1,color=red,style=filled];
+   w  [shape=triangle,peripheries=1,color=blue,style=filled];
+
+   }" />
+</div>
+<div class="section" id="nwdiag">
+<h4>nwdiag<a class="headerlink" href="#nwdiag" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="simple-diagram">
+<h5>simple diagram<a class="headerlink" href="#simple-diagram" title="Permalink to this headline">¶</a></h5>
+<div><img height="444" src="_images/nwdiag-eb3a6d46123786cf0b406c61fb826145e1cda41d.png" width="456" /></div><table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>web server01</td>
+</tr>
+<tr class="row-odd"><td>B</td>
+<td>web server02</td>
+</tr>
+<tr class="row-even"><td>C</td>
+<td>database server</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="define-multiple-addresses">
+<h5>define multiple addresses<a class="headerlink" href="#define-multiple-addresses" title="Permalink to this headline">¶</a></h5>
+<div><img height="444" src="_images/nwdiag-557accf23384a3985f9dc01ee2a948501dac3251.png" width="760" /></div></div>
+<div class="section" id="grouping-nodes">
+<h5>grouping nodes<a class="headerlink" href="#grouping-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="444" src="_images/nwdiag-7000229e0154f42cd69f5c441319975730e17333.png" width="760" /></div></div>
+<div class="section" id="define-group-at-outside-nw-definitions">
+<h5>define group at outside nw definitions<a class="headerlink" href="#define-group-at-outside-nw-definitions" title="Permalink to this headline">¶</a></h5>
+<div><img height="444" src="_images/nwdiag-e820f969bada8ffba643e1d574e2691e05999095.png" width="608" /></div></div>
+<div class="section" id="peer-networks">
+<h5>peer networks<a class="headerlink" href="#peer-networks" title="Permalink to this headline">¶</a></h5>
+<div><img height="588" src="_images/nwdiag-337806c41c467bddc2a4f7b6d75ff046d217f490.png" width="608" /></div><p><a class="reference external" href="http://blockdiag.com/en/nwdiag/sphinxcontrib.html#install">http://blockdiag.com/en/nwdiag/sphinxcontrib.html#install</a>
+<a class="reference external" href="http://blockdiag.com/en/nwdiag/">http://blockdiag.com/en/nwdiag/</a></p>
+</div>
+</div>
+<div class="section" id="rackdiag">
+<h4>rackdiag<a class="headerlink" href="#rackdiag" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id1">
+<h5>simple diagram<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<div><img height="720" src="_images/rackdiag-bf7831cd63162b467288f10481b2548d3091f8f4.png" width="256" /></div></div>
+<div class="section" id="rack-attributes">
+<h5>rack attributes<a class="headerlink" href="#rack-attributes" title="Permalink to this headline">¶</a></h5>
+<div><img height="592" src="_images/rackdiag-9619ad518b4fd571ea9bd9433ecd244a8d20400f.png" width="256" /></div></div>
+<div class="section" id="multiple-units-in-rack-level">
+<h5>multiple units in rack-level<a class="headerlink" href="#multiple-units-in-rack-level" title="Permalink to this headline">¶</a></h5>
+<div><img height="720" src="_images/rackdiag-2cb854ce181e629004804f3ab3adf1533e1cc432.png" width="256" /></div></div>
+<div class="section" id="multiple-racks">
+<h5>multiple racks<a class="headerlink" href="#multiple-racks" title="Permalink to this headline">¶</a></h5>
+<div><img height="720" src="_images/rackdiag-288497ec689b31f23dad519aa8a786e13bc84ee3.png" width="448" /></div></div>
+<div class="section" id="define-na-units">
+<h5>define na units<a class="headerlink" href="#define-na-units" title="Permalink to this headline">¶</a></h5>
+<div><img height="560" src="_images/rackdiag-0b9bca887ba4a5a95f8696933ec4185e30c62cca.png" width="256" /></div></div>
+</div>
+<div class="section" id="packetdiag">
+<h4>packetdiag<a class="headerlink" href="#packetdiag" title="Permalink to this headline">¶</a></h4>
+<div><img height="768" src="_images/packetdiag-32de136b0a0adaa0d302a84f2055bc22f31afb67.png" width="896" /></div></div>
+<div class="section" id="blockdiag">
+<h4>blockdiag<a class="headerlink" href="#blockdiag" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://blockdiag.com/en/blockdiag/index.html">http://blockdiag.com/en/blockdiag/index.html</a>
+<a class="reference external" href="http://blockdiag.com/en/blockdiag/attributes/index.html">http://blockdiag.com/en/blockdiag/attributes/index.html</a></p>
+<div><img height="200" src="_images/blockdiag-0266c5effe1a8be5f80d7255b892726bd02a8d5d.png" width="640" /></div><div class="section" id="node-width-and-node-height-attribute-to-diagram">
+<h5>node_width and node_height attribute to diagram<a class="headerlink" href="#node-width-and-node-height-attribute-to-diagram" title="Permalink to this headline">¶</a></h5>
+<div><img height="180" src="_images/blockdiag-d1fa058c4380aa83216546f40619d8a489892b15.png" width="592" /></div></div>
+<div class="section" id="span-width-and-span-height-attribute-to-diagram">
+<h5>span_width and span_height attribute to diagram<a class="headerlink" href="#span-width-and-span-height-attribute-to-diagram" title="Permalink to this headline">¶</a></h5>
+<div><img height="440" src="_images/blockdiag-213556114588d0b76d8680f45c73f1c106d644b6.png" width="976" /></div></div>
+<div class="section" id="default-fontsize-attribute-to-diagram">
+<h5>default_fontsize attribute to diagram<a class="headerlink" href="#default-fontsize-attribute-to-diagram" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-6bfaeb9d68014b0049217fe02514e157997d3609.png" width="448" /></div></div>
+<div class="section" id="default-shape-attribute-to-diagram">
+<h5>default_shape attribute to diagram<a class="headerlink" href="#default-shape-attribute-to-diagram" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-ed9e5eaeef88855e71509cb46703cd737486b5d9.png" width="448" /></div></div>
+<div class="section" id="orientation-attribute-to-diagram">
+<h5>orientation attribute to diagram<a class="headerlink" href="#orientation-attribute-to-diagram" title="Permalink to this headline">¶</a></h5>
+<div><img height="280" src="_images/blockdiag-c94c1c4e4125b6f1693db0d1335d6f7e76de9e91.png" width="448" /></div></div>
+<div class="section" id="default-node-color-default-group-color-default-linecolor-and-default-textcolor-attribute">
+<h5>default_node_color, default_group_color, default_linecolor and default_textcolor attribute<a class="headerlink" href="#default-node-color-default-group-color-default-linecolor-and-default-textcolor-attribute" title="Permalink to this headline">¶</a></h5>
+<div><img height="200" src="_images/blockdiag-9bfdb3a994e48a94794a3cf3f93f5fff498202fa.png" width="640" /></div></div>
+<div class="section" id="label-attribute-to-nodes">
+<h5>label attribute to nodes<a class="headerlink" href="#label-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-8ddc71d6ee6ae5fa11c1cfeb33173ae2036da93e.png" width="640" /></div></div>
+<div class="section" id="style-attribute-to-nodes">
+<h5>style attribute to nodes<a class="headerlink" href="#style-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-7e0f3269135f6469f5b520963afa3ea7cc7193f9.png" width="832" /></div></div>
+<div class="section" id="color-attribute-to-nodes">
+<h5>color attribute to nodes<a class="headerlink" href="#color-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-d3ce6fc6b012db0b8862355d7686bb035e02a2b3.png" width="832" /></div></div>
+<div class="section" id="numbered-attribute-to-nodes">
+<h5>numbered attribute to nodes<a class="headerlink" href="#numbered-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-39f2aa75d78885c8504b66aabd7b98eece086b38.png" width="640" /></div></div>
+<div class="section" id="shape-attribute-to-nodes">
+<h5>shape attribute to nodes<a class="headerlink" href="#shape-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="440" src="_images/blockdiag-2869de131fa063e69b44e020dd63ae68ea4f94e5.png" width="832" /></div></div>
+<div class="section" id="background-attribute-to-nodes">
+<h5>background attribute to nodes<a class="headerlink" href="#background-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-3d62e4c0793a80304d7c020785517428ed43bc68.png" width="256" /></div></div>
+<div class="section" id="stacked-attribute-to-nodes">
+<h5>stacked attribute to nodes<a class="headerlink" href="#stacked-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-902a530e130a07b8d05211e4766b6b97651830a4.png" width="448" /></div></div>
+<div class="section" id="description-attribute-to-nodes">
+<h5>description attribute to nodes<a class="headerlink" href="#description-attribute-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-e492be244d6dee4782350bdcb37c5b6587a59cf9.png" width="640" /></div></div>
+<div class="section" id="icon-attributes-to-nodes">
+<h5>Icon attributes to nodes<a class="headerlink" href="#icon-attributes-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-198e168a802ed56c116b9eb4114d26639faf0a32.png" width="640" /></div></div>
+<div class="section" id="color-attributes-to-nodes">
+<h5>color attributes to nodes<a class="headerlink" href="#color-attributes-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-7e8cca2c572904bdddf2b7d046d3e3d704927524.png" width="448" /></div></div>
+<div class="section" id="width-and-height-attributes-to-nodes">
+<h5>width and height attributes to nodes<a class="headerlink" href="#width-and-height-attributes-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="144" src="_images/blockdiag-1665175d8299377920d9b4fb93e1fbd4b6299d91.png" width="512" /></div></div>
+<div class="section" id="fontsize-attributes-to-nodes">
+<h5>fontsize attributes to nodes<a class="headerlink" href="#fontsize-attributes-to-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-6c1db86b64ac00db5631c785c2cb172dc95fc173.png" width="448" /></div></div>
+<div class="section" id="label-attribute-to-edges">
+<h5>label attribute to edges<a class="headerlink" href="#label-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-d2d1fb43c1f9ae65c7d1269694be0faca6078fdc.png" width="640" /></div></div>
+<div class="section" id="style-attribute-to-edges">
+<h5>style attribute to edges<a class="headerlink" href="#style-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-3f25dd68f1815144633b5945a2db55ae725c4ff5.png" width="1024" /></div></div>
+<div class="section" id="hstyle-attribute-to-edges">
+<h5>hstyle attribute to edges<a class="headerlink" href="#hstyle-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-1a35dc5af3cda1ee3a196197a0c9e419a75a6eab.png" width="832" /></div></div>
+<div class="section" id="color-attribute-to-edges">
+<h5>color attribute to edges<a class="headerlink" href="#color-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-55bee348aa603624dd7aa2c1e5b45969cc1f0e49.png" width="640" /></div></div>
+<div class="section" id="dir-attribute-to-edges">
+<h5>dir attribute to edges<a class="headerlink" href="#dir-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="200" src="_images/blockdiag-a5ed1f85ce0c8ecb287ea107c42370017d3e3864.png" width="1024" /></div></div>
+<div class="section" id="folded-attribute-to-edges">
+<h5>folded attribute to edges<a class="headerlink" href="#folded-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="200" src="_images/blockdiag-d2979b11c7e83651119a12a377e5186c7d205750.png" width="640" /></div></div>
+<div class="section" id="text-color-attribute-to-edges">
+<h5>text color attribute to edges<a class="headerlink" href="#text-color-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-d28b0ae158f61a8a1fd44bd1b5ce68ecea2b0141.png" width="448" /></div></div>
+<div class="section" id="font-size-attribute-to-edges">
+<h5>font size attribute to edges<a class="headerlink" href="#font-size-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-1f6289632b6b360da54695375d36f37e042499ae.png" width="448" /></div></div>
+<div class="section" id="thick-attribute-to-edges">
+<h5>thick attribute to edges<a class="headerlink" href="#thick-attribute-to-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="200" src="_images/blockdiag-424d2ee2dcbbf984b24c2796bec8dc410934b625.png" width="640" /></div></div>
+<div class="section" id="style-attributes-to-nodes-and-edges">
+<h5>style attributes to nodes and edges<a class="headerlink" href="#style-attributes-to-nodes-and-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="304" src="_images/blockdiag-fa93ce8df37fcd76e7c21341ea205a3d98fd41c8.png" width="1088" /></div></div>
+<div class="section" id="branched-edges">
+<h5>branched edges<a class="headerlink" href="#branched-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="360" src="_images/blockdiag-f6c1ab24b636b59a44731551025ba1cd79fbc11e.png" width="448" /></div></div>
+<div class="section" id="direction-of-edges">
+<h5>direction of edges<a class="headerlink" href="#direction-of-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-f61984e8702fc026804b0435bb6ac71693505ffc.png" width="1024" /></div></div>
+<div class="section" id="edge-folding">
+<h5>edge folding<a class="headerlink" href="#edge-folding" title="Permalink to this headline">¶</a></h5>
+<div><img height="200" src="_images/blockdiag-05a6b80b883fb1bc95530bb4411286fda54b5c5f.png" width="640" /></div></div>
+<div class="section" id="shape-of-nodes">
+<h5>shape of nodes<a class="headerlink" href="#shape-of-nodes" title="Permalink to this headline">¶</a></h5>
+<div><img height="520" src="_images/blockdiag-e85fa8cce03fe454670eeee5ab7fa649d4d13b17.png" width="832" /></div></div>
+<div class="section" id="using-stacked-attribute">
+<h5>using stacked attribute<a class="headerlink" href="#using-stacked-attribute" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-58ac9b43aad4e487920835ac9f43baf32e18b33c.png" width="640" /></div></div>
+<div class="section" id="using-dots-shape">
+<h5>using dots shape<a class="headerlink" href="#using-dots-shape" title="Permalink to this headline">¶</a></h5>
+<div><img height="280" src="_images/blockdiag-091ce6e1740fc34a232a1d2a22d5f721bf92bf27.png" width="448" /></div></div>
+<div class="section" id="id2">
+<h5>grouping nodes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<div><img height="360" src="_images/blockdiag-be982d6be1eddc32a441463f28f4923720a87332.png" width="1024" /></div></div>
+<div class="section" id="font-settings">
+<h5>font settings<a class="headerlink" href="#font-settings" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-17ff3cbd3709f5c0f25b7c76a7401d7957876eb6.png" width="640" /></div></div>
+<div class="section" id="diagram-attributes">
+<h5>diagram attributes<a class="headerlink" href="#diagram-attributes" title="Permalink to this headline">¶</a></h5>
+<div><img height="560" src="_images/blockdiag-8244fccd60398c9566e1e72de89a9c9afcbc15b6.png" width="1120" /></div></div>
+<div class="section" id="define-classes">
+<h5>define classes<a class="headerlink" href="#define-classes" title="Permalink to this headline">¶</a></h5>
+<div><img height="120" src="_images/blockdiag-d00d4bd77cf3e3515be18446e7e11b31e298ea6f.png" width="640" /></div></div>
+<div class="section" id="portrait-mode">
+<h5>portrait mode<a class="headerlink" href="#portrait-mode" title="Permalink to this headline">¶</a></h5>
+<div><img height="280" src="_images/blockdiag-1abc0e7d80f8f67592db8b5e22bb834f43521f0f.png" width="448" /></div></div>
+<div class="section" id="portrait-group">
+<h5>portrait group<a class="headerlink" href="#portrait-group" title="Permalink to this headline">¶</a></h5>
+<div><img height="280" src="_images/blockdiag-3d6fc81d11fc7592525271d5e01a9567f9fcd5ec.png" width="640" /></div></div>
+<div class="section" id="simple-diagram-for-master-data-manager">
+<h5>simple diagram for master data manager<a class="headerlink" href="#simple-diagram-for-master-data-manager" title="Permalink to this headline">¶</a></h5>
+<div><img height="360" src="_images/blockdiag-79e2f561028943b1db7bcee40c2916949b6ff318.png" width="640" /></div></div>
+</div>
+<div class="section" id="seqdiag">
+<h4>seqdiag<a class="headerlink" href="#seqdiag" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id3">
+<h5>simple diagram<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
+<div><img height="489" src="_images/seqdiag-ef337e68970ae521c565196f4a367e79e039b950.png" width="640" /></div></div>
+<div class="section" id="edge-types">
+<h5>edge types<a class="headerlink" href="#edge-types" title="Permalink to this headline">¶</a></h5>
+<div><img height="771" src="_images/seqdiag-687e4e17daf84d3c1258e2e1a7b4315888826b9c.png" width="640" /></div></div>
+<div class="section" id="attributes-of-edges">
+<h5>attributes of edges<a class="headerlink" href="#attributes-of-edges" title="Permalink to this headline">¶</a></h5>
+<div><img height="594" src="_images/seqdiag-81ae8287f507dcd6e001699dd9258bb4bad2870f.png" width="448" /></div></div>
+<div class="section" id="auto-return-edge-and-nested-sequense">
+<h5>auto return edge and nested sequense<a class="headerlink" href="#auto-return-edge-and-nested-sequense" title="Permalink to this headline">¶</a></h5>
+<div><img height="994" src="_images/seqdiag-e89e72a6370525e996425b94350c2c10fecd8e1e.png" width="1024" /></div></div>
+<div class="section" id="separators">
+<h5>separators<a class="headerlink" href="#separators" title="Permalink to this headline">¶</a></h5>
+<div><img height="454" src="_images/seqdiag-d60fedad1cbe6c8af3e68cc19c6d26d0f0321948.png" width="448" /></div></div>
+<div class="section" id="edge-notes">
+<h5>edge notes<a class="headerlink" href="#edge-notes" title="Permalink to this headline">¶</a></h5>
+<div><img height="452" src="_images/seqdiag-326224c6d184f0af4541c71490c704da20b89389.png" width="462" /></div></div>
+<div class="section" id="id4">
+<h5>diagram attributes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
+<div><img height="462" src="_images/seqdiag-558535901b41bcdd93be986fac6e9061a5785edd.png" width="597" /></div></div>
+<div class="section" id="tips-changing-order-of-elements">
+<h5>TIPS: changing order of elements<a class="headerlink" href="#tips-changing-order-of-elements" title="Permalink to this headline">¶</a></h5>
+<p>If you want to changing order of elements, define elements you want to layout. seqdiag sorts elements by order they appear</p>
+<div><img height="489" src="_images/seqdiag-9cda3ec18bec4460d0c6a9d43ec80050b9c5ddab.png" width="640" /></div></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python.html" class="btn btn-neutral float-right" title="python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scripting.html" class="btn btn-neutral float-left" title="Scripting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Brunswyck
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

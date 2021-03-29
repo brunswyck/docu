@@ -1,0 +1,1188 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OSPF &mdash; Patrick&#39;s Docuhub a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../',
+              VERSION:'a',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/js/custom.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Open Daylight" href="../sdn/inhoud.html" />
+    <link rel="prev" title="EIGRP" href="eigrp.html" />
+    <link href="../../../_static/mylayout.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Patrick's Docuhub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019-07-14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheets.html">cheatsheets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands.html">commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripting.html">Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../diagrams.html">Diagrams in Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cumulocity.html">cumulocity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../server.html">debian server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workstation.html">workstation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vim.html">VIM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../git.html">GIT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../inhoud.html">Routing/Switching</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../basics/inhoud.html">basics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="inhoud.html">scaling networks</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lan_design.html">LAN design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaling_vlans.html">Scaling VLANs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stp.html">Spanning Tree Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="la_hsrp.html">Etherchannel - Hot Standby Routing Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_routing.html">Dynamic Routing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eigrp.html">EIGRP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">OSPF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ad-values-table">AD Values table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spf">SPF</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packet-types">Packet types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lsa-types">LSA types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-routing-table-entries">OSPF Routing Table Entries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-route-calculation">OSPF Route Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#abr-s">ABR’s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multiarea-ospf-implementation">Multiarea OSPF implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asbr-s">ASBR’s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backbone-routers">Backbone Routers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#internal-routers">Internal Routers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-operational-states">OSPF Operational States</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dr-adn-bdr">DR adn BDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-configuration">OSPF configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#router-id-order-of-precedence">Router ID order of precedence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modify-router-id">Modify Router ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-cost-values">OSPF Cost Values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#when-nbs-dont-form-adjencies">When NBs dont form adjencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-example-topology">OSPF example topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ospf-troubleshooting">OSPF TroubleShooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-a-multi-area-network">Configuring a multi area network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qna">QnA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sdn/inhoud.html">Open Daylight</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sdn/gns3server.html">Setting up a GNS3 server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../storage/storage.html">Storage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Patrick's Docuhub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../inhoud.html">Routing/Switching</a> &raquo;</li>
+        
+          <li><a href="inhoud.html">scaling networks</a> &raquo;</li>
+        
+      <li>OSPF</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/nw/rns/sn/ospf.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ospf">
+<h1>OSPF<a class="headerlink" href="#ospf" title="Permalink to this headline">¶</a></h1>
+<p>AD = 110</p>
+<dl class="docutils">
+<dt>Link</dt>
+<dd>router interface</dd>
+<dt>State</dt>
+<dd>description of an interface and it’s relationship to NB routers</dd>
+</dl>
+<p><code class="docutils literal"><span class="pre">224.0.0.5</span> <span class="pre">or</span> <span class="pre">unicast</span> <span class="pre">MAC</span> <span class="pre">01:00:5E:00:00:05</span></code>
+<code class="docutils literal"><span class="pre">224.0.0.6</span> <span class="pre">for</span> <span class="pre">link-local</span> <span class="pre">multicasts</span> <span class="pre">MAC</span> <span class="pre">01:00:5E:00:00:06(do</span> <span class="pre">not</span> <span class="pre">hop</span> <span class="pre">across</span> <span class="pre">routers)</span></code>
+- resides directly on top of IP
+- does not use TCP(pid 5) Or UDP(pid 17)
+- Protocol ID 89
+- also resides at L3</p>
+<dl class="docutils">
+<dt>OSPF Area</dt>
+<dd>number 100 or 1.1.1.1 dotted decimal</dd>
+</dl>
+<p>by default sync every 30mins with state of the links</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="27%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Adjacency  Table</td>
+<td>IP OSPF Neighbor Table</td>
+<td>Neighboring Routers
+- show ip ospf neighbor</td>
+</tr>
+<tr class="row-even"><td>Topology Table
+LSDB</td>
+<td>IP OSPF Topology Table</td>
+<td>All routers n attached links in area/network
+- show ip ospf database</td>
+</tr>
+<tr class="row-odd"><td>Forwarding Table</td>
+<td>IP Routing Table</td>
+<td>Best Routes
+- show ip route</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="ad-values-table">
+<h2>AD Values table<a class="headerlink" href="#ad-values-table" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/Administrative-Distance.png" src="../../../_images/Administrative-Distance.png" />
+<p>RFC link <a class="reference external" href="https://www.rfc-editor.org/refs/ref2328.txt">https://www.rfc-editor.org/refs/ref2328.txt</a></p>
+</div>
+<div class="section" id="spf">
+<h2>SPF<a class="headerlink" href="#spf" title="Permalink to this headline">¶</a></h2>
+<p>The SPF algorithm creates an SPF tree by placing each router at the root of the tree and calculating the shortest path to each node. The SPF tree is then used to calculate the best routes. OSPF places the best routes into the forwarding database, which is used to make the routing table.</p>
+</div>
+<div class="section" id="packet-types">
+<h2>Packet types<a class="headerlink" href="#packet-types" title="Permalink to this headline">¶</a></h2>
+<p>DL Frame Header - IP packet header - OSPF packet header - OSPF packet type-specific database</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">type code</th>
+<th class="head">name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0x01
+0x02
+0x03
+0x04
+0x05</td>
+<td>hello
+Database Description (DD)
+Link State Request
+Link State Update
+Link State Acknowledgment</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Type 1:  Hello packet</dt>
+<dd><ul class="first simple">
+<li>Used to establish and maintain adjacency with other OSPF routers.</li>
+</ul>
+<img alt="../../../_images/8_ospf_hello.png" src="../../../_images/8_ospf_hello.png" />
+<ul class="last simple">
+<li>Elect the Designated Router (DR) and Backup Designated Router (BDR) on multiaccess networks like Ethernet and Frame Relay. Point-to-point links do not require DR or BDR</li>
+<li>Type - Identifies the type of packet. A one (1) indicates a Hello packet. A value 2 identifies a DBD packet, 3 an LSR packet, 4 an LSU packet, and 5 an LSAck packet.</li>
+<li>Router ID - A 32-bit value expressed in dotted decimal notation (like an IPv4 address) used to uniquely identify the originating router.</li>
+<li>Area ID – Number of the area from which the packet originated.</li>
+<li>Network Mask - Subnet mask associated with the sending interface.</li>
+<li>Hello Interval - Specifies the frequency, in seconds, at which a router sends Hello packets. The default Hello interval on multiaccess networks is 10 seconds. This timer must be the same on neighboring routers; otherwise, an adjacency is not established.</li>
+<li>Router Priority - Used in a DR/BDR election. The default priority for all OSPF routers is 1, but can be manually altered from 0 to 255. The higher the value, the more likely the router becomes the DR on the link.</li>
+<li>Dead Interval - Is the time in seconds that a router waits to hear from a neighbor before declaring the neighboring router out of service. By default, the router Dead Interval is four times the Hello interval. This timer must be the same on neighboring routers; otherwise, an adjacency is not established.</li>
+<li>Designated Router (DR) - Router ID of the DR.</li>
+<li>Backup Designated Router (BDR) - Router ID of the BDR.</li>
+<li>List of Neighbors - List that identifies the router IDs of all adjacent routers.</li>
+</ul>
+</dd>
+<dt>Type 2: Database Description (DBD) packet</dt>
+<dd><ul class="first last simple">
+<li>Contains an abbreviated list of the sending router’s LSDB and is used by receiving routers to check against the local LSDB. The LSDB must be identical on all link-state routers within an area to construct an accurate SPF tree.</li>
+</ul>
+</dd>
+<dt>Type 3:</dt>
+<dd>Link-State Request (LSR) packet - Receiving routers can then request more information about any entry in the DBD by sending an LSR.</dd>
+<dt>Type 4:</dt>
+<dd><p class="first">Link-State Update (LSU) packet - Used to reply to LSRs and to announce new information. LSUs contain seven different types of LSAs.</p>
+<img alt="../../../_images/8_ospf_LSU.png" class="last" src="../../../_images/8_ospf_LSU.png" />
+</dd>
+<dt>Type 5:</dt>
+<dd>Link-State Acknowledgment (LSAck) packet - When an LSU is received, the router sends an LSAck to confirm receipt of the LSU. The LSAck data field is empty.</dd>
+<dt>Hello</dt>
+<dd><ul class="first last simple">
+<li>Dynamically dicover neighbors</li>
+<li>form neighbors and maintain</li>
+<li><dl class="first docutils">
+<dt>default intervals</dt>
+<dd><ul class="first last">
+<li>10 seconds on broadcast segments (Ethernet)</li>
+<li>30 seconds on non-broadcast segments (Serial, NBMA)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>dead timer
+- 4 X hello interval by default (not rcvd within that time NB relationship is torn down)</li>
+</ul>
+</dd>
+<dt>Database Description (DD/DBD)</dt>
+<dd><ul class="first last simple">
+<li>used to exchange brief versions of each LSA</li>
+</ul>
+</dd>
+<dt>Link State Request (LSR)</dt>
+<dd><ul class="first last simple">
+<li>request for full LSA information</li>
+</ul>
+</dd>
+<dt>Link State Update (LSU)</dt>
+<dd><ul class="first last simple">
+<li>contains LSA’s</li>
+<li>typically in response to LSR</li>
+</ul>
+</dd>
+<dt>Link State Acknowledgement (LSAck)</dt>
+<dd><ul class="first last simple">
+<li>confirm receipt of an LSU message</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ospf can have a recommended max 50 areas</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Area 0 is known as the backbone area</p>
+</div>
+</div>
+<div class="section" id="lsa-types">
+<h2>LSA types<a class="headerlink" href="#lsa-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">LSA Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>Router LSA</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>Network LSA</td>
+</tr>
+<tr class="row-even"><td>3 and 4</td>
+<td>Summary LSAs</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td>AS External LSA</td>
+</tr>
+<tr class="row-even"><td>6</td>
+<td>Multicast OSPF LSA</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+<td>Defined for NSSAs</td>
+</tr>
+<tr class="row-even"><td>8</td>
+<td>External Attributes LSA for Border Gateway Protocol (BGP)</td>
+</tr>
+<tr class="row-odd"><td>9, 10, or 11</td>
+<td>Opaque LSAs</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../../_images/8_lsa_type1.png" src="../../../_images/8_lsa_type1.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">all routers advertise their directly connected OSPF-enabled links in a type 1 LSA and forward their network information to OSPF neighbors. The LSA contains a list of the directly connected interfaces, link types, neighbors, and link states.</p>
+</div>
+<ul class="simple">
+<li>Type 1 LSAs include a list of directly connected network prefixes and link types.</li>
+<li>All routers generate type 1 LSAs.</li>
+<li>Type 1 LSAs are flooded within the area and do not propagate beyond an ABR.</li>
+<li>A type 1 LSA link-state ID is identified by the router ID of the originating router.</li>
+</ul>
+<img alt="../../../_images/8_lsa_type2.png" src="../../../_images/8_lsa_type2.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A type 2 LSA only exists for multiaccess and non-broadcast multiaccess (NBMA) networks where there is a DR elected and at least two routers on the multiaccess segment. The type 2 LSA contains the router ID and IP address of the DR, along with the router ID of all other routers on the multiaccess segment. A type 2 LSA is created for every multiaccess network in the area.</p>
+</div>
+<ul class="simple">
+<li>Type 2 LSAs identify the routers and the network addresses of the multiaccess links.</li>
+<li>Only a DR generates a type 2 LSA.</li>
+<li>Type 2 LSAs are flooded within the multiaccess network and do not go beyond an ABR.</li>
+<li>A type 2 LSA link-state ID is identified by the DR router ID.</li>
+</ul>
+<img alt="../../../_images/8_lsa_type3.png" src="../../../_images/8_lsa_type3.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Type 3 LSAs are used by ABRs to advertise networks from other areas. ABRs collect type 1 LSAs in the LSDB. After an OSPF area has converged, the ABR creates a type 3 LSA for each of its learned OSPF networks. Therefore, an ABR with many OSPF routes must create type 3 LSAs for each network.</p>
+</div>
+<ul class="simple">
+<li>A type 3 LSA describes a network address learned by type 1 LSAs.</li>
+<li>A type 3 LSA is required for every subnet.</li>
+<li>ABRs flood type 3 LSAs to other areas and are regenerated by other ABRs.</li>
+<li>A type 3 LSA link-state ID is identified by the network address.</li>
+<li>By default, routes are not summarized.</li>
+</ul>
+<img alt="../../../_images/8_lsa_type4.png" src="../../../_images/8_lsa_type4.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Type 4 and type 5 LSAs are used collectively to identify an ASBR and advertise external networks into an OSPF routing domain. A type 4 summary LSA is generated by an ABR only when an ASBR exists within an area. A type 4 LSA identifies the ASBR and provides a route to it. All traffic destined to an external network requires routing table knowledge of the ASBR that originated the external routes.</p>
+</div>
+<ul class="simple">
+<li>Type 4 LSAs are used to advertise an ASBR to other areas and provide a route to the ASBR.</li>
+<li>ABRs generate type 4 LSAs.</li>
+<li>A type 4 LSA is generated by the originating ABR and regenerated by other ABRs.</li>
+<li>A type 4 LSA link-state ID is identified by the router ID of the ASBR.</li>
+</ul>
+<img alt="../../../_images/8_lsa_type5.png" src="../../../_images/8_lsa_type5.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Type 5 external LSAs describe routes to networks outside the OSPF routing domain. Type 5 LSAs are originated by the ASBR and are flooded to the entire routing domain. Type 5 LSAs are also referred to as external LSA entries.</p>
+</div>
+<ul class="simple">
+<li>Type 5 LSAs are used to advertise external (i.e., non-OSPF) network addresses.</li>
+<li>An ASBR generates a type 5 LSA.</li>
+<li>Type 5 LSAs are flooded throughout the area and regenerated by other ABRs.</li>
+<li>A type 5 LSA link-state ID is the external network address.</li>
+<li>By default, routes are not summarized.</li>
+</ul>
+</div>
+<div class="section" id="ospf-routing-table-entries">
+<h2>OSPF Routing Table Entries<a class="headerlink" href="#ospf-routing-table-entries" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/8_ospf_show_ip_route.png" src="../../../_images/8_ospf_show_ip_route.png" />
+<ul class="simple">
+<li>O
+Router (type 1) and network (type 2) LSAs describe the details within an area. The routing table reflects this link-state information with a designation of O, meaning that the route is intra-area.</li>
+<li>O IA
+When an ABR receives a router LSA (type 1) in one area; it sends a summary LSA (type 3) into the adjacent area. Summary LSAs appear in the routing table as IA (interarea routes). Summary LSAs received in one area are also forwarded to other areas.</li>
+<li>O E1 or O E2
+External LSAs appear in the routing table marked as external type 1 (E1) or external type 2 (E2) routes. Type 2 (E2) is the default. The difference between type 1 (E1) and type 2 (E2) are beyond the scope of this course.</li>
+</ul>
+<img alt="../../../_images/8_ospf_show_ipv6_route.png" src="../../../_images/8_ospf_show_ipv6_route.png" />
+<p>above displays an IPv6 routing table with OSPF intra-area, interarea, and external routing table entries.</p>
+</div>
+<div class="section" id="ospf-route-calculation">
+<h2>OSPF Route Calculation<a class="headerlink" href="#ospf-route-calculation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Calculate intra-area OSPF routes.</li>
+<li>Calculate best path to interarea OSPF routes.</li>
+<li>Calculate best path route to external non-OSPF networks.</li>
+</ul>
+<img alt="../../../_images/8_ospf_route_calculation.png" src="../../../_images/8_ospf_route_calculation.png" />
+<ol class="arabic simple">
+<li>All routers calculate the best path(s) to destinations within their area (intra-area) and add these entries to the routing table. These are the type 1 and type 2 LSAs, which are noted in the routing table with a routing designator of O. (1)</li>
+<li>All routers calculate the best path(s) to the other areas within the internetwork. These best paths are the interarea route entries, or type 3 LSAs, and are noted with a routing designator of O IA. (2)</li>
+<li>All routers (except those that are in a form of stub area) calculate the best path(s) to the external autonomous system (type 5) destinations. These are noted with either an O E1 or an O E2 route designator, depending on the configuration. (3)</li>
+</ol>
+<p>When converged, a router can communicate with any network within or outside the OSPF routing domain.</p>
+</div>
+<div class="section" id="abr-s">
+<h2>ABR’s<a class="headerlink" href="#abr-s" title="Permalink to this headline">¶</a></h2>
+<p>Area Border Router’s</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ABR’s allow for summarization of routes</p>
+</div>
+<img alt="../../../_images/8_ospf_abr_summarization.png" src="../../../_images/8_ospf_abr_summarization.png" />
+</div>
+<div class="section" id="multiarea-ospf-implementation">
+<h2>Multiarea OSPF implementation<a class="headerlink" href="#multiarea-ospf-implementation" title="Permalink to this headline">¶</a></h2>
+<p>Steps 1 and 2 are part of the planning process.</p>
+<ol class="arabic">
+<li><p class="first">Gather the network requirements and parameters - Gather the network requirements and parameters - This includes determining the number of host and network devices, the IP addressing scheme (if already implemented), the size of the routing domain, the size of the routing tables, the risk of topology changes, whether existing routers can support OSPF, and other network characteristics.</p>
+</li>
+<li><p class="first">Define the OSPF parameters
+Based on information gathered during Step 1, the network administrator must determine if single-area or multiarea OSPF is the preferred implementation. If multiarea OSPF is selected, there are several considerations the network administrator must take into account while determining the OSPF parameters, to include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>IP addressing plan</dt>
+<dd>This governs how OSPF can be deployed and how well the OSPF deployment might scale. A detailed IP addressing plan, along with the IP subnetting information, must be created. A good IP addressing plan should enable the usage of OSPF multiarea design and summarization. This plan more easily scales the network, as well as optimizes OSPF behavior and the propagation of LSA.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>OSPF areas</dt>
+<dd>Dividing an OSPF network into areas decreases the LSDB size and limits the propagation of link-state updates when the topology changes. The routers that are to be ABRs and ASBRs must be identified, as are those ABRs or ASBRs that are to perform any summarization or redistribution.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Network topology</dt>
+<dd>This consists of links that connect the network equipment and belong to different OSPF areas in a multiarea OSPF design. Network topology is important to determine primary and backup links. Primary and backup links are defined by the changing OSPF cost on interfaces. A detailed network topology plan should also be used to determine the different OSPF areas, ABR, and ASBR as well as summarization and redistribution points, if multiarea OSPF is used.</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Configure the multiarea OSPF implementation based on the parameters.</p>
+</li>
+<li><p class="first">Verify the multiarea OSPF implementation based on the parameters.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="asbr-s">
+<h2>ASBR’s<a class="headerlink" href="#asbr-s" title="Permalink to this headline">¶</a></h2>
+<p>Autonomous System Border Router</p>
+<p>A router that connects a routing process with another routing process</p>
+<p>e.g.
+The router connected to the RIP process here</p>
+<img alt="../../../_images/8_ospf_abr_summarization.png" src="../../../_images/8_ospf_abr_summarization.png" />
+</div>
+<div class="section" id="backbone-routers">
+<h2>Backbone Routers<a class="headerlink" href="#backbone-routers" title="Permalink to this headline">¶</a></h2>
+<p>Routers that have interfaces within Area 0</p>
+<img alt="../../../_images/8_ospf_backbonerouters.png" src="../../../_images/8_ospf_backbonerouters.png" />
+<p>They are used to be allow traffic to be sent from one area to another</p>
+</div>
+<div class="section" id="internal-routers">
+<h2>Internal Routers<a class="headerlink" href="#internal-routers" title="Permalink to this headline">¶</a></h2>
+<p>Routers within an area not bordering another area</p>
+</div>
+<div class="section" id="ospf-operational-states">
+<h2>OSPF Operational States<a class="headerlink" href="#ospf-operational-states" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/8_ospf_states.png" src="../../../_images/8_ospf_states.png" />
+<ul>
+<li><dl class="first docutils">
+<dt>Down State</dt>
+<dd><ul class="first last simple">
+<li>No Hello packets received = Down.</li>
+<li>Router sends Hello packets.</li>
+<li>Transition to Init state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Init State</dt>
+<dd><ul class="first last simple">
+<li>Hello packets are received from the neighbor.</li>
+<li>They contain the sending router’s Router ID.</li>
+<li>Transition to Two-Way state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>2way State</dt>
+<dd><ul class="first last simple">
+<li>When a router receives a Hello packet with its Router ID listed in the list of neighbors, the router transitions from the Init state to the Two-Way state.</li>
+<li>On Ethernet links, elect a DR, and a BDR.</li>
+<li>Transition to ExStart state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ExStart State</dt>
+<dd><ul class="first last simple">
+<li>Negotiate master / slave relationship and DBD packet sequence number.</li>
+<li>The master (one with highest router ID) initiates the DBD packet exchange.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Exchange State</dt>
+<dd><ul class="first simple">
+<li>Routers exchange DBD (Database Descriptor) packets.</li>
+<li>If additional router information is required then transition to Loading; otherwise, transition to the Full state.</li>
+</ul>
+<img alt="../../../_images/8_ospf_DBD_exchange.png" src="../../../_images/8_ospf_DBD_exchange.png" />
+<ul class="last simple">
+<li>A DBD packet includes information about the LSA entry header that appears in the router’s LSDB. The entries can be about a link or about a network. Each LSA entry header includes information about the link-state type, the address of the advertising router, the link’s cost, and the sequence number. The router uses the sequence number to determine the newness of the received link-state information.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Loading State</dt>
+<dd><ul class="first last simple">
+<li>LSRs and LSUs are used to gain additional route information.</li>
+<li>Routes are processed using the SPF algorithm.</li>
+<li>Transition to the Full state.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Full State</dt>
+<dd><ul class="first last simple">
+<li>Routers have converged</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The normal state for an OSPF router is usually FULL. If a router is stuck in another state, it is an indication that there are problems in forming adjacencies. The only exception to this is the 2-WAY state, which is normal in a multiaccess broadcast network. In multiaccess networks, DROTHERs only form FULL adjacencies with the DR and BDR. However, DROTHERs will still form a 2-WAY neighbor adjacency with any DROTHERs that join the network.</p>
+</div>
+</div>
+<div class="section" id="dr-adn-bdr">
+<h2>DR adn BDR<a class="headerlink" href="#dr-adn-bdr" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">OSPF elects a DR to be the collection and distribution point for LSAs sent and received. A BDR is also elected in case the DR fails. All other routers become DROTHERs. A DROTHER is a router that is neither the DR nor the BDR.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the DR is only used for spreading LSA’s. The router will still use the best next-hop router indicated in the routing table for the forwarding of all other packets</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A designated router is chosen for every nw segment</p>
+</div>
+<img alt="../../../_images/8_ospf_1dr_per_segment.png" src="../../../_images/8_ospf_1dr_per_segment.png" />
+<dl class="docutils">
+<dt>DR is elected based on highest priority</dt>
+<dd><ul class="first last simple">
+<li>range 0 to 255</li>
+<li>default is 1</li>
+<li>0 = cannot become a DR/BDR</li>
+</ul>
+</dd>
+</dl>
+<p>DR is elected based on highest Router ID</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A router that was DR and went down and comes back up after another DR and BDR have been established, does not become a DR again! (Not preemtive) The router just become a DRother router.</p>
+</div>
+</div>
+<div class="section" id="ospf-configuration">
+<h2>OSPF configuration<a class="headerlink" href="#ospf-configuration" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/8_ospf_config_router.png" src="../../../_images/8_ospf_config_router.png" />
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># ?</span>
+<span class="n">Router</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">:</span>
+
+  <span class="n">address</span><span class="o">-</span><span class="n">family</span>         <span class="n">Enter</span> <span class="n">Address</span> <span class="n">Family</span> <span class="n">command</span> <span class="n">mode</span>
+  <span class="n">area</span>                   <span class="n">OSPF</span> <span class="n">area</span> <span class="n">parameters</span>
+  <span class="n">auto</span><span class="o">-</span><span class="n">cost</span>              <span class="n">Calculate</span> <span class="n">OSPF</span> <span class="n">interface</span> <span class="n">cost</span> <span class="n">according</span> <span class="n">to</span> <span class="n">bandwidth</span>
+  <span class="n">bfd</span>                    <span class="n">BFD</span> <span class="n">configuration</span> <span class="n">commands</span>
+  <span class="n">capability</span>             <span class="n">Enable</span> <span class="n">specific</span> <span class="n">OSPF</span> <span class="n">feature</span>
+  <span class="n">compatible</span>             <span class="n">OSPF</span> <span class="n">compatibility</span> <span class="nb">list</span>
+  <span class="n">default</span>                <span class="n">Set</span> <span class="n">a</span> <span class="n">command</span> <span class="n">to</span> <span class="n">its</span> <span class="n">defaults</span>
+  <span class="n">default</span><span class="o">-</span><span class="n">information</span>    <span class="n">Control</span> <span class="n">distribution</span> <span class="n">of</span> <span class="n">default</span> <span class="n">information</span>
+  <span class="n">default</span><span class="o">-</span><span class="n">metric</span>         <span class="n">Set</span> <span class="n">metric</span> <span class="n">of</span> <span class="n">redistributed</span> <span class="n">routes</span>
+  <span class="n">discard</span><span class="o">-</span><span class="n">route</span>          <span class="n">Enable</span> <span class="ow">or</span> <span class="n">disable</span> <span class="n">discard</span><span class="o">-</span><span class="n">route</span> <span class="n">installation</span>
+  <span class="n">distance</span>               <span class="n">Define</span> <span class="n">an</span> <span class="n">administrative</span> <span class="n">distance</span>
+  <span class="n">distribute</span><span class="o">-</span><span class="nb">list</span>        <span class="n">Filter</span> <span class="n">networks</span> <span class="ow">in</span> <span class="n">routing</span> <span class="n">updates</span>
+  <span class="n">domain</span><span class="o">-</span><span class="nb">id</span>              <span class="n">OSPF</span> <span class="n">domain</span><span class="o">-</span><span class="nb">id</span>
+  <span class="n">domain</span><span class="o">-</span><span class="n">tag</span>             <span class="n">OSPF</span> <span class="n">domain</span><span class="o">-</span><span class="n">tag</span>
+  <span class="n">event</span><span class="o">-</span><span class="n">log</span>              <span class="n">OSPF</span> <span class="n">Event</span> <span class="n">Logging</span>
+  <span class="n">exit</span>                   <span class="n">Exit</span> <span class="kn">from</span> <span class="nn">routing</span> <span class="n">protocol</span> <span class="n">configuration</span> <span class="n">mode</span>
+  <span class="n">help</span>                   <span class="n">Description</span> <span class="n">of</span> <span class="n">the</span> <span class="n">interactive</span> <span class="n">help</span> <span class="n">system</span>
+  <span class="n">ignore</span>                 <span class="n">Do</span> <span class="ow">not</span> <span class="n">complain</span> <span class="n">about</span> <span class="n">specific</span> <span class="n">event</span>
+  <span class="n">interface</span><span class="o">-</span><span class="nb">id</span>           <span class="n">Source</span> <span class="n">of</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">ID</span>
+  <span class="n">ispf</span>                   <span class="n">Enable</span> <span class="n">incremental</span> <span class="n">SPF</span> <span class="n">computation</span>
+  <span class="n">limit</span>                  <span class="n">Limit</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">OSPF</span> <span class="n">feature</span>
+  <span class="n">local</span><span class="o">-</span><span class="n">rib</span><span class="o">-</span><span class="n">criteria</span>     <span class="n">Enable</span> <span class="ow">or</span> <span class="n">disable</span> <span class="n">usage</span> <span class="n">of</span> <span class="n">local</span> <span class="n">RIB</span> <span class="k">as</span> <span class="n">route</span> <span class="n">criteria</span>
+  <span class="n">log</span><span class="o">-</span><span class="n">adjacency</span><span class="o">-</span><span class="n">changes</span>  <span class="n">Log</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">adjacency</span> <span class="n">state</span>
+  <span class="nb">max</span><span class="o">-</span><span class="n">lsa</span>                <span class="n">maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">LSAs</span> <span class="n">OSPF</span> <span class="n">process</span> <span class="n">will</span> <span class="n">receive</span>
+  <span class="nb">max</span><span class="o">-</span><span class="n">metric</span>             <span class="n">Set</span> <span class="n">maximum</span> <span class="n">metric</span>
+  <span class="n">maximum</span><span class="o">-</span><span class="n">paths</span>          <span class="n">Forward</span> <span class="n">packets</span> <span class="n">over</span> <span class="n">multiple</span> <span class="n">paths</span>
+  <span class="n">neighbor</span>               <span class="n">Specify</span> <span class="n">a</span> <span class="n">neighbor</span> <span class="n">router</span>
+  <span class="n">network</span>                <span class="n">Enable</span> <span class="n">routing</span> <span class="n">on</span> <span class="n">an</span> <span class="n">IP</span> <span class="n">network</span>
+  <span class="n">no</span>                     <span class="n">Negate</span> <span class="n">a</span> <span class="n">command</span> <span class="ow">or</span> <span class="nb">set</span> <span class="n">its</span> <span class="n">defaults</span>
+  <span class="n">nsf</span>                    <span class="n">Non</span><span class="o">-</span><span class="n">stop</span> <span class="n">forwarding</span>
+  <span class="n">passive</span><span class="o">-</span><span class="n">interface</span>      <span class="n">Suppress</span> <span class="n">routing</span> <span class="n">updates</span> <span class="n">on</span> <span class="n">an</span> <span class="n">interface</span>
+  <span class="n">prefix</span><span class="o">-</span><span class="n">suppression</span>     <span class="n">OSPF</span> <span class="n">prefix</span> <span class="n">suppression</span>
+  <span class="n">priority</span>               <span class="n">OSPF</span> <span class="n">topology</span> <span class="n">priority</span>
+  <span class="n">queue</span><span class="o">-</span><span class="n">depth</span>            <span class="n">OSPF</span> <span class="n">Hello</span><span class="o">/</span><span class="n">Router</span> <span class="n">process</span> <span class="n">queue</span> <span class="n">depth</span>
+  <span class="n">redistribute</span>           <span class="n">Redistribute</span> <span class="n">information</span> <span class="kn">from</span> <span class="nn">another</span> <span class="n">routing</span> <span class="n">protocol</span>
+  <span class="n">router</span><span class="o">-</span><span class="nb">id</span>              <span class="n">router</span><span class="o">-</span><span class="nb">id</span> <span class="k">for</span> <span class="n">this</span> <span class="n">OSPF</span> <span class="n">process</span>
+  <span class="n">shutdown</span>               <span class="n">Shutdown</span> <span class="n">the</span> <span class="n">OSPF</span> <span class="n">protocol</span> <span class="n">under</span> <span class="n">the</span> <span class="n">current</span> <span class="n">instance</span>
+  <span class="n">snmp</span>                   <span class="n">Modify</span> <span class="n">snmp</span> <span class="n">parameters</span>
+  <span class="n">summary</span><span class="o">-</span><span class="n">address</span>        <span class="n">Configure</span> <span class="n">IP</span> <span class="n">address</span> <span class="n">summaries</span>
+  <span class="n">timers</span>                 <span class="n">Adjust</span> <span class="n">routing</span> <span class="n">timers</span>
+  <span class="n">traffic</span><span class="o">-</span><span class="n">share</span>          <span class="n">How</span> <span class="n">to</span> <span class="n">compute</span> <span class="n">traffic</span> <span class="n">share</span> <span class="n">over</span> <span class="n">alternate</span> <span class="n">paths</span>
+  <span class="n">ttl</span><span class="o">-</span><span class="n">security</span>           <span class="n">TTL</span> <span class="n">security</span> <span class="n">check</span>
+
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="router-id-order-of-precedence">
+<h2>Router ID order of precedence<a class="headerlink" href="#router-id-order-of-precedence" title="Permalink to this headline">¶</a></h2>
+<p>Router ID configured?    →      Use that
+| ↓
+IPv4 loopback configured →  Use that
+| ↓
+Use highest active IPv4 address</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the routing device configured with the highest priority is elected the DR. Assuming there is no priority configured, or there is a tie, then the router with the highest router ID is elected the DR. The routing device with the second highest router ID is elected the BDR.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The router ID looks like an IPv4 address, but it is not routable and, therefore, is not included in the routing table, unless the OSPF routing process chooses an interface (physical or loopback) that is appropriately defined by a network command.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the router uses the highest IPv4 address for the router ID, the interface does not need to be OSPF-enabled. This means that the interface address does not need to be included in one of the OSPFnetwork commands for the router to use that IPv4 address as the router ID. The only requirement is that the interface is active and in the up state.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Router ID’s are local to the router! can be different across routers!</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 1</span>
+<span class="n">R3</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 3</span>
+<span class="n">will</span> <span class="n">work</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-router-id">
+<h2>Modify Router ID<a class="headerlink" href="#modify-router-id" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">R1#</span> <span class="pre">clear</span> <span class="pre">ip</span> <span class="pre">ospf</span> <span class="pre">process</span></code></p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>R1(config)# router ospf 10
+R1(config-router)# router-id 1.1.1.1
+% OSPF: Reload or use &quot;clear ip ospf process&quot; command, for this to take effect
+
+R1# clear ip ospf process
+Reset ALL OSPF processes? [no]: y
+R1#
+Mar 25 19:46:22.423: %OSPF-5-ADJCHG: Process 10, Nbr
+3.3.3.3 on Serial0/0/1 from FULL to DOWN, Neighbor Down:
+ Interface down or detached
+Mar 25 19:46:22.423: %OSPF-5-ADJCHG: Process 10, Nbr
+2.2.2.2 on Serial0/0/0 from FULL to DOWN, Neighbor Down:
+ Interface down or detached
+Mar 25 19:46:22.475: %OSPF-5-ADJCHG: Process 10, Nbr
+3.3.3.3 on Serial0/0/1 from LOADING to FULL, Loading Done
+Mar 25 19:46:22.475: %OSPF-5-ADJCHG: Process 10, Nbr
+2.2.2.2 on Serial0/0/0 from LOADING to FULL, Loading Done
+R1#
+R1# show ip protocols | section Router ID
+  Router ID 1.1.1.1
+R1#
+</pre></div>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip protocols | section Router ID</span>
+  <span class="n">Router</span> <span class="n">ID</span> <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>
+<span class="n">R1</span><span class="c1">#</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The router-id command is the preferred method. However, some older versions of the IOS do not recognize the router-id command; therefore, the best way to set the router ID on those routers is by using a loopback interface</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 172.16.1.0 0.0.0.255 area 0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 172.16.3.0 0.0.0.3 area 0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 192.168.10.4 0.0.0.3 area 0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1">#</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The advantage of specifying the interface is that the wildcard mask calculation is not necessary. OSPFv2 uses the interface address and subnet mask to determine the network to advertise.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Entering network 172.16.3.1 0.0.0.0 area 0 on R1 tells the router to enable interface Serial0/0/0 for the routing process. As a result, the OSPFv2 process will advertise the network that is on this interface (172.16.3.0/30)</p>
+</div>
+</div>
+<div class="section" id="ospf-cost-values">
+<h2>OSPF Cost Values<a class="headerlink" href="#ospf-cost-values" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/8_ospf_metriccost.png" src="../../../_images/8_ospf_metriccost.png" />
+<p>cost = reference BW / interface BW</p>
+<p>default reference BW = 10⁸ bps</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Notice that FastEthernet, Gigabit Ethernet, and 10 GigE interfaces share the same cost, because the OSPF cost value must be an integer. Consequently, because the default reference bandwidth is set to 100 Mb/s, all links that are faster than Fast Ethernet also have a cost of 1</p>
+</div>
+<div class="section" id="adjust-cost-for-gb-ethernet-links">
+<h3>adjust cost for Gb Ethernet links<a class="headerlink" href="#adjust-cost-for-gb-ethernet-links" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">to</span> <span class="n">change</span> <span class="n">reference</span> <span class="n">bandwidth</span>
+<span class="o">-----------------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># auto-cost reference-bandwidth 1000</span>
+<span class="n">R1</span><span class="c1"># show interfaces serial 0/0/1 | include BW</span>
+    <span class="n">MTU</span> <span class="mi">1500</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">BW</span> <span class="mi">1544</span> <span class="n">Kbit</span><span class="o">/</span><span class="n">sec</span><span class="p">,</span> <span class="n">DLY</span> <span class="mi">20000</span> <span class="n">usec</span><span class="p">,</span>
+
+<span class="n">to</span> <span class="n">change</span> <span class="n">cost</span> <span class="n">on</span> <span class="n">an</span> <span class="n">interface</span>
+<span class="o">------------------------------</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># ip ospf cost x</span>
+
+<span class="n">to</span> <span class="n">view</span> <span class="n">metric</span> <span class="n">commands</span>
+<span class="o">-----------------------</span>
+<span class="n">R1</span><span class="c1"># show ip ospf interface G0/1</span>
+<span class="n">R1</span><span class="c1"># show ip route | include 172.16.2.0</span>
+<span class="n">R1</span><span class="c1"># show ip route 172.16.2.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="when-nbs-dont-form-adjencies">
+<h2>When NBs dont form adjencies<a class="headerlink" href="#when-nbs-dont-form-adjencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The interfaces are not on the same network.</li>
+<li>OSPF network types do not match.</li>
+<li>OSPF Hello or Dead Timers do not match.</li>
+<li>Interface to neighbor is incorrectly configured as passive.</li>
+<li>There is a missing or incorrect OSPF network command.</li>
+<li>Authentication is misconfigured.</li>
+<li>Each interface must be properly addressed and in the “up and up” condition.</li>
+</ul>
+<img alt="../../../_images/8_ospf_troubleshooting_process.png" src="../../../_images/8_ospf_troubleshooting_process.png" />
+<ol class="arabic">
+<li><p class="first">Is the NB table correct?
++ on picture</p>
+</li>
+<li><p class="first">Is Routing Table correct?
++ Are the networks being advertised?
++ Is there an ACL blocking advertisements?
++ Is there another routing protocol with a lower AD?
++ Are all areas connected to Area 0?</p>
+<p>use show ip protocols and show ip route ospf</p>
+</li>
+<li><p class="first">Does traffic take desired path?
++ Verify the OSPF cost on an interface
++ Verify the OSPF reference bandwidth</p>
+<p>use show ip route ospf and show ip ospf interface</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Another problem that may arise is when two neighboring routers have mismatched MTU sizes on their connecting interfaces. The MTU size is the largest network layer packet that the router will forward out each interface. Routers default to an MTU size of 1500 bytes. However, this value can be changed for IPv4 packets using the ip mtu size interface configuration command or the ipv6 mtu size interface command for IPv6 packets. If two connecting routers had mismatched MTU values, they would still attempt to form an adjacency but they would not exchange their LSDBs and the neighbor relationship would fail.</p>
+</div>
+</div>
+<div class="section" id="ospf-example-topology">
+<h2>OSPF example topology<a class="headerlink" href="#ospf-example-topology" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/8_ospf_example_topology.png" src="../../../_images/8_ospf_example_topology.png" />
+</div>
+<div class="section" id="ospf-troubleshooting">
+<h2>OSPF TroubleShooting<a class="headerlink" href="#ospf-troubleshooting" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">configure new router</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>view NB ID Pri state DR/BDR
+---------------------------
+R1# show ip ospf neighbors
+best practice use loopback instead of IF
+R1# show ip ospf interface
+you&#39;ll see router id remained the same
+check network commands:
+-----------------------
+R1# show run | section ospf
+so add the network statement for the Lo address
+R1(config-router)# network 1.1.1.1 0.0.0.0 area 0
+
+configure router id!
+--------------------
+R1(config-router)# router-id 1.1.1.1
+R1# clear ip ospf process
+Reset ALL OSPF processes? [no]: y
+
+verify
+------
+R1# show ip ospf interface
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="configuring-a-multi-area-network">
+<h2>Configuring a multi area network<a class="headerlink" href="#configuring-a-multi-area-network" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">virtual links allow you to pool or extend the backbone area ACROSS another area. Eg. Area 0 extended to another area such as area 1 to alow an ABR to have an IF in the backbone area and meet the criteria</p>
+</div>
+<img alt="../../../_images/8_ospf_multiarea_configuration.png" src="../../../_images/8_ospf_multiarea_configuration.png" />
+<p>Router 1 EIGRP Gi0/0 10.1.1.1</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shut</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.1.1.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface loop 0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 1.1.1.1 255.255.255.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 100</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 0.0.0.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># do show ip eigrp interfaces</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Router 2 ASBR EIGRP &amp; OSPF Gi0/0 10.1.1.2</dt>
+<dd>Gi0/1 10.1.2.1</dd>
+</dl>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># int g0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># no shut</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.1.1.2 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface g0/1</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 10.1.2.1 255.255.255.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># interface loop 0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip address 2.2.2.2 255.255.255.255</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router eigrp 100</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># network 0.0.0.0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># no auto-summary</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># do show ip eigrp interfaces</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ospf-show-commands">
+<h3>ospf show commands<a class="headerlink" href="#ospf-show-commands" title="Permalink to this headline">¶</a></h3>
+<img alt="../../../_images/8_ospf_show_ip_protocols.png" src="../../../_images/8_ospf_show_ip_protocols.png" />
+<img alt="../../../_images/8_ospf_show_ip_ospf_int_brief.png" src="../../../_images/8_ospf_show_ip_ospf_int_brief.png" />
+<img alt="../../../_images/8_ospf_show_ip_route_ospf.png" src="../../../_images/8_ospf_show_ip_route_ospf.png" />
+<img alt="../../../_images/8_ospf_show_ip_ospf_database.png" src="../../../_images/8_ospf_show_ip_ospf_database.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Notice R1 has entries for area 0 and area 1, because ABRs must maintain a separate LSDB for each area to which they belong. In the output, Router Link States in area 0 identifies three routers. The Summary Net Link States section identifies networks learned from other areas and which neighbor advertised the network.</p>
+</div>
+<img alt="../../../_images/8_ospf_show_ipv6_route_ospf.png" src="../../../_images/8_ospf_show_ipv6_route_ospf.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">how the IPv6 routing table displays OI entries in the routing table to identify networks learned from other areas. Specifically, O represents OSPF routes, and I represents interarea, which means that the route originated from another area. Recall that R1 is in area 0, and the 2001:DB8:CAFE:3::/64 subnet is connected to R3 in area 2. The [110/1295] entry in the routing table represents the administrative distance that is assigned to OSPF (110) and the total cost of the routes (cost of 1295).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Below displays the content of the LSDB of R1. The command offers similar information to its OSPFv2 counterpart. However, the OSPFv3 LSDB contains additional LSA types not available in OSPFv2.</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ipv6 ospf database</span>
+
+        <span class="n">OSPFv3</span> <span class="n">Router</span> <span class="k">with</span> <span class="n">ID</span> <span class="p">(</span><span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span><span class="p">)</span> <span class="p">(</span><span class="n">Process</span> <span class="n">ID</span> <span class="mi">10</span><span class="p">)</span>
+
+                 <span class="n">Router</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>   <span class="n">Age</span>    <span class="n">Seq</span><span class="c1">#       Fragment ID  Link count Bits</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1617</span>   <span class="mh">0x80000002</span> <span class="mi">0</span>            <span class="mi">1</span>          <span class="n">B</span>
+ <span class="mf">2.2</span><span class="o">.</span><span class="mf">2.2</span>     <span class="mi">1484</span>   <span class="mh">0x80000002</span> <span class="mi">0</span>            <span class="mi">2</span>          <span class="kc">None</span>
+ <span class="mf">3.3</span><span class="o">.</span><span class="mf">3.3</span>     <span class="mi">14</span>     <span class="mh">0x80000001</span> <span class="mi">0</span>            <span class="mi">1</span>          <span class="n">B</span>
+
+             <span class="n">Inter</span> <span class="n">Area</span> <span class="n">Prefix</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>   <span class="n">Age</span>     <span class="n">Seq</span><span class="c1">#        Prefix</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1833</span>    <span class="mh">0x80000001</span>  <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">1</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span>
+ <span class="mf">3.3</span><span class="o">.</span><span class="mf">3.3</span>     <span class="mi">1476</span>    <span class="mh">0x80000001</span>  <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">3</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span>
+
+             <span class="n">Link</span> <span class="p">(</span><span class="n">Type</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>   <span class="n">Age</span>     <span class="n">Seq</span><span class="c1">#        Link ID    Interface</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1843</span>    <span class="mh">0x80000001</span>  <span class="mi">6</span>          <span class="n">Se0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+ <span class="mf">2.2</span><span class="o">.</span><span class="mf">2.2</span>     <span class="mi">1619</span>    <span class="mh">0x80000001</span>  <span class="mi">6</span>          <span class="n">Se0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+
+             <span class="n">Intra</span> <span class="n">Area</span> <span class="n">Prefix</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>  <span class="n">Age</span>   <span class="n">Seq</span><span class="c1">#       Link ID  Ref-lstype  Ref-LSID</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>    <span class="mi">1843</span>  <span class="mh">0x80000001</span> <span class="mi">0</span>        <span class="mh">0x2001</span>      <span class="mi">0</span>
+ <span class="mf">2.2</span><span class="o">.</span><span class="mf">2.2</span>    <span class="mi">1614</span>  <span class="mh">0x80000002</span> <span class="mi">0</span>        <span class="mh">0x2001</span>      <span class="mi">0</span>
+ <span class="mf">3.3</span><span class="o">.</span><span class="mf">3.3</span>    <span class="mi">1486</span>  <span class="mh">0x80000001</span>          <span class="mh">0x2001</span>      <span class="mi">0</span>
+
+              <span class="n">Router</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>  <span class="n">Age</span>   <span class="n">Seq</span><span class="c1">#       Fragment ID Link count Bits</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>    <span class="mi">1843</span>  <span class="mh">0x80000001</span> <span class="mi">0</span>           <span class="mi">0</span>          <span class="n">B</span>
+
+            <span class="n">Inter</span> <span class="n">Area</span> <span class="n">Prefix</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>   <span class="n">Age</span>      <span class="n">Seq</span><span class="c1">#         Prefix</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1833</span>     <span class="mh">0x80000001</span>  <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="n">A001</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1613</span>     <span class="mh">0x80000001</span>  <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="n">A002</span><span class="p">::</span><span class="mi">64</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1613</span>     <span class="mh">0x80000001</span>  <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">2</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1474</span>     <span class="mh">0x80000001</span>  <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">CAFE</span><span class="p">:</span><span class="mi">3</span><span class="p">::</span><span class="o">/</span><span class="mi">64</span>
+
+             <span class="n">Link</span> <span class="p">(</span><span class="n">Type</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Router</span>   <span class="n">Age</span>      <span class="n">Seq</span><span class="c1">#        Link ID    Interface</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>     <span class="mi">1844</span>     <span class="mh">0x80000001</span>   <span class="mi">3</span>          <span class="n">Gi0</span><span class="o">/</span><span class="mi">0</span>
+
+             <span class="n">Intra</span> <span class="n">Area</span> <span class="n">Prefix</span> <span class="n">Link</span> <span class="n">States</span> <span class="p">(</span><span class="n">Area</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ADV</span> <span class="n">Route</span>  <span class="n">Age</span>   <span class="n">Seq</span><span class="c1">#       Link ID Ref-lstype Ref-LSID</span>
+ <span class="mf">1.1</span><span class="o">.</span><span class="mf">1.1</span>   <span class="mi">1844</span>  <span class="mh">0x80000001</span> <span class="mi">0</span>       <span class="mh">0x2001</span>     <span class="mi">0</span>
+<span class="n">R1</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="distribute-default-static-route">
+<h3>distribute default static route<a class="headerlink" href="#distribute-default-static-route" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ip route 0.0.0.0 0.0.0.0 209.165.200.226</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># router ospf 10</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># default-information originate</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">router</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">R2</span><span class="c1">#</span>
+
+<span class="n">on</span> <span class="n">R3</span> <span class="n">this</span> <span class="n">will</span> <span class="n">appear</span> <span class="k">as</span> <span class="n">an</span> <span class="n">O</span><span class="o">*</span><span class="n">E2</span> <span class="n">entry</span>
+<span class="o">---------------------------------------</span>
+<span class="n">Gateway</span> <span class="n">of</span> <span class="n">last</span> <span class="n">resort</span> <span class="ow">is</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.9</span> <span class="n">to</span> <span class="n">network</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>
+<span class="n">O</span><span class="o">*</span><span class="n">E2</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="p">[</span><span class="mi">110</span><span class="o">/</span><span class="mi">1</span><span class="p">]</span> <span class="n">via</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.9</span><span class="p">,</span> <span class="mi">00</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">External routes are either external type 1 or external type 2. The difference between the two is in the way the cost (metric) of the route is being calculated. The cost of a type 2 route is always the external cost, regardless of the interior cost to reach that route. A type 1 cost is the addition of the external cost and the internal cost used to reach that route. A type 1 route is always preferred over a type 2 route for the same destination</p>
+</div>
+</div>
+<div class="section" id="distribute-default-static-route-in-ospfv3">
+<h3>distribute default static route in OSPFV3<a class="headerlink" href="#distribute-default-static-route-in-ospfv3" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 route ::/0 2001:DB8:FEED:1::2</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># ipv6 router ospf 10</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># default-information originate</span>
+<span class="n">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">rtr</span><span class="p">)</span><span class="c1"># end</span>
+
+<span class="n">verify</span>
+<span class="o">------</span>
+<span class="n">R2</span><span class="c1"># show ipv6 route static</span>
+<span class="n">R2</span><span class="c1"># show ipv6 route static</span>
+<span class="n">IPv6</span> <span class="n">Routing</span> <span class="n">Table</span> <span class="o">-</span> <span class="n">default</span> <span class="o">-</span> <span class="mi">12</span> <span class="n">entries</span>
+<span class="n">Codes</span><span class="p">:</span><span class="n">C</span> <span class="o">-</span><span class="n">Connected</span><span class="p">,</span> <span class="n">L</span> <span class="o">-</span> <span class="n">Local</span><span class="p">,</span> <span class="n">S</span> <span class="o">-</span> <span class="n">Static</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">Static</span> <span class="n">route</span>
+      <span class="n">B</span> <span class="o">-</span><span class="n">BGP</span><span class="p">,</span> <span class="n">R</span> <span class="o">-</span> <span class="n">RIP</span><span class="p">,</span> <span class="n">H</span> <span class="o">-</span> <span class="n">NHRP</span><span class="p">,</span> <span class="n">I1</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">L1</span>
+      <span class="n">I2</span> <span class="o">-</span><span class="n">ISIS</span> <span class="n">L2</span><span class="p">,</span> <span class="n">IA</span> <span class="o">-</span> <span class="n">ISIS</span> <span class="n">interarea</span><span class="p">,</span> <span class="n">IS</span><span class="o">-</span><span class="n">ISIS</span> <span class="n">summary</span><span class="p">,</span><span class="n">D</span><span class="o">-</span><span class="n">EIGRP</span>
+      <span class="n">EX</span> <span class="o">-</span><span class="n">EIGRP</span> <span class="n">external</span><span class="p">,</span> <span class="n">ND</span><span class="o">-</span><span class="n">ND</span> <span class="n">Default</span><span class="p">,</span><span class="n">NDp</span><span class="o">-</span><span class="n">ND</span> <span class="n">Prefix</span><span class="p">,</span><span class="n">DCE</span><span class="o">-</span><span class="n">Destination</span>
+      <span class="n">NDr</span> <span class="o">-</span><span class="n">Redirect</span><span class="p">,</span> <span class="n">O</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">Intra</span><span class="p">,</span><span class="n">OI</span><span class="o">-</span><span class="n">OSPF</span> <span class="n">Inter</span><span class="p">,</span><span class="n">OE1</span><span class="o">-</span><span class="n">OSPF</span> <span class="n">ext</span> <span class="mi">1</span>
+      <span class="n">OE2</span> <span class="o">-</span><span class="n">OSPF</span> <span class="n">ext</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ON1</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">ext</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ON2</span> <span class="o">-</span> <span class="n">OSPF</span> <span class="n">NSSA</span> <span class="n">ext</span> <span class="mi">2</span>
+<span class="n">S</span>   <span class="p">::</span><span class="o">/</span><span class="mi">0</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span>
+     <span class="n">via</span> <span class="mi">2001</span><span class="p">:</span><span class="n">DB8</span><span class="p">:</span><span class="n">FEED</span><span class="p">:</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="n">Loopback0</span>
+<span class="n">R2</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="verify-hello-n-dead-intervals">
+<h3>verify hello n dead intervals<a class="headerlink" href="#verify-hello-n-dead-intervals" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip ospf interface serial 0/0/0</span>
+<span class="o">...</span> <span class="n">Timer</span> <span class="n">intervals</span> <span class="n">configure</span><span class="p">,</span> <span class="n">Hello</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Dead</span> <span class="mi">40</span>
+
+<span class="n">R1</span><span class="c1"># show ip ospf interface | include Timer</span>
+  <span class="n">Timer</span> <span class="n">intervals</span> <span class="n">configured</span><span class="p">,</span> <span class="n">Hello</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Dead</span> <span class="mi">40</span><span class="p">,</span> <span class="n">Wait</span> <span class="mi">40</span><span class="p">,</span><span class="n">Retransmit</span> <span class="mi">5</span>
+  <span class="n">Timer</span> <span class="n">intervals</span> <span class="n">configured</span><span class="p">,</span> <span class="n">Hello</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Dead</span> <span class="mi">40</span><span class="p">,</span> <span class="n">Wait</span> <span class="mi">40</span><span class="p">,</span><span class="n">Retransmit</span> <span class="mi">5</span>
+  <span class="n">Timer</span> <span class="n">intervals</span> <span class="n">configured</span><span class="p">,</span> <span class="n">Hello</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Dead</span> <span class="mi">40</span><span class="p">,</span> <span class="n">Wait</span> <span class="mi">40</span><span class="p">,</span><span class="n">Retransmit</span> <span class="mi">5</span>
+<span class="n">R1</span><span class="c1">#</span>
+
+<span class="n">R1</span><span class="c1"># show ip ospf neighbor</span>
+
+<span class="n">Neighbor</span> <span class="n">ID</span>  <span class="n">Pri</span>  <span class="n">State</span>   <span class="n">Dead</span> <span class="n">Time</span>  <span class="n">Address</span>      <span class="n">Interface</span>
+<span class="mf">3.3</span><span class="o">.</span><span class="mf">3.3</span>      <span class="mi">0</span>    <span class="n">FULL</span><span class="o">/-</span>  <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">35</span>   <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.6</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span>
+<span class="mf">2.2</span><span class="o">.</span><span class="mf">2.2</span>      <span class="mi">0</span>    <span class="n">FULL</span><span class="o">/-</span>  <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">33</span>   <span class="mf">172.16</span><span class="o">.</span><span class="mf">3.2</span>   <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">R1</span><span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-hello-n-dead-intervals">
+<h3>modify hello n dead intervals<a class="headerlink" href="#modify-hello-n-dead-intervals" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1"># interface serial 0/0/0</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip ospf hello-interval 5</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># ip ospf dead-interval 20</span>
+<span class="n">R1</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1"># end</span>
+<span class="n">R1</span><span class="c1">#</span>
+<span class="n">R1</span><span class="c1">#</span>
+<span class="n">Apr</span>  <span class="mi">7</span> <span class="mi">17</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mf">21.529</span><span class="p">:</span> <span class="o">%</span><span class="n">OSPF</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">ADJCHG</span><span class="p">:</span> <span class="n">Process</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Nbr</span>
+<span class="mf">2.2</span><span class="o">.</span><span class="mf">2.2</span> <span class="n">on</span> <span class="n">Serial0</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="mi">0</span> <span class="kn">from</span> <span class="nn">FULL</span> <span class="n">to</span> <span class="n">DOWN</span><span class="p">,</span> <span class="n">Neighbor</span> <span class="n">Down</span><span class="p">:</span> <span class="n">Dead</span> <span class="n">timer</span> <span class="n">expired</span>
+<span class="n">R1</span><span class="c1">#</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use the no ip ospf hello-interval and no ip ospf dead-interval commands to reset the intervals to their default</p>
+</div>
+<img alt="../../../_images/8_ospf_show_database.png" src="../../../_images/8_ospf_show_database.png" />
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># show ip ospf database router 1.1.1.1</span>
+<span class="n">will</span> <span class="n">show</span> <span class="n">details</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">links</span> <span class="n">involved</span>
+<span class="n">loopback</span> <span class="o">=</span> <span class="n">stub</span> <span class="n">network</span>
+</pre></div>
+</div>
+<img alt="../../../_images/8_ospf_show_database_router.png" src="../../../_images/8_ospf_show_database_router.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">all routers in the same area will have the same link state database</p>
+</div>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">R1</span><span class="c1"># debug ip ospf events</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="qna">
+<h2>QnA<a class="headerlink" href="#qna" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">first criteria, highest priority ID wins! id 0 = doesn’t take part in DR/BDR election</p>
+</div>
+<img alt="../../../_images/8_ospf_election_exercise.png" src="../../../_images/8_ospf_election_exercise.png" />
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Unlike OSPFv2, OSPFV3 does not use the network command to advertise directly attached networks. OSPFv3 is enabled directly on the interface. These networks will be included in advertisements once the command ipv6 ospf process_id area area_id is entered on the interface. The OSPF process_id must match with the ipv6 router ospf command.</p>
+</div>
+<img alt="../../../_images/8_ospfv3_tb_exercise.png" src="../../../_images/8_ospfv3_tb_exercise.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../sdn/inhoud.html" class="btn btn-neutral float-right" title="Open Daylight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="eigrp.html" class="btn btn-neutral float-left" title="EIGRP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Brunswyck
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
