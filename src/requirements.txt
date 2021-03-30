@@ -1,0 +1,12 @@
+pytest
+setuptools
+wheel
+jinja2
+Sphinx
+sphinx-rtd-theme
+sphinx-autobuild
+sphinxcontrib-nwdiag
+sphinxcontrib-seqdiag
+sphinxcontrib-actdiag
+sphinxcontrib-blockdiag
+sphinxcontrib-jupyter

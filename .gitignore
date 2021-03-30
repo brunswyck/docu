@@ -1,4 +1,5 @@
 # Ignore the following
 *~
-pyvenv/
-__pycache__/
+pyvenv
+src/__pycache
+*.bat
